@@ -487,6 +487,37 @@ APHash
     
     
     <article class="index-post">
+        <a class="abstract-title" href="/2018/12/06/e6-b1-82-e6-9c-80-e5-a4-a7-e7-bd-91-e7-bb-9c-e6-b5-81-ef-bc-88-e6-9c-80-e5-b0-8f-e5-89-b2-ef-bc-89-e6-80-bb-e7-bb-93/">
+            
+                <span>求最大网络流（最小割）总结</span>
+        </a>
+        <div class="abstract-content">
+              求最大网络流总结 
+一个有向图，每条边都有最大可能的数据传输量c，要求一个点到某个点一次能传输的最大数据量，即为求最大网络流，每条边实际的数据传输量称为流量。  基本思路：使用贪心算法，每次找出能使总流量更大的边，将数据向那条边流。  Ford-fulkerson算法**
+
+读入所有有向边，并且加入流量为0的反向边
+DFS查找所有点u的未被遍历的边(u,v)
+如果满足这条边流量大于0，更新这条边以及它的反向边的流量（同时会DFS遍历v点）
+重复2操作，直到所有点被遍历完成
+
+算法复杂度：O(m+n)≈O(n^2)  Dinic算法 原理：利用BFS求最短路的方法将所有的边按从源点到汇...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/06</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
         <a class="abstract-title" href="/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e6-97-a0-e5-90-91-e5-9b-be-e5-89-b2-e8-be-b9-e5-89-b2-e7-82-b9-e3-80-81-e6-9c-80-e8-bf-91-e5-85-ac-e5-85-b1-e7-a5-96-e5-85-88-e7-9a-84-e6-80-bb-e7-bb-93/">
             
                 <span>Tarjan算法求无向图割边割点、最近公共祖先的总结</span>
@@ -601,29 +632,6 @@ Kruskal算法中主要注意的点是
         </a>
         <div class="abstract-content">
             **暑期测试一** **数学作业** **（homework.cpp）** **【问题描述】** 求：方程x1+2x2+„+nxn=m的所有非负整数解（x1,x2,„,xn）的个数。例如，方程：x1+2x2+3x3+4x4+5x5=5有7组解：（5,0,0,0,0）、（3,1,0 ,0,0）、……、（0,0,0,0,1）。 **【输入数据】(homework.in)** 2个整数n，m **【输出数据】(homework.out)** 方程非负整数解的个数ans，如果解超过10^9，只需输出ansmod 10^9。 **【输入样例】** 55 **【输出样例】** 7 **【数据范围】*...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/06</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/2018/12/06/e6-89-93-e5-8d-b0-e6-9c-88-e5-8e-86-e9-a2-98-e8-a7-a3/">
-            
-                <span>打印月历题解</span>
-        </a>
-        <div class="abstract-content">
-            24:打印月历总时间限制: 1000ms   内存限制: 65536kB 描述 给定年月，打印当月的月历表。 输入 输入为一行两个整数，第一个整数是年份year（1900 ≤ year ≤ 2099），第二个整数是月份month（1 ≤ month ≤ 12），中间用单个空格隔开。 输出 输出为月历表。月历表第一行为星期表头，如下所示： Sun Mon Tue Wed Thu Fri Sat 其余各行一次是当月各天的日期，从1日开始到31日（30日或28日）。 日期数字应于星期表头右对齐，即各位数与星期表头相应缩写的最后一个字母对齐。日期中间用空格分隔出空白。 样例输入 2006 5 样...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -1556,9 +1564,54 @@ Kruskal算法中主要注意的点是
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 48
+        Total : 49
         </div>
         <!-- search  -->
         
@@ -1579,12 +1632,12 @@ Kruskal算法中主要注意的点是
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/28</span><a class="archive-post-title" href="/2019/04/28/e5-8d-97-e4-ba-ac-e9-82-ae-e7-94-b5-e5-a4-a7-e5-ad-a6-re-wxyvm2/">南京邮电大学 RE-WxyVM2</a>
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href="/2019/04/28/bbvvmm/">bbvvmm</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/28</span><a class="archive-post-title" href="/2019/04/28/bbvvmm/">bbvvmm</a>
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href="/2019/04/28/e5-8d-97-e4-ba-ac-e9-82-ae-e7-94-b5-e5-a4-a7-e5-ad-a6-re-wxyvm2/">南京邮电大学 RE-WxyVM2</a>
         </li>
     
     
@@ -1673,17 +1726,7 @@ Kruskal算法中主要注意的点是
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-89-93-e5-8d-b0-e6-9c-88-e5-8e-86-e9-a2-98-e8-a7-a3/">打印月历题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-a0-91-e7-8a-b6-e6-95-b0-e7-bb-84-e6-80-bb-e7-bb-93/">树状数组总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e5-ad-97-e5-85-b8-e6-a0-91-e6-80-bb-e7-bb-93/">字典树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-b1-82-e6-9c-80-e5-a4-a7-e7-bd-91-e7-bb-9c-e6-b5-81-ef-bc-88-e6-9c-80-e5-b0-8f-e5-89-b2-ef-bc-89-e6-80-bb-e7-bb-93/">求最大网络流（最小割）总结</a>
         </li>
     
     
@@ -1693,12 +1736,7 @@ Kruskal算法中主要注意的点是
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e8-bf-81-e7-a7-bb-e5-ae-8c-e6-88-90-ef-bc-81/">迁移完成！</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/sbt-e6-80-bb-e7-bb-93/">SBT总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e9-93-ba-e5-9c-b0-e6-af-af-e9-a2-98-e8-a7-a3/">铺地毯题解</a>
         </li>
     
     
@@ -1713,17 +1751,37 @@ Kruskal算法中主要注意的点是
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e9-93-ba-e5-9c-b0-e6-af-af-e9-a2-98-e8-a7-a3/">铺地毯题解</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/sbt-e6-80-bb-e7-bb-93/">SBT总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e8-9e-ba-e6-97-8b-e7-9f-a9-e9-98-b5-e9-a2-98-e8-a7-a3/">螺旋矩阵题解</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e7-ba-bf-e6-ae-b5-e6-a0-91-e6-80-bb-e7-bb-93/">线段树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/vigenere-e5-af-86-e7-a0-81-e9-a2-98-e8-a7-a3/">Vigenère密码题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e8-bf-81-e7-a7-bb-e5-ae-8c-e6-88-90-ef-bc-81/">迁移完成！</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/2-e7-9a-84-e5-b9-82-e6-ac-a1-e6-96-b9-e8-a1-a8-e7-a4-ba-e9-a2-98-e8-a7-a3/">2的幂次方表示题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-9d-a5-e4-b8-80-e6-ac-a1-e8-bf-81-e7-a7-bb-e5-b7-a5-e4-bd-9c-e5-90-a7/">来一次迁移工作吧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-8b-93-e6-89-91-e6-8e-92-e5-ba-8f-e4-bb-a5-e5-8f-8a-e5-85-b3-e9-94-ae-e8-b7-af-e5-be-84-e6-80-bb-e7-bb-93/">拓扑排序以及关键路径总结</a>
         </li>
     
     
@@ -1738,22 +1796,7 @@ Kruskal算法中主要注意的点是
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e9-80-86-e6-b3-a2-e5-85-b0-e8-a1-a8-e8-be-be-e5-bc-8f-e9-a2-98-e8-a7-a3/">逆波兰表达式题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/vigenere-e5-af-86-e7-a0-81-e9-a2-98-e8-a7-a3/">Vigenère密码题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-a0-91-e5-bd-a2-e5-8a-a8-e6-80-81-e8-a7-84-e5-88-92-e6-80-bb-e7-bb-93/">树形动态规划总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e5-ad-97-e7-ac-a6-e4-b8-b2hash-ef-bc-8c-e5-ba-b7-e6-89-98-e5-b1-95-e5-bc-80-e6-80-bb-e7-bb-93/">字符串hash，康托展开总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-89-93-e5-8d-b0-e6-9c-88-e5-8e-86-e9-a2-98-e8-a7-a3/">打印月历题解</a>
         </li>
     
     
@@ -1763,12 +1806,17 @@ Kruskal算法中主要注意的点是
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e7-ba-bf-e6-ae-b5-e6-a0-91-e6-80-bb-e7-bb-93/">线段树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-a0-91-e5-bd-a2-e5-8a-a8-e6-80-81-e8-a7-84-e5-88-92-e6-80-bb-e7-bb-93/">树形动态规划总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-8b-93-e6-89-91-e6-8e-92-e5-ba-8f-e4-bb-a5-e5-8f-8a-e5-85-b3-e9-94-ae-e8-b7-af-e5-be-84-e6-80-bb-e7-bb-93/">拓扑排序以及关键路径总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-a0-91-e7-8a-b6-e6-95-b0-e7-bb-84-e6-80-bb-e7-bb-93/">树状数组总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e5-ad-97-e7-ac-a6-e4-b8-b2hash-ef-bc-8c-e5-ba-b7-e6-89-98-e5-b1-95-e5-bc-80-e6-80-bb-e7-bb-93/">字符串hash，康托展开总结</a>
         </li>
     
     
@@ -1778,12 +1826,22 @@ Kruskal算法中主要注意的点是
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e5-ad-97-e5-85-b8-e6-a0-91-e6-80-bb-e7-bb-93/">字典树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-9a-91-e6-9c-9f-e4-ba-ba-e7-94-9f-e6-b5-8b-e8-af-95-e4-b8-80-e6-80-bb-e7-bb-93/">暑期人生测试一总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-9d-a5-e4-b8-80-e6-ac-a1-e8-bf-81-e7-a7-bb-e5-b7-a5-e4-bd-9c-e5-90-a7/">来一次迁移工作吧</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e8-9e-ba-e6-97-8b-e7-9f-a9-e9-98-b5-e9-a2-98-e8-a7-a3/">螺旋矩阵题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e9-80-86-e6-b3-a2-e5-85-b0-e8-a1-a8-e8-be-be-e5-bc-8f-e9-a2-98-e8-a7-a3/">逆波兰表达式题解</a>
         </li>
     
     
@@ -1826,9 +1884,9 @@ Kruskal算法中主要注意的点是
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="RE_Dynamic"><span class="iconfont-archer">&#xe606;</span>RE_Dynamic</span>
-    
         <span class="sidebar-tag-name" data-tags="RE_Static"><span class="iconfont-archer">&#xe606;</span>RE_Static</span>
+    
+        <span class="sidebar-tag-name" data-tags="RE_Dynamic"><span class="iconfont-archer">&#xe606;</span>RE_Dynamic</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -1865,13 +1923,13 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="牢骚"><span class="iconfont-archer">&#xe60a;</span>牢骚</span>
     
-        <span class="sidebar-category-name" data-categories="write-up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
-    
         <span class="sidebar-category-name" data-categories="c-plus-plus-2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
     
-        <span class="sidebar-category-name" data-categories="write-up/cnss-recruit-201809"><span class="iconfont-archer">&#xe60a;</span>write-up/cnss-recruit-201809</span>
+        <span class="sidebar-category-name" data-categories="write-up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
     
         <span class="sidebar-category-name" data-categories="write-up/nctf-20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
+    
+        <span class="sidebar-category-name" data-categories="write-up/cnss-recruit-201809"><span class="iconfont-archer">&#xe60a;</span>write-up/cnss-recruit-201809</span>
     
         <span class="sidebar-category-name" data-categories="notes"><span class="iconfont-archer">&#xe60a;</span>notes</span>
     

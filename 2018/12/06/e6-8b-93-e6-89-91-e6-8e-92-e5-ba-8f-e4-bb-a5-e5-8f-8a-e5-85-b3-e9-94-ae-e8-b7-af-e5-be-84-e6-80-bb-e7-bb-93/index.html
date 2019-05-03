@@ -1,0 +1,2181 @@
+<!DOCTYPE html>
+<html lang="cn">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="mrh929">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="mrh929">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="Blog">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>拓扑排序以及关键路径总结 · fi3ework&#39;s Studio</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/">fi3ework&#39;s Studio.</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">拓扑排序以及关键路径总结</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href="/">fi3ework's Studio.</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            拓扑排序以及关键路径总结
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">4.8k</span>阅读时长: <span class="post-count reading-time">21 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2018/12/06</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <p>  拓扑排序以及关键路径的总结 <strong>拓扑排序：首先纠正一个读音问题：拓扑(tuopu)话说我好几次都读成(tabu) (tuobu)好吗！</strong> <strong>      拓扑排序是针对AOV图（即有向无边图，且图中不允许环的存在）的一种排序算法，它用于将一个AOV图按照顺序排成线性序列</strong> <strong>       基本操作如下：</strong> <strong>1.记录每个节点的入度</strong> <strong>2.每次找到入度为零的点入栈，并将与之相连的节点入度减一</strong> <strong>3.重复2的动作，直到栈为空</strong> <strong>4.判断当前操作进行的次数，少于n次则有环，否则输出拓扑序列</strong> 家谱树 【问题描述】 有个人的家族很大，辈分关系很混乱，请你帮整理一下这种关系。 给出每个人的孩子的信息。 输出一个序列，使得每个人的后辈都比那个人后列出。 【输入格式】 第1行一个整数N（1&lt;=N&lt;=100），表示家族的人数。 接下来N行，第I行描述第I个人的儿子。 每行最后是0表示描述完毕。 【输出格式】 输出一个序列，使得每个人的后辈都比那个人后列出。 如果有多解输出任意一解。 【输入样例】 5 0 4 5 1 0 1 0 5 3 0 3 0 【输出样例】 2 4 5 3 1</p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MAX=10000;
+int first[MAX],nxt[MAX],go[MAX],arcnum=1;
+int rd[MAX],stack[MAX],top;
+void addarc(int a,int b){
+    nxt[arcnum]=first[a];
+    first[a]=arcnum;
+    go[arcnum++]=b;
+}
+
+int main()
+{
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    int n,m;
+    scanf(&quot;%d&quot;,&amp;n);
+    for(int i=1;i&lt;=n;i++)
+        while(scanf(&quot;%d&quot;,&amp;m)!=EOF &amp;&amp;m!=0)
+            addarc(i,m),rd[m]++;
+    for(int i=1;i&lt;=n;i++)
+        if(rd[i]==0)
+            stack[++top]=i;
+    do{
+        int now=stack[top--];
+        printf(&quot;%d &quot;,now);
+        for(int p=first[now];p!=0;p=nxt[p]){
+            rd[go[p]]--;
+            if(rd[go[p]]==0)
+                stack[++top]=go[p];
+        }
+    }while(top!=0);
+
+
+    return 0;
+}
+</code></pre><p><strong>该题是明显的拓扑排序题，按照标准格式写程序即可</strong>  <strong>奖金</strong> （<a href="http://fzoj.xndxfz.com/JudgeOnline/problem.php?id=1624）" target="_blank" rel="noopener">http://fzoj.xndxfz.com/JudgeOnline/problem.php?id=1624）</a> <strong>描述</strong> 由于无敌的凡凡在2005年世界英俊帅气男总决选中胜出，Yali Company总经理Mr.Z心情好，决定给每位员工发奖金。公司决定以每个人本年在公司的贡献为标准来计算他们得到奖金的多少。于是Mr.Z下令召开m方会谈。每位参加会谈的代表提出了自己的意见：“我认为员工a的奖金应该比b高！”Mr.Z决定要找出一种奖金方案，满足各位代表的意见，且同时使得总奖金数最少。每位员工奖金最少为100元。 <strong>输入</strong> 第一行两个整数n,m，表示员工总数和代表数；以下m行，每行2个整数a,b，表示某个代表认为第a号员工奖金应该比第b号员工高。 输出 若无法找到合理方案，则输出“Poor Xed”；否则输出一个数表示最少总奖金。 <strong>样例输入</strong> 2 1 1 2 <strong>样例输出</strong> 201 <strong>提示</strong> 80％的数据满足n&lt;=1000，m&lt;=2000；100％的数据满足n&lt;=10000，m&lt;=20000。 <strong>此题比上一题多加入了点的权值</strong> <strong>也就是计算拓扑序列中权值和最小是多少</strong> <strong>标准做法：使用拓扑排序，在去掉某个点后，遍历它的相连节点时，计算该点的权值，是在(val[v],val[u]+1),其中u为起点，v为中点，中取最大值，开始我的理解出现的偏差，不能在那个点入度为0的时候才计算那个点的权值，因为那个点要满足的条件是比它之前的所有点权值都要小</strong></p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MAX=300000;
+int first[MAX],nxt[MAX],go[MAX],arcnum=1,rd[MAX];
+int stack[MAX],val[MAX],top;
+void addarc(int a,int b){
+    nxt[arcnum]=first[a];
+    first[a]=arcnum;
+    go[arcnum++]=b;
+}
+int main()
+{
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    int n,m,a,b,k=0,tot=0;
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    for(int i=1;i&lt;=m;i++){
+        scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
+        addarc(b,a);//b比a工资低 
+        rd[a]++;//入度+1 
+    }
+    for(int i=1;i&lt;=n;i++)
+        if(rd[i]==0)//将入度为0的点入栈 
+            stack[++top]=i;
+    while(top!=0){
+        int now=stack[top--];//当前点 
+        k++; tot+=100+val[now]; 
+        for(int p=first[now];p!=0;p=nxt[p]){
+            val[go[p]]=max(val[go[p]],val[now]+1);//不应当在入度为0时才更新val[]，而应当每次都更新，取最大值 
+            if(--rd[go[p]]==0)
+                stack[++top]=go[p];
+            }
+    }
+
+    if(k==n) printf(&quot;%d&quot;,tot);
+    else printf(&quot;Poor Xed&quot;);
+
+
+    return 0;
+
+}
+</code></pre><p><strong>fzoj1621:烦人的幻灯片</strong> <strong>题目描述</strong> 李教授于今天下午做一个非常重要的演讲。不幸的是他不是一个非常爱整洁的人，他把自己做演讲要用的幻灯片随便堆放在一起。因此，演讲之前他不得不去整理这些幻灯片。做为一个讲求效率的学者，他希望尽可能简单地完成它。情况是这样，教授这次演讲一共要用n张幻灯片（n&lt;=26），这n张幻灯片按照演讲要使用的顺序已经用数字1，2，…，n在上面编上了号。因为幻灯片是透明的，所以我们不能一下子看清每一个数字所对应的幻灯片。 现在我们用大写字母A，B，C，。。。再次把幻灯片依次编号。你的任务是编写一个程序，把幻灯片的数字编号和字母编号对应起来，显然这种对应应该是唯一的；若出现多种对应的情况或是某些数字编号和字母对应不起来，我们就称对应是无法实现的。 <strong>输入</strong> 第一行：只有一个数n，表示有n张幻灯片。 接下来的n行：包括4个整数Xmin，Xmax，Ymin，Ymax（整数之间用空格分开），为幻灯片的坐标（该区域为幻灯片），这n张幻灯片按其在输入文件中出现的顺序从前到后依次编号为A，B，C，…再接下来的n行依次为n个数字编号的坐标X，Y，显然在幻灯片之外是不会有数字的。 <strong>输出</strong> 若是对应可以实现，你的输出应该包括n行，每一行为一个字母和一个数字，中间以一个空格隔开，并且各行以字母的升序排列，注意输出的字母要大写并且顶格；反之，若是对应无法实现，在第一行顶格输出None即可。行首行末无多余空格。 <strong>样例输入</strong> 4 6 22 10 20 4 18 6 16 8 20 2 18 10 24 4 8 9 15 19 17 11 7 21 11 <strong>样例输出</strong> A 4 B 1 C 2 D 3 <strong>这道题并不完全是拓扑排序题，但却用到了拓扑排序的思想</strong> <strong>读懂题意是关键，本题意思是每个数字都对应了一个或多个幻灯片，然后要求从中找出数字与幻灯片的一一对应关系</strong> <strong>节点个数很少，直接用邻接矩阵存储</strong> <strong>由于是数字对应幻灯片，所以我选择存储每个数字的出度，当某个数字出度为1时，寻找它所对应的幻灯片，记录，并且将与该幻灯片连接的其余数字全部断绝联系，出度也减1</strong> <strong>这样，n次之后就可以得到完整的一一对应关系</strong> </p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MAX=1000;
+int X1[MAX],X2[MAX],Y1[MAX],Y2[MAX],map[MAX][MAX],cd[MAX],ans[MAX];
+int stack[MAX],top;
+
+bool IsInside(int x,int y,int t){//第t张输入的幻灯片
+    return x&gt;X1[t]&amp;&amp;x&lt;X2[t]&amp;&amp;y&gt;Y1[t]&amp;&amp;y&lt;Y2[t];
+} 
+int main()
+{
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    int n,x,y,k=0;
+    scanf(&quot;%d&quot;,&amp;n);
+    for(int i=1;i&lt;=n;i++)
+        scanf(&quot;%d%d%d%d&quot;,&amp;X1[i],&amp;X2[i],&amp;Y1[i],&amp;Y2[i]);
+    for(int i=1;i&lt;=n;i++){
+        scanf(&quot;%d%d&quot;,&amp;x,&amp;y);
+        for(int j=1;j&lt;=n;j++)
+            if(IsInside(x,y,j))
+                map[i][j]=1,cd[i]++;//第i个数字在j-&apos;A&apos;+1的幻灯片中 
+    }
+
+    for(int i=1;i&lt;=n;i++)
+        if(cd[i]==1)
+            stack[++top]=i;
+    do{
+        int u=stack[top--];
+        k++;
+        for(int v=1;v&lt;=n;v++)    
+            if(map[u][v]==1){//如果u到v有路径 则u属于v 
+                ans[v]=u;
+                for(int i=1;i&lt;=n;i++)
+                if(map[i][v]==1){
+                    map[i][v]=0; cd[i]--;
+                    if(cd[i]==1)
+                        stack[++top]=i;
+                }
+                break;
+            }
+
+    }while(top!=0);
+    if(k!=n) printf(&quot;None&quot;);
+    else
+        for(int i=1;i&lt;=n;i++)
+            printf(&quot;%c %d\n&quot;,&apos;A&apos;+i-1,ans[i]);
+
+    return 0;
+}
+</code></pre><p>  <strong>关键路径：</strong> <strong>建立在一种新图上：AOV图（用点表示时间，边表示活动，边的权值表示活动持续的时间的一种图）</strong> <strong>四个重要的量</strong></p>
+<ol>
+<li><strong>事件最早发生时间ve[]</strong></li>
+<li><strong>事件最晚发生时间vl[]</strong></li>
+<li><strong>活动最早开始时间e[]</strong></li>
+<li><strong>活动最晚开始时间l[]</strong></li>
+</ol>
+<p><strong>各个量的求法及求解顺序：</strong></p>
+<ol>
+<li><strong>Ve，以Ve[1]=0开始，所有起点u终点v都按照ve[v]=max(ve[v],ve[u]+dis[u][v])的方法进行计算，并且记录下拓扑序列</strong></li>
+<li><strong>Vl，顺序：逆拓扑序列，以Vl[n]=Ve[n]开始，（因为终点是关键事件，所以最早和最晚开始时间相等）起点u终点v都按照vl[v]=min(vl[v],vl[u]-dis[u][v])的方法求解（此处注意，程序开头必须memset）</strong></li>
+<li><strong>e，事件的最早发生时间就等于活动的最早开始时间</strong></li>
+<li><strong>l，对于起点x终点y之间的活动i，l[i]=vl[y]-dis[x][y]</strong></li>
+</ol>
+<p><strong>如果e[i]==l[i]则说它是关键活动</strong> <strong>结束。</strong>  <strong>Question：活动的最早最晚开始时间和事件的最早最晚发生时间有什么关系，它们各自属于实际问题中的那一个量？（我只会求，但并不能完全明白它们的差别或者用途）</strong> <strong>前面奖金一题所用的方法是不是关键路径中的求事件最早发生时间？</strong> </p>
+<h2 id="关键路径计算"><a href="#关键路径计算" class="headerlink" title="关键路径计算"></a>关键路径计算</h2><p>（<a href="http://fz.openjudge.cn/graph/015/）" target="_blank" rel="noopener">http://fz.openjudge.cn/graph/015/）</a> <strong>描述</strong> 给出一个AOE图，请输出其关键路径； <strong>输入</strong> 第一行：n，m（n,m&lt;=100分别表示节点个数与边的条数） 接下来m行，第i+1行，表示第i条边，每行三个数：ai,bi,ci，表示存在一条ai指向bi权值为ci的边。 注意：起点为结点1，终点为结点n <strong>输出</strong> 将关键路径的边的编号从小到大输出 <strong>样例输入</strong> 9 11 1 2 6 1 3 4 1 4 5 2 5 1 3 5 1 4 6 2 5 7 9 5 8 7 6 8 4 7 9 2 8 9 4 <strong>样例输出</strong> 1 4 7 8 10 11 <strong>标准问题，注意在输出之前要排序</strong></p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MAX=1000;
+int first[MAX],go[MAX],nxt[MAX],dis[MAX][MAX],arcnum=1;
+int stack[MAX],top,ve[MAX],vl[MAX],e[MAX],l[MAX],rd[MAX];
+int order[MAX],ans[MAX],sum;
+void addarc(int a,int b,int c){
+    nxt[arcnum]=first[a];
+    first[a]=arcnum;
+    go[arcnum++]=b;
+    dis[a][b]=c;
+}
+int main(){
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    int n,m,a,b,c,k=0;
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    memset(vl,127,sizeof(vl));
+    for(int i=1;i&lt;=m;i++){
+        scanf(&quot;%d%d%d&quot;,&amp;a,&amp;b,&amp;c);
+        addarc(a,b,c);
+        rd[b]++;
+    }
+    for(int i=1;i&lt;=n;i++)
+        if(rd[i]==0)
+            stack[++top]=i;//入栈 
+    do{//第一次，求事件最早发生时间 
+        int u=stack[top--],v; k++;
+        order[k]=u;//记录顺序 
+        for(int p=first[u];p!=0;p=nxt[p]){
+            v=go[p]; rd[v]--;
+            ve[v]=max(ve[v],ve[u]+dis[u][v]);
+            if(rd[v]==0)
+                stack[++top]=v;
+        }
+    }while(top!=0);
+
+    vl[n]=ve[n];//中点的事件最晚发生时间等于最早发生时间 
+    for(int i=n-1;i&gt;=1;i--){
+        int u=order[i],v;
+        for(int p=first[u];p!=0;p=nxt[p]){
+            v=go[p];
+            vl[u]=min(vl[u],vl[v]-dis[u][v]);
+        }
+    }
+
+    for(int i=1;i&lt;=n-1;i++){//计算活动的最早发生时间和最晚发生时间 
+        int u=order[i],v;
+        for(int p=first[u];p!=0;p=nxt[p]){
+            v=go[p];
+            e[p]=ve[u];//活动最早发生时间等于起始点的最早发生时间 
+            l[p]=vl[v]-dis[u][v];//活动最晚发生时间等于终点最晚发生时间减去活动的长度 
+            if(e[p]==l[p]) ans[++sum]=p;
+        }
+    }
+
+    sort(ans+1,ans+1+sum);
+    for(int i=1;i&lt;=sum;i++)
+        printf(&quot;%d\n&quot;,ans[i]);
+    return 0;
+}
+</code></pre><h1 id="HDU4109-Instrction-Arrangement"><a href="#HDU4109-Instrction-Arrangement" class="headerlink" title="HDU4109 Instrction Arrangement"></a>HDU4109 Instrction Arrangement</h1><p><a href="http://acm.hdu.edu.cn/showproblem.php?pid=4109" target="_blank" rel="noopener">http://acm.hdu.edu.cn/showproblem.php?pid=4109</a> <strong>Problem Description</strong> 阿狸这个学期学了计算机组织结构课程。他知道了指令之间可能有依存关系，像WAR（write after read，读之后写），WAW，RAW。如果两个指令之间的时间小于安全时间，它就会导致危险，从而引起错误的结果。所以我们需要设计特殊的回路去消除危险。然而，解决这个问题最简单的方法是添加等待时间（或者由其它的操作填充），如果没有其它的操作填充就意味着需要浪费时间去保证两个指令之间的时间不小于安全时间。 两个指令之间的时间的定义就是它们起始时间差。 现在我们有很多指令，并且我们知道依存关系和指令之间的安全事件。我们也有非常强大的无限核的CPU。所以你可以在同一时间想跑多少指令就跑多少指令。这个CPU可以只消耗1ns就完成任何指令。 你的工作就是重新安排这些指令顺序所以CPU就可以用最短时间完成所有的指令。 <strong>Input</strong> 输入包括几个测试案例 头两行有两个整数N,M（N&lt;=1000,M&lt;=1000），其中N表示N条指令和M表示M个依存关系 接下来的M行，每行包括3个整数X,Y,Z，意思是X和Y之间的安全时间是Z，而且Y必须在X之后运行。这些指令从0到N-1标号。 <strong>Output</strong> 打印一个整数，CPU运行的最短时间 <strong>Sample Input</strong> 5 2 1 2 1 3 4 1 <strong>Sample Output</strong> 2 <strong>HINT</strong> 在第1ns中，指令0，1和3被执行了。 在第2ns中，指令2,和4被执行了 所以答案是2 <strong>也是求事件最早发生时间（这些指令什么时候最早全部执行完）的题</strong> <strong>注意：</strong></p>
+<ol>
+<li><strong>memset！！！！！！！</strong></li>
+<li><p><strong>指令由0到n-1编号，注意转换</strong></p>
+<p>#include<cstdio><br>#include<cstring><br>#include<algorithm><br>using namespace std;<br>const int MAX=1020;<br>int first[MAX],nxt[10200],go[10200],arcnum;<br>int dis[MAX][MAX],rd[MAX],val[MAX],stack[10200],top;<br>void addarc(int a,int b,int c){</algorithm></cstring></cstdio></p>
+<pre><code>nxt[arcnum]=first[a];
+first[a]=arcnum;
+go[arcnum++]=b;
+dis[a][b]=c;
+</code></pre><p>}</p>
+<p>int main()<br>{<br>//    freopen(“in.txt”,”r”,stdin);</p>
+<pre><code>int n,m,x,y,z,maxx;
+while(scanf(&quot;%d%d&quot;,&amp;n,&amp;m)!=EOF){
+    memset(dis,0,sizeof(dis));
+    memset(rd,0,sizeof(rd));
+    memset(val,0,sizeof(val));
+    memset(first,0,sizeof(first));
+    maxx=-1; arcnum=1;
+    for(int i=1;i&lt;=n;i++)
+        val[i]=1;
+    for(int i=1;i&lt;=m;i++){
+        scanf(&quot;%d%d%d&quot;,&amp;x,&amp;y,&amp;z);
+        addarc(++x,++y,z);
+        rd[y]++;
+    }
+    for(int i=1;i&lt;=n;i++)    
+        if(rd[i]==0)
+            stack[++top]=i;
+    do{
+        int u=stack[top--],v;
+        for(int p=first[u];p!=0;p=nxt[p]){
+            v=go[p];
+            val[v]=max(val[v],val[u]+dis[u][v]);
+            maxx=max(val[v],maxx);
+            if(--rd[v]==0)
+                stack[++top]=v;
+        }
+
+    }while(top!=0);
+    printf(&quot;%d\n&quot;,maxx);
+}
+return 0;
+</code></pre><p>}</p>
+<p><strong>Poj3687 Labeling Balls</strong> <strong>escription</strong> Windy有N个不同重量的求，现在他打算给他们贴上1到N的标签： 没有两个相同的球 这些标签要符合规则例如“标签a球轻于标签b球” 你能帮他解决这个问题吗？ <strong>Input</strong> 第一行是数据个数.每组数据第一行是两个整数： N (1 ≤ N ≤ 200)和 M (0 ≤ M ≤ 40,000).接下来M行，每行两个整数a和 b表示 标签a球轻于标签b球. (1 ≤ a, b ≤ N) 每组数据后有一个空行 <strong>Output</strong> 每组测试数据输出一行，按照小球的1~N，小球的重量输出，如果有多组解： you should output the one with the smallest weight for label 1, then with the smallest weight for label 2, then with the smallest weight for label 3 and so on…如果无解，输出-1。 <strong>Sample Input</strong> 5 4 0 4 1 1 1 4 2 1 2 2 1 4 1 2 1 4 1 3 2 <strong>Sample Output</strong> 1 2 3 4 -1 -1 2 1 3 4 1 3 2 4 <strong>这道题至今未通过。初步思路是建立小顶堆和拓扑排序，以便在几个球重量相等时输出编号最小的。</strong> <strong>但是问题来了，在我操作入度为0的节点时，可能会又有新的节点加入堆，从而导致我整个答案完全不对。</strong></p>
+<p>#include<cstdio><br>#include<cstring><br>#include<algorithm><br>using namespace std;<br>int first[300],nxt[40200],go[40200],arcnum;<br>int rd[300],stack[40200],ans[300],heap[10000],len;<br>void addarc(int a,int b){</algorithm></cstring></cstdio></p>
+<pre><code>nxt[arcnum]=first[a];
+first[a]=arcnum;
+go[arcnum++]=b;
+</code></pre><p>}</p>
+<p>bool cmp(int a,int b){</p>
+<pre><code>return a&lt;b;
+</code></pre><p>}</p>
+<p>int Get(){</p>
+<pre><code>int t=heap[1],now=1,next;
+heap[1]=heap[len--];
+while(now*2&lt;=len){
+    next=now*2;
+    if(next&lt;len&amp;&amp;cmp(heap[next+1],heap[next])) next++;
+    if(cmp(heap[now],heap[next])) break;
+    swap(heap[now],heap[next]);
+    now=next;
+}
+return t;
+</code></pre><p>}</p>
+<p>void Put(int p){</p>
+<pre><code>int now=++len,next;
+heap[len]=p;
+while(now&gt;1){
+    next=now&gt;&gt;1;
+    if(!cmp(heap[now],heap[next])) break;
+    swap(heap[now],heap[next]);    
+    now=next;
+}
+</code></pre><p>}</p>
+<p>int main()<br>{</p>
+<pre><code>int t,n,m,a,b,k;
+scanf(&quot;%d&quot;,&amp;t);
+while(t--){
+    arcnum=1; k=0; len=0;
+    memset(first,0,sizeof(first));
+    memset(rd,0,sizeof(rd));
+    memset(ans,0,sizeof(ans));
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    for(int i=1;i&lt;=m;i++){
+        scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
+        addarc(a,b);
+        rd[b]++;
+    }
+    for(int i=1;i&lt;=n;i++)
+        if(rd[i]==0)
+            Put(i);
+    do{
+        int u=Get(),v;
+        ans[u]=++k;
+        for(int p=first[u];p!=0;p=nxt[p]){
+            v=go[p];
+            if(--rd[v]==0)
+                Put(v);
+        }
+    }while(len&gt;0);
+    if(k!=n) printf(&quot;-1\n&quot;);
+    else{
+        for(int i=1;i&lt;=n;i++)
+            printf(&quot;%d &quot;,ans[i]);
+        printf(&quot;\n&quot;);
+    }
+}
+
+return 0;
+</code></pre><p>}</p>
+</li>
+</ol>
+<p><strong>又想到把拓扑排序后的点记录下来，来个快排，但是有的球没有限制条件，强行把权设为0又会错。</strong></p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+int first[300],nxt[40200],go[40200],arcnum;
+int rd[300],stack[40200],top;
+struct node{
+    int val,id;
+}ans[300];
+
+void addarc(int a,int b){
+    nxt[arcnum]=first[a];
+    first[a]=arcnum;
+    go[arcnum++]=b;
+}
+
+bool cmp(node a,node b){
+    if(a.val!=b.val)
+        return a.val&lt;b.val;
+    return a.id&lt;b.id;
+}
+
+int main()
+{
+    int t,n,m,a,b,k;
+    scanf(&quot;%d&quot;,&amp;t);
+    while(t--){
+        arcnum=1; k=0; top=0;
+        memset(first,0,sizeof(first));
+        memset(rd,0,sizeof(rd));
+        memset(ans,0,sizeof(ans));
+        scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+        for(int i=1;i&lt;=n;i++)
+            ans[i].id=i,ans[i].val=0;
+        for(int i=1;i&lt;=m;i++){
+            scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
+            addarc(a,b);
+            rd[b]++;
+        }
+        for(int i=1;i&lt;=n;i++)
+            if(rd[i]==0)
+                stack[++top]=i;
+        do{
+            int u=stack[top--],v;
+            k++;
+            for(int p=first[u];p!=0;p=nxt[p]){
+                v=go[p];
+                ans[v].val=max(ans[v].val,ans[u].val+1);
+                if(--rd[v]==0)
+                    stack[++top]=v;
+            }
+        }while(top!=0);
+        if(k!=n) printf(&quot;-1\n&quot;);
+        else{
+            sort(ans+1,ans+1+n,cmp);
+            for(int i=1;i&lt;=n;i++)
+                printf(&quot;%d &quot;,ans[i].id);
+            printf(&quot;\n&quot;);
+        }
+    }
+
+    return 0;
+}
+</code></pre><p><strong>据说建立大顶堆就可以解决问题？？？？</strong></p>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://mrh1s.top">mrh929</a>
+            </p><p>原文链接：<a href="http://mrh1s.top/2018/12/06/e6-8b-93-e6-89-91-e6-8e-92-e5-ba-8f-e4-bb-a5-e5-8f-8a-e5-85-b3-e9-94-ae-e8-b7-af-e5-be-84-e6-80-bb-e7-bb-93/">http://mrh1s.top/2018/12/06/e6-8b-93-e6-89-91-e6-8e-92-e5-ba-8f-e4-bb-a5-e5-8f-8a-e5-85-b3-e9-94-ae-e8-b7-af-e5-be-84-e6-80-bb-e7-bb-93/</a>
+            </p><p>发表日期：<a href="http://mrh1s.top/2018/12/06/e6-8b-93-e6-89-91-e6-8e-92-e5-ba-8f-e4-bb-a5-e5-8f-8a-e5-85-b3-e9-94-ae-e8-b7-af-e5-be-84-e6-80-bb-e7-bb-93/">December 6th 2018, 11:42:05 pm</a>
+            </p><p>更新日期：<a href="http://mrh1s.top/2018/12/06/e6-8b-93-e6-89-91-e6-8e-92-e5-ba-8f-e4-bb-a5-e5-8f-8a-e5-85-b3-e9-94-ae-e8-b7-af-e5-be-84-e6-80-bb-e7-bb-93/">May 3rd 2019, 2:19:59 pm</a>
+            </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e5-bc-ba-e8-bf-9e-e9-80-9a-e5-88-86-e9-87-8f-e6-80-bb-e7-bb-93/" title="Tarjan算法求强连通分量总结">
+                    <div class="nextTitle">Tarjan算法求强连通分量总结</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2018/12/06/e6-9c-80-e5-b0-8f-e7-94-9f-e6-88-90-e6-a0-91-e6-80-bb-e7-bb-93/" title="最小生成树总结">
+                    <div class="prevTitle">最小生成树总结</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:12345@qq.com" class="iconfont-archer email" title="email"></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/fi3ework" class="iconfont-archer github" target="_blank" title="github"></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title="wechat">
+                  
+                  <img class="profile-qr" src="/assets/example_qr.png">
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#关键路径计算"><span class="toc-number">1.</span> <span class="toc-text">关键路径计算</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#HDU4109-Instrction-Arrangement"><span class="toc-number"></span> <span class="toc-text">HDU4109 Instrction Arrangement</span></a>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 49
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/03</span><a class="archive-post-title" href="/2019/05/03/Migration-Success/">Migration_Success!</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href="/2019/04/28/bbvvmm/">bbvvmm</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href="/2019/04/28/e5-8d-97-e4-ba-ac-e9-82-ae-e7-94-b5-e5-a4-a7-e5-ad-a6-re-wxyvm2/">南京邮电大学 RE-WxyVM2</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/13</span><a class="archive-post-title" href="/2019/04/13/e5-a3-b3-e7-9b-b8-e5-85-b3/">壳相关</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/22</span><a class="archive-post-title" href="/2019/03/22/shinyshot/">ShinyShot!</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/21</span><a class="archive-post-title" href="/2019/03/21/happyvm/">HappyVM</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/16</span><a class="archive-post-title" href="/2019/02/16/maze/">maze</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/16</span><a class="archive-post-title" href="/2019/02/16/brainfuck/">brainfuck</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/2019/02/15/pro-e7-9a-84python-e6-95-99-e5-ae-a4-e4-ba-8c/">Pro的Python教室(二)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/2019/02/15/wakarimasu/">wakarimasu</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/2019/02/15/xor/">xor</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/04</span><a class="archive-post-title" href="/2019/02/04/fat16-e6-96-87-e4-bb-b6-e7-b3-bb-e7-bb-9f/">FAT16文件系统</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/09</span><a class="archive-post-title" href="/2019/01/09/e6-8e-92-e5-ba-8f-e7-ae-97-e6-b3-95-e7-9a-84-e4-b8-80-e7-82-b9-e5-b0-8f-e5-bf-83-e5-be-97/">排序算法的一点小心得</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/03</span><a class="archive-post-title" href="/2019/01/03/e7-bd-91-e5-ae-89-e8-af-be-e7-ad-94-e8-be-a9-e6-af-94-e7-89-b9-e5-b8-81-e4-b8-8e-e5-8c-ba-e5-9d-97-e9-93-be/">网安课答辩-比特币与区块链</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/31</span><a class="archive-post-title" href="/2018/12/31/e8-ae-b0-e7-ac-ac-e4-b8-80-e6-ac-a1-e7-94-b5-e8-84-91-e7-bb-84-e8-a3-85-ef-bc-88-e4-ba-8c-ef-bc-89/">记第一次电脑组装（二）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/30</span><a class="archive-post-title" href="/2018/12/30/e8-ae-b0-e7-ac-ac-e4-b8-80-e6-ac-a1-e7-94-b5-e8-84-91-e7-bb-84-e8-a3-85-ef-bc-88-e4-b8-80-ef-bc-89/">记第一次电脑组装（一）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/20</span><a class="archive-post-title" href="/2018/12/20/e5-95-86-e5-93-81-e7-ae-a1-e7-90-86-e7-b3-bb-e7-bb-9f/">商品管理系统</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/13</span><a class="archive-post-title" href="/2018/12/13/e7-bd-91-e7-bb-9c-e5-ae-89-e5-85-a8-e8-af-be-e7-ac-94-e8-ae-b0-of-shijie-zhou-2/">网络安全课笔记 of Shijie Zhou #2</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-b1-82-e6-9c-80-e5-a4-a7-e7-bd-91-e7-bb-9c-e6-b5-81-ef-bc-88-e6-9c-80-e5-b0-8f-e5-89-b2-ef-bc-89-e6-80-bb-e7-bb-93/">求最大网络流（最小割）总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e5-a4-a7-e6-95-b4-e6-95-b0-e4-b9-98-e6-b3-95-e9-a2-98-e8-a7-a3/">大整数乘法题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e9-93-ba-e5-9c-b0-e6-af-af-e9-a2-98-e8-a7-a3/">铺地毯题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/avl-e6-a0-91-e6-80-bb-e7-bb-93/">AVL树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e5-bc-ba-e8-bf-9e-e9-80-9a-e5-88-86-e9-87-8f-e6-80-bb-e7-bb-93/">Tarjan算法求强连通分量总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/sbt-e6-80-bb-e7-bb-93/">SBT总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e7-ba-bf-e6-ae-b5-e6-a0-91-e6-80-bb-e7-bb-93/">线段树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/vigenere-e5-af-86-e7-a0-81-e9-a2-98-e8-a7-a3/">Vigenère密码题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e8-bf-81-e7-a7-bb-e5-ae-8c-e6-88-90-ef-bc-81/">迁移完成！</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/2-e7-9a-84-e5-b9-82-e6-ac-a1-e6-96-b9-e8-a1-a8-e7-a4-ba-e9-a2-98-e8-a7-a3/">2的幂次方表示题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-9d-a5-e4-b8-80-e6-ac-a1-e8-bf-81-e7-a7-bb-e5-b7-a5-e4-bd-9c-e5-90-a7/">来一次迁移工作吧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-8b-93-e6-89-91-e6-8e-92-e5-ba-8f-e4-bb-a5-e5-8f-8a-e5-85-b3-e9-94-ae-e8-b7-af-e5-be-84-e6-80-bb-e7-bb-93/">拓扑排序以及关键路径总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-9c-80-e5-b0-8f-e7-94-9f-e6-88-90-e6-a0-91-e6-80-bb-e7-bb-93/">最小生成树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e6-97-a0-e5-90-91-e5-9b-be-e5-89-b2-e8-be-b9-e5-89-b2-e7-82-b9-e3-80-81-e6-9c-80-e8-bf-91-e5-85-ac-e5-85-b1-e7-a5-96-e5-85-88-e7-9a-84-e6-80-bb-e7-bb-93/">Tarjan算法求无向图割边割点、最近公共祖先的总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-89-93-e5-8d-b0-e6-9c-88-e5-8e-86-e9-a2-98-e8-a7-a3/">打印月历题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e7-a6-bb-e6-95-a3hash-e4-bc-98-e5-8c-96-e6-80-bb-e7-bb-93/">离散hash优化总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-a0-91-e5-bd-a2-e5-8a-a8-e6-80-81-e8-a7-84-e5-88-92-e6-80-bb-e7-bb-93/">树形动态规划总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-a0-91-e7-8a-b6-e6-95-b0-e7-bb-84-e6-80-bb-e7-bb-93/">树状数组总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e5-ad-97-e7-ac-a6-e4-b8-b2hash-ef-bc-8c-e5-ba-b7-e6-89-98-e5-b1-95-e5-bc-80-e6-80-bb-e7-bb-93/">字符串hash，康托展开总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e5-8f-af-e5-b9-b6-e5-a0-86-e4-b9-8b-e5-b7-a6-e5-81-8f-e6-a0-91-e6-80-bb-e7-bb-93/">可并堆之左偏树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e5-ad-97-e5-85-b8-e6-a0-91-e6-80-bb-e7-bb-93/">字典树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-9a-91-e6-9c-9f-e4-ba-ba-e7-94-9f-e6-b5-8b-e8-af-95-e4-b8-80-e6-80-bb-e7-bb-93/">暑期人生测试一总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e8-9e-ba-e6-97-8b-e7-9f-a9-e9-98-b5-e9-a2-98-e8-a7-a3/">螺旋矩阵题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e9-80-86-e6-b3-a2-e5-85-b0-e8-a1-a8-e8-be-be-e5-bc-8f-e9-a2-98-e8-a7-a3/">逆波兰表达式题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e7-bd-91-e7-bb-9c-e5-ae-89-e5-85-a8-e8-af-be-e7-ac-94-e8-ae-b0-of-shijie-zhou/">网络安全课笔记 of Shijie Zhou #1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/2018/12/01/some-boxes/">Some Boxes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/2018/12/01/our-16bits-wars/">Our 16bits wars</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/2018/12/01/e5-9f-ba-e6-9c-ac-e6-93-8d-e4-bd-9c-reverse-version/">基本操作 Reverse Version</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/13</span><a class="archive-post-title" href="/2018/10/13/vector-majic-e7-a0-b4-e8-a7-a3-e5-bf-83-e5-be-97/">Vector Majic</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/03</span><a class="archive-post-title" href="/2018/10/03/e8-8e-ab-e5-90-8d-e5-85-b6-e5-a6-99-e7-9a-84https-e9-85-8d-e7-bd-ae-e9-94-99-e8-af-af/">莫名其妙的https配置错误</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/03</span><a class="archive-post-title" href="/2018/10/03/hello-world-2/">Hello world!</a>
+        </li>
+    
+    </ul></div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="RE_Static"><span class="iconfont-archer">&#xe606;</span>RE_Static</span>
+    
+        <span class="sidebar-tag-name" data-tags="RE_Dynamic"><span class="iconfont-archer">&#xe606;</span>RE_Dynamic</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br>
+    1、请确保node版本大于6.2<br>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="牢骚"><span class="iconfont-archer">&#xe60a;</span>牢骚</span>
+    
+        <span class="sidebar-category-name" data-categories="c-plus-plus-2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
+    
+        <span class="sidebar-category-name" data-categories="write-up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
+    
+        <span class="sidebar-category-name" data-categories="write-up/nctf-20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
+    
+        <span class="sidebar-category-name" data-categories="write-up/cnss-recruit-201809"><span class="iconfont-archer">&#xe60a;</span>write-up/cnss-recruit-201809</span>
+    
+        <span class="sidebar-category-name" data-categories="notes"><span class="iconfont-archer">&#xe60a;</span>notes</span>
+    
+        <span class="sidebar-category-name" data-categories="project"><span class="iconfont-archer">&#xe60a;</span>project</span>
+    
+        <span class="sidebar-category-name" data-categories="c-c"><span class="iconfont-archer">&#xe60a;</span>c-c</span>
+    
+        <span class="sidebar-category-name" data-categories="write-up/hgame-20190122"><span class="iconfont-archer">&#xe60a;</span>write-up/hgame-20190122</span>
+    
+        <span class="sidebar-category-name" data-categories="write-up/nationalCTF-20190421"><span class="iconfont-archer">&#xe60a;</span>write-up/nationalCTF-20190421</span>
+    
+        <span class="sidebar-category-name" data-categories="write-up/cgctf"><span class="iconfont-archer">&#xe60a;</span>write-up/cgctf</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "mrh929"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
