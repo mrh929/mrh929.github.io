@@ -1,428 +1,2029 @@
-
-
 <!DOCTYPE html>
 <html lang="cn">
-<head prefix="og: http://ogp.me/ns#"><meta name="generator" content="Hexo 3.8.0">
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="mrh929">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="mrh929">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
     <meta name="description" content="Blog">
-    <title>mrh929&#39;s home</title>
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>fi3ework&#39;s Studio</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
 
-    <!-- Open Graph -->
-    <meta name="description" content="Blog">
-<meta property="og:type" content="website">
-<meta property="og:title" content="mrh929&#39;s home">
-<meta property="og:url" content="http://mrh1s.top/page/3/index.html">
-<meta property="og:site_name" content="mrh929&#39;s home">
-<meta property="og:description" content="Blog">
-<meta property="og:locale" content="cn">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mrh929&#39;s home">
-<meta name="twitter:description" content="Blog">
+    body {
+        margin: 0;
+    }
 
-    <script type="application/ld+json">
-{
-  "@context": "http://schema.org",
-  "@type": "Person",
-  "email": "mailto:",
-  "image": "",
-  "name": "mrh929",
-  "url": "http://mrh1s.top"
-}
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
 </script>
-    <script>
-    var algoliaEnabled = false;
-    
-</script>
 
+    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
     
-
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
     
+    <!-- 谷歌统计  -->
     
-        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-    
-    
-    
-        <!-- stylesheets list from config.yml -->
-        
-        <link rel="stylesheet" href="/css/aloha.css">
-        
-        <link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.css">
-        
-        <link rel="stylesheet" href="//cdn.bootcss.com/magnific-popup.js/1.1.0/magnific-popup.min.css">
-        
-    
-
 </head>
-<body id="body" style="margin-bottom: 0;" class="pushable">
 
-    <div class="ui top fixed menu">
-        <a class="item" id="menu-icon"><i class="sidebar icon"></i></a>
+    
+        <body class="home-body">
+    
+    
+<header class="header index-header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <a class="home-link" href="/">fi3ework's Studio.</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 文章页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/index-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            fi3ework's Studio.
+            <!-- 文章页  -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+                it's better to burn out than to fade away
+            
+            <!-- 文章页  -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
     </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
 
-    <div id="menu-sidebar" class="ui left vertical sidebar menu">
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
 
-    <div id="sidebar-top">
-        <div class="content">
-            <h3>mrh929&#39;s home</h3>
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main index-page">
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2018/12/06/avl-e6-a0-91-e6-80-bb-e7-bb-93/">
+            
+                <span>AVL树总结</span>
+        </a>
+        <div class="abstract-content">
+            AVL树总结AVL树是二叉查找树的一种优化，能将链状的二叉查找树几乎平均地储存下来，从而减少搜索使用的时间。  AVL树是空树，或满足以下定义的树： 1、左右子树都是AVL树；（递归定义） 2、左右子树高度之差不超过1；  定义平衡因子： 左子树高度-右子树高度，当平衡因子大于等于2时，我们就称这棵树不平衡，需要通过旋转让它重新平衡。  获取节点高度：        int h(int rt){        if(rt==0) return -1;//这里return-1的原因后面阐释        return no[rt].height; }  单旋转 “左左”当根节点的左子树的左...
         </div>
-    </div>
-    <div class="ui container sidebar-card">
-    <div class="ui people shape content">
-        <div class="active side">
-            <div class="ui card">
-                <div class="image">
-                    <img class="ui medium bordered image" src="/images/avatar.jpg">
-                </div>
-                <div class="content">
-                    <a class="header">mrh929</a>
-                    
-                </div>
-                <div class="extra content">
-                    <div class="ui list">
-                        
-                        
-                    </div>
-
-                </div>
-                <div class="extra content">
-                    <div class="ui list">
-                        
-                    </div>
-                </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/06</span>
             </div>
+            <!-- tags  -->
+            
         </div>
-    </div>
-
-
-</div>
-
+    </article>
     
     
-
     
-
     
-    <a href="/index.html" class="item">
-        <i class="home icon"></i>
-        HOME
-    </a>
-
     
-
     
-</div>
-
-    <div class="pusher body-content">
-        <div id="content" class="ui main container">
-            <!--<div class="ui one column grid">-->
-                <!--<div class="column">-->
-                    <!--<div class="ui main container">-->
-                        
-
-<div class="ui relaxed list">
-
-    
-
-    
-
-    <div class="item">
-
-        <div class="content post-content">
-
-    <a class="header" style="display: inline-block;" href="/2018/12/06/avl-e6-a0-91-e6-80-bb-e7-bb-93/">
-        
-        
-        AVL树总结
-    </a>
-    <div class="description post-description">
-    <span class="post-description-item">
-        <time datetime="2018-12-06T15:46:59.000Z" itemprop="datePublished">2018-12-06</time>
-
-    </span>
-    <span class="post-description-item">
-        
-    </span>
-</div>
-</div>
-
-    </div>
-
-    
-
-    
-
-    <div class="item">
-
-        <div class="content post-content">
-
-    <a class="header" style="display: inline-block;" href="/2018/12/06/e6-a0-91-e7-8a-b6-e6-95-b0-e7-bb-84-e6-80-bb-e7-bb-93/">
-        
-        
-        树状数组总结
-    </a>
-    <div class="description post-description">
-    <span class="post-description-item">
-        <time datetime="2018-12-06T15:46:34.000Z" itemprop="datePublished">2018-12-06</time>
-
-    </span>
-    <span class="post-description-item">
-        
-    </span>
-</div>
-</div>
-
-    </div>
-
-    
-
-    
-
-    <div class="item">
-
-        <div class="content post-content">
-
-    <a class="header" style="display: inline-block;" href="/2018/12/06/e7-ba-bf-e6-ae-b5-e6-a0-91-e6-80-bb-e7-bb-93/">
-        
-        
-        线段树总结
-    </a>
-    <div class="description post-description">
-    <span class="post-description-item">
-        <time datetime="2018-12-06T15:46:09.000Z" itemprop="datePublished">2018-12-06</time>
-
-    </span>
-    <span class="post-description-item">
-        
-    </span>
-</div>
-</div>
-
-    </div>
-
-    
-
-    
-
-    <div class="item">
-
-        <div class="content post-content">
-
-    <a class="header" style="display: inline-block;" href="/2018/12/06/e5-ad-97-e5-85-b8-e6-a0-91-e6-80-bb-e7-bb-93/">
-        
-        
-        字典树总结
-    </a>
-    <div class="description post-description">
-    <span class="post-description-item">
-        <time datetime="2018-12-06T15:45:45.000Z" itemprop="datePublished">2018-12-06</time>
-
-    </span>
-    <span class="post-description-item">
-        
-    </span>
-</div>
-</div>
-
-    </div>
-
-    
-
-    
-
-    <div class="item">
-
-        <div class="content post-content">
-
-    <a class="header" style="display: inline-block;" href="/2018/12/06/e6-a0-91-e5-bd-a2-e5-8a-a8-e6-80-81-e8-a7-84-e5-88-92-e6-80-bb-e7-bb-93/">
-        
-        
-        树形动态规划总结
-    </a>
-    <div class="description post-description">
-    <span class="post-description-item">
-        <time datetime="2018-12-06T15:45:21.000Z" itemprop="datePublished">2018-12-06</time>
-
-    </span>
-    <span class="post-description-item">
-        
-    </span>
-</div>
-</div>
-
-    </div>
-
-    
-
-    
-
-    <div class="item">
-
-        <div class="content post-content">
-
-    <a class="header" style="display: inline-block;" href="/2018/12/06/e5-8f-af-e5-b9-b6-e5-a0-86-e4-b9-8b-e5-b7-a6-e5-81-8f-e6-a0-91-e6-80-bb-e7-bb-93/">
-        
-        
-        可并堆之左偏树总结
-    </a>
-    <div class="description post-description">
-    <span class="post-description-item">
-        <time datetime="2018-12-06T15:45:00.000Z" itemprop="datePublished">2018-12-06</time>
-
-    </span>
-    <span class="post-description-item">
-        
-    </span>
-</div>
-</div>
-
-    </div>
-
-    
-
-    
-
-    <div class="item">
-
-        <div class="content post-content">
-
-    <a class="header" style="display: inline-block;" href="/2018/12/06/e5-ad-97-e7-ac-a6-e4-b8-b2hash-ef-bc-8c-e5-ba-b7-e6-89-98-e5-b1-95-e5-bc-80-e6-80-bb-e7-bb-93/">
-        
-        
-        字符串hash，康托展开总结
-    </a>
-    <div class="description post-description">
-    <span class="post-description-item">
-        <time datetime="2018-12-06T15:44:39.000Z" itemprop="datePublished">2018-12-06</time>
-
-    </span>
-    <span class="post-description-item">
-        
-    </span>
-</div>
-</div>
-
-    </div>
-
-    
-
-    
-
-    <div class="item">
-
-        <div class="content post-content">
-
-    <a class="header" style="display: inline-block;" href="/2018/12/06/e7-a6-bb-e6-95-a3hash-e4-bc-98-e5-8c-96-e6-80-bb-e7-bb-93/">
-        
-        
-        离散hash优化总结
-    </a>
-    <div class="description post-description">
-    <span class="post-description-item">
-        <time datetime="2018-12-06T15:44:06.000Z" itemprop="datePublished">2018-12-06</time>
-
-    </span>
-    <span class="post-description-item">
-        
-    </span>
-</div>
-</div>
-
-    </div>
-
-    
-
-    
-
-    <div class="item">
-
-        <div class="content post-content">
-
-    <a class="header" style="display: inline-block;" href="/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e6-97-a0-e5-90-91-e5-9b-be-e5-89-b2-e8-be-b9-e5-89-b2-e7-82-b9-e3-80-81-e6-9c-80-e8-bf-91-e5-85-ac-e5-85-b1-e7-a5-96-e5-85-88-e7-9a-84-e6-80-bb-e7-bb-93/">
-        
-        
-        Tarjan算法求无向图割边割点、最近公共祖先的总结
-    </a>
-    <div class="description post-description">
-    <span class="post-description-item">
-        <time datetime="2018-12-06T15:43:10.000Z" itemprop="datePublished">2018-12-06</time>
-
-    </span>
-    <span class="post-description-item">
-        
-    </span>
-</div>
-</div>
-
-    </div>
-
-    
-
-    
-
-    <div class="item">
-
-        <div class="content post-content">
-
-    <a class="header" style="display: inline-block;" href="/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e5-bc-ba-e8-bf-9e-e9-80-9a-e5-88-86-e9-87-8f-e6-80-bb-e7-bb-93/">
-        
-        
-        Tarjan算法求强连通分量总结
-    </a>
-    <div class="description post-description">
-    <span class="post-description-item">
-        <time datetime="2018-12-06T15:42:41.000Z" itemprop="datePublished">2018-12-06</time>
-
-    </span>
-    <span class="post-description-item">
-        
-    </span>
-</div>
-</div>
-
-    </div>
-
-    
-</div>
-
-
-
-    
-        
-        <div class="ui pagination menu"><a class="item" href="/">1</a><a class="item" href="/page/2/">2</a><span class="item active">3</span><a class="item" href="/page/4/">4</a><a class="item" href="/page/5/">5</a></div>
-    
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</div>-->
+    <article class="index-post">
+        <a class="abstract-title" href="/2018/12/06/e6-a0-91-e7-8a-b6-e6-95-b0-e7-bb-84-e6-80-bb-e7-bb-93/">
+            
+                <span>树状数组总结</span>
+        </a>
+        <div class="abstract-content">
+            树状数组总结树状数组是一个类似于线段树的树状结构，它通过存储一定区间内的元素来达到快速插入、快速求和的效果。并且可以节省时间，节省空间，减少代码量，可谓是非常优秀的一个树形结构 方格中数字代表对应数组的第几个元素,下排是a数组,其上方的是e数组,最下的二进制则是对应编号的二进制表示. 可以观察到，树状数组把一个数组内的元素进行了一定的二分，并存储某些元素的和，使树的深度达到了logn，这样不论是对于查找还是插入都进行了极大的优化       每个数所指向的元素个数为1+它的二进制末尾0的个数我们把二进制中最后一个一出现的位置叫做lowbit，每个元素指向的下一个元素为x+lowbit(x...
         </div>
-        <div class="ui vertical footer segment">
-    <div class="ui center aligned container">
-        <div class="ui inverted section divider"></div>
-        &copy; 2019 <a href="/">mrh929</a>,
-        Powered by <a href="https://github.com/henryhuang/hexo-theme-aloha" target="_blank">Aloha</a> and <a href="http://hexo.io/" target="_blank">Hexo</a>.
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/06</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2018/12/06/e7-ba-bf-e6-ae-b5-e6-a0-91-e6-80-bb-e7-bb-93/">
+            
+                <span>线段树总结</span>
+        </a>
+        <div class="abstract-content">
+            线段树总结引入：有一个数组data[1000000]，如果有m个操作(m&lt;=50000)，操作如下：
+
+修改一个数（加或减）
+求l到r的所有元素的和
+对于通常的题目，用一个sum[i]数组记录1~i的和，即可将任何的区间和在O(1)的时间之内求出。然而对于操作一，显然就显得很耗时间，至少会花费O(n)，由此可以看出这样的做法是有一定缺陷的，由此线段树便产生了。  线段树是一种二叉搜索树，与区间树相似，它将一个区间划分成一些单元区间，每个单元区间对应线段树中的一个叶结点。 我们从1~n的区间开始，依次往下二分加入更小的区间，直到区间长度为1  如图，这里的左闭右开区间类似于闭区间，表...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/06</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2018/12/06/e5-ad-97-e5-85-b8-e6-a0-91-e6-80-bb-e7-bb-93/">
+            
+                <span>字典树总结</span>
+        </a>
+        <div class="abstract-content">
+            字典树总结在实际生活中，图书馆、书店都会遇到一种麻烦，就是不知道如何储存所有的书名，因为藏书实在是太多了。这种情形非常常见。 由此单词查找树便出现了：Trie树，是一种树形结构，是一种哈希树的变种，它通过储存大部分字符串的前缀来达到不仅是存储空间而且是查找效率的优化。 字典树的操作大致分为三种：插入字符串、查找字符串、删除字符串。  首先我们要构造一棵树。根节点编号设置为1。这个结点没有实际意义，只作为查找的起点。 注意：虽然有些结点存在，但有可能并不是由这个结点所对应的字符串所生成的。打个比方：我添加了“memset”字符串，m-&gt;e结点已经生成，但我查找“me”时，这个字符串是...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/06</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2018/12/06/e6-a0-91-e5-bd-a2-e5-8a-a8-e6-80-81-e8-a7-84-e5-88-92-e6-80-bb-e7-bb-93/">
+            
+                <span>树形动态规划总结</span>
+        </a>
+        <div class="abstract-content">
+            树形动规总结树型动规的基本方式同普通的线性动态规划，但遍历的顺序是由高深度向低深度直至根节点，通常一个树型动规包括了状态、阶段、决策、状态转移方程，找到每个题目对应的动归要素，是一个题目的难点所在。
+
+状态：程序求解到每个程度所储存的信息，通常我们需要在一开始找到适合题目的状态并进行定义。Tips：找状态可以通过确定变量，权衡变量的范围来寻找。
+阶段：就是求解动态规划的顺序，每次求解的状态都必须运用之前已经求解过的作为辅助。
+决策：选择最优解的过程，通常是求最大值，最小值等。
+状态转移方程：思考出决策后，用状态转移方程将其表达出来。
+关于求解顺序：由于树形动归的特殊性（几乎都是无向边），...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/06</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2018/12/06/e5-8f-af-e5-b9-b6-e5-a0-86-e4-b9-8b-e5-b7-a6-e5-81-8f-e6-a0-91-e6-80-bb-e7-bb-93/">
+            
+                <span>可并堆之左偏树总结</span>
+        </a>
+        <div class="abstract-content">
+            可并堆之左偏树总结左偏树，顾名思义，是左边的结点权值较大的树形数据结构。主要用于两个优先队列的快速合并，是可并堆的一种实现方式。 定义与性质：
+
+外结点：一个结点的右子结点为空就为外结点
+距离：结点一直向右，直到外结点所经历的步数，每个结点距离等于右儿子的距离+1。
+左偏树的父亲结点的优先级高于儿子结点
+父亲结点的左子节点的距离大于等于右子节点的距离
+合并操作： 大体流程：递归操作，将b结点与a结点的右孩子合并，同时会将b结点的左右孩子合并……以此类推，然后根据实际情况维护左孩子与右孩子的位置顺序  伪代码：
+
+
+
+merge(a,b)//a与b都是小顶堆
+{
+If(a==null) r...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/06</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2018/12/06/e5-ad-97-e7-ac-a6-e4-b8-b2hash-ef-bc-8c-e5-ba-b7-e6-89-98-e5-b1-95-e5-bc-80-e6-80-bb-e7-bb-93/">
+            
+                <span>字符串hash，康托展开总结</span>
+        </a>
+        <div class="abstract-content">
+            字符串hash，康托展开总结各种字符串hash函数： ELF HashBKDRHashAPHashDJBHashJSHashRSHashSDBMHashPJWHashELFHash 字符串hash之BKDRhash函数 有研究表明BKDRhash函数冲突率较低，且变成复杂度低，所以可以用来作为常用hash函数
+Hash函数
+数据1
+数据2
+数据3
+数据4
+数据1得分
+数据2得分
+数据3得分
+数据4得分
+平均分
+BKDRHash
+2
+0
+4774
+481
+96.55
+100
+90.95
+82.05
+92.64
+APHash
+2
+3
+4754
+493
+96.55
+88.46
+100
+51.2...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/06</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2018/12/06/e7-a6-bb-e6-95-a3hash-e4-bc-98-e5-8c-96-e6-80-bb-e7-bb-93/">
+            
+                <span>离散hash优化总结</span>
+        </a>
+        <div class="abstract-content">
+            离散优化总结离散优化是一种常见的高效数据结构，它通过建立数据与存储结构（数组）之间（不一定）一一对应的映射关系来达到对复杂数据的优化。 离散优化最重要的一点是建立映射，对于特殊的线段、点而言，这些映射可以是对一个区间的映射，即将某段线或者某块区域映射到数组里面去，从而在计算时降低时间复杂度。 Hash优化：是对于字符串和数字的一种优化方式。它通过将数据映射到数组内的某个元素从而达到节省空间的效果。 根据hash算法的不同，可能会引起数据的碰撞，即hash(key1)==hash(key2)，会使得数据存储出现错误。有两个方法可以解决：
+
+拉链法，将hash所对密码指向链表头，每次查找元素...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/06</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e6-97-a0-e5-90-91-e5-9b-be-e5-89-b2-e8-be-b9-e5-89-b2-e7-82-b9-e3-80-81-e6-9c-80-e8-bf-91-e5-85-ac-e5-85-b1-e7-a5-96-e5-85-88-e7-9a-84-e6-80-bb-e7-bb-93/">
+            
+                <span>Tarjan算法求无向图割边割点、最近公共祖先的总结</span>
+        </a>
+        <div class="abstract-content">
+            无向图tarjan求割边割点、最近公共祖先总结割点：删除这个点之后整个图变成不连通的两个部分的点 割点集合：在一个无向图中删除该集合中的所有点，能使原图变成互不相连的连通块的点的集合 点连通度：最小割点集合点数 割边（桥）：类似于割点，删除一条边后会使一个连通图变得不完全连通 割边集合：所有割边的集合 边连通度：最小割边集合边数  与有割边割点的图对应，有一种无向图，它的边连通度（或点连通度）大于1，那么我们称它为双连通分量，即删掉任意点（或边），图仍然是连通的  用tarjan算法求割点 原理：在一棵DFS树中 根root是割顶当且仅当它至少有两个儿子 其他点v是割顶当且仅当它有一个儿...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/06</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    
+    
+    
+    
+    
+    <article class="index-post">
+        <a class="abstract-title" href="/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e5-bc-ba-e8-bf-9e-e9-80-9a-e5-88-86-e9-87-8f-e6-80-bb-e7-bb-93/">
+            
+                <span>Tarjan算法求强连通分量总结</span>
+        </a>
+        <div class="abstract-content">
+                   Tarjan算法求强连通分量总结 首先明确强连通分量的概念：如果图中的任意两个点都能互相到达，则为强连通分量。极大强连通分量：不被其它任何强连通分量包含的强连通分量。 强连通分量主要与两种边有关：交叉边和后向边。 交叉边是两个无关系的点之间所构成的，而后向边是根节点的子节点指向根结点的一种边 Tarjan算法原理：
+
+建立low数组（用于记录该点所在的连通子图的根节点的搜索子树所遍历的时间）与dfn数组（记录当前点遍历的时间）Index：记录搜索过程所进行的时间
+初始化dfn、index，当前点u的初始值为时间
+u入栈并标记
+遍历与u相连的所有点（记为v）
+
+如果v未被遍历...
+        </div>
+        <div class="abstract-post-meta">
+            <!-- date  -->
+            <div class="abstract-date">
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/06</span>
+            </div>
+            <!-- tags  -->
+            
+        </div>
+    </article>
+    
+    <!-- paginator  -->
+    
+    <nav class="page-nav">
+        <a class="extend prev" rel="prev" href="/page/2/">&#60; PREV</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">NEXT &#62;</a>
+    </nav>
+    
+</main>
+            <!-- profile -->
+            
+            <div class="profile">
+    <img class="profile-avatar" alt="avatar" src="/avatar/Misaka.jpg">
+    <div class="profile-name">fi3ework</div>
+    
+    <div class="profile-signature">
+        witness me
     </div>
+    
+    
+    <div class="profile-social">
+        
+    
+        
+            
+                <a href="mailto:12345@qq.com" class="iconfont-archer email" title="email"></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/fi3ework" class="iconfont-archer github" target="_blank" title="github"></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title="wechat">
+                  
+                  <img class="profile-qr" src="/assets/example_qr.png">
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    
+        <div class="friends">
+            <div>FRIENDS</div>
+            
+                
+                    <span>
+                        <a href="//www.baidu.com" target="_black">friendA</a>
+                    </span>
+                
+            
+                
+                    <span>
+                        <a href="//www.google.com" target="_black">friendB</a>
+                    </span>
+                
+            
+                
+            
+        </div>
+    
+    
+        <div class="about-me">
+            <a href="/about">ABOUT ME</a>
+        </div>
+    
 </div>
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:12345@qq.com" class="iconfont-archer email" title="email"></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/fi3ework" class="iconfont-archer github" target="_blank" title="github"></a>
+            
+        
+    
+        
+            
+                <span class="iconfont-archer wechat" title="wechat">
+                  
+                  <img class="profile-qr" src="/assets/example_qr.png">
+                </span>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
 
     </div>
-
-
-
-
-<!-- scripts list from theme config.yml -->
-
-<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
-
-<script src="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.js"></script>
-
-<script src="//cdn.bootcss.com/algoliasearch/3.18.1/algoliasearch.min.js"></script>
-
-<script src="//cdn.bootcss.com/algoliasearch-helper-js/2.13.0/algoliasearch.helper.min.js"></script>
-
-<script src="/js/semantic-ui-algolia.js"></script>
-
-<script src="/js/aloha-events.js"></script>
-
-
-
-</body>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 48
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/03</span><a class="archive-post-title" href="/2019/05/03/Migration-Success/">Migration_Success!</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href="/2019/04/28/e5-8d-97-e4-ba-ac-e9-82-ae-e7-94-b5-e5-a4-a7-e5-ad-a6-re-wxyvm2/">南京邮电大学 RE-WxyVM2</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href="/2019/04/28/bbvvmm/">bbvvmm</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/13</span><a class="archive-post-title" href="/2019/04/13/e5-a3-b3-e7-9b-b8-e5-85-b3/">壳相关</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/22</span><a class="archive-post-title" href="/2019/03/22/shinyshot/">ShinyShot!</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/21</span><a class="archive-post-title" href="/2019/03/21/happyvm/">HappyVM</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/16</span><a class="archive-post-title" href="/2019/02/16/maze/">maze</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/16</span><a class="archive-post-title" href="/2019/02/16/brainfuck/">brainfuck</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/2019/02/15/pro-e7-9a-84python-e6-95-99-e5-ae-a4-e4-ba-8c/">Pro的Python教室(二)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/2019/02/15/wakarimasu/">wakarimasu</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/2019/02/15/xor/">xor</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/04</span><a class="archive-post-title" href="/2019/02/04/fat16-e6-96-87-e4-bb-b6-e7-b3-bb-e7-bb-9f/">FAT16文件系统</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/09</span><a class="archive-post-title" href="/2019/01/09/e6-8e-92-e5-ba-8f-e7-ae-97-e6-b3-95-e7-9a-84-e4-b8-80-e7-82-b9-e5-b0-8f-e5-bf-83-e5-be-97/">排序算法的一点小心得</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/03</span><a class="archive-post-title" href="/2019/01/03/e7-bd-91-e5-ae-89-e8-af-be-e7-ad-94-e8-be-a9-e6-af-94-e7-89-b9-e5-b8-81-e4-b8-8e-e5-8c-ba-e5-9d-97-e9-93-be/">网安课答辩-比特币与区块链</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/31</span><a class="archive-post-title" href="/2018/12/31/e8-ae-b0-e7-ac-ac-e4-b8-80-e6-ac-a1-e7-94-b5-e8-84-91-e7-bb-84-e8-a3-85-ef-bc-88-e4-ba-8c-ef-bc-89/">记第一次电脑组装（二）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/30</span><a class="archive-post-title" href="/2018/12/30/e8-ae-b0-e7-ac-ac-e4-b8-80-e6-ac-a1-e7-94-b5-e8-84-91-e7-bb-84-e8-a3-85-ef-bc-88-e4-b8-80-ef-bc-89/">记第一次电脑组装（一）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/20</span><a class="archive-post-title" href="/2018/12/20/e5-95-86-e5-93-81-e7-ae-a1-e7-90-86-e7-b3-bb-e7-bb-9f/">商品管理系统</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/13</span><a class="archive-post-title" href="/2018/12/13/e7-bd-91-e7-bb-9c-e5-ae-89-e5-85-a8-e8-af-be-e7-ac-94-e8-ae-b0-of-shijie-zhou-2/">网络安全课笔记 of Shijie Zhou #2</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-89-93-e5-8d-b0-e6-9c-88-e5-8e-86-e9-a2-98-e8-a7-a3/">打印月历题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-a0-91-e7-8a-b6-e6-95-b0-e7-bb-84-e6-80-bb-e7-bb-93/">树状数组总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e5-ad-97-e5-85-b8-e6-a0-91-e6-80-bb-e7-bb-93/">字典树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e5-a4-a7-e6-95-b4-e6-95-b0-e4-b9-98-e6-b3-95-e9-a2-98-e8-a7-a3/">大整数乘法题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e8-bf-81-e7-a7-bb-e5-ae-8c-e6-88-90-ef-bc-81/">迁移完成！</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/sbt-e6-80-bb-e7-bb-93/">SBT总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/avl-e6-a0-91-e6-80-bb-e7-bb-93/">AVL树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e5-bc-ba-e8-bf-9e-e9-80-9a-e5-88-86-e9-87-8f-e6-80-bb-e7-bb-93/">Tarjan算法求强连通分量总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e9-93-ba-e5-9c-b0-e6-af-af-e9-a2-98-e8-a7-a3/">铺地毯题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e8-9e-ba-e6-97-8b-e7-9f-a9-e9-98-b5-e9-a2-98-e8-a7-a3/">螺旋矩阵题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/2-e7-9a-84-e5-b9-82-e6-ac-a1-e6-96-b9-e8-a1-a8-e7-a4-ba-e9-a2-98-e8-a7-a3/">2的幂次方表示题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-9c-80-e5-b0-8f-e7-94-9f-e6-88-90-e6-a0-91-e6-80-bb-e7-bb-93/">最小生成树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e6-97-a0-e5-90-91-e5-9b-be-e5-89-b2-e8-be-b9-e5-89-b2-e7-82-b9-e3-80-81-e6-9c-80-e8-bf-91-e5-85-ac-e5-85-b1-e7-a5-96-e5-85-88-e7-9a-84-e6-80-bb-e7-bb-93/">Tarjan算法求无向图割边割点、最近公共祖先的总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e9-80-86-e6-b3-a2-e5-85-b0-e8-a1-a8-e8-be-be-e5-bc-8f-e9-a2-98-e8-a7-a3/">逆波兰表达式题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/vigenere-e5-af-86-e7-a0-81-e9-a2-98-e8-a7-a3/">Vigenère密码题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-a0-91-e5-bd-a2-e5-8a-a8-e6-80-81-e8-a7-84-e5-88-92-e6-80-bb-e7-bb-93/">树形动态规划总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e5-ad-97-e7-ac-a6-e4-b8-b2hash-ef-bc-8c-e5-ba-b7-e6-89-98-e5-b1-95-e5-bc-80-e6-80-bb-e7-bb-93/">字符串hash，康托展开总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e7-a6-bb-e6-95-a3hash-e4-bc-98-e5-8c-96-e6-80-bb-e7-bb-93/">离散hash优化总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e7-ba-bf-e6-ae-b5-e6-a0-91-e6-80-bb-e7-bb-93/">线段树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-8b-93-e6-89-91-e6-8e-92-e5-ba-8f-e4-bb-a5-e5-8f-8a-e5-85-b3-e9-94-ae-e8-b7-af-e5-be-84-e6-80-bb-e7-bb-93/">拓扑排序以及关键路径总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e5-8f-af-e5-b9-b6-e5-a0-86-e4-b9-8b-e5-b7-a6-e5-81-8f-e6-a0-91-e6-80-bb-e7-bb-93/">可并堆之左偏树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-9a-91-e6-9c-9f-e4-ba-ba-e7-94-9f-e6-b5-8b-e8-af-95-e4-b8-80-e6-80-bb-e7-bb-93/">暑期人生测试一总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-9d-a5-e4-b8-80-e6-ac-a1-e8-bf-81-e7-a7-bb-e5-b7-a5-e4-bd-9c-e5-90-a7/">来一次迁移工作吧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e7-bd-91-e7-bb-9c-e5-ae-89-e5-85-a8-e8-af-be-e7-ac-94-e8-ae-b0-of-shijie-zhou/">网络安全课笔记 of Shijie Zhou #1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/2018/12/01/some-boxes/">Some Boxes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/2018/12/01/our-16bits-wars/">Our 16bits wars</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/2018/12/01/e5-9f-ba-e6-9c-ac-e6-93-8d-e4-bd-9c-reverse-version/">基本操作 Reverse Version</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/13</span><a class="archive-post-title" href="/2018/10/13/vector-majic-e7-a0-b4-e8-a7-a3-e5-bf-83-e5-be-97/">Vector Majic</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/03</span><a class="archive-post-title" href="/2018/10/03/e8-8e-ab-e5-90-8d-e5-85-b6-e5-a6-99-e7-9a-84https-e9-85-8d-e7-bd-ae-e9-94-99-e8-af-af/">莫名其妙的https配置错误</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/03</span><a class="archive-post-title" href="/2018/10/03/hello-world-2/">Hello world!</a>
+        </li>
+    
+    </ul></div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="RE_Dynamic"><span class="iconfont-archer">&#xe606;</span>RE_Dynamic</span>
+    
+        <span class="sidebar-tag-name" data-tags="RE_Static"><span class="iconfont-archer">&#xe606;</span>RE_Static</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br>
+    1、请确保node版本大于6.2<br>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="牢骚"><span class="iconfont-archer">&#xe60a;</span>牢骚</span>
+    
+        <span class="sidebar-category-name" data-categories="write-up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
+    
+        <span class="sidebar-category-name" data-categories="c-plus-plus-2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
+    
+        <span class="sidebar-category-name" data-categories="write-up/cnss-recruit-201809"><span class="iconfont-archer">&#xe60a;</span>write-up/cnss-recruit-201809</span>
+    
+        <span class="sidebar-category-name" data-categories="write-up/nctf-20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
+    
+        <span class="sidebar-category-name" data-categories="notes"><span class="iconfont-archer">&#xe60a;</span>notes</span>
+    
+        <span class="sidebar-category-name" data-categories="project"><span class="iconfont-archer">&#xe60a;</span>project</span>
+    
+        <span class="sidebar-category-name" data-categories="c-c"><span class="iconfont-archer">&#xe60a;</span>c-c</span>
+    
+        <span class="sidebar-category-name" data-categories="write-up/hgame-20190122"><span class="iconfont-archer">&#xe60a;</span>write-up/hgame-20190122</span>
+    
+        <span class="sidebar-category-name" data-categories="write-up/nationalCTF-20190421"><span class="iconfont-archer">&#xe60a;</span>write-up/nationalCTF-20190421</span>
+    
+        <span class="sidebar-category-name" data-categories="write-up/cgctf"><span class="iconfont-archer">&#xe60a;</span>write-up/cgctf</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "mrh929"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+     
+    </body>
 </html>
+
+
