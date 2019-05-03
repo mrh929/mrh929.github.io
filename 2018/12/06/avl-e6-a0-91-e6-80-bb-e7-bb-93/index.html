@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>AVL树总结 | mrh929&#39;s home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="AVL树总结AVL树是二叉查找树的一种优化，能将链状的二叉查找树几乎平均地储存下来，从而减少搜索使用的时间。  AVL树是空树，或满足以下定义的树： 1、左右子树都是AVL树；（递归定义） 2、左右子树高度之差不超过1；  定义平衡因子： 左子树高度-右子树高度，当平衡因子大于等于2时，我们就称这棵树不平衡，需要通过旋转让它重新平衡。  获取节点高度：        int h(int rt){">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AVL树总结">
+<meta property="og:url" content="http://mrh1s.top/2018/12/06/avl-e6-a0-91-e6-80-bb-e7-bb-93/index.html">
+<meta property="og:site_name" content="mrh929&#39;s home">
+<meta property="og:description" content="AVL树总结AVL树是二叉查找树的一种优化，能将链状的二叉查找树几乎平均地储存下来，从而减少搜索使用的时间。  AVL树是空树，或满足以下定义的树： 1、左右子树都是AVL树；（递归定义） 2、左右子树高度之差不超过1；  定义平衡因子： 左子树高度-右子树高度，当平衡因子大于等于2时，我们就称这棵树不平衡，需要通过旋转让它重新平衡。  获取节点高度：        int h(int rt){">
+<meta property="og:locale" content="cn">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:updated_time" content="2019-05-03T06:19:59.674Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AVL树总结">
+<meta name="twitter:description" content="AVL树总结AVL树是二叉查找树的一种优化，能将链状的二叉查找树几乎平均地储存下来，从而减少搜索使用的时间。  AVL树是空树，或满足以下定义的树： 1、左右子树都是AVL树；（递归定义） 2、左右子树高度之差不超过1；  定义平衡因子： 左子树高度-右子树高度，当平衡因子大于等于2时，我们就称这棵树不平衡，需要通过旋转让它重新平衡。  获取节点高度：        int h(int rt){">
+<meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+  
+    <link rel="alternate" href="/atom.xml" title="mrh929&#39;s home" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">mrh929&#39;s home</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://mrh1s.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-avl-e6-a0-91-e6-80-bb-e7-bb-93" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/06/avl-e6-a0-91-e6-80-bb-e7-bb-93/" class="article-date">
+  <time datetime="2018-12-06T15:46:59.000Z" itemprop="datePublished">2018-12-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      AVL树总结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="AVL树总结"><a href="#AVL树总结" class="headerlink" title="AVL树总结"></a>AVL树总结</h1><p><strong>AVL树是二叉查找树的一种优化，能将链状的二叉查找树几乎平均地储存下来，从而减少搜索使用的时间。</strong>  <strong>AVL树是空树，或满足以下定义的树：</strong> <strong>1、左右子树都是AVL树；（递归定义）</strong> <strong>2、左右子树高度之差不超过1；</strong>  <strong>定义平衡因子：</strong> <strong>左子树高度-右子树高度，当平衡因子大于等于2时，我们就称这棵树不平衡，需要通过旋转让它重新平衡。</strong>  <strong>获取节点高度：</strong> <strong>       int h(int rt){</strong> <strong>       if(rt==0) return -1;//这里return-1的原因后面阐释</strong> <strong>       return no[rt].height;</strong> <strong>}</strong>  <strong>单旋转</strong> <strong>“左左”当根节点的左子树的左儿子与根节点的右儿子不平衡时</strong> <strong>我们通过单旋转使平衡树符合该树的性质</strong></p>
+<pre><code>int SingeRotateWithLeft(int x){
+    int y;
+    y=no[x].left;
+    no[x].left=no[y].right;
+    no[y].right=x;
+    no[y].height=max(h(no[y].left),h(no[y].right))+1;
+    no[x].height=max(h(no[x].left),h(no[x].right))+1;
+    return y;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p><strong>“右右”方法类似，与左左对称</strong>  <strong>双旋转</strong> <strong>“左右”当根节点的左子树的右儿子与根节点的右儿子不平衡时</strong> <strong>旋转两次即可使这棵树平衡</strong></p>
+<pre><code>int doubleRotateWithLeft(int x){
+
+    no[x].left=SingleRotateWithRight(no[x].left);
+    return SingleRotateWithLeft(x);
+
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p><strong>“右左”同理。</strong>  <strong>插入操作：先正常插入指定结点，再判断原树是否平衡，不平衡要根据具体情况旋转使原树平衡</strong></p>
+<pre><code>int insert(int k,int rt){
+    if(rt==0)
+        rt=newNode(k);
+    else if( k&lt; no[rt].key ){
+        no[rt].left=insert(k,no[rt].left);
+        if( h(no[rt].left)-h(no[rt].right) )==2 )
+            if(k&lt;no[ no[rt].left ] .key ) rt=SingleRotateWithLeft(rt);
+            else rt= DoubleRotateWithLeft(rt)
+    }else if( k &gt; no[rt].key){
+        no[rt].right=insert(k,no[rt].right);
+        if( h(no[rt].right)-h(no[rt].left) )==2 )
+            if(k &gt; no[ no[rt].right ] .key ) rt=SingleRotateWithRight(rt);
+            else rt= DoubleRotateWithRight(rt)
+    }
+    no[rt].height = max ( h( no[rt].left ), h( no[rt].right ) ) +1;
+    return rt;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<pre><code>int newNode(int k){
+    no[cnt].height=no[cnt].left=no[cnt].right=0;
+    no[cnt].key=k;
+    return cnt++;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p><strong> AVL树过于复杂，但却是其他二叉搜索树变形特别是旋转的基础，删除操作实在过于复杂，本人无法理解。。。建议大家使用懒惰标记吧，不在真正意义上删除结点。</strong> <strong>说这么多 大家还是转战SBT吧QAQ</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://mrh1s.top/2018/12/06/avl-e6-a0-91-e6-80-bb-e7-bb-93/" data-id="cjv7vtpws000dzgeticnhr9w9" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/06/sbt-e6-80-bb-e7-bb-93/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          SBT总结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/12/06/e6-a0-91-e7-8a-b6-e6-95-b0-e7-bb-84-e6-80-bb-e7-bb-93/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">树状数组总结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/c-c/">c/c++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/notes/">notes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/project/">project</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/">write up</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cgctf/">cgctf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cnss-recruit-201809/">cnss_recruit_201809</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/hgame-20190122/">hgame_20190122</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nationalCTF-20190421/">nationalCTF_20190421</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nctf-20181124/">nctf_20181124</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/牢骚/">牢骚</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Dynamic/">RE_Dynamic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/RE-Dynamic/" style="font-size: 10px;">RE_Dynamic</a> <a href="/tags/RE-Static/" style="font-size: 20px;">RE_Static</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/28/bbvvmm/">bbvvmm</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/28/e5-8d-97-e4-ba-ac-e9-82-ae-e7-94-b5-e5-a4-a7-e5-ad-a6-re-wxyvm2/">南京邮电大学 RE-WxyVM2</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/13/e5-a3-b3-e7-9b-b8-e5-85-b3/">壳相关</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/shinyshot/">ShinyShot!</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/21/happyvm/">HappyVM</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 mrh929<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

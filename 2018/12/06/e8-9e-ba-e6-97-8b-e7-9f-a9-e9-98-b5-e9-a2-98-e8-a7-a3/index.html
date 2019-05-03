@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>螺旋矩阵题解 | mrh929&#39;s home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="螺旋矩阵 (matrix.cpp) 【问题描述】 一个n行n列的螺旋矩阵可由如下方法生成： 从矩阵的左上角（第1行第1列）出发，初始时向右移动；如果前方是未曾经过的格子， 则继续前进，否则右转；重复上述操作直至经过矩阵中所有格子。根据经过顺序，在格子中依次填入1, 2, 3, … , n2，便构成了一个螺旋矩阵。 下图是一个n = 4 时的螺旋矩阵。  现给出矩阵大小n以及i和j，请你求出该矩">
+<meta property="og:type" content="article">
+<meta property="og:title" content="螺旋矩阵题解">
+<meta property="og:url" content="http://mrh1s.top/2018/12/06/e8-9e-ba-e6-97-8b-e7-9f-a9-e9-98-b5-e9-a2-98-e8-a7-a3/index.html">
+<meta property="og:site_name" content="mrh929&#39;s home">
+<meta property="og:description" content="螺旋矩阵 (matrix.cpp) 【问题描述】 一个n行n列的螺旋矩阵可由如下方法生成： 从矩阵的左上角（第1行第1列）出发，初始时向右移动；如果前方是未曾经过的格子， 则继续前进，否则右转；重复上述操作直至经过矩阵中所有格子。根据经过顺序，在格子中依次填入1, 2, 3, … , n2，便构成了一个螺旋矩阵。 下图是一个n = 4 时的螺旋矩阵。  现给出矩阵大小n以及i和j，请你求出该矩">
+<meta property="og:locale" content="cn">
+<meta property="og:updated_time" content="2019-05-03T06:19:59.673Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="螺旋矩阵题解">
+<meta name="twitter:description" content="螺旋矩阵 (matrix.cpp) 【问题描述】 一个n行n列的螺旋矩阵可由如下方法生成： 从矩阵的左上角（第1行第1列）出发，初始时向右移动；如果前方是未曾经过的格子， 则继续前进，否则右转；重复上述操作直至经过矩阵中所有格子。根据经过顺序，在格子中依次填入1, 2, 3, … , n2，便构成了一个螺旋矩阵。 下图是一个n = 4 时的螺旋矩阵。  现给出矩阵大小n以及i和j，请你求出该矩">
+  
+    <link rel="alternate" href="/atom.xml" title="mrh929&#39;s home" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">mrh929&#39;s home</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://mrh1s.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-e8-9e-ba-e6-97-8b-e7-9f-a9-e9-98-b5-e9-a2-98-e8-a7-a3" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/06/e8-9e-ba-e6-97-8b-e7-9f-a9-e9-98-b5-e9-a2-98-e8-a7-a3/" class="article-date">
+  <time datetime="2018-12-06T15:33:09.000Z" itemprop="datePublished">2018-12-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      螺旋矩阵题解
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>  螺旋矩阵 (matrix.cpp) 【问题描述】 一个n行n列的螺旋矩阵可由如下方法生成： 从矩阵的左上角（第1行第1列）出发，初始时向右移动；如果前方是未曾经过的格子， 则继续前进，否则右转；重复上述操作直至经过矩阵中所有格子。根据经过顺序，在格子中依次填入1, 2, 3, … , n2，便构成了一个螺旋矩阵。 下图是一个n = 4 时的螺旋矩阵。  现给出矩阵大小n以及i和j，请你求出该矩阵中第i行第j列的数是多少。   【输入】 输入文件名为matrix.in。 输入共一行，包含三个整数n，i，j，每两个整数之间用一个空格隔开，分别表示矩阵大小、待求的数所在的行号和列号。   【输出】 输出文件名为matrix.out。 输出共一行，包含一个整数，表示相应矩阵中第i行第j列的数。   【输入输出样例】 matrix.in matrix.out 4 2 3 14   【数据说明】 对于50%的数据，1 ≤ n ≤ 100; 对于100%的数据，1 ≤ n ≤ 30,000，1 ≤ i ≤ n，1 ≤ j ≤ n</p>
+<blockquote>
+<p>首先看到这个题目 能想到的是数字由内而外的螺旋矩阵，就可以从内圈开始逐步模拟推出各个方框的数字，最后得出结果。 这样就可以得到规律：以左上角为坐标原点，向下为y轴正半轴，向右为x轴正半轴。 当n为偶数时，起点在(n/2+1,(n+1)/2)处。 当n为奇数时，起点在((n+1)/2, (n+1)/2)处。 那么就令int x,y为相应的数作为起点坐标，旋转规律如下： 数字递减的方向由 右 上 左 下的顺序进行旋转，每次改变方向，该点便沿此方向平移k次，然后再旋转，平移k（k=1）次，然后旋转，此时平移k+1次，以此类推，方向每改变两次，k=k+1。 运用int dir来储存方向 dir/4=1,2,3,4为每次平移的方向。 建立循环 for(int p=n;p&gt;=1;p–) 将矩阵枚举出来后，就可以输出相应点的值了。 但是本题n&lt;=30000 那么数组就要开9*10^8，既浪费空间也浪费时间，而且无法开出，所以这种方法在本题只适用前50%的数据。 那么怎么在不开数组、尽量不计算无关点的值就得出目标值呢？ 通过观察，发现矩阵是由n/2层构成，每层格数相差2格，对顶角上的点的值变化也有规律，如果我们找到了目标点所在的层数，就能通过较少的平移求出答案，而不是浪费资源。 至于层数的寻找，在i,j∈n/2时是容易的， i,j中的最小值即为层数，层数ceng=i&gt;j?j:i。 如果目标在其他位置，可通过对称的方式用相同的方法求出层数。 当i&gt;n/2 i’=1+(n-i) j同理。 接下来可求到此层左上角的点的值： int p=1 for(int m=1;m&lt;=ceng;m++) P+=4*(n-1); 运用刚才的平移法则，可求到相应的点。 再优化： 当j&gt;x且i=y时p(目标)=p+(j-x) ，平移判断 当i&gt;y且j=x时p(目标)=p+(i-y) ，平移 判断 当x&gt;j且i=y时p(目标)=p+(x-j) ，平移 判断 当y&gt;i且j=x时p(目标)=p+(y-i) 判断 这样就可以AC了</p>
+</blockquote>
+<p><del>~#include&lt;stdio.h&gt; #include&lt;stdlib.h&gt; #include&lt;string.h&gt; #include<algorithm> int main() { freopen(“matrix.in”,”r”,stdin); freopen(“matrix.out”,”w”,stdout); int n,i,j; scanf(“%d %d %d”,&amp;n,&amp;i,&amp;j); int x=j,y=i; int a=n/2; <pre><code>if(n%2==0)//判断该数属于第几行 { if(x&gt;a) x=1+(n-x); if(y&gt;a) y=1+(n-y); } else { if(x&gt;a+1) x=1+(n-x); if(y&gt;a+1) y=1+(n-y); } int ceng=x&lt;y?x:y; x=1;y=1; int p=1; for(int m=1;m&lt;ceng;m++) { p+=4*(n-1); n-=2; x++; y++; } if(y==i) { p+=j-x; printf(“%d”,p); return 0; } p+=n-1; x+=n-1; if(x==j) { p+=i-y; printf(“%d”,p); return 0; } p+=n-1; y+=n-1; if(y==i) { p+=x-j; printf(“%d”,p); return 0; } p+=n-1; x-=n-1; if(x==j) { p+=y-i; printf(“%d”,p); return 0; } return 0; </code></pre> }</algorithm></del>~</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://mrh1s.top/2018/12/06/e8-9e-ba-e6-97-8b-e7-9f-a9-e9-98-b5-e9-a2-98-e8-a7-a3/" data-id="cjv7vtpx3000xzgetvvkhqhh0" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/06/e9-93-ba-e5-9c-b0-e6-af-af-e9-a2-98-e8-a7-a3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          铺地毯题解
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/12/06/e6-9d-a5-e4-b8-80-e6-ac-a1-e8-bf-81-e7-a7-bb-e5-b7-a5-e4-bd-9c-e5-90-a7/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">来一次迁移工作吧</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/c-c/">c/c++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/notes/">notes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/project/">project</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/">write up</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cgctf/">cgctf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cnss-recruit-201809/">cnss_recruit_201809</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/hgame-20190122/">hgame_20190122</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nationalCTF-20190421/">nationalCTF_20190421</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nctf-20181124/">nctf_20181124</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/牢骚/">牢骚</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Dynamic/">RE_Dynamic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/RE-Dynamic/" style="font-size: 10px;">RE_Dynamic</a> <a href="/tags/RE-Static/" style="font-size: 20px;">RE_Static</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/28/bbvvmm/">bbvvmm</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/28/e5-8d-97-e4-ba-ac-e9-82-ae-e7-94-b5-e5-a4-a7-e5-ad-a6-re-wxyvm2/">南京邮电大学 RE-WxyVM2</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/13/e5-a3-b3-e7-9b-b8-e5-85-b3/">壳相关</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/shinyshot/">ShinyShot!</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/21/happyvm/">HappyVM</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 mrh929<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

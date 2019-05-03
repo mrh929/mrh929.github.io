@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>可并堆之左偏树总结 | mrh929&#39;s home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="可并堆之左偏树总结左偏树，顾名思义，是左边的结点权值较大的树形数据结构。主要用于两个优先队列的快速合并，是可并堆的一种实现方式。 定义与性质：  外结点：一个结点的右子结点为空就为外结点 距离：结点一直向右，直到外结点所经历的步数，每个结点距离等于右儿子的距离+1。 左偏树的父亲结点的优先级高于儿子结点 父亲结点的左子节点的距离大于等于右子节点的距离 合并操作： 大体流程：递归操作，将b结点与a结">
+<meta property="og:type" content="article">
+<meta property="og:title" content="可并堆之左偏树总结">
+<meta property="og:url" content="http://mrh1s.top/2018/12/06/e5-8f-af-e5-b9-b6-e5-a0-86-e4-b9-8b-e5-b7-a6-e5-81-8f-e6-a0-91-e6-80-bb-e7-bb-93/index.html">
+<meta property="og:site_name" content="mrh929&#39;s home">
+<meta property="og:description" content="可并堆之左偏树总结左偏树，顾名思义，是左边的结点权值较大的树形数据结构。主要用于两个优先队列的快速合并，是可并堆的一种实现方式。 定义与性质：  外结点：一个结点的右子结点为空就为外结点 距离：结点一直向右，直到外结点所经历的步数，每个结点距离等于右儿子的距离+1。 左偏树的父亲结点的优先级高于儿子结点 父亲结点的左子节点的距离大于等于右子节点的距离 合并操作： 大体流程：递归操作，将b结点与a结">
+<meta property="og:locale" content="cn">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:updated_time" content="2019-05-03T06:19:59.674Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="可并堆之左偏树总结">
+<meta name="twitter:description" content="可并堆之左偏树总结左偏树，顾名思义，是左边的结点权值较大的树形数据结构。主要用于两个优先队列的快速合并，是可并堆的一种实现方式。 定义与性质：  外结点：一个结点的右子结点为空就为外结点 距离：结点一直向右，直到外结点所经历的步数，每个结点距离等于右儿子的距离+1。 左偏树的父亲结点的优先级高于儿子结点 父亲结点的左子节点的距离大于等于右子节点的距离 合并操作： 大体流程：递归操作，将b结点与a结">
+<meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+  
+    <link rel="alternate" href="/atom.xml" title="mrh929&#39;s home" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">mrh929&#39;s home</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://mrh1s.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-e5-8f-af-e5-b9-b6-e5-a0-86-e4-b9-8b-e5-b7-a6-e5-81-8f-e6-a0-91-e6-80-bb-e7-bb-93" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/06/e5-8f-af-e5-b9-b6-e5-a0-86-e4-b9-8b-e5-b7-a6-e5-81-8f-e6-a0-91-e6-80-bb-e7-bb-93/" class="article-date">
+  <time datetime="2018-12-06T15:45:00.000Z" itemprop="datePublished">2018-12-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      可并堆之左偏树总结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="可并堆之左偏树总结"><a href="#可并堆之左偏树总结" class="headerlink" title="可并堆之左偏树总结"></a>可并堆之左偏树总结</h1><p><strong>左偏树，顾名思义，是左边的结点权值较大的树形数据结构。主要用于两个优先队列的快速合并，是可并堆的一种实现方式。</strong> <strong>定义与性质：</strong></p>
+<ol>
+<li><strong>外结点：一个结点的右子结点为空就为外结点</strong></li>
+<li><strong>距离：结点一直向右，直到外结点所经历的步数，每个结点距离等于右儿子的距离+1。</strong></li>
+<li><strong>左偏树的父亲结点的优先级高于儿子结点</strong></li>
+<li><p><strong>父亲结点的左子节点的距离大于等于右子节点的距离</strong></p>
+<p><strong>合并操作：</strong> <strong>大体流程：递归操作，将b结点与a结点的右孩子合并，同时会将b结点的左右孩子合并……以此类推，然后根据实际情况维护左孩子与右孩子的位置顺序</strong>  <strong>伪代码：</strong></p>
+</li>
+</ol>
+<ul>
+<li><strong>merge(a,b)//a与b都是小顶堆</strong></li>
+<li><strong>{</strong><ul>
+<li><strong>If(a==null) return b;//a为空，根节点为b</strong></li>
+<li><strong>If(b==null) return a;//b为空，根节点为a</strong></li>
+<li><strong>If(key(a)&gt;key(b)) swap(a,b);//将优先级高树的放在左边，左右子树调换位置</strong></li>
+<li><strong>a.rchild=Merge(a.rchild,b);//a作为根，a的右孩子和b作为孩子递归</strong></li>
+<li><strong>If(dis[a.rchild]&gt;dis[a.lchild]) swap(a.lchild,a.rchild);//a的孩子节点排序</strong></li>
+<li><strong>dis[a]=dis[a.rchild]+1;//a的距离更新</strong></li>
+<li><strong>return a;//返回根节点</strong></li>
+</ul>
+</li>
+<li><strong>}</strong>  <strong>插入操作：将新结点当作只有一个根的左偏树，merge合并。</strong> <strong>删除操作：直接删除根结点，合并左右子树。</strong> </li>
+</ul>
+<h2 id="1636-猴王"><a href="#1636-猴王" class="headerlink" title="1636:猴王"></a>1636:猴王</h2><p>时间限制:1 Sec  内存限制:128 MB 提交:32  解决:6 [<a href="http://fzoj.xndxfz.com/JudgeOnline/submitpage.php?id=1636" target="_blank" rel="noopener">提交</a>][<a href="http://fzoj.xndxfz.com/JudgeOnline/problemstatus.php?id=1636" target="_blank" rel="noopener">状态</a>][<a href="http://fzoj.xndxfz.com/JudgeOnline/bbs.php?pid=1636" target="_blank" rel="noopener">讨论版</a>]</p>
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>很久很久以前，在一个广阔的森林里，住着n只好斗的猴子。起初，它们各干各的，互相之间也不了解。但是这并不能避免猴子们之间的争吵，当然，这只存在于两个陌生猴子之间。当两只猴子争论时，它们都会请自己最强壮的朋友来代表自己进行决斗。显然，决斗之后，这两只猴子以及它们的朋友就互相了解了，这些猴子之间将再也不会发生争论了，即使它们曾经发生过冲突。 假设每一只猴子都有一个强壮值，每次决斗后都会减少一半(比如10会变成5，5会变成2.5)。并且我们假设每只猴子都很了解自己。就是说，当它属于所有朋友中最强壮的一个时，它自己会站出来，走向决斗场。</p>
+<h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>输入分为两部分。 第一部分，第一行有一个整数n(n&lt;=100000)，代表猴子总数。 接下来的n行，每行一个数表示每只猴子的强壮值(小于等于32768)。 第二部分，第一行有一个整数m(m&lt;=100000)，表示有m次冲突会发生。 接下来的m行，每行包含两个数x和y，代表第x个猴子和第y个猴子之间发生冲突。</p>
+<h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><p>输出每次决斗后在它们所有朋友中的最大强壮值。数据保证所有猴子决斗前彼此不认识。</p>
+<h2 id="样例输入"><a href="#样例输入" class="headerlink" title="样例输入"></a>样例输入</h2><pre><code>5
+
+20
+
+16
+
+10
+
+10
+
+4
+
+4
+
+2 3
+
+3 4
+
+3 5
+
+1 5
+</code></pre><h2 id="样例输出"><a href="#样例输出" class="headerlink" title="样例输出"></a>样例输出</h2><pre><code>8
+
+5
+
+5
+
+10
+</code></pre><p> <strong>很经典的左偏树题，每次两只猴子打架之后将两只猴子所属的堆合并起来，并且将最强壮的猴子置于堆顶</strong></p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MAX=1000000;
+int lch[MAX],rch[MAX],father[MAX],dis[MAX],data[MAX];
+int n,m;
+bool cmp(int a,int b){
+    return a&gt;b;
+}
+
+int Merge(int a,int b){
+    if(a==0) return b;
+    if(b==0) return a;
+    if(!cmp(data[a],data[b])) swap(a,b);
+    rch[a]=Merge(rch[a],b);
+    father[rch[a]]=a;//记录父亲 
+    if(dis[rch[a]]&gt;dis[lch[a]]) swap(lch[a],rch[a]);//a的距离必须大于b 
+    dis[a]=dis[rch[a]]+1;//a的距离更新 
+    return a;
+}
+
+int Getfather(int p){
+    if(father[p]==p) return p;
+    father[p]=Getfather(father[p]);
+    return father[p];
+}
+
+void Fight(int a,int b){//这里将aa bb先删除,再与他们儿子合并后的树合并，再将两个堆合并，使左偏树符合堆的性质 
+    int temp,xroot,yroot,aa,bb;
+    aa=Getfather(a); bb=Getfather(b);//找到战斗力最强的猴子aa,bb 
+    data[aa]&gt;&gt;=1; data[bb]&gt;&gt;=1;//战斗力减少一半 
+    temp=Merge(lch[aa],rch[aa]);//合并aa猴子的后代 
+    lch[aa]=rch[aa]=0;
+    xroot=Merge(aa,temp);//aa猴子与aa猴子后代合并 
+    temp=Merge(lch[bb],rch[bb]);//合并bb猴子 的后代 
+    lch[bb]=rch[bb]=0;
+    yroot=Merge(bb,temp);//bb猴子与bb猴子后代合并
+    temp=Merge(xroot,yroot);//合并得到当前最强壮的猴子 
+    father[a]=father[b]=father[aa]=father[bb]=father[xroot]=father[yroot]=temp;
+    printf(&quot;%d\n&quot;,data[temp]);
+}
+
+int main(){
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    int a,b;
+    scanf(&quot;%d&quot;,&amp;n);
+    for(int i=1;i&lt;=n;i++)
+        scanf(&quot;%d&quot;,&amp;data[i]);
+    for(int i=1;i&lt;=n;i++)
+        father[i]=i;
+    scanf(&quot;%d&quot;,&amp;m);
+
+    for(int i=1;i&lt;=m;i++){
+        scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
+        Fight(a,b);
+    }
+
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://mrh1s.top/2018/12/06/e5-8f-af-e5-b9-b6-e5-a0-86-e4-b9-8b-e5-b7-a6-e5-81-8f-e6-a0-91-e6-80-bb-e7-bb-93/" data-id="cjv7vtpwt000ezget8xa0l06m" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/06/e6-a0-91-e5-bd-a2-e5-8a-a8-e6-80-81-e8-a7-84-e5-88-92-e6-80-bb-e7-bb-93/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          树形动态规划总结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/12/06/e5-ad-97-e7-ac-a6-e4-b8-b2hash-ef-bc-8c-e5-ba-b7-e6-89-98-e5-b1-95-e5-bc-80-e6-80-bb-e7-bb-93/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">字符串hash，康托展开总结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/c-c/">c/c++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/notes/">notes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/project/">project</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/">write up</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cgctf/">cgctf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cnss-recruit-201809/">cnss_recruit_201809</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/hgame-20190122/">hgame_20190122</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nationalCTF-20190421/">nationalCTF_20190421</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nctf-20181124/">nctf_20181124</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/牢骚/">牢骚</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Dynamic/">RE_Dynamic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/RE-Dynamic/" style="font-size: 10px;">RE_Dynamic</a> <a href="/tags/RE-Static/" style="font-size: 20px;">RE_Static</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/28/bbvvmm/">bbvvmm</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/28/e5-8d-97-e4-ba-ac-e9-82-ae-e7-94-b5-e5-a4-a7-e5-ad-a6-re-wxyvm2/">南京邮电大学 RE-WxyVM2</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/13/e5-a3-b3-e7-9b-b8-e5-85-b3/">壳相关</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/shinyshot/">ShinyShot!</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/21/happyvm/">HappyVM</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 mrh929<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

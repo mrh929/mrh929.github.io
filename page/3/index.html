@@ -1,0 +1,2931 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>mrh929&#39;s home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Blog">
+<meta property="og:type" content="website">
+<meta property="og:title" content="mrh929&#39;s home">
+<meta property="og:url" content="http://mrh1s.top/page/3/index.html">
+<meta property="og:site_name" content="mrh929&#39;s home">
+<meta property="og:description" content="Blog">
+<meta property="og:locale" content="cn">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mrh929&#39;s home">
+<meta name="twitter:description" content="Blog">
+  
+    <link rel="alternate" href="/atom.xml" title="mrh929&#39;s home" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">mrh929&#39;s home</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://mrh1s.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-e6-a0-91-e7-8a-b6-e6-95-b0-e7-bb-84-e6-80-bb-e7-bb-93" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/06/e6-a0-91-e7-8a-b6-e6-95-b0-e7-bb-84-e6-80-bb-e7-bb-93/" class="article-date">
+  <time datetime="2018-12-06T15:46:34.000Z" itemprop="datePublished">2018-12-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/06/e6-a0-91-e7-8a-b6-e6-95-b0-e7-bb-84-e6-80-bb-e7-bb-93/">树状数组总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="树状数组总结"><a href="#树状数组总结" class="headerlink" title="树状数组总结"></a>树状数组总结</h1><p><strong>树状数组是一个类似于线段树的树状结构，它通过存储一定区间内的元素来达到快速插入、快速求和的效果。并且可以节省时间，节省空间，减少代码量，可谓是非常优秀的一个树形结构</strong> <strong>方格中数字代表对应数组的第几个元素,下排是a数组,其上方的是e数组,最下的二进制则是对应编号的二进制表示.</strong> <strong>可以观察到，树状数组把一个数组内的元素进行了一定的二分，并存储某些元素的和，使树的深度达到了logn，这样不论是对于查找还是插入都进行了极大的优化</strong> <strong>      每个数所指向的元素个数为1+它的二进制末尾0的个数我们把二进制中最后一个一出现的位置叫做lowbit，每个元素指向的下一个元素为x+lowbit(x)，现在要修改整棵树就比较容易了。</strong> </p>
+<ol>
+<li><p><strong>累加操作</strong></p>
+<p>void add(int x,int t)</p>
+<p> {</p>
+<pre><code>while(x&lt;=n){
+
+       e[x]+=t;
+
+       x=x+lowbit(x);
+
+}
+</code></pre><p> }</p>
+</li>
+</ol>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<ol>
+<li><p><strong>求和操作</strong></p>
+<pre><code>int sum(int x)
+
+ {
+
+       int s=0;
+
+       while(x&gt;0)
+
+       {
+
+              s+=e[x];
+
+              x-=lowbit(x);
+
+       }
+
+       return s;
+
+ }
+</code></pre></li>
+</ol>
+<pre><code>![](data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== &quot;点击并拖拽以移动&quot;)
+</code></pre><p><strong>其中，求和操作求的是1~x个元素之和，要求a~b个元素之和，只需：</strong> <strong>Ans=sum(b)-sum(a-1);</strong> <strong>其中运用了两次查询，对于查询单个元素，还可以优化为一次：</strong> <strong>借助data[x]=e[x]-(query(x-1)-query(LCA(x,x-1)))</strong></p>
+<pre><code>int sum(x){
+
+       int ans=e[x];
+
+       int lca=x-lowbit(x);//求最近公共祖先 
+
+       x--;
+
+       while(x!=lca){
+
+              ans-=e[x];
+
+              x-=e[x];
+
+       }
+
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p>  <strong>拓展操作：</strong></p>
+<ol>
+<li><strong>区间修改、点查询</strong></li>
+</ol>
+<p><strong>令e[i]为i元素与i-1元素的差值</strong> <strong>那么区间[i,j]修改：</strong> <strong>e[i]+=d; e[j+1]-=d;</strong>  <strong>单个点的求值：data[i]=e[1]+e[2]+…+e[i];</strong> </p>
+<ol>
+<li><strong>找第k小的元素</strong></li>
+</ol>
+<p><strong>e[i]数组存取i出现的次数（有时数据太大可以离散优化）</strong>  <strong>问题可以转化为求区间和为k所对应的下标</strong> <strong>区间和为递增区间，用二分查找</strong>  <strong>如4 6 5 5 2 2 3 1，每个数作为下标，add一次</strong> <strong>然后sum(i)求出的就是当前1~i区间的数字个数，并且数字有序，二分即可</strong>  </p>
+<ol>
+<li><strong>向高维拓展</strong></li>
+</ol>
+<p><strong>树状数组与线段树相比，还是比较方便向高维拓展的，只需加一重循环即可</strong></p>
+<pre><code>void Change(int x,int y,int data){
+
+       While(x&lt;=n){
+
+              int ty=y;
+
+              While(ty&lt;=n){
+
+                     e[x][ty]+=delta;
+
+                     ty+=lowbit(y);
+
+              }
+
+              x+=lowbit(x);
+
+       }
+
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p><strong>树状数组</strong> Ultra-QuickSort <strong>题目（poj 2299）</strong> 请分析，对于一串数列，各个数字不相同，至少要交换多少次才能使该数列有序（从小到大）？ <strong>输入：</strong> 输入包含多组测试样例，每组测试样例都是先输入一个整数n&lt;500000——序列的长度，以下n行每行包括一个整数 0 ≤ a[i]≤ 999,999,999,已输入的n为0作为输入的终止条件。 <strong>输出：</strong> 对于每一组样例，输出一个整数，表示至少要交换的次数。 <strong>输入样例：</strong> 5 9 1 0 5 4 3 1 2 3 0 <strong>输出样例：</strong> 6 0 <strong>很标准的一道题，先将所有元素取出排序，去重，作为离散优化二分的依据</strong> <strong>依次从第一位开始向树状数组对应位置加值，add(find(x),1)，并且同时算出当前比该元素大的值有多少，更新答案</strong></p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#define MAX 500020
+using namespace std;
+int n,m,p,t[MAX],data[MAX];
+long long e[MAX],s,ans;
+int lowbit(int i){
+    return -i&amp;i;
+}
+void add(int x,int p){
+    for(;x&lt;=n;x+=lowbit(x))
+        e[x]+=p;
+}
+
+long long sum(int x){
+    for(s=0;x&gt;0;x-=lowbit(x))
+        s+=e[x];
+    return s;
+}
+
+int Find(int s,int e,int aim){
+    while(s&lt;=e){
+        int m=(s+e)&gt;&gt;1;
+        if(t[m]==aim) return m;
+        if(t[m]&gt;aim) e=m-1;
+        else s=m+1;
+    }
+}
+
+int main(){
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    while(~scanf(&quot;%d&quot;,&amp;n)&amp;&amp;n){
+        memset(e,0,sizeof(e));
+        ans=0;
+        for(int i=1;i&lt;=n;i++){
+            scanf(&quot;%d&quot;,&amp;data[i]);
+            t[i]=data[i];
+        }
+        sort(t+1,t+n+1);
+        m=unique(t+1,t+n)-t;
+        for(int i=1;i&lt;=n;i++){
+            int f=Find(1,m,data[i]);//找离散优化对应元素 
+            ans+=sum(n)-sum(f);//每次看比此数大的数有几个 
+            add(f,1);//将此数加入 
+        }
+        printf(&quot;%lld\n&quot;,ans);
+    }
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p><strong>Poj3928 Ping Pong</strong> 题意： n（3 &lt; = 20000）乒乓球运动员住在一个西大街（考虑街道作为一个线段）。每个球员都有一个独特的技能等级。为了提高他们的技能等级，他们经常互相竞争。如果两个球员想参加比赛，他们必须选择其他乒乓球运动员的裁判，并在裁判的房子举行比赛。因为某些原因，参赛者不能选择一个技能等级较高或低于他们两个级别的裁判。参赛者必须走到裁判的房子，因为他们是懒惰的，他们想使他们的总步行距离不超过他们的房子之间的距离。当然，所有的球员都住在不同的房子，他们的房子的位置都是不同的。如果裁判或任何两名选手是不同的，我们称之为两个不同的游戏。现在的问题是：有多少不同的游戏可以在这个乒乓街举行？ 输入 The first lineof the input contains an integer T(1&lt;=T&lt;=20), indicating the number oftest cases, followed by T lines each of which describes a test case. 输入的第一行包含一个整数t（1 &lt; =T &lt; = 20），表示测试用例的数量，然后是T行，其中每一个描述了一个测试用例。 Every testcase consists of N + 1 integers. The first integer is N, the number of players.Then N distinct integers a1, a2 … aN follow, indicating the skill rank ofeach player, in the order of west to east. (1 &lt;= ai &lt;= 100000, i = 1 …N). 每一个测试用例都是由n个1个整数组成的。第一个整数是n，玩家的数量。然后，n个不同的整数A1、A2…一个跟随，指示每个玩家的技能等级，在西到东的顺序。（1 &lt; = 100000，I = 1…n）。 Output 输出 For each testcase, output a single line contains an integer, the total number of differentgames. 对于每一个测试用例，输出一个单行包含一个整数，不同游戏的总数。 <strong>先把所有选手的能力值排序，然后加入能力值最低的选手，然后枚举所有可能成为裁判的选手，同时计算出这个裁判的左边和右边比裁判能力值大和小的值，ans+=(lmin*rmax+lmax*rmin);</strong> </p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#define MAX 20020
+using namespace std;
+struct node{
+    int id,data;
+}peo[MAX];
+long long e[MAX],t[MAX],data[MAX],lmin,rmin,lmax,rmax,ans;
+int n;
+
+bool cmp(node a,node b){
+    return a.data&lt;b.data;
+}
+int lowbit(int i){
+    return -i&amp;i;
+}
+void add(int x,int t){
+    for(;x&lt;=n;x+=lowbit(x))
+        e[x]+=t;
+}
+long long sum(int x){
+    long long s=0;
+    for(;x&gt;0;x-=lowbit(x))
+        s+=e[x];
+    return s;
+}
+int main(){
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    int cas;
+    scanf(&quot;%d&quot;,&amp;cas);
+    while(cas--){
+        scanf(&quot;%d&quot;,&amp;n); ans=0;
+        memset(e,0,sizeof(e));
+        for(int i=1;i&lt;=n;i++){
+            scanf(&quot;%d&quot;,&amp;peo[i].data);
+            peo[i].id=i;//位置 
+        }
+        sort(peo+1,peo+1+n,cmp);//按能力排序 
+        add(peo[1].id,1);//实力最小的选手 
+        for(int i=2;i&lt;=n-1;i++){
+            lmin=sum(peo[i].id-1);
+            lmax=peo[i].id-lmin-1;
+            rmin=sum(n)-sum(peo[i].id);
+            rmax=n-peo[i].id-rmin;
+            ans+=(lmin*rmax+lmax*rmin);
+            add(peo[i].id,1);
+        }
+        printf(&quot;%lld\n&quot;,ans);
+
+    }
+
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p> Stars <strong>题目（POJ 2352）</strong> 天文学家常常检查星星地图，星星都有它的x,y坐标，星星的等级的是由下边星星数量和星星右边的星星数量决定。 例如,看看上面的星图。星星5的等级为3 (由星星1、2和4决定的)。星星2的等级为1（由星星1决定的）。在这张地图上0级的星星有一颗，1级的星星有两颗，2级的星星有一颗，3级的星星有一颗， 你要编写一个程序,计算每个等级的星星的数量。 <strong>输入：</strong> 第一行为星星的数量N（(1&lt;=N&lt;=15000) 接下来N行，每行为星星的x,y坐标，用空格来分开(0&lt;=X,Y&lt;=32000)，每一个点上只有一个星星，按Y的升序给出坐标，如果Y相同，则按照X的升序给出。 <strong>输出：</strong> 输出应该包含N行,每行一个数字。第一行0级星星的数量,第二行1级星星的数量等等,最后一行包含n – 1星星的数量。 <strong>输入样例：</strong> 5 1 1 5 1 7 1 3 3 5 5 <strong>输出样例：</strong> 1 2 1 1 0  <strong>乍一看像一道二位树状数组题，其实是一维的，因为数据本来就是按y的大小排序，添加每个点x之前先计算sum(x)，这就是星星的等级，加入答案，继续直到循环结束</strong></p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#define MAX 32020
+using namespace std;
+int e[MAX],cnt[MAX],n;
+
+int lowbit(int i){
+    return -i&amp;i;
+}
+void add(int x,int t){
+    for(;x&lt;=MAX;x+=lowbit(x))
+        e[x]+=t;
+}
+int sum(int x){
+    int s=0;
+    for(;x&gt;0;x-=lowbit(x))
+        s+=e[x];
+    return s;
+}
+int main(){
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    int x,y;
+    while(~scanf(&quot;%d&quot;,&amp;n)){
+        memset(e,0,sizeof(e));
+        memset(cnt,0,sizeof(cnt));
+        for(int i=1;i&lt;=n;i++){
+            scanf(&quot;%d%d&quot;,&amp;x,&amp;y);
+            add(x+1,1);
+            cnt[sum(x+1)]++;
+        }
+        for(int i=1;i&lt;=n;i++)
+            printf(&quot;%d\n&quot;,cnt[i]);
+    }
+
+
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p><strong>Hdu 4031 attack</strong> <strong>问题描述</strong> 今年是911的十周年，基地组织又想攻击美国了，美国有建设了一堵墙来保护自己，而基地组织有一个超级武器，每秒钟可以攻击连续的墙。而美国还有能量护盾来保护墙，每个能量护盾覆盖在一个单位长度的墙上，能抵挡攻击，但是每个能量护盾防御了一次攻击都需要T秒时间冷却下来，冷却期间，它不能抵挡攻击，比如该单位初盾牌抵挡了第k次攻击，那么它不能抵挡第k+1~(k+t-1)次攻击，过后，他们自动继续防御。 在战争中，知己知彼是非常重要的，因此指挥官想知道墙的某一部分被成功攻击了多少次，成功攻击就意味着盾牌没有防御到 <strong>输入</strong> 第一行T(&lt;=20)，表示测试数据组数 每组测试数据第一行：N,Q,T，分别表示墙的长度，Q次攻击或询问，T秒的冷却时间 接下来Q行，格式有两种： Attack si ti 攻击 si 到 ti 的墙. 1 ≤ si ≤ ti ≤ N Query p 询问p位置的墙：1 ≤ p ≤ N 1 ≤ N, Q ≤ 20000 1 ≤ t ≤ 50 <strong>输出</strong> 每组数据第一行： Case i: 接下来是所有询问的答案，每个询问答案一行 <strong>样例输入</strong> 2 3 7 2 Attack 1 2 Query 2 Attack 2 3 Query 2 Attack 1 3 Query 1 Query 3 9 7 3 Attack 5 5 Attack 4 6 Attack 3 7 Attack 2 8 Attack 1 9 Query 5 Query 3 <strong>样例输出</strong> Case 1: 0 1 0 1 Case 2: 3 2 <strong>暂时没A，先放这里吧~</strong> <strong>Poj 2985 The k-th Largest Group</strong> <strong>题意</strong> 有N只猫，M个操作。操作种类如下： 0 a b：把a b猫所在的组合并 1 k： 第K大的组的大小是多少。 <strong>求第k大的数</strong></p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MAX=200020;
+int father[MAX],e[MAX];
+int cnt[MAX];//存储有i只猫的集合数 
+int n,m,op,a,b,num;
+int lowbit(int x){
+    return -x&amp;x;
+}
+void add(int x,int t){
+    for(;x&lt;=MAX;x+=lowbit(x))
+        e[x]+=t;
+}
+int Getfather(int p){
+    if(father[p]!=p) 
+        father[p]=Getfather(father[p]);
+    return father[p];
+}
+int Get_kth(int k){
+    int ans,tot;//二分找第k小 
+    ans=tot=0;
+    for(int i=20;i&gt;=0;i--){
+        ans+=1&lt;&lt;i;//尝试 
+        if(ans&gt;=MAX||tot+e[ans]&gt;=k)//看这次尝试是否超过范围 
+            ans-=1&lt;&lt;i;//复原 
+        else tot+=e[ans];//记录 
+    }
+    return ans+1;
+}
+int main(){
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    for(int i=1;i&lt;=n;i++){
+        father[i]=i;//并查集初始化 
+        cnt[i]=1;//表示组内有i只猫的组数，开始只有一组 
+    }num=n;//num个集合 
+    add(1,n);
+    for(int i=1;i&lt;=m;i++){
+        scanf(&quot;%d&quot;,&amp;op);
+        if(op){
+            scanf(&quot;%d&quot;,&amp;a);//第k大就是第num - k + 1小的
+            printf(&quot;%d\n&quot;,Get_kth(num-a+1));
+        }else{
+            scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
+            a=Getfather(a); b=Getfather(b);//取父亲 
+            if(a==b) continue;//本来属于一个集合 
+            add(cnt[a],-1); add(cnt[b],-1);
+            add(cnt[a]+cnt[b],1);
+            cnt[b]=cnt[a]+cnt[b];
+            father[a]=b;
+            num--;
+        }
+    }
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p><strong>Poj 1195 Mobile phones</strong> <strong>题意：</strong> 给你一个矩阵（初始化为0）和一些操作： 1 x y a表示在arr[x][y]加上a 2 l b rt 表示求左上角为(l,b),右下角为(r,t)的矩阵的和。 <strong>高维树状数组即可</strong></p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MAX=1200;
+int e[MAX][MAX],n;
+int lowbit(int i){
+    return -i&amp;i;
+}
+int sum(int x,int y){
+    int ans=0;
+    while(x&gt;0){
+        int ty=y;
+        while(ty&gt;0){
+            ans+=e[x][ty];
+            ty-=lowbit(ty);
+        }
+        x-=lowbit(x);
+    }
+    return ans;
+}
+
+void add(int x,int y,int t){
+    while(x&lt;=n){
+        int ty=y;
+        while(ty&lt;=n){
+            e[x][ty]+=t;
+            ty+=lowbit(ty);
+        }
+        x+=lowbit(x);
+    }
+}
+int main(){
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    int c,x,y,a,x1,x2,y1,y2;
+    scanf(&quot;%d%d&quot;,&amp;c,&amp;n);
+    while(~scanf(&quot;%d&quot;,&amp;c)&amp;&amp;c!=3){
+        if(c==1){
+            scanf(&quot;%d%d%d&quot;,&amp;x,&amp;y,&amp;a);
+            add(x+1,y+1,a);
+        }else{
+            scanf(&quot;%d%d%d%d&quot;,&amp;x1,&amp;y1,&amp;x2,&amp;y2);
+            int ans=sum(x2+1,y2+1)-sum(x1,y2+1)-sum(x2+1,y1)+sum(x1,y1);
+            printf(&quot;%d\n&quot;,ans);
+        }
+    }
+
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://mrh1s.top/2018/12/06/e6-a0-91-e7-8a-b6-e6-95-b0-e7-bb-84-e6-80-bb-e7-bb-93/" data-id="cjv7vtpyk003xzgetmmiafqaj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e7-ba-bf-e6-ae-b5-e6-a0-91-e6-80-bb-e7-bb-93" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/06/e7-ba-bf-e6-ae-b5-e6-a0-91-e6-80-bb-e7-bb-93/" class="article-date">
+  <time datetime="2018-12-06T15:46:09.000Z" itemprop="datePublished">2018-12-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/06/e7-ba-bf-e6-ae-b5-e6-a0-91-e6-80-bb-e7-bb-93/">线段树总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="线段树总结"><a href="#线段树总结" class="headerlink" title="线段树总结"></a>线段树总结</h1><p><strong>引入：有一个数组data[1000000]，如果有m个操作(m&lt;=50000)，操作如下：</strong></p>
+<ol>
+<li><strong>修改一个数（加或减）</strong></li>
+<li><p><strong>求l到r的所有元素的和</strong></p>
+<p><strong>对于通常的题目，用一个sum[i]数组记录1~i的和，即可将任何的区间和在O(1)的时间之内求出。然而对于操作一，显然就显得很耗时间，至少会花费O(n)，由此可以看出这样的做法是有一定缺陷的，由此线段树便产生了。</strong>  <strong>线段树是一种</strong><a href="http://baike.baidu.com/view/389453.htm" target="_blank" rel="noopener"><strong>二叉搜索树</strong></a><strong>，与</strong><a href="http://baike.baidu.com/view/3861858.htm" target="_blank" rel="noopener"><strong>区间树</strong></a><strong>相似，它将一个区间划分成一些单元区间，每个单元区间对应线段树中的一个叶结点。</strong> <strong>我们从1~n的区间开始，依次往下二分加入更小的区间，直到区间长度为1</strong>  <strong>如图，这里的左闭右开区间类似于闭区间，表示的元素集合基本相同，我们看到，线段树并不是一个完全二叉树，但是十分类似于完全二叉树，由此可以得到线段树的一般存储方式，用完全二叉树进行存储。</strong>  <strong>操作1中，只能修改一个数，如果要修改线段树的整个区间，要添加n次数，大大增加了线段树的时间。</strong> <strong>解决方法：定义一个lazy数组，当我们在遍历过程中，发现需要存储的区间已经包含了当前遍历的区间，我们就可以将需要修改的数值通过lazy暂存在此处，直到下一次我们还需要添加数或者在查找区间和时，再调用lazy，将更深处的sum值更新</strong> <strong>这样就得到了添加元素的通用做法，将所有修改点的操作看作修改长度为1的区间，这样大大增加了算法的普适性</strong>  <strong>更紧凑的存储方式</strong> <strong>刚刚提到线段树不完全属于完全二叉树，所以用堆的方式存储会引起内存的浪费，以下方式可以做到对内存的一定节省。</strong> <strong>对于节点区间为[l,r)的结点，我们将其地址映射到(l+r-1)|( (r-1)!=1)，其中(r-l)!=1用来判断r与l差值是否为1。可将使用的空间精确无误地映射到[0,2n-2]中</strong>  <strong>关于开数组的tips：</strong></p>
+</li>
+<li><p><strong>对于堆的开法，数组大小至少4n</strong></p>
+</li>
+<li><strong>对于紧凑的储存方式，可以适当开2n</strong></li>
+</ol>
+<p><strong>Hdu 1166 敌兵布阵</strong> <strong>Problem Description</strong> C国的死对头A国这段时间正在进行军事演习，所以C国间谍头子Derek和他手下Tidy又开始忙乎了。A国在海岸线沿直线布置了N个工兵营地,Derek和Tidy的任务就是要监视这些工兵营地的活动情况。由于采取了某种先进的监测手段，所以每个工兵营地的人数C国都掌握的一清二楚,每个工兵营地的人数都有可能发生变动，可能增加或减少若干人手,但这些都逃不过C国的监视。 中央情报局要研究敌人究竟演习什么战术,所以Tidy要随时向Derek汇报某一段连续的工兵营地一共有多少人,例如Derek问:“Tidy,马上汇报第3个营地到第10个营地共有多少人!”Tidy就要马上开始计算这一段的总人数并汇报。但敌兵营地的人数经常变动，而Derek每次询问的段都不一样，所以Tidy不得不每次都一个一个营地的去数，很快就精疲力尽了，Derek对Tidy的计算速度越来越不满:”你个死肥仔，算得这么慢，我炒你鱿鱼!”Tidy想：“你自己来算算看，这可真是一项累人的工作!我恨不得你炒我鱿鱼呢!”无奈之下，Tidy只好打电话向计算机专家Windbreaker求救,Windbreaker说：“死肥仔，叫你平时做多点acm题和看多点算法书，现在尝到苦果了吧!”Tidy说：”我知错了。。。”但Windbreaker已经挂掉电话了。Tidy很苦恼，这么算他真的会崩溃的，聪明的读者，你能写个程序帮他完成这项工作吗？不过如果你的程序效率不够高的话，Tidy还是会受到Derek的责骂的.   <strong>Input</strong> 第一行一个整数T，表示有T组数据。 每组数据第一行一个正整数N（N&lt;=50000）,表示敌人有N个工兵营地，接下来有N个正整数,第i个正整数ai代表第i个工兵营地里开始时有ai个人（1&lt;=ai&lt;=50）。 接下来每行有一条命令，命令有4种形式： (1) Add i j,i和j为正整数,表示第i个营地增加j个人（j不超过30） (2)Sub i j ,i和j为正整数,表示第i个营地减少j个人（j不超过30）; (3)Query i j ,i和j为正整数,i&lt;=j，表示询问第i到第j个营地的总人数; (4)End 表示结束，这条命令在每组数据最后出现; 每组数据最多有40000条命令   <strong>Output</strong> 对第i组数据,首先输出“Case i:”和回车, 对于每个Query询问，输出一个整数并回车,表示询问的段中的总人数,这个数保持在int以内。   <strong>Sample Input</strong> 1 10 12 3 4 5 6 7 8 9 10 Query1 3 Add3 6 Query2 7 Sub10 2 Add6 3 Query3 10 End   <strong>Sample Output</strong> Case1: 6 33 59  </p>
+<pre><code>#include&lt;cstdio&gt;
+#define MAX 1000020
+#define lson l,m,rt&lt;&lt;1 //左儿子 
+#define rson m+1,r,rt&lt;&lt;1|1 //右儿子 
+//闭区间线段树 
+int sum[MAX];
+char str[10];
+void PushUP(int rt) {
+    sum[rt]=sum[rt&lt;&lt;1]+sum[rt&lt;&lt;1|1];
+}
+
+void Revise(int p,int data,int l,int r,int rt){
+    if(l==r){//区间长度为1 
+        sum[rt]+=data;
+        return;
+    }
+    int m=(l+r)&gt;&gt;1;//取中点 
+    if(p&lt;=m) Revise(p,data,lson);//向左递归线段树 
+    else Revise(p,data,rson);//向右递归线段树 
+    PushUP(rt);//更新根节点的sum 
+}
+
+int Query(int L,int R,int l,int r,int rt){//[L,R]为查找的区间 ，[l,r]为当前遍历的区间 
+    if(L&lt;=l&amp;&amp;R&gt;=r) //查找的区间包含遍历的区间
+        return sum[rt];
+    int m=(l+r)&gt;&gt;1,tot=0;
+    if(L&lt;=m) tot+=Query(L,R,lson);
+    if(R&gt;m) tot+=Query(L,R,rson);
+    return tot;
+}
+
+void build(int l,int r,int rt) {
+    if (l==r){
+        scanf(&quot;%d&quot;,&amp;sum[rt]);
+        return;
+    }
+    int m=(l+r)&gt;&gt;1;
+    build(lson);
+    build(rson);
+    PushUP(rt);//更新根节点的sum 
+}
+
+int main(){
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    int t,n,a,b;
+    scanf(&quot;%d&quot;,&amp;t);
+    for(int i=1;i&lt;=t;i++){
+        scanf(&quot;%d&quot;,&amp;n);
+/*        for(int j=1;j&lt;=n;j++){
+            scanf(&quot;%d&quot;,&amp;a);
+            Revise(j,a,1,n,1);
+        }*/
+        build(1,n,1);
+        printf(&quot;Case %d:\n&quot;,i);
+        while(scanf(&quot;%s&quot;,str)!=EOF&amp;&amp;str[0]!=&apos;E&apos;){
+            scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
+            if(str[0]==&apos;A&apos;) Revise(a,b,1,n,1);
+            else if(str[0]==&apos;S&apos;) Revise(a,-b,1,n,1);
+            else printf(&quot;%d\n&quot;,Query(a,b,1,n,1));
+        }
+    }
+
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p>  <strong>hdu 1754   I Hate It</strong> <strong>Problem Description</strong> 很多学校流行一种比较的习惯。老师们很喜欢询问，从某某到某某当中，分数最高的是多少。 这让很多学生很反感。   不管你喜不喜欢，现在需要你做的是，就是按照老师的要求，写一个程序，模拟老师的询问。当然，老师有时候需要更新某位同学的成绩。   <strong>Input</strong> 本题目包含多组测试，请处理到文件结束。 在每个测试的第一行，有两个正整数 N 和 M ( 0&lt;N&lt;=200000,0&lt;M&lt;5000 )，分别代表学生的数目和操作的数目。 学生ID编号分别从1编到N。 第二行包含N个整数，代表这N个学生的初始成绩，其中第i个数代表ID为i的学生的成绩。 接下来有M行。每一行有一个字符 C (只取’Q’或’U’) ，和两个正整数A，B。 当C为’Q’的时候，表示这是一条询问操作，它询问ID从A到B(包括A,B)的学生当中，成绩最高的是多少。 当C为’U’的时候，表示这是一条更新操作，要求把ID为A的学生的成绩更改为B。   <strong>Output</strong> 对于每一次询问操作，在一行里面输出最高成绩。   <strong>Sample Input</strong> 5 6 1 2 3 4 5 Q 1 5 U 3 6 Q 3 4 Q 4 5 U 2 9 Q 1 5   <strong>Sample Output</strong> 5 6 5 9 <strong>Hint</strong> Huge input,the C function scanf() will workbetter than cin <strong>线段树稍微变了一点点型，在更新每个结点的时候取最大值而不取和</strong>  </p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#define lson l,m,rt&lt;&lt;1
+#define rson m+1,r,rt&lt;&lt;1|1
+
+using namespace std;
+const int MAX=1000000;
+int sum[MAX];
+void PushUP(int rt){
+    sum[rt]=max(sum[rt&lt;&lt;1],sum[rt&lt;&lt;1|1]);
+}
+
+void Build(int l,int r,int rt){
+    if(l==r){
+        scanf(&quot;%d&quot;,&amp;sum[rt]);
+        return;
+    }
+    int m=(l+r)&gt;&gt;1;
+    Build(lson);
+    Build(rson);
+    PushUP(rt);
+}
+
+int Query(int L,int R,int l,int r,int rt){
+    if(L&lt;=l&amp;&amp;R&gt;=r) return sum[rt];
+    int m=(l+r)&gt;&gt;1,maxx=-1;
+    if(L&lt;=m) maxx=max(maxx,Query(L,R,lson));
+    if(R&gt;=m+1) maxx=max(maxx,Query(L,R,rson));
+    return maxx;
+}
+
+void Revise(int p,int data,int l,int r,int rt){
+    if(l==r){
+        sum[rt]=data;
+        return;
+    }
+    int m=(l+r)&gt;&gt;1;
+    if(p&lt;=m) Revise(p,data,lson);
+    else Revise(p,data,rson);
+    PushUP(rt);
+}
+
+int main(){
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    int n,m,a,b; char c;
+    while(scanf(&quot;%d%d&quot;,&amp;n,&amp;m)!=EOF){
+        memset(sum,0,sizeof(sum));
+        Build(1,n,1);
+        for(int i=1;i&lt;=m;i++){
+            getchar();
+            c=getchar();
+            scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
+            if(c==&apos;U&apos;) Revise(a,b,1,n,1);
+            else printf(&quot;%d\n&quot;,Query(a,b,1,n,1));
+        }
+    }
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p>  <strong>poj 2299</strong> <strong>题意：</strong> 求逆序对</p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#define lson l,m,rt&lt;&lt;1
+#define rson m+1,r,rt&lt;&lt;1|1
+#define MAX 500020
+using namespace std;
+int data[MAX],t[MAX],sum[MAX&lt;&lt;2];
+bool flag[MAX];
+
+void PushUP(int rt){
+    sum[rt]=sum[rt&lt;&lt;1]+sum[rt&lt;&lt;1|1];
+}
+
+int Find(int s,int e,int aim){
+    while(s&lt;=e){
+        int mid=(s+e)&gt;&gt;1;
+        if(t[mid]==aim){
+            while(t[mid-1]==t[mid]){
+                flag[mid]=-1;
+                mid--;
+            }
+            return mid;
+        }
+        else if(t[mid]&gt;aim) e=mid-1;
+        else s=mid+1;
+    }
+}
+
+void Revise(int p,int l,int r,int rt){
+    if(l==r){
+        sum[rt]+=1;
+        return;
+    }
+    int m=(l+r)&gt;&gt;1;
+    if(p&lt;=m) Revise(p,lson);
+    else Revise(p,rson);
+    PushUP(rt);
+}
+
+long long View(int L,int R,int l,int r,int rt){
+    if(L&lt;=l&amp;&amp;R&gt;=r) return sum[rt];
+    int m=(l+r)&gt;&gt;1;
+    long long tot=0;
+    if(L&lt;=m) tot+=View(L,R,lson);
+    if(R&gt;=m+1) tot+=View(L,R,rson);
+    return tot;
+}
+
+int main(){
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    int n; long long ans;
+    while(scanf(&quot;%d&quot;,&amp;n)&amp;&amp;n){
+        memset(sum,0,sizeof(sum));
+        ans=0;
+        for(int i=1;i&lt;=n;i++){
+            scanf(&quot;%d&quot;,&amp;data[i]);
+            t[i]=data[i];
+        }
+        sort(t+1,t+1+n);
+        for(int i=1;i&lt;=n;i++){
+            int f=Find(1,n,data[i]);
+            ans+=View(f+1,n,1,n,1);
+            Revise(f,1,n,1);    
+        }
+        printf(&quot;%lld\n&quot;,ans);
+    }
+
+
+
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p><strong>POJ3468</strong> <strong>Description</strong> You have N integers, A1, A2, … , AN. Youneed to deal with two kinds of operations. One type of operation is to add somegiven number to each number in a given interval. The other is to ask for thesum of numbers in a given interval. <strong>Input</strong> The first line contains two numbers N andQ. 1 ≤ N,Q ≤ 100000. The second line contains N numbers, theinitial values of A1, A2, … , AN. -1000000000 ≤ Ai ≤ 1000000000. Each of the next Q lines represents anoperation. “C a b c” means adding c to eachof Aa, Aa+1, … , Ab. -10000 ≤ c ≤ 10000. “Q a b” means querying the sum ofAa, Aa+1, … , Ab. <strong>Output</strong> You need to answer all Q commands in order.One answer in a line. <strong>Sample Input</strong> 10 5 1 2 3 4 5 6 7 8 9 10 Q 4 4 Q 1 10 Q 2 4 C 3 6 3 Q 2 4 <strong>Sample Output</strong> 4 55 9 15 <strong>题意：</strong> 给你N个数，Q个操作，操作有两种，‘Q a b ’是询问a~b这段数的和，‘Ca b c’是把a~b这段数都加上c。</p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#define lson l,m,rt&lt;&lt;1
+#define rson m+1,r,rt&lt;&lt;1|1
+using namespace std;
+const int MAX=100020;
+long long data[MAX],sum[MAX&lt;&lt;2],lazy[MAX&lt;&lt;2];
+
+void PushUp(int rt){
+    sum[rt]=sum[rt&lt;&lt;1]+sum[rt&lt;&lt;1|1];
+}
+
+void PushDown(int rt,int m){
+    if(lazy[rt]){//如果lazy存在 
+        lazy[rt&lt;&lt;1]+=lazy[rt];//加lazy值 
+        lazy[rt&lt;&lt;1|1]+=lazy[rt];
+        sum[rt&lt;&lt;1]+=(m-(m&gt;&gt;1))*lazy[rt];//左儿子所包含的数
+        sum[rt&lt;&lt;1|1]+=(m&gt;&gt;1)*lazy[rt];//右儿子所包含的数
+        lazy[rt]=0; 
+    }
+}
+
+void Build(int l,int r,int rt){
+    if(l==r){
+        scanf(&quot;%lld&quot;,&amp;sum[rt]);
+        return;
+    }
+    int m=(l+r)&gt;&gt;1;
+    Build(lson);
+    Build(rson);
+    PushUp(rt);
+}
+
+void Revise(int L,int R,int data,int l,int r,int rt){
+    if(l&gt;=L&amp;&amp;r&lt;=R){
+        lazy[rt]+=data;
+        sum[rt]+=data*(r-l+1);
+        return;
+    }
+    PushDown(rt,r-l+1);
+    int m=(l+r)&gt;&gt;1;
+    if(L&lt;=m) Revise(L,R,data,lson);
+    if(R&gt;=m+1) Revise(L,R,data,rson);
+    PushUp(rt);
+}
+
+long long View(int L,int R,int l,int r,int rt){
+    if(l&gt;=L&amp;&amp;r&lt;=R) return sum[rt];
+    PushDown(rt,r-l+1);
+    int m=(l+r)&gt;&gt;1;
+    long long tot=0;
+    if(L&lt;=m) tot+=View(L,R,lson);
+    if(R&gt;m) tot+=View(L,R,rson);
+    return tot;    
+}
+
+int main(){
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    int n,q,a,b,c;
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;q);
+    Build(1,n,1);
+    for(int i=1;i&lt;=q;i++){
+        getchar();
+        if(getchar()==&apos;C&apos;){
+            scanf(&quot;%d%d%d&quot;,&amp;a,&amp;b,&amp;c);
+            Revise(a,b,c,1,n,1);
+        }else{
+            scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
+            printf(&quot;%lld\n&quot;,View(a,b,1,n,1));
+        }
+    }
+
+
+
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://mrh1s.top/2018/12/06/e7-ba-bf-e6-ae-b5-e6-a0-91-e6-80-bb-e7-bb-93/" data-id="cjv7vtpyn0041zgetgh0ntxlp" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e5-ad-97-e5-85-b8-e6-a0-91-e6-80-bb-e7-bb-93" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/06/e5-ad-97-e5-85-b8-e6-a0-91-e6-80-bb-e7-bb-93/" class="article-date">
+  <time datetime="2018-12-06T15:45:45.000Z" itemprop="datePublished">2018-12-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/06/e5-ad-97-e5-85-b8-e6-a0-91-e6-80-bb-e7-bb-93/">字典树总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="字典树总结"><a href="#字典树总结" class="headerlink" title="字典树总结"></a>字典树总结</h1><p><strong>在实际生活中，图书馆、书店都会遇到一种麻烦，就是不知道如何储存所有的书名，因为藏书实在是太多了。这种情形非常常见。</strong> <strong>由此单词查找树便出现了：Trie树，是一种树形结构，是一种哈希树的变种，它通过储存大部分字符串的前缀来达到不仅是存储空间而且是查找效率的优化。</strong> <strong>字典树的操作大致分为三种：插入字符串、查找字符串、删除字符串。</strong>  <strong>首先我们要构造一棵树。根节点编号设置为1。这个结点没有实际意义，只作为查找的起点。</strong> <strong>注意：虽然有些结点存在，但有可能并不是由这个结点所对应的字符串所生成的。打个比方：我添加了“memset”字符串，m-&gt;e结点已经生成，但我查找“me”时，这个字符串是否存在呢？</strong> <strong>因此，我们还需要开一个exist数组，用于记录一个字符串的结尾，遍历到这个结点，而且此结点exist，才能说明这个字符串存在。</strong> </p>
+<ol>
+<li><strong>插入字符串</strong></li>
+</ol>
+<p><strong>基本思路是一个个字符进行比对，如果有相应的结点，就直接进入，直到找不到下一个结点时，再在这个结点上生枝。这个操作会同时用到查找的相关操作，所以可以和查找操作结合起来。注意：字符串插入成功后要把结尾的结点exist标为1。</strong> </p>
+<ol>
+<li><strong>查找字符串</strong></li>
+</ol>
+<p><strong>鉴于插入操作也要用到这步，我们可以把函数的返回值设置为：如果找到字符串就返回0，否则返回最后一次匹配到的结点位置。</strong> </p>
+<ol>
+<li><strong>删除字符串</strong></li>
+</ol>
+<p><strong>将本结点删除，并不代表它的树枝也要被剪掉，所以直接查找字符串末尾的结点位置，exist标记为0即可。</strong>  <strong>另外：生成的结点可以被压缩，比如某些经常出现的词缀可以被压缩成一个结点，这样的编程复杂度的确不小，但是可以节省不少的空间。</strong></p>
+<h2 id="1635-图书管理"><a href="#1635-图书管理" class="headerlink" title="1635: 图书管理"></a>1635: 图书管理</h2><p>时间限制: 1 Sec  内存限制: 64 MB</p>
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>图书管理是一件十分繁杂的工作，图书馆每天都会有许多新书缴入，为了更方便管理图书（以便于帮助想要结束的客人快速查找是否有他们所需要的书），我们需要设计一个图书朝着系统，该系统需要支持两种操作： 1）add(s)，表示新加入一本书名为s的图书； 2）find（s)，表示查询是否存在一本书名为s的图书；</p>
+<h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>第一行包括一个正整数n（n≤10000），表示操作数。 以下n行，每行所给出两个操作中的一种，指令格式为： add s find s 在书名s与指令间有一个空格，保证书名长度都不超过200，可以加上读入数据是准确无误的。</p>
+<h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><p>对于每个find指令，对应输出一行yes或no，表示该书是否存在。注意：开始时图书馆没有一本书，另外书名区分大小写。</p>
+<h2 id="样例输入"><a href="#样例输入" class="headerlink" title="样例输入"></a>样例输入</h2><pre><code>4
+add Inside C#
+find Effective Java
+add Effective Java
+find Effective Java
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<h2 id="样例输出"><a href="#样例输出" class="headerlink" title="样例输出"></a>样例输出</h2><pre><code>no
+yes
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MAX=3000000;
+char str[220],data[MAX],kind[5];
+int first[MAX],nxt[MAX],go[MAX],exist[MAX],pnum=1,arcnum;
+void addarc(int a,int b){
+    nxt[++arcnum]=first[a];
+    first[a]=arcnum;
+    go[arcnum]=b;
+}
+
+int u,len;
+int Find(int len){//如果查找到就返回0 未找到时返回第一位未匹配的位置 
+    int v,nextpoi;
+    u=1;
+    for(int i=1;i&lt;=len;i++){
+        nextpoi=-1;
+        for(int p=first[u];p!=0;p=nxt[p]){
+            v=go[p];
+            if(data[v]==str[i]){
+                nextpoi=v;
+                break;
+            }
+        }
+        if(nextpoi!=-1) u=nextpoi;
+        else return i;//在i位置时匹配错误 
+    }
+    if(!exist[u]) return len+1;//虽然有结点，但是没有存数据 
+    return 0;//成功找到字符串 
+} 
+
+void Insert(int t){//从字符串的t位置开始插入 
+    if(t==len+1){//有结点，但是没有数据 
+        exist[u]=1;
+        return; 
+    }
+    for(int i=t;i&lt;=len;i++){
+        addarc(u,++pnum);
+        data[pnum]=str[i];
+        u=pnum; 
+    }
+    exist[u]=1;//标记当前字符串的结尾 
+}
+
+int main(){
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    int n,t,maxx=-1;
+    scanf(&quot;%d&quot;,&amp;n);
+    for(int i=1;i&lt;=n;i++){//将字符串插入字典树 
+        scanf(&quot;%s&quot;,kind); getchar();
+        gets(str+1);
+        len=strlen(str+1);
+        if(kind[0]==&apos;a&apos;)
+            Insert(Find(len));
+        else{
+            t=Find(len);
+            if(t==0) printf(&quot;yes\n&quot;);
+            else printf(&quot;no\n&quot;);
+        }
+    }
+
+
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://mrh1s.top/2018/12/06/e5-ad-97-e5-85-b8-e6-a0-91-e6-80-bb-e7-bb-93/" data-id="cjv7vtpwx000kzgetkmgam7wl" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e6-a0-91-e5-bd-a2-e5-8a-a8-e6-80-81-e8-a7-84-e5-88-92-e6-80-bb-e7-bb-93" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/06/e6-a0-91-e5-bd-a2-e5-8a-a8-e6-80-81-e8-a7-84-e5-88-92-e6-80-bb-e7-bb-93/" class="article-date">
+  <time datetime="2018-12-06T15:45:21.000Z" itemprop="datePublished">2018-12-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/06/e6-a0-91-e5-bd-a2-e5-8a-a8-e6-80-81-e8-a7-84-e5-88-92-e6-80-bb-e7-bb-93/">树形动态规划总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="树形动规总结"><a href="#树形动规总结" class="headerlink" title="树形动规总结"></a>树形动规总结</h1><p><strong>树型动规的基本方式同普通的线性动态规划，但遍历的顺序是由高深度向低深度直至根节点，通常一个树型动规包括了状态、阶段、决策、状态转移方程，找到每个题目对应的动归要素，是一个题目的难点所在。</strong></p>
+<ol>
+<li><strong>状态：程序求解到每个程度所储存的信息，通常我们需要在一开始找到适合题目的状态并进行定义。Tips：找状态可以通过确定变量，权衡变量的范围来寻找。</strong></li>
+<li><strong>阶段：就是求解动态规划的顺序，每次求解的状态都必须运用之前已经求解过的作为辅助。</strong></li>
+<li><strong>决策：选择最优解的过程，通常是求最大值，最小值等。</strong></li>
+<li><p><strong>状态转移方程：思考出决策后，用状态转移方程将其表达出来。</strong></p>
+<p><strong>关于求解顺序：由于树形动归的特殊性（几乎都是无向边），我们应该从叶子节点开始遍历，有三种方法：</strong></p>
+</li>
+<li><p><strong>先给树做一次BFS，然后将队列中的元素一一出队，就是树型动规的顺序。</strong></p>
+</li>
+<li><strong>找度为2的节点，记录，并且更新它的子节点的度数，重复这个拓扑排序操作，得到的也是树型动规的顺序。</strong></li>
+<li><p><strong>用递归将树的后序遍历求出，即可将一棵树线性化</strong></p>
+<p><strong>拓展：状态压缩</strong> <strong>      当我们的某个状态过于繁琐，很难将其用一个维度表示出来，怎么办？</strong> <strong>如山贼集团题目，设立分部的时候各个分部会互相影响，而且不同的分部之间影响的情况是不同的，不像我们通常的动归，所有的物品一视同仁。</strong> <strong>      比如某结点选择1、2、3分部，会导致总资金损失，而选择1、4分部，总资金却会增加……</strong> <strong>      观察分部的总数量，小于等于8，这个时候我们可以用到位运算的相关知识，将1~8分部的选择情况用一个int变量储存起来，从而起到表示状态的作用。</strong>    <strong>Ural 1039没有上司的晚会</strong> 背景 有个公司要举行一场晚会。 为了能玩得开心，公司领导决定：如果邀请了某个人，那么一定不会邀请他的上司 （上司的上司，上司的上司的上司……都可以邀请）。 题目 每个参加晚会的人都能为晚会增添一些气氛，求一个邀请方案，使气氛值的和最大。 输入格式 第1行一个整数N（1&lt;=N&lt;=6000）表示公司的人数。 接下来N行每行一个整数。第i行的数表示第i个人的气氛值x(-128&lt;=x&lt;=127)。 接下来每行两个整数L，K。表示第K个人是第L个人的上司。 输入以0 0结束。 输出格式 一个数，最大的气氛值和。 样例输入 7 1 1 1 1 1 1 1 1 3 2 3 6 4 7 4 4 5 3 5 0 0 样例输出 5 <strong>提交地址：</strong> <a href="http://acm.timus.ru/submit.aspx?space=1&amp;num=1039" target="_blank" rel="noopener">http://acm.timus.ru/submit.aspx?space=1&amp;num=1039</a> <strong>首先定义状态：每个结点，然后我们发现在一个人在不参与聚会时，它的相邻子节点可以参加聚会，也可以不参加；一个人参与聚会时，它的相邻子节点一定不能参与聚会。我们加一个状态：参与或者不参与聚会。</strong> <strong>dp[i][j]表示第i个人参与(j==1)或不参与(j==0)聚会时聚会所能达到的最大气氛值</strong></p>
+<p>#include<cstdio><br>#include<cstring><br>#include<algorithm><br>using namespace std;<br>const int MAX=8000;<br>int w[MAX],f[MAX][2],l,k,rt;<br>int que[MAX],top,rear,father[MAX];<br>int first[MAX],nxt[MAX],go[MAX],arcnum;<br>void addarc(int a,int b){</algorithm></cstring></cstdio></p>
+<pre><code>nxt[++arcnum]=first[a];
+first[a]=arcnum;
+go[arcnum]=b;
+</code></pre><p>}</p>
+<p>int main(){<br>//    freopen(“in.txt”,”r”,stdin);</p>
+<pre><code>int n;
+scanf(&quot;%d&quot;,&amp;n);
+for(int i=1;i&lt;=n;i++)
+    scanf(&quot;%d&quot;,&amp;w[i]);
+
+while(scanf(&quot;%d%d&quot;,&amp;l,&amp;k)!=EOF&amp;&amp;l!=0&amp;&amp;k!=0){
+    father[l]=k;
+    addarc(k,l);
+}
+</code></pre><p>/*    for(int i=1;i&lt;=n;i++){</p>
+<pre><code>    printf(&quot;%d &quot;,i);
+    for(int p=first[i];p!=0;p=nxt[p]){
+        int j=go[p];
+        printf(&quot;%d &quot;,j);
+    }
+    printf(&quot;\n&quot;);
+}printf(&quot;\n&quot;);*/
+for(int i=1;i&lt;=n;i++)
+    if(!father[i]){
+        rt=i; break;
+    }
+que[rear++]=rt;
+do{
+    for(int p=first[que[top++]];p!=0;p=nxt[p])
+        que[rear++]=go[p];
+}while(top!=rear);
+
+for(int k=top-1;k&gt;=0;k--){
+    int i=que[k];
+    if(first[i]==0){
+        f[i][0]=0;
+        f[i][1]=w[i];
+    }else{
+        int sum,j;
+        sum=0;
+        for(int p=first[i];p!=0;p=nxt[p]){
+            j=go[p];
+            sum+=max(f[j][0],f[j][1]);
+        }
+        f[i][0]=sum;
+        sum=0;
+        for(int p=first[i];p!=0;p=nxt[p]){
+            j=go[p];
+            sum+=f[j][0];
+        }
+        f[i][1]=sum+w[i];
+    }
+}
+printf(&quot;%d&quot;,max(f[rt][0],f[rt][1]));
+</code></pre></li>
+</ol>
+<pre><code>/*    printf(&quot;\n&quot;);
+    for(int i=1;i&lt;=n;i++){
+        printf(&quot;%d %d\n&quot;,f[i][0],f[i][1]);
+    }*/
+
+
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p>POJ 1985 Cow Marathon 题目大意 求一棵树的最长路径 输入： 第一行：n,m (2 &lt;= N &lt;= 40,000,1 &lt;= M&lt; 40,000)，表示有n个节点，m条边 接下来m行： 每行四个量：a b w c，表示a与b之间有一条权值为w的路径，将c忽略掉 输出： 最长路径长度 <strong>模版题 但是WA了，就不给代码了。。。。</strong> <strong>Ural 1018 二*苹果树</strong> <strong>题目</strong> 有一棵苹果树，如果树枝有分叉，一定是分2叉（就是说没有只有1个儿子的结点） 这棵树共有N个结点（叶子点或者树枝分叉点），编号为1-N,树根编号一定是1。 我们用一根树枝两端连接的结点的编号来描述一根树枝的位置。下面是一颗有4个树枝的树 2   5 \ / 3   4 \ / 1 现在这颗树枝条太多了，需要剪枝。但是一些树枝上长有苹果。 给定需要保留的树枝数量，求出最多能留住多少苹果。 <strong>输入格式</strong> 第1行2个数，N和Q(1&lt;=Q&lt;=N,1&lt;N&lt;=100)。 N表示树的结点数，Q表示要保留的树枝数量。接下来N-1行描述树枝的信息。 每行3个整数，前两个是它连接的结点的编号。第3个数是这根树枝上苹果的数量。 每根树枝上的苹果不超过30000个。 <strong>输出格式</strong> 一个数，最多能留住的苹果的数量。 <strong>样例输入</strong> 5 2 1 3 1 1 4 10 2 3 20 3 5 20 <strong>样例输出</strong> 21 <strong>状态：结点、树所保留的树枝数量。</strong> <strong>f[i][j]表示在第i个结点以下的子树保留j个树枝所能保留的最大苹果数</strong> <strong>分配树枝需要枚举分配给整个子树的树枝数、再枚举分给左右子树的树枝各有多少，注意这里分给左右子树树枝的同时会损失掉两根树枝</strong> </p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MAX=1000;
+int first[MAX],nxt[MAX],go[MAX],w[MAX][MAX],arcnum;
+int f[MAX][MAX],father[MAX],lch[MAX],rch[MAX],vis[MAX];
+int que[MAX],top,rear;
+void addarc(int a,int b,int c){
+    nxt[++arcnum]=first[a];
+    first[a]=arcnum;
+    go[arcnum]=b;
+    w[a][b]=c;
+}
+int main(){
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    int n,q,a,b,c;
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;q);
+    for(int i=1;i&lt;=n-1;i++){
+        scanf(&quot;%d%d%d&quot;,&amp;a,&amp;b,&amp;c);
+        addarc(a,b,c);
+        addarc(b,a,c);
+    }
+    que[rear++]=1; vis[1]=1;
+    do{
+        int u=que[top++],v;
+        for(int p=first[u];p!=0;p=nxt[p]){
+            v=go[p];
+            if(vis[v]) continue;
+            if(!lch[u]) lch[u]=v;
+            else rch[u]=v;
+            que[rear++]=v; vis[v]=1;
+        }
+    }while(top!=rear);
+
+    for(int k=top-1;k&gt;=0;k--){
+        int i=que[k];
+        if(!lch[i]) continue;
+        for(int j=1;j&lt;=q;j++){//分配j个树枝 
+            f[i][j]=max(f[i][j],max(f[lch[i]][j-1]+w[i][lch[i]],f[rch[i]][j-1]+w[i][rch[i]]));//单独分配 
+            for(int j0=1;j0&lt;j;j0++){//两个都分配 
+                int lw=f[lch[i]][j0-1]+w[i][lch[i]];
+                int rw=f[rch[i]][j-j0-1]+w[i][rch[i]];
+                f[i][j]=max(f[i][j],lw+rw);
+            }
+        }
+    }
+    printf(&quot;%d&quot;,f[1][q]);
+
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p> <strong>POJ1155有限电视网络</strong> 有一棵N个节点的树，树上有M个叶子节点，对应M个用户，其余为转发站，1号节点为根，电视台在1号节点，节目从一个地方传到另一个地方都要费用，同时每一个用户愿意出相应的钱来收看节目。求在电视台不亏本的前提下，最多允许有多少个用户可以看到电视节目。 规模： N&lt;=3000  M<n 输入： n m n表示转发站和用户总数，m为用户数 以下n-m行，第i行第一个k，表示转发站i和k个（转发站或用户）相连,其后第j对数val,cost表示，第i个转发站到val有边，费用cost. 最后一行m个数表示每个用户愿意负的钱。 输出： 不亏本前提下，可以收到节目最多的用户数。 （如果某个用户要收到节目（叶子结点），那么电视台到该用户的路径节点的费用都要付） 思路:在树上进行背包，对于以u为根的子树,该子树供给给j个用户亏本的最少钱 **此题用平常的思维一般会想到用f\[i\]\[j\]的i表示结点，j表示盈亏费用，f\[i\]\[j\]就刚好表示用户的数量，但是盈亏费用并不是一个很好的量，它的范围很大，即使用动态规划也会很耗时间，所以我们只能将f\[i,j\]表示在以i为根的树上允许j的用户数，最大能赚到（最少亏损）的钱** **在最后全部遍历一边，最先被发现f\[i\]\[j\]>=0的i就是答案<strong>  </strong>另外还有一个问题，一个根结点有多个子节点，不像二叉苹果树那么容易枚举出来，这里可以用到一些01背包的思想，如果用动态规划来求解这个动态规划的状态转移方程，将每个子节点看作物品，分配的则是对应的用户数，能在较快的时间内求出状态**  </n></p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MAXN=3020;
+const int MAXM=8000;
+int first[MAXN],nxt[MAXM],go[MAXM],w[MAXM],arcnum;
+int dp[MAXN][MAXN],sum[MAXN],temp[MAXN];
+void addarc(int a,int b,int c){
+    nxt[++arcnum]=first[a];
+    first[a]=arcnum;
+    go[arcnum]=b;
+    w[arcnum]=c;
+}
+
+void DFS(int u){
+    for(int p=first[u];p!=0;p=nxt[p]){
+        int v=go[p];
+        DFS(v);
+        for(int j=0;j&lt;=sum[u];j++)
+            temp[j]=dp[u][j];
+        for(int j=0;j&lt;=sum[u];j++)
+            for(int k=1;k&lt;=sum[v];k++)
+                dp[u][k+j]=max(dp[u][k+j],temp[j]+dp[v][k]-w[p]);
+        sum[u]+=sum[v];
+    }
+}
+
+int main(){
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    int n,m,b,c,t;
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    for(int i=1;i&lt;=n;i++){//不能用memset,会使一个数负得太多从而变成正值 
+          for(int j=1;j&lt;=m;j++)  
+              dp[i][j]=-10000000;  
+    }  
+    for(int i=1;i&lt;=n-m;i++){
+        scanf(&quot;%d&quot;,&amp;t);
+        sum[i]=0;
+        while(t--){
+            scanf(&quot;%d%d&quot;,&amp;b,&amp;c);
+            addarc(i,b,c);
+        }
+    }
+    for(int i=n-m+1;i&lt;=n;i++){
+        sum[i]=1;
+        scanf(&quot;%d&quot;,&amp;dp[i][1]);
+    }
+    DFS(1);
+    for(int i=m;i&gt;=0;i--)
+        if(dp[1][i]&gt;=0){
+            printf(&quot;%d&quot;,i);
+            break;
+        }
+
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<h1 id="山贼集团"><a href="#山贼集团" class="headerlink" title="山贼集团"></a>山贼集团</h1><p>时间限制：4s  空间限制：256MB 题目描述 某山贼集团在绿荫村拥有强大的势力，整个绿荫村由N个连通的小村落组成，并且保证对于每两个小村落有且仅有一条简单路径相连。小村落用阿拉伯数字编号为1,2,3,4,…,n，山贼集团的总部设在编号为1的小村落中。山贼集团除了老大坐镇总部以外，其他的P个部门希望在村落的其他地方建立分部。P个分部可以在同一个小村落中建设，也可以分别建设在不同的小村落中。每个分部到总部的路径称为这个部门的管辖范围，于是这P个分部的管辖范围可能重叠，或者完全相同。在不同的村落建设不同的分部需要花费不同的费用。每个部门可能对他的管辖范围内的小村落收取保护费，但是不同的分部如果对同一小村落同时收取保护费，他们之间可能发生矛盾，从而损失一部分的利益，他们也可能相互合作，从而获取更多的利益。现在请你编写一个程序，确定P个分部的位置，使得山贼集团能够获得最大的收益。 输入格式(cateran.in) 输入文件第一行包含一个整数N和P，表示绿荫村小村落的数量以及山贼集团的部门数量。 接下来N-1行每行包含两个整数X和Y，表示编号为X的村落与编号为Y的村落之间有一条道路相连。(1&lt;=X,Y&lt;=N) 接下来N行，每行P个正整数，第i行第j个数表示在第i个村落建设第j个部门的分部的花费Aij。 然后有一个正整数T，表示下面有T行关于山贼集团的分部门相互影响的代价。(0&lt;=T&lt;=2p) 最后有T行，每行最开始有一个数V，如果V为正，表示会获得额外的收益，如果V为负，则表示会损失一定的收益。然后有一个正整数C，表示本描述涉及的分部的数量，接下来有C个数，Xi，为分部门的编号(Xi不能相同)。表示如果C个分部Xi同时管辖某个小村落（可能同时存在其他分部也管辖这个小村落），可能获得的额外收益或者损失的收益为的|V|。T行中可能存在一些相同的Xi集合，表示同时存在几种收益或者损失。 输出格式(cateran.out) 输出文件要求第一行包含一个数Ans，表示山贼集团设置所有分部后能够获得的最大收益。 样例数据</p>
+<p>输入样例</p>
+<p>输出样例</p>
+<p>2 1 1 2 2 1 1 3 1 1</p>
+<p>5</p>
+<p>数据规模 对于40%的数据，1&lt;=P&lt;=6。 对于100%的数据，1&lt;=N&lt;=100，1&lt;=P&lt;=12，保证答案的绝对值不超过108。  <strong>题目并不难，难在储存各个不同分部的分配方法上，前文讲到可以使用状态压缩的方式，这里给出一种具体的实现方法：</strong> <strong>for(int j’= j ;j’&gt;=0;j’=(j’-1)&amp;j){</strong> <strong>}</strong> <strong>其中的j’就是j方案的一个补集，反复循环，直到遍历到空集才结束</strong>  <strong>如00010011表示选4、7、8分部</strong> <strong>则它的补集为：</strong> <strong>S1=00010010&amp;00010011=00010010  4、7分部</strong> <strong>S2=00010001&amp;00010011=00010001   4、8分部</strong> <strong>S3=00010000&amp;00010011=00010000   4分部</strong> <strong>S4=00001111&amp;00010011=00000011  7、8分部</strong> <strong>S5=00000010&amp;00010011=00000010  7分部</strong> <strong>S6=00000001&amp;00010011=00000001  8分部</strong> <strong>S7=00000000&amp;00010011=0          </strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://mrh1s.top/2018/12/06/e6-a0-91-e5-bd-a2-e5-8a-a8-e6-80-81-e8-a7-84-e5-88-92-e6-80-bb-e7-bb-93/" data-id="cjv7vtpyl003zzgetttxbymzx" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e5-8f-af-e5-b9-b6-e5-a0-86-e4-b9-8b-e5-b7-a6-e5-81-8f-e6-a0-91-e6-80-bb-e7-bb-93" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/06/e5-8f-af-e5-b9-b6-e5-a0-86-e4-b9-8b-e5-b7-a6-e5-81-8f-e6-a0-91-e6-80-bb-e7-bb-93/" class="article-date">
+  <time datetime="2018-12-06T15:45:00.000Z" itemprop="datePublished">2018-12-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/06/e5-8f-af-e5-b9-b6-e5-a0-86-e4-b9-8b-e5-b7-a6-e5-81-8f-e6-a0-91-e6-80-bb-e7-bb-93/">可并堆之左偏树总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="可并堆之左偏树总结"><a href="#可并堆之左偏树总结" class="headerlink" title="可并堆之左偏树总结"></a>可并堆之左偏树总结</h1><p><strong>左偏树，顾名思义，是左边的结点权值较大的树形数据结构。主要用于两个优先队列的快速合并，是可并堆的一种实现方式。</strong> <strong>定义与性质：</strong></p>
+<ol>
+<li><strong>外结点：一个结点的右子结点为空就为外结点</strong></li>
+<li><strong>距离：结点一直向右，直到外结点所经历的步数，每个结点距离等于右儿子的距离+1。</strong></li>
+<li><strong>左偏树的父亲结点的优先级高于儿子结点</strong></li>
+<li><p><strong>父亲结点的左子节点的距离大于等于右子节点的距离</strong></p>
+<p><strong>合并操作：</strong> <strong>大体流程：递归操作，将b结点与a结点的右孩子合并，同时会将b结点的左右孩子合并……以此类推，然后根据实际情况维护左孩子与右孩子的位置顺序</strong>  <strong>伪代码：</strong></p>
+</li>
+</ol>
+<ul>
+<li><strong>merge(a,b)//a与b都是小顶堆</strong></li>
+<li><strong>{</strong><ul>
+<li><strong>If(a==null) return b;//a为空，根节点为b</strong></li>
+<li><strong>If(b==null) return a;//b为空，根节点为a</strong></li>
+<li><strong>If(key(a)&gt;key(b)) swap(a,b);//将优先级高树的放在左边，左右子树调换位置</strong></li>
+<li><strong>a.rchild=Merge(a.rchild,b);//a作为根，a的右孩子和b作为孩子递归</strong></li>
+<li><strong>If(dis[a.rchild]&gt;dis[a.lchild]) swap(a.lchild,a.rchild);//a的孩子节点排序</strong></li>
+<li><strong>dis[a]=dis[a.rchild]+1;//a的距离更新</strong></li>
+<li><strong>return a;//返回根节点</strong></li>
+</ul>
+</li>
+<li><strong>}</strong>  <strong>插入操作：将新结点当作只有一个根的左偏树，merge合并。</strong> <strong>删除操作：直接删除根结点，合并左右子树。</strong> </li>
+</ul>
+<h2 id="1636-猴王"><a href="#1636-猴王" class="headerlink" title="1636:猴王"></a>1636:猴王</h2><p>时间限制:1 Sec  内存限制:128 MB 提交:32  解决:6 [<a href="http://fzoj.xndxfz.com/JudgeOnline/submitpage.php?id=1636" target="_blank" rel="noopener">提交</a>][<a href="http://fzoj.xndxfz.com/JudgeOnline/problemstatus.php?id=1636" target="_blank" rel="noopener">状态</a>][<a href="http://fzoj.xndxfz.com/JudgeOnline/bbs.php?pid=1636" target="_blank" rel="noopener">讨论版</a>]</p>
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>很久很久以前，在一个广阔的森林里，住着n只好斗的猴子。起初，它们各干各的，互相之间也不了解。但是这并不能避免猴子们之间的争吵，当然，这只存在于两个陌生猴子之间。当两只猴子争论时，它们都会请自己最强壮的朋友来代表自己进行决斗。显然，决斗之后，这两只猴子以及它们的朋友就互相了解了，这些猴子之间将再也不会发生争论了，即使它们曾经发生过冲突。 假设每一只猴子都有一个强壮值，每次决斗后都会减少一半(比如10会变成5，5会变成2.5)。并且我们假设每只猴子都很了解自己。就是说，当它属于所有朋友中最强壮的一个时，它自己会站出来，走向决斗场。</p>
+<h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>输入分为两部分。 第一部分，第一行有一个整数n(n&lt;=100000)，代表猴子总数。 接下来的n行，每行一个数表示每只猴子的强壮值(小于等于32768)。 第二部分，第一行有一个整数m(m&lt;=100000)，表示有m次冲突会发生。 接下来的m行，每行包含两个数x和y，代表第x个猴子和第y个猴子之间发生冲突。</p>
+<h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><p>输出每次决斗后在它们所有朋友中的最大强壮值。数据保证所有猴子决斗前彼此不认识。</p>
+<h2 id="样例输入"><a href="#样例输入" class="headerlink" title="样例输入"></a>样例输入</h2><pre><code>5
+
+20
+
+16
+
+10
+
+10
+
+4
+
+4
+
+2 3
+
+3 4
+
+3 5
+
+1 5
+</code></pre><h2 id="样例输出"><a href="#样例输出" class="headerlink" title="样例输出"></a>样例输出</h2><pre><code>8
+
+5
+
+5
+
+10
+</code></pre><p> <strong>很经典的左偏树题，每次两只猴子打架之后将两只猴子所属的堆合并起来，并且将最强壮的猴子置于堆顶</strong></p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MAX=1000000;
+int lch[MAX],rch[MAX],father[MAX],dis[MAX],data[MAX];
+int n,m;
+bool cmp(int a,int b){
+    return a&gt;b;
+}
+
+int Merge(int a,int b){
+    if(a==0) return b;
+    if(b==0) return a;
+    if(!cmp(data[a],data[b])) swap(a,b);
+    rch[a]=Merge(rch[a],b);
+    father[rch[a]]=a;//记录父亲 
+    if(dis[rch[a]]&gt;dis[lch[a]]) swap(lch[a],rch[a]);//a的距离必须大于b 
+    dis[a]=dis[rch[a]]+1;//a的距离更新 
+    return a;
+}
+
+int Getfather(int p){
+    if(father[p]==p) return p;
+    father[p]=Getfather(father[p]);
+    return father[p];
+}
+
+void Fight(int a,int b){//这里将aa bb先删除,再与他们儿子合并后的树合并，再将两个堆合并，使左偏树符合堆的性质 
+    int temp,xroot,yroot,aa,bb;
+    aa=Getfather(a); bb=Getfather(b);//找到战斗力最强的猴子aa,bb 
+    data[aa]&gt;&gt;=1; data[bb]&gt;&gt;=1;//战斗力减少一半 
+    temp=Merge(lch[aa],rch[aa]);//合并aa猴子的后代 
+    lch[aa]=rch[aa]=0;
+    xroot=Merge(aa,temp);//aa猴子与aa猴子后代合并 
+    temp=Merge(lch[bb],rch[bb]);//合并bb猴子 的后代 
+    lch[bb]=rch[bb]=0;
+    yroot=Merge(bb,temp);//bb猴子与bb猴子后代合并
+    temp=Merge(xroot,yroot);//合并得到当前最强壮的猴子 
+    father[a]=father[b]=father[aa]=father[bb]=father[xroot]=father[yroot]=temp;
+    printf(&quot;%d\n&quot;,data[temp]);
+}
+
+int main(){
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    int a,b;
+    scanf(&quot;%d&quot;,&amp;n);
+    for(int i=1;i&lt;=n;i++)
+        scanf(&quot;%d&quot;,&amp;data[i]);
+    for(int i=1;i&lt;=n;i++)
+        father[i]=i;
+    scanf(&quot;%d&quot;,&amp;m);
+
+    for(int i=1;i&lt;=m;i++){
+        scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
+        Fight(a,b);
+    }
+
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://mrh1s.top/2018/12/06/e5-8f-af-e5-b9-b6-e5-a0-86-e4-b9-8b-e5-b7-a6-e5-81-8f-e6-a0-91-e6-80-bb-e7-bb-93/" data-id="cjv7vtpwt000ezget8xa0l06m" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e5-ad-97-e7-ac-a6-e4-b8-b2hash-ef-bc-8c-e5-ba-b7-e6-89-98-e5-b1-95-e5-bc-80-e6-80-bb-e7-bb-93" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/06/e5-ad-97-e7-ac-a6-e4-b8-b2hash-ef-bc-8c-e5-ba-b7-e6-89-98-e5-b1-95-e5-bc-80-e6-80-bb-e7-bb-93/" class="article-date">
+  <time datetime="2018-12-06T15:44:39.000Z" itemprop="datePublished">2018-12-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/06/e5-ad-97-e7-ac-a6-e4-b8-b2hash-ef-bc-8c-e5-ba-b7-e6-89-98-e5-b1-95-e5-bc-80-e6-80-bb-e7-bb-93/">字符串hash，康托展开总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="字符串hash，康托展开总结"><a href="#字符串hash，康托展开总结" class="headerlink" title="字符串hash，康托展开总结"></a>字符串hash，康托展开总结</h1><p><strong>各种字符串hash函数：</strong> <strong>ELF HashBKDRHashAPHashDJBHashJSHashRSHashSDBMHashPJWHashELFHash</strong> <strong>字符串hash之BKDRhash函数</strong> <strong>有研究表明BKDRhash函数冲突率较低，且变成复杂度低，所以可以用来作为常用hash函数</strong></p>
+<p><strong>Hash函数</strong></p>
+<p><strong>数据1</strong></p>
+<p><strong>数据2</strong></p>
+<p><strong>数据3</strong></p>
+<p><strong>数据4</strong></p>
+<p><strong>数据1得分</strong></p>
+<p><strong>数据2得分</strong></p>
+<p><strong>数据3得分</strong></p>
+<p><strong>数据4得分</strong></p>
+<p><strong>平均分</strong></p>
+<p><strong>BKDRHash</strong></p>
+<p><strong>2</strong></p>
+<p><strong>0</strong></p>
+<p><strong>4774</strong></p>
+<p><strong>481</strong></p>
+<p><strong>96.55</strong></p>
+<p><strong>100</strong></p>
+<p><strong>90.95</strong></p>
+<p><strong>82.05</strong></p>
+<p><strong>92.64</strong></p>
+<p><strong>APHash</strong></p>
+<p><strong>2</strong></p>
+<p><strong>3</strong></p>
+<p><strong>4754</strong></p>
+<p><strong>493</strong></p>
+<p><strong>96.55</strong></p>
+<p><strong>88.46</strong></p>
+<p><strong>100</strong></p>
+<p><strong>51.28</strong></p>
+<p><strong>86.28</strong></p>
+<p><strong>DJBHash</strong></p>
+<p><strong>2</strong></p>
+<p><strong>2</strong></p>
+<p><strong>4975</strong></p>
+<p><strong>474</strong></p>
+<p><strong>96.55</strong></p>
+<p><strong>92.31</strong></p>
+<p><strong>0</strong></p>
+<p><strong>100</strong></p>
+<p><strong>83.43</strong></p>
+<p><strong>JSHash</strong></p>
+<p><strong>1</strong></p>
+<p><strong>4</strong></p>
+<p><strong>4761</strong></p>
+<p><strong>506</strong></p>
+<p><strong>100</strong></p>
+<p><strong>84.62</strong></p>
+<p><strong>96.83</strong></p>
+<p><strong>17.95</strong></p>
+<p><strong>81.94</strong></p>
+<p><strong>RSHash</strong></p>
+<p><strong>1</strong></p>
+<p><strong>0</strong></p>
+<p><strong>4861</strong></p>
+<p><strong>505</strong></p>
+<p><strong>100</strong></p>
+<p><strong>100</strong></p>
+<p><strong>51.58</strong></p>
+<p><strong>20.51</strong></p>
+<p><strong>75.96</strong></p>
+<p><strong>SDBMHash</strong></p>
+<p><strong>3</strong></p>
+<p><strong>2</strong></p>
+<p><strong>4849</strong></p>
+<p><strong>504</strong></p>
+<p><strong>93.1</strong></p>
+<p><strong>92.31</strong></p>
+<p><strong>57.01</strong></p>
+<p><strong>23.08</strong></p>
+<p><strong>72.41</strong></p>
+<p><strong>PJWHash</strong></p>
+<p><strong>30</strong></p>
+<p><strong>26</strong></p>
+<p><strong>4878</strong></p>
+<p><strong>513</strong></p>
+<p><strong>0</strong></p>
+<p><strong>0</strong></p>
+<p><strong>43.89</strong></p>
+<p><strong>0</strong></p>
+<p><strong>21.95</strong></p>
+<p><strong>ELFHash</strong></p>
+<p><strong>30</strong></p>
+<p><strong>26</strong></p>
+<p><strong>4878</strong></p>
+<p><strong>513</strong></p>
+<p><strong>0</strong></p>
+<p><strong>0</strong></p>
+<p><strong>43.89</strong></p>
+<p><strong>0</strong></p>
+<p><strong>21.95</strong></p>
+<p>  <strong>unsigned int bkdr_hash(const char* str)</strong> <strong>{            </strong> <strong>      unsignedint seed = 31; // 31 131 1313 13131 131313 etc.. 37（最好是质数）</strong> <strong>      unsignedint hash = 0;</strong> <strong>      while(*str) hash = (hash * seed + (*str++))%P;//P是一个较大质数</strong> <strong>      returnhash;</strong> <strong>}</strong> <strong>各种证明：</strong> <strong><a href="http://www.it165.net/pro/html/201410/24949.html" target="_blank" rel="noopener">http://www.it165.net/pro/html/201410/24949.html</a></strong>    <strong>双hash优化：</strong> <strong>在hash表中想要用线性探查的方式处理hash表的冲突，那么每次比对要查找的元素与当前元素是否相等就显得十分麻烦，特别是两个数据是字符串的时候，strcmp超级耗时，此时我们就可以在存储新元素时通过另一hash算法算出两者的hash值，将这两个hash存入结构体，并且排序，用二分查找第一个hash值，并比较第二个hash值，若符合则相同</strong>  <strong>另外本人想到一个貌似还可以的做法，目前都AC了所做的所有Hash题目</strong> <strong>做法：用两种截然不同的hash算法，hash1算出取模压缩后的值，而hash2算出BKDRhash算法，其中P（较大质数）为10^9+7，算出字符串完整的hash2值，把hash1当作地址，hash2当作数据：HashTable[hash1]=hash2;</strong> <strong>当然有冲突时先比较hash2值是否相同，不相同则继续探查直到所在地址数据为空，hash2相同时就基本可以说明两个字符串是相等的。。。。</strong> <strong>康托展开</strong> <strong>叙述：有一个数字序列，所有数都是[1,n]的，且任意两者互异，此时我们用一一对应的方式存储这些数据就有n！种可能，康托算法对处理这种序列提供了完美的解决方法。称为康托展开。我们把这个数列看作全排列，数字所对hash值就为全排列的大小（第几大）。</strong>  <strong>公式：hash(key)=a[n]<em>(n-1)!+a[n-1]</em>(n-2)!+…+a[2]<em>(2-1)!+a[1]</em>(1-1)!</strong> <strong>其中，a[n]所存的值为在第n个数（从小到大的顺序）之前比n小的数的个数</strong> <strong>Hash值完全可以通过循环在n次内算出，且数列与hash完全一一对应，可谓完美算法。</strong>  <strong>康托逆展开：</strong> <strong>由于康托展开的一一对应性，我们同样可以算出原来的全排列。</strong> <strong>n为康托展开式，k为总阶乘</strong> <strong>第一位：(n-1)/(k-1)余n’</strong> <strong>第二位：n’/(k-2)余n’’</strong> <strong>以此类推。。。</strong>                   <strong>Poj1200</strong> <strong>描述</strong> 许多人喜欢解决难题。一个这样的难题是在一个给定的文本中找到一个隐藏的素数。这个数字是所给字符串中不同子串的个数。当你很快会发现，你真的需要一台计算机和一个很好的算法来解决这样的难题。 你的任务是编写一个程序，文本中不同字符的数量不超过NC，给出这样的字符串，求长度为n的不同的子串有多少个。 举一个例子，当n = 3，NC = 4，字符串为“daababac”。可以在字符串中到到符合条件的子串为：”daa”;”aab”; “aba”; “bab”; “bac”。因此，答案应该是5。 <strong>输入：</strong> 第一行：两个数：n，nc 第二行：要搜索的字符串； 你可以假设，最后你所搜索出来符合要求的子串个数不大于16000000； <strong>输出</strong> 不同子串的个数 <strong>样例输入</strong> 3 4 daababac <strong>样例输出</strong> 5 <strong>提示</strong> 输入数据巨大，不用cin <strong>数据巨大，seed不宜太大，看了poj题解，有一个很棒的方法，seed就是当前字符在整个字符串出现过的个数，刚好可以做到一一对应</strong></p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int Z1=1000000007;
+bool hashtable[Z1+100];
+int n,nc,ans=0,asc[300],num,len,sum;
+char str[8000000];
+int main(){
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;nc);
+    scanf(&quot;%s&quot;,str);
+    len=strlen(str);
+    for(int i=0;i&lt;len;i++)
+        if(!asc[str[i]])
+            asc[str[i]]=++num;
+    for(int i=0;i&lt;len-n+1;i++){
+        sum=0;
+        for(int j=i;j&lt;i+n;j++)
+            sum+=sum*nc+asc[str[j]];//该字符的个数作为seed 
+        if(!hashtable[sum])
+            hashtable[sum]=1,ans++;
+    }
+    printf(&quot;%d&quot;,ans);
+
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p><strong>POJ2503-**</strong>Babelfish<strong> </strong>描述：<strong> 你刚从滑铁卢搬到一个大城市，但是你却不懂他们的语言，还好你有一本词典可以帮助你。   </strong>输入格式<strong> 输入包括高达10万词条，之后是一个空行，然后是长达10万个单词查询。每个字典条目是包含一个英文单词，后面跟一个空格和一个当地语言。没有当地语言在字典中出现超过一次。每行一个词，输入中的每个词至多10小写字母。 </strong>输出格式<strong> 输出翻译成英语的消息，每行一个单词。没有在字典中的外来词应该被译为“en”。 </strong>样例输入<strong> dog ogday cat atcay pig igpay froot ootfray loops oopslay atcay ittenkay oopslay </strong>样例输出<strong> cat eh loops </strong>这里读入就是个问题，我是这样的：先读入s1，在getchar()，如果get到空格就继续读s2<strong> </strong>否则就进行翻译步骤<strong> </strong>这里我使用的方式是双哈希，将字符串的第一个hash作为地址，第二个hash作为数据，线性探查相应单词就会省时省力**</p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MAX=1000000;
+char data[MAX+20][11],s1[11],s2[11];
+unsigned int hashtable[MAX+20];
+unsigned int Hash1(const char* str){ 
+    unsigned int h=0;
+    unsigned int seed=31;
+    while(*str) h+=(h*seed+(*str++))%MAX;
+    return (h%MAX+h+1311)%MAX;
+}
+
+unsigned int Hash2(const char* str){
+    unsigned int h=0;
+    unsigned int seed=131;
+    while(*str) h+=(h*seed+(*str++))%(MAX+3);
+    return h%MAX;
+}
+
+
+int main(){
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    unsigned int h1,h2;
+    while(scanf(&quot;%s&quot;,s1)!=EOF){
+        if(getchar()!=&apos; &apos;) break;
+        scanf(&quot;%s&quot;,s2);
+        h1=Hash1(s2);
+        h2=Hash2(s2);
+        while(data[h1][0]!=0){
+            if(h2==hashtable[h1]) break;
+            h1+=2333;
+            if(h1&gt;MAX) h1%=MAX;
+        }
+        hashtable[h1]=h2;
+        strcpy(data[h1],s1);
+    }
+    do{
+        h1=Hash1(s1);
+        h2=Hash2(s1);
+        while(h2!=hashtable[h1]){
+            if(data[h1][0]==0) break;
+            h1+=2333;
+            if(h1&gt;MAX) h1%=MAX;
+        }
+        if(data[h1][0]==0) printf(&quot;eh\n&quot;);
+        else printf(&quot;%s\n&quot;,data[h1]);
+    }while(scanf(&quot;%s&quot;,s1)!=EOF);
+
+
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p><strong>POJ1002- 487-3279</strong> <strong>描述：</strong> 企业喜欢用容易被记住的电话号码。让电话号码容易被记住的一个办法是将它写成一个容易记住的单词或者短语。例如，你需要给滑铁卢大学打电话时，可以拨打TUT-GLOP。有时，只将电话号码中部分数字拼写成单词。当你晚上回到酒店，可以通过拨打310-GINO来向Gino’s订一份pizza。让电话号码容易被记住的另一个办法是以一种好记的方式对号码的数字进行分组。通过拨打必胜客的“三个十”号码3-10-10-10，你可以从他们那里订pizza。 电话号码的标准格式是七位十进制数，并在第三、第四位数字之间有一个连接符。电话拨号盘提供了从字母到数字的映射，映射关系如下： A, B, 和C映射到 2 D, E, 和F映射到 3 G, H, 和I映射到 4 J, K, 和L映射到 5 M, N, 和O映射到 6 P, R, 和S映射到 7 T, U, 和V映射到 8 W, X, 和Y映射到 9 ITS-EASY 4873279 Q和Z没有映射到任何数字，连字符不需要拨号，可以任意添加和删除。 TUT-GLOP的标准格式是888-4567，310-GINO的标准格式是310-4466，3-10-10-10的标准格式是310-1010。 如果两个号码有相同的标准格式，那么他们就是等同的（相同的拨号） 你的公司正在为本地的公司编写一个电话号码薄。作为质量控制的一部分，你想要检查是否有两个和多个公司拥有相同的电话号码。   <strong>输入格式：</strong> 输入的格式是，第一行是一个正整数，指定电话号码薄中号码的数量（最多100000）。余下的每行是一个电话号码。每个电话号码由数字，大写字母（除了Q和Z）以及连接符组成。每个电话号码中只会刚好有7个数字或者字母。 <strong>输出格式：</strong> 对于每个出现重复的号码产生一行输出，输出是号码的标准格式紧跟一个空格然后是它的重复次数。如果存在多个重复的号码，则按照号码的字典升序输出。如果输入数据中没有重复的号码，输出一行： No duplicates. <strong>样例输入：</strong> 12 4873279 ITS-EASY 888-4567 3-10-10-10 888-GLOP TUT-GLOP 967-11-11 310-GINO F101010 888-1200 -4-8-7-3-2-7-9- 487-3279  <strong>样例输出：</strong></p>
+<pre><code>310-1010 2
+
+487-3279 4
+
+888-4567 3
+</code></pre><p><strong>个人认为这道题不用hash，直接开一个足够大的数组即可，只是在读入数据方面要小心</strong></p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MAX=10000000;
+char str[200];
+int data[MAX+200],log[10000000],tot;
+
+int Translate(char c){
+    if(c&gt;=&apos;0&apos;&amp;&amp;c&lt;=&apos;9&apos;) return c-&apos;0&apos;;
+    if(c==&apos;Q&apos;||c==&apos;Z&apos;||c==&apos;-&apos;) return -1;
+    if(c&lt;=&apos;P&apos;) return (c-&apos;A&apos;)/3+2;
+    return (c-&apos;A&apos;-1)/3+2;
+}
+
+int Hash(char* str){
+    int k=1000000,sum=0,a;
+    do{
+        if((a=Translate(*str))!=-1){
+            sum+=k*a;
+            k/=10;
+        }    
+    }while(*str++);
+    return sum;
+}
+
+void Print(int data,int tot){
+    int p[7]={0,0,0,0,0,0,0},k=1000000;
+    for(int i=0;i&lt;=6;i++){
+        p[i]=data/k;
+        data%=k;
+        k/=10;
+    }
+    for(int i=0;i&lt;=2;i++)
+        printf(&quot;%d&quot;,p[i]);
+    printf(&quot;-&quot;);
+    for(int i=3;i&lt;=6;i++)
+        printf(&quot;%d&quot;,p[i]);
+    printf(&quot; %d\n&quot;,tot);
+}
+
+int main(){
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    int n,h;
+    scanf(&quot;%d&quot;,&amp;n);
+    for(int i=1;i&lt;=n;i++){
+        scanf(&quot;%s&quot;,str);
+        h=Hash(str);
+        if(data[h]==1) log[++tot]=h;
+        data[h]++;
+    }
+    sort(log+1,log+1+tot);
+    for(int i=1;i&lt;=tot;i++)
+        Print(log[i],data[log[i]]);
+    if(tot==0)
+        printf(&quot;No duplicates.&quot;);
+
+/*    printf(&quot;%d&quot;,Translate(&apos;M&apos;));
+    char sr[10]=&quot;ITS-EASY&quot;;
+    printf(&quot;%d&quot;,Hash(sr));*/
+
+
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p>FZOJ1639魔板 <strong>题目描述</strong> 在魔方风靡全球之后，小Y发明了它的简化版——魔板，如图1所示，魔板由8个同样大小的方块组成，每个方块的颜色均不相同，本题中分别用数字1~8表示，它们可能出现在魔板的任一位置。任一时刻魔板的状态可以用方块的颜色序列表示：从魔板的左上角开始，按顺时针方向依次写下各个颜色块的颜色代号，得到数字序列即可表示此时魔板的状态。例如，序列(1,2,3,4,5,6,7,8)表示如图1所示魔板的状态，这也是本题中魔板的初始状态。</p>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>8</p>
+<p>7</p>
+<p>6</p>
+<p>5</p>
+<pre><code>**图 1 魔板的初始状态** 对于魔板，可以施加三种不同的操作，分别以A,B,C标识。具体操作方法如下： A:上下行互换。 B：每一行同时循环右移一格。 C：中间4个方块顺时针旋转一格。 应用这三种基本操作，可以由任一种状态达到任意另外一种状态。 **图 2 魔板的操作方法** 图2描述了上述3种操作的具体含义，图中方格外面的数字标识魔板的8个方块位置，方格内数字表示此次操作前该小方块所在位置，即：如果位置P对应的方格中数字为I，则表示此次操作前该方块在位置I。 任务一：请编一程序，对于输入的一个目标状态寻找一种操作的序列，使得从初始状态开始，经过此操作序列后使该魔板变为目标状态。 任务二：如果你的程序寻找到的操作序列在300步以内，会得到任务二的分数。 输入数据只有一行，内容是8个以一个空隔分隔的正整数，表示目标状态。输入样例对应的状态如图3所示。输出数据要求第一行输出你的程序寻找到的操作序列的步数L，随后L行是相应的操作序列，每行的行首输出一个字符，代表相应的操作。
+</code></pre><p>2</p>
+<p>6</p>
+<p>8</p>
+<p>4</p>
+<p>1</p>
+<p>3</p>
+<p>7</p>
+<p>5</p>
+<pre><code>**图 3 魔板的输入样例的状态** **输入** **输出** 第一行输出你的程序寻找到的操作序列的步数L，随后L行是相应的操作序列，每行的行首输出一个字符，代表相应的操作。 **样例输入** 2 6 8 4 5 7 3 1 **样例输出** 7 B C A B C C B  **学过康托展开，此题的算法就可以大大简化，正好，魔板是标准的全排列，用康托展开的方法算出hash值，并且在这个hash地址上存储相应的步数、是否被遍历等数据，十分方便。**
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://mrh1s.top/2018/12/06/e5-ad-97-e7-ac-a6-e4-b8-b2hash-ef-bc-8c-e5-ba-b7-e6-89-98-e5-b1-95-e5-bc-80-e6-80-bb-e7-bb-93/" data-id="cjv7vtpyg003wzget7pmdrosb" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e7-a6-bb-e6-95-a3hash-e4-bc-98-e5-8c-96-e6-80-bb-e7-bb-93" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/06/e7-a6-bb-e6-95-a3hash-e4-bc-98-e5-8c-96-e6-80-bb-e7-bb-93/" class="article-date">
+  <time datetime="2018-12-06T15:44:06.000Z" itemprop="datePublished">2018-12-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/06/e7-a6-bb-e6-95-a3hash-e4-bc-98-e5-8c-96-e6-80-bb-e7-bb-93/">离散hash优化总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="离散优化总结"><a href="#离散优化总结" class="headerlink" title="离散优化总结"></a>离散优化总结</h1><p><strong>离散优化是一种常见的高效数据结构，它通过建立数据与存储结构（数组）之间（不一定）一一对应的映射关系来达到对复杂数据的优化。</strong> <strong>离散优化最重要的一点是建立映射，对于特殊的线段、点而言，这些映射可以是对一个区间的映射，即将某段线或者某块区域映射到数组里面去，从而在计算时降低时间复杂度。</strong> <strong>Hash优化：是对于字符串和数字的一种优化方式。它通过将数据映射到数组内的某个元素从而达到节省空间的效果。</strong> <strong>根据hash算法的不同，可能会引起数据的碰撞，即hash(key1)==hash(key2)，会使得数据存储出现错误。有两个方法可以解决：</strong></p>
+<ol>
+<li><strong>拉链法，将hash所对密码指向链表头，每次查找元素遍历整串链表，直到找到该元素为止（编程复杂度较高）</strong></li>
+<li><strong>开地址法，当hash所对密码冲突时，将数据存入另外的位置（可以是下一个空位置，也可以是计算出的任意位置），当然如果使用线性开地址法，只要有一个数据碰撞，那么其余所有数据都很有可能进行至少一次碰撞，非常耗费时间。所以我们运用hash算出另一个位置并存储：</strong></li>
+</ol>
+<p><strong>while(hashtable[ad]!=0){</strong> <strong>    ad+=ad%3+1;//可以是异于主hash算法的另一hash算法</strong> <strong>}</strong>  <strong>       通常Hash算法分为两个板块：</strong></p>
+<ol>
+<li><strong>查找元素，hash(key)对应的不一定是目标元素，需要对目标进行搜索，推荐使用开地址法进行搜索</strong></li>
+<li><p><strong>插入元素，与查找同理，在插入之前必须检查此元素是否已被插入，再用开地址法存入相应的地址</strong></p>
+<p><strong>Hash可用的构造方法</strong></p>
+</li>
+<li><p><strong>直接定址</strong></p>
+</li>
+<li><strong>取模法</strong></li>
+<li><strong>平均取中值</strong></li>
+<li><strong>随机数</strong></li>
+<li><strong>数字分析法，将最有代表特色的位置作为特征码</strong></li>
+<li><strong>折叠法，将数拆分成几部分并求和</strong></li>
+<li><strong>基数法，将低进制数当作高进制数转化为原进制的数，并进行分析，取特征码（两个进制之间应该是互质的关系）</strong></li>
+</ol>
+<h2 id="1640-线段覆盖"><a href="#1640-线段覆盖" class="headerlink" title="1640: 线段覆盖"></a>1640: 线段覆盖</h2><p>时间限制:1 Sec  内存限制: 128 MB 提交:43  解决: 27 [<a href="http://fzoj.xndxfz.com/JudgeOnline/submitpage.php?id=1640" target="_blank" rel="noopener">提交</a>][<a href="http://fzoj.xndxfz.com/JudgeOnline/problemstatus.php?id=1640" target="_blank" rel="noopener">状态</a>][<a href="http://fzoj.xndxfz.com/JudgeOnline/bbs.php?pid=1640" target="_blank" rel="noopener">讨论版</a>]</p>
+<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>X轴上方有若干条平行于X轴的线段，求这些线段能覆盖到的X轴的总长度？</p>
+<h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>第一行一个数n(n&lt;=1000)，表示线段的个数； 接下来n行，每行两个整数ai,bi （-10^8&lt;=ai,bi&lt;=10^8)，代表一个线段的两个端点。</p>
+<h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><p>输出覆盖x轴的长度。</p>
+<h2 id="样例输入"><a href="#样例输入" class="headerlink" title="样例输入"></a>样例输入</h2><pre><code>2
+
+10 12
+
+2 4
+</code></pre><h2 id="样例输出"><a href="#样例输出" class="headerlink" title="样例输出"></a>样例输出</h2><pre><code>4
+</code></pre><p><strong>将每个点存入数组进行排序，然后遍历所有线段，将线段所覆盖到的点全部记录，输出结果</strong></p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+int n,a[1200],b[1200],t[2400],flag[2400],tot,sum;
+//flag[i]表示i到i+1之间是否被覆盖 
+int find(int s,int e,int aim){
+    int mid;
+    while(s&lt;=e){
+        mid=(s+e)&gt;&gt;1;
+        if(t[mid]==aim){
+            while(t[mid-1]==t[mid]) mid--;
+            return mid;
+        }else if(t[mid]&gt;aim)
+            e=mid-1;
+        else s=mid+1;
+    }
+}
+
+int main(){
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    scanf(&quot;%d&quot;,&amp;n);
+    for(int i=1;i&lt;=n;i++){
+        scanf(&quot;%d%d&quot;,&amp;a[i],&amp;b[i]);
+        if(a[i]&gt;b[i]) swap(a[i],b[i]);
+        t[++tot]=a[i]; t[++tot]=b[i];
+    }
+    sort(t+1,t+1+tot);
+    for(int i=tot;i&gt;=2;i--)
+        if(t[i]==t[i-1]) flag[i]=-1;
+    for(int i=1;i&lt;=n;i++){
+        int top=find(1,tot,a[i]),tail=find(1,tot,b[i]);
+        for(int j=top;j&lt;=tail-1;j++)
+            if(flag[j]!=-1) flag[j]=1;
+    }
+    for(int i=1;i&lt;=tot-1;i++){
+        int nxt=i+1;
+        while(flag[nxt]==-1) nxt++;
+        if(flag[i]==1) sum+=t[nxt]-t[i];
+    }
+    printf(&quot;%d&quot;,sum);
+
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<h2 id="1234-图形面积"><a href="#1234-图形面积" class="headerlink" title="1234: 图形面积"></a>1234: 图形面积</h2><p>时间限制:0 Sec  内存限制: 128 MB 提交:11  解决: 2 [<a href="http://fzoj.xndxfz.com/JudgeOnline/submitpage.php?id=1234" target="_blank" rel="noopener">提交</a>][<a href="http://fzoj.xndxfz.com/JudgeOnline/problemstatus.php?id=1234" target="_blank" rel="noopener">状态</a>][<a href="http://fzoj.xndxfz.com/JudgeOnline/bbs.php?pid=1234" target="_blank" rel="noopener">讨论版</a>]</p>
+<h2 id="题目描述-1"><a href="#题目描述-1" class="headerlink" title="题目描述"></a>题目描述</h2><p>桌面上放了N个矩形，这N个矩形可能有互相覆盖的部分，求它们组成的图形的面积。</p>
+<h2 id="输入-1"><a href="#输入-1" class="headerlink" title="输入"></a>输入</h2><p>输入第一行为一个数N（1≤N≤100），表示矩形的数量。下面N行，每行四个整数，分别表示每个矩形的左下角和右上角的坐标，坐标范围为–10^8到10^8之间的整数。</p>
+<h2 id="输出-1"><a href="#输出-1" class="headerlink" title="输出"></a>输出</h2><p>输出只有一行，一个整数，表示图形的面积。</p>
+<h2 id="样例输入-1"><a href="#样例输入-1" class="headerlink" title="样例输入"></a>样例输入</h2><pre><code>3
+
+1 1 4 3
+
+2 -1 3 2
+
+4 0 5 2
+</code></pre><h2 id="样例输出-1"><a href="#样例输出-1" class="headerlink" title="样例输出"></a>样例输出</h2><pre><code>10
+</code></pre><p><strong>二维离散优化，将图形在x轴上投影的点找出，并且分析相邻两点间的距离（即图形的宽），以及投影这段线的图形在y轴上的投影（即图形的高），ans+=d*h即可</strong> <a href="http://noi.openjudge.cn/ch0305/1551/" target="_blank" rel="noopener">http://noi.openjudge.cn/ch0305/1551/</a> <strong>Sumsets</strong> <strong>描述</strong> 给出一个整数集合s，找到集合中最大的d，让等式a+b+c=d成立， 其中，a,b,c,d是集合S中不同的元素。 输入 Several S, each consisting of a line containing an integer 1 &lt;= n&lt;= 1000 indicating the number of elements in S, followed by the elements ofS, one per line. Each element of S is a distinct integer between -536870912 and+536870911 inclusive. The last line of input contains 0. 输出 For each S, a single line containing d, or a single line containing”no solution”. 样例输入 5 2 3 5 7 12 5 2 16 64 256 1024 0 样例输出 12 no solution <strong>经过变形可得a+b=d-c，先枚举a+b用hash表存储</strong> <strong>再枚举d-c，如果在hash表中有值,且该值对应的a，b异于d，c，那么将此时的d存起来，取最大值</strong></p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int ADD=536870911;
+int flag[1000020],in[1020],ha1[1000020],ha2[1000020],data[1000000];
+int hashh(int key){
+//    key+=ADD;
+    int ad=((key%1000000)+10061894)%1000000;
+    while(flag[ad]!=0){
+        ad+=ad%11+1;
+        if(ad&gt;1000000) ad%=1000000;
+    }
+    return ad;
+}
+
+int find(int key){
+//    key+=ADD;
+    int ad=((key%1000000)+10061894)%1000000;
+    while(data[ad]!=key&amp;&amp;flag[ad]!=0){
+        ad+=ad%11+1;
+        if(ad&gt;1000000) ad%=1000000;
+    }
+    return flag[ad]==0?-1:ad;
+}
+
+int main(){
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    int n,maxx;
+    while(scanf(&quot;%d&quot;,&amp;n)!=EOF&amp;&amp;n!=0){
+        memset(flag,0,sizeof(flag));
+        maxx=-1;
+        for(int i=1;i&lt;=n;i++)
+            scanf(&quot;%d&quot;,&amp;in[i]);
+        for(int i=1;i&lt;=n;i++)
+            for(int j=i+1;j&lt;=n;j++){
+                int ans=hashh(in[i]+in[j]);
+                flag[ans]=1,ha1[ans]=in[i],ha2[ans]=in[j],data[ans]=in[i]+in[j];
+            }
+
+        for(int i=1;i&lt;=n;i++)
+            for(int j=1;j&lt;=n;j++){
+                int ans=find(in[i]-in[j]);
+                if(i==j||ans==-1) continue;
+                if(flag[ans]&amp;&amp;ha1[ans]!=in[i]&amp;&amp;ha1[ans]!=in[j]&amp;&amp;ha2[ans]!=in[i]&amp;&amp;ha2[ans]!=in[j])
+                    maxx=max(maxx,in[i]);
+            }
+        if(maxx!=-1) printf(&quot;%d\n&quot;,maxx);
+        else printf(&quot;no solution\n&quot;);
+    }
+
+
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<h2 id="1807-正方形"><a href="#1807-正方形" class="headerlink" title="1807:正方形"></a>1807:正方形</h2><p><a href="http://noi.openjudge.cn/ch0305/1807/" target="_blank" rel="noopener">http://noi.openjudge.cn/ch0305/1807/</a> 描述 给出平面上一些点的坐标，统计由这些点可以组成多少个正方形。注意：正方形的边不一定平行于坐标轴。 输入 输入包括多组测试数据。每组的第一行是一个整数n (1 &lt;= n &lt;= 1000)，表示平面上点的数目，接下来n行，每行包括两个整数，分别给出一个点在平面上的x坐标和y坐标。输入保证：平面上点的位置是两两不同的，而且坐标的绝对值都不大于20000。最后一组输入数据中n = 0，这组数据表示输入的结束，不用进行处理。 输出 对每组输入数据，输出一行，表示这些点能够组成的正方形的数目。 样例输入 4 1 0 0 1 1 1 0 0 9 0 0 1 0 2 0 0 2 1 2 2 2 0 1 1 1 2 1 4 -2 5 3 7 0 0 5 2 0 样例输出 1 6 1 <strong>将每个点用hash表存起来，这里有个小技巧，可以开longlong数组，从而实现一个变量存一个点的功效。然后枚举任意两个未枚举的点，将它们作为正方形的一条边，通过规律我们可以确定两个待定的正方形，寻找计算出的正方形另两个点的位置，搜索hash表，如果都有相应的元素对应，那么即为找到一个正方形。注意：每两个点都会被遍历，即每条边都会被遍历，所以正方形的个数是边数d&gt;&gt;2</strong></p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MAX=30000;
+struct node{
+    int x,y;
+}poi[MAX+500];
+long long hashtable[MAX+500];
+//任意选取两个点，可确定两个正方形，将两个正方形除已选择外的点hash存储 
+void InsertHash(int x,int y){
+    int ad=(x*x+y*y)%30000;
+    long long aim=x*100000+y;
+    while(1){
+        ad+=ad%31+1;
+        if(ad&gt;MAX) ad%=MAX;
+        if(hashtable[ad]==aim) return;
+        if(hashtable[ad]==0) break;
+    }hashtable[ad]=aim;
+
+}
+
+int FindHash(int x,int y){
+    int ad=(x*x+y*y)%30000;
+    long long aim=x*100000+y;
+    while(1){
+        ad+=ad%31+1;
+        if(ad&gt;MAX) ad%=MAX;
+        if(hashtable[ad]==0) return 0;
+        else if(hashtable[ad]==aim) return 1;
+    }
+}
+
+int main(){
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    int n,x,y,ans;
+    while(scanf(&quot;%d&quot;,&amp;n)!=EOF&amp;&amp;n!=0){
+        memset(hashtable,0,sizeof(hashtable));
+        ans=0;
+        for(int i=1;i&lt;=n;i++){
+            scanf(&quot;%d%d&quot;,&amp;poi[i].x,&amp;poi[i].y);
+            poi[i].x+=20001; poi[i].y+=20001;
+            InsertHash(poi[i].x,poi[i].y);
+        }
+
+    /*    for(int i=1;i&lt;=MAX;i++)
+            if(hashtable[i]!=0)
+                printf(&quot;%lld\n&quot;,hashtable[i]);*/
+
+        for(int i=1;i&lt;=n;i++)
+            for(int j=i+1;j&lt;=n;j++){
+                int x1,x2,y1,y2,delx,dely;
+                delx=poi[i].x-poi[j].x;
+                dely=poi[i].y-poi[j].y;
+                x1=poi[i].x+dely; y1=poi[i].y-delx;
+                x2=poi[j].x+dely; y2=poi[j].y-delx;
+                if(FindHash(x1,y1)&amp;&amp;FindHash(x2,y2)) ans++;
+
+                x1=poi[i].x-dely; y1=poi[i].y+delx;
+                x2=poi[j].x-dely; y2=poi[j].y+delx;
+                if(FindHash(x1,y1)&amp;&amp;FindHash(x2,y2)) ans++;
+            }
+        printf(&quot;%d\n&quot;,ans&gt;&gt;2);//根据两个点找正方形会找四次 
+    }
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p>FZOJ1639魔板 <strong>题目描述</strong> 在魔方风靡全球之后，小Y发明了它的简化版——魔板，如图1所示，魔板由8个同样大小的方块组成，每个方块的颜色均不相同，本题中分别用数字1~8表示，它们可能出现在魔板的任一位置。任一时刻魔板的状态可以用方块的颜色序列表示：从魔板的左上角开始，按顺时针方向依次写下各个颜色块的颜色代号，得到数字序列即可表示此时魔板的状态。例如，序列(1,2,3,4,5,6,7,8)表示如图1所示魔板的状态，这也是本题中魔板的初始状态。</p>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>8</p>
+<p>7</p>
+<p>6</p>
+<p>5</p>
+<pre><code>**图 1 魔板的初始状态** 对于魔板，可以施加三种不同的操作，分别以A,B,C标识。具体操作方法如下： A:上下行互换。 B：每一行同时循环右移一格。 C：中间4个方块顺时针旋转一格。 应用这三种基本操作，可以由任一种状态达到任意另外一种状态。 **图 2 魔板的操作方法** 图2描述了上述3种操作的具体含义，图中方格外面的数字标识魔板的8个方块位置，方格内数字表示此次操作前该小方块所在位置，即：如果位置P对应的方格中数字为I，则表示此次操作前该方块在位置I。 任务一：请编一程序，对于输入的一个目标状态寻找一种操作的序列，使得从初始状态开始，经过此操作序列后使该魔板变为目标状态。 任务二：如果你的程序寻找到的操作序列在300步以内，会得到任务二的分数。 输入数据只有一行，内容是8个以一个空隔分隔的正整数，表示目标状态。输入样例对应的状态如图3所示。输出数据要求第一行输出你的程序寻找到的操作序列的步数L，随后L行是相应的操作序列，每行的行首输出一个字符，代表相应的操作。
+</code></pre><p>2</p>
+<p>6</p>
+<p>8</p>
+<p>4</p>
+<p>1</p>
+<p>3</p>
+<p>7</p>
+<p>5</p>
+<pre><code>**图 3 魔板的输入样例的状态** **输入** **输出** 第一行输出你的程序寻找到的操作序列的步数L，随后L行是相应的操作序列，每行的行首输出一个字符，代表相应的操作。 **样例输入** 2 6 8 4 5 7 3 1 **样例输出** 7 B C A B C C B  **如果魔板数据太小，可用直接地址法，但本题魔板有10^8种可能，不现实。又考虑到在300步内可得到目标魔板，于是想到使用hash表存储已经遍历过的走法。** **从初始状态开始，进行BFS，取出一个元素，每次考虑三种可能的变化情况，搜索hash表，如果还未考虑此情况，就加入队列，继续搜索，同时记录每种走法的上一步father\[\]** **直到程序找到了目标解，那么依次遍历father\[\]，输出结果即可**
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://mrh1s.top/2018/12/06/e7-a6-bb-e6-95-a3hash-e4-bc-98-e5-8c-96-e6-80-bb-e7-bb-93/" data-id="cjv7vtpyk003yzget05fngmyl" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e6-97-a0-e5-90-91-e5-9b-be-e5-89-b2-e8-be-b9-e5-89-b2-e7-82-b9-e3-80-81-e6-9c-80-e8-bf-91-e5-85-ac-e5-85-b1-e7-a5-96-e5-85-88-e7-9a-84-e6-80-bb-e7-bb-93" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e6-97-a0-e5-90-91-e5-9b-be-e5-89-b2-e8-be-b9-e5-89-b2-e7-82-b9-e3-80-81-e6-9c-80-e8-bf-91-e5-85-ac-e5-85-b1-e7-a5-96-e5-85-88-e7-9a-84-e6-80-bb-e7-bb-93/" class="article-date">
+  <time datetime="2018-12-06T15:43:10.000Z" itemprop="datePublished">2018-12-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e6-97-a0-e5-90-91-e5-9b-be-e5-89-b2-e8-be-b9-e5-89-b2-e7-82-b9-e3-80-81-e6-9c-80-e8-bf-91-e5-85-ac-e5-85-b1-e7-a5-96-e5-85-88-e7-9a-84-e6-80-bb-e7-bb-93/">Tarjan算法求无向图割边割点、最近公共祖先的总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="无向图tarjan求割边割点、最近公共祖先总结"><a href="#无向图tarjan求割边割点、最近公共祖先总结" class="headerlink" title="无向图tarjan求割边割点、最近公共祖先总结"></a>无向图tarjan求割边割点、最近公共祖先总结</h1><p><strong>割点：删除这个点之后整个图变成不连通的两个部分的点</strong> <strong>割点集合：在一个无向图中删除该集合中的所有点，能使原图变成互不相连的连通块的点的集合</strong> <strong>点连通度：最小割点集合点数</strong> <strong>割边（桥）：类似于割点，删除一条边后会使一个连通图变得不完全连通</strong> <strong>割边集合：所有割边的集合</strong> <strong>边连通度：最小割边集合边数</strong>  <strong>与有割边割点的图对应，有一种无向图，它的边连通度（或点连通度）大于1，那么我们称它为双连通分量，即删掉任意点（或边），图仍然是连通的</strong>  <strong>用tarjan算法求割点</strong> <strong>原理：在一棵DFS树中</strong> <strong>根root是割顶当且仅当它至少有两个儿子</strong> <strong>其他点v是割顶当且仅当它有一个儿子u,从u或者u的后代出发没有指向v祖先(不含v)的B边,则删除v以后u和v的父亲不连通,故为割顶</strong></p>
+<ol>
+<li><strong>基本算法同tarjan经典算法</strong></li>
+<li><strong>每遍历一个新的（颜色为白色）u的儿子v都记录个数</strong></li>
+<li><p><strong>low[u]值更新后进行以下判断（前提v未被遍历过）：</strong></p>
+</li>
+<li><p><strong>u为树根，且儿子个数大于1</strong></p>
+</li>
+<li><strong>u不为树根，但low[v]&gt;=dfn[u]（说明v及其子节点都不能达到u以上的父亲节点）</strong></li>
+</ol>
+<p><strong>满足以上任意条件u便为割点，记录在数组里，tarjan完成后再输出（中途输出会重复）</strong>  <strong>用tarjan算法求割边（桥）</strong> <strong>原理</strong> <strong>发现T边(u,v)时若发现v和它的后代不存在一条连接u或其祖先的B边,则删除(u,v)后u和v不连通,因此(u,v)为桥</strong> <strong>桥的判定算法</strong> <strong>发现T边(u, v)时若low[v]&gt;=dfn[u],则(u,v)为桥</strong></p>
+<ol>
+<li><strong>基本算法同tarjan经典算法</strong></li>
+<li><strong>形参加上father，作用为记录u的父亲节点，避免在遍历v时遇到重边重新更新low[u]</strong></li>
+<li><strong>在“v已被遍历”的位置加上判断 如果v点等于father，那么就不执行更新low[u]值</strong></li>
+<li><p><strong>Tarjan算法结束后，遍历所有节点u及其子节点v，如果low[u]==low[v]，那么这条边就为割边</strong></p>
+<p><strong>求点双连通分支(去掉割点之后所得的双连通分量)</strong></p>
+</li>
+<li><p><strong>tarjan求割点</strong></p>
+</li>
+<li><p><strong>每找到一个割点，将它上面的所有点弹出栈，所得的点集就是双连通分量</strong></p>
+<p><strong>求边双连通分支</strong></p>
+</li>
+<li><p><strong>tarjan找桥边</strong></p>
+</li>
+<li><strong>删除桥边（1、2两步同时完成）</strong></li>
+<li><p><strong>剩余各部分则为双连通分量</strong></p>
+<p><strong>有桥的连通图，加边变成双连通图</strong></p>
+</li>
+<li><p><strong>tarjan找桥边并删除桥边</strong></p>
+</li>
+<li><strong>将点双连通分量收缩成为一个顶点</strong></li>
+<li><strong>加回桥边，统计度为1的顶点个数</strong></li>
+<li><p><strong>根据规律，需要加入的桥边最少为(n+1)/2条</strong></p>
+<p><strong>最近公共祖先LCA</strong> <strong>原理：在一棵树中，父亲结点与儿子结点的最近公共祖先为父亲结点</strong></p>
+</li>
+<li><p><strong>建立并查集</strong></p>
+</li>
+<li><strong>DFS先序遍历一棵树</strong></li>
+<li><p><strong>在每个结点上，进行以下操作：</strong></p>
+</li>
+<li><p><strong>涂黑该结点</strong></p>
+</li>
+<li><p><strong>如果有关于该结点a的询问，搜索另一询问的结点b，如果b也被涂黑，那么它们的公共祖先为b所在并查集的祖先，输出结果</strong></p>
+<p><strong>拓展：求一棵树中两个结点的距离</strong></p>
+</li>
+<li><p><strong>建立dis[]数组，记录从树根到i点的距离dis[i]</strong></p>
+</li>
+<li><strong>则a与b的距离为</strong></li>
+</ol>
+<p><strong>d=dis[a]-dis[LCA]+dis[b]-dis[LCA]=dis[a]+dis[b]-2*dis[LCA]</strong>    <strong>Poj 1144</strong> <strong>描述</strong> 一个电话线公司（简称TLC）正在建立一个新的电话线缆网络。他们连接了若干个地点分别从1到N编号。没有两个地点有相同的号码。这些线是双向的并且能使两个地点保持通讯。每个地点的线都终结于电话交换机。每个地点都有一个电话交换机。从每个地点都能通过线缆到达其他任意的地点，然而它并不需要直接连接，它可以通过若干个交换机来到达目的地。有时候某个地点供电出问题时，交换机就会停止工作。TLC的工作人员意识到，除非这个地点是不可达的，否则这种情况就会发生，它还会导致一些其它的地点不能互相通讯。在这种情况下我们会称这个地点（错误发生的地方）为critical。现在工作人员想要写一个程序找到所有critical地点的数量。帮帮他们。 <strong>输入</strong> 输入文件包括若组测试数据。每一组是一个网络，每一组测试数据的第一行是地点的总数量N&lt;100.每个接下来最多N行包括一个数字表示一个地点和与它相连接的地点的数字。这些最多N行完全描述了整个网络，比如，网络中每个直接连接的两个地点被至少一行包括。一行内的所有数字都要用空格隔开。每组数据需要用单独的一个0结束。最后的块只有一行即N=0。 <strong>输出</strong> 输出除了最后一个组其他每一个组的critical地点的数量，每个块用一行输出。 <strong>样例输入：</strong> 5 5 1 2 3 4 0 6 2 1 3 5 4 6 2 0 0 <strong>样例输出</strong> 1 2 <strong>提示：</strong> 你需要确定每行的结束。为了方便判断，每行的结束都没有多余的空白 <strong>读入是难点，其余就是找割点的部分</strong></p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+int first[120],go[10000],nxt[10000],arcnum=1;
+int dfn[120],low[120],idx;
+int stack[100000],top,ans[120];
+void addarc(int a,int b){
+    nxt[arcnum]=first[a];
+    first[a]=arcnum;
+    go[arcnum++]=b;
+}
+
+void tarjan(int u){
+    low[u]=dfn[u]=++idx;
+//    stack[++top]=u;
+    int son=0;
+    for(int p=first[u];p!=0;p=nxt[p]){
+        int v=go[p];
+        if(dfn[v]==0){
+            tarjan(v); son++;
+            low[u]=min(low[u],low[v]);
+            if((u==1&amp;&amp;son&gt;1)||(u!=1&amp;&amp;low[v]&gt;=dfn[u])) ans[u]++;//一定使用这种方法记录u是否为割点 
+        //        printf(&quot;u=%d son=%d ans=%d low[v]=%d dfn[u]=%d\n&quot;,u,son,ans,low[v],dfn[u]);
+        }else low[u]=min(low[u],dfn[v]);
+    }
+
+
+}
+
+int main()
+{
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    int n,a,b;
+    char c;
+    while(scanf(&quot;%d&quot;,&amp;n)!=EOF&amp;&amp;n!=0){
+        memset(first,0,sizeof(first));
+        memset(dfn,0,sizeof(dfn));
+        memset(low,0,sizeof(low));
+        memset(ans,0,sizeof(ans));
+        arcnum=1; top=0;
+        while(scanf(&quot;%d&quot;,&amp;a)&amp;&amp;a!=0){
+            do{
+                scanf(&quot;%d&quot;,&amp;b);
+                if(a==b) continue;//一定不考虑自环 
+                addarc(a,b);
+                addarc(b,a);
+                c=getchar();
+            }while(c!=&apos;\n&apos;);
+        }
+        tarjan(1);
+        int sum=0;
+        for(int i=1;i&lt;=n;i++)
+            if(ans[i])
+                sum++;
+        printf(&quot;%d\n&quot;,sum);
+
+    }
+
+
+
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p><strong>POJ1523</strong> <strong>描述</strong> 考虑一下下图所示的两个网络。假设在这些网络中数据只能在两个直接连接的节点中传输。在左图网络中一个单独节点3的错误就会阻止一些其它可用节点的互相通信。节点1和2可以保持通信，4和5也是如此，但是其他的配对就无法再保持通信了。 因此3节点就是这个网络中的SinglePoint of Failure（SPF）。严格来讲，如果一个任意的不可用节点会阻止原有全通网络中至少一对可用节点保持通信，那么这就是一个SPF。注意在右图的网络中并没有这种节点。因此这个网络就没有SPF。至少有两台机器需要错误才能导致这个网络中有可用的节点对无法通信。 <strong>输入</strong> 输入会包括若干网络的描述。一个网络描述会包括若干对的整数，每行一对整数来描述节点的连接情况，先后顺序是无关的，如：1 2和2 1描述了相同的连接。所有的节点编码会从1到1000.一个单独的0行来结束连接节点的列表。一个空的网络描述结束输入。输入文档中空白的行要被忽略。 <strong>输出</strong> 对于每个输入的网络中，你需要输出存在的SPF节点的列表在文档中。 文档中第一个网络需要用“Network #1”来定义，第二个则是” Network #2”等等（如样例）。每个SPF节点，输出一行，方式如下方例子所示，列出节点的编号和当这个节点失效时完全连通的子网络的个数。如果网络中没有SPF节点，输出“NO SPF nodes“即可。 <strong>样例输入：</strong> 1 2 5 4 3 1 3 2 3 4 3 5 0 1 2 2 3 3 4 4 5 5 1 0 1 2 2 3 3 4 4 6 6 3 2 5 5 1 0 0 <strong>样例输出</strong> Network #1 SPFnode 3 leaves 2 subnets Network #2 NoSPF nodes Network #3 SPFnode 2 leaves 2 subnets SPFnode 3 leaves 2 subnets <strong>读入是难点，接下来是找割点，删除割点并且DFS找点双连通分量</strong> </p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+int first[1200],go[10000],nxt[10000],arcnum=1;
+int dfn[1200],low[1200],exist[1200],rt,idx,ans[1200];
+int cut,vis[1200];
+void addarc(int a,int b){
+    nxt[arcnum]=first[a];
+    first[a]=arcnum;
+    go[arcnum++]=b;
+}
+void tarjan(int u){
+    low[u]=dfn[u]=++idx;
+    int son=0,v;
+    for(int p=first[u];p!=0;p=nxt[p]){
+        v=go[p];
+        if(dfn[v]==0){
+            tarjan(v); son++;
+            low[u]=min(low[u],low[v]);
+            if((u==rt&amp;&amp;son&gt;1)||(u!=rt&amp;&amp;low[v]&gt;=dfn[u])) ans[u]=1;
+        }else low[u]=min(low[u],dfn[v]);
+    }
+}
+void dfs(int u){//DFS找相连子网络 
+    if(vis[u]) return;
+    vis[u]=1;
+    for(int p=first[u];p!=0;p=nxt[p])
+        if(go[p]!=cut)
+            dfs(go[p]);
+}
+
+int main()
+{
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    int a,b,k=0,cnt;
+    while(scanf(&quot;%d&quot;,&amp;a)){
+        if(a==0) break;
+        k++;
+        memset(first,0,sizeof(first));
+        memset(dfn,0,sizeof(dfn));
+        memset(low,0,sizeof(low));
+        memset(exist,0,sizeof(exist));
+        memset(ans,0,sizeof(ans));
+        arcnum=1; idx=0; cnt=0;
+        do{
+            scanf(&quot;%d&quot;,&amp;b);
+            exist[a]=exist[b]=1;
+            if(a==b) continue;//忽略自环 
+            addarc(a,b);
+            addarc(b,a);
+        }while(scanf(&quot;%d&quot;,&amp;a)&amp;&amp;a!=0);
+        rt=b;
+        tarjan(rt);
+        if(k&gt;1) printf(&quot;\n&quot;);
+        printf(&quot;Network #%d\n&quot;,k);
+        for(cut=1;cut&lt;=1000;cut++)
+            if(exist[cut]&amp;&amp;ans[cut]){
+                int sum=0;
+                memset(vis,0,sizeof(vis));
+                for(int i=1;i&lt;=1000;i++)
+                    if(exist[i]&amp;&amp;!vis[i]&amp;&amp;!ans[i])//一定不能遍历割点本身 
+                        dfs(i),sum++;
+                printf(&quot;  SPF node %d leaves %d subnets\n&quot;,cut,sum);
+                cnt++;
+            }
+        if(cnt==0) printf(&quot;  No SPF nodes\n&quot;);
+    }
+
+
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p><strong>POJ3177</strong> <strong>描述</strong> 为了从F（1≤F≤5000）个牧场（从1到F进行编号）中的一个到达另一个牧场，Bessie和他的牛只能穿过烂苹果林。这些牛现在都累了，不想老走这个特殊的小路而是想要建一些新的小路，这样它们就有至少两种选择在任意牧场之间穿梭。在任意的两个牧场之间，它们现在至少有一条路径而他们想要至少有2条路径。 现在给出建好的R（F-1≤R≤10000）条路，每条都连接了两个不同的牧场，确定新修道路的最小数量（每个也是连接两个牧场）使得任意两个牧场之间都能有两条路连通。道路都是不同的，不会有相同的小路，即使他们在沿路的中间会碰到相同的牧场。 这里可能已经有一对牧场有超过一条小路的，并且你可能也会修一条新的另外的小路来连接相同的牧场。 <strong>输入</strong> 第一行：两个空格隔开的整数：F和R 第二到第R+1行：每行包括两个空格隔开的整数，表示一些小路端点所在的牧场。 <strong>输出</strong> 第一行：一个单独的整数，表述新修小道的数量 <strong>样例输入</strong> 7 7 1 2 2 3 3 4 2 5 4 5 5 6 5 7 <strong>样例输出</strong> 2 <strong>提示</strong> 例子的解释： 一个形象化的小路： 1  2   3 +—+—+ |  | |  | 6 +—+—+ 4 / 5 / / 7 + 建一个从1到6和从4到7的新路可以满足条件。</p>
+<pre><code>  1   2   3
+
+  +---+---+  
+
+  :   |   |
+
+  :   |   |
+
+6 +---+---+ 4
+
+     / 5  :
+
+    /     :
+
+   /      :
+
+7 + - - - - 
+</code></pre><p>检查一些路径： 1 – 2: 1 –&gt; 2 and 1 –&gt; 6 –&gt; 5 –&gt; 2 1 – 4: 1 –&gt; 2 –&gt; 3 –&gt; 4 and 1 –&gt; 6 –&gt; 5 –&gt; 4 3 – 7: 3 –&gt; 4 –&gt; 7 and 3 –&gt; 2 –&gt; 5 –&gt; 7 可以看出每对牧场都是由两条路连接的 有可能加一些别的下路也能解决这个问题（比如6到7加一条道）。然而加两条已经是最小了。 <strong>POJ3352</strong> <strong>描述：</strong> 夏天的建造时间到了。这一年，遥远热带小岛上的街道的管理员要修复并且升级岛上街道，这些街道连接了小岛上不同的景点。 这些街道很有意思。由于这个小岛的奇怪传统，这些街道需要被规划的没有任何十字路口，但是可以用桥和隧道来连通。在这种情况下，每条路就会在特定的景点之间连接，这样旅客就不会迷路了。 不幸的是，每条路都需要修理和升级，当建筑公司在一条特定的道路上工作时，这条道路是无法使用的。这就会导致一个问题，即使这个公司一次只修一条路，仍然有两个景点是无法访问的，。 所以，这个岛上的道路部门就决定召唤你的咨询服务来帮助他们解决这个问题。最后决定在景点之间建设新的道路。如果一条道路在建设中，这些新的道路能使任意两个景点之间仍然有路能够到达。你的任务就是找到这个新修道路的最小数量。 <strong>输入</strong> 第一行的输入包括两个正整数n和r，其中3≤n≤1000是景点的数量，2≤r≤1000是道路的数量。景点则是从1到n进行标号。每个接下来的r行会包括两个整数，v和w，中间空格隔开，表示一个街道连接了标号为v和w的景点。注意街道是双向的，并且任意一对景点之间会有至多一条路直接连接它们。当然，你也要保证在现在的这个配置下，任意两个景点是连通的。 <strong>输出</strong> 一行，包括一个整数，给出我们需要添加的街道的最小数量 <strong>输入样例</strong> Sample Input 1 10 12 1 2 1 3 1 4 2 5 2 6 5 6 3 7 3 8 7 8 4 9 4 10 9 10 Sample Input 2 3 3 1 2 2 3 1 3 <strong>输出样例</strong> Output for Sample Input 1 2 Output for Sample Input 2 0  <strong>两道题完全相同，都是求有桥连通图变为双连通图所需要最少的边的个数</strong></p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MAXN=5000+20;
+const int MAXM=10000+20;
+int first[MAXN],go[MAXM],nxt[MAXM],arcnum=1;
+int low[MAXN],dfn[MAXN],dex,cnt[MAXN],map[MAXN][MAXN],sum;
+void addarc(int a,int b){
+    nxt[arcnum]=first[a];
+    first[a]=arcnum;
+    go[arcnum++]=b;
+}
+
+void tarjan(int u,int father){
+    low[u]=dfn[u]=++dex;
+    for(int p=first[u];p!=0;p=nxt[p]){
+        int v=go[p];
+        if(!dfn[v]){
+            tarjan(v,u);
+            low[u]=min(low[u],low[v]);
+        }else if(v!=father) low[u]=min(low[u],dfn[v]);//如果引出v，而v是u的父亲，那么就不能更新low[u] 
+    }
+}
+
+int main()
+{
+    int n,m,a,b;
+    while(scanf(&quot;%d%d&quot;,&amp;n,&amp;m)!=EOF){
+        for(int i=1;i&lt;=m;i++){
+            scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
+            if(a==b) continue;
+            if(map[min(a,b)][max(a,b)]) continue;
+            map[min(a,b)][max(a,b)]=1;
+            addarc(a,b);
+            addarc(b,a);
+        }
+        tarjan(1,-1);
+        for(int u=1;u&lt;=n;u++)
+            for(int p=first[u];p!=0;p=nxt[p]){
+                int v=go[p];
+                if(low[u]!=low[v])
+                    cnt[low[u]]++;//计算度数 
+            }
+        for(int i=1;i&lt;=n;i++)
+            if(cnt[i]==1)
+                sum++;//统计度为1的点的个数 
+        printf(&quot;%d&quot;,(sum+1)/2);
+    }
+
+
+
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://mrh1s.top/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e6-97-a0-e5-90-91-e5-9b-be-e5-89-b2-e8-be-b9-e5-89-b2-e7-82-b9-e3-80-81-e6-9c-80-e8-bf-91-e5-85-ac-e5-85-b1-e7-a5-96-e5-85-88-e7-9a-84-e6-80-bb-e7-bb-93/" data-id="cjv7vtpyo0043zget8izdpozz" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e5-bc-ba-e8-bf-9e-e9-80-9a-e5-88-86-e9-87-8f-e6-80-bb-e7-bb-93" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e5-bc-ba-e8-bf-9e-e9-80-9a-e5-88-86-e9-87-8f-e6-80-bb-e7-bb-93/" class="article-date">
+  <time datetime="2018-12-06T15:42:41.000Z" itemprop="datePublished">2018-12-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e5-bc-ba-e8-bf-9e-e9-80-9a-e5-88-86-e9-87-8f-e6-80-bb-e7-bb-93/">Tarjan算法求强连通分量总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>  <strong>     Tarjan算法求强连通分量总结</strong> <strong>首先明确强连通分量的概念：如果图中的任意两个点都能互相到达，则为强连通分量。极大强连通分量：不被其它任何强连通分量包含的强连通分量。</strong> <strong>强连通分量主要与两种边有关：交叉边和后向边。</strong> <strong>交叉边是两个无关系的点之间所构成的，而后向边是根节点的子节点指向根结点的一种边</strong> <strong>Tarjan算法原理：</strong></p>
+<ol>
+<li><strong>建立low数组（用于记录该点所在的连通子图的根节点的搜索子树所遍历的时间）与dfn数组（记录当前点遍历的时间）Index：记录搜索过程所进行的时间</strong></li>
+<li><strong>初始化dfn、index，当前点u的初始值为时间</strong></li>
+<li><strong>u入栈并标记</strong></li>
+<li><p><strong>遍历与u相连的所有点（记为v）</strong></p>
+</li>
+<li><p><strong>如果v未被遍历，递归遍历v点，然后更新low[u]     low[u]=min(low[u],low[v]);</strong></p>
+</li>
+<li><p><strong>如果 v已经被遍历且在栈中直接更新low[u]</strong> <strong>low[u]=min(low[u],dfn[v]);</strong></p>
+</li>
+<li><p><strong>判断low[u]==low[v]如果成立，将包括u在内的所有点出栈并记录，则求得强连通分量之一</strong></p>
+</li>
+<li><strong>继续遍历，直至结束</strong></li>
+<li><p><strong>注意：在一个图中，起点不唯一，所以tarjan算法应该遍历所有未被遍历的点(vis[i]==0)</strong></p>
+<p><strong>本算法主要应用范围是对复杂的有向图的缩点优化。如果某些点构成一个环，完全可以把它们看作一个点，加快程序运行效率</strong>  <strong>Question:如果是有向有权图使用缩点时应该怎么处理权值的问题？</strong>   <strong>FZOJ1638求强连通分量</strong> <strong>描述</strong> 输入一个图，输出该图中的最大强连通分量。 <strong>输入</strong> 第一行：n和m（n&lt;=10000,m&lt;=100000,n为节点个数，m为边的条数） 接下来m行，每行两个数：a，b，表示a指向b的边（a,b为非负整数）； <strong>输出</strong> 输出最大强连通分量的节点，按照节点编号从小到大输出，如果有多个强连通分量节点数相同，则输出节点编号字典序较小的。 <strong>样例输入</strong> 6 8 1 3 3 5 5 6 1 2 4 1 2 4 4 6 3 4 <strong>样例输出</strong> 1 2 3 4</p>
+<p>#include<cstdio><br>#include<cstring><br>#include<algorithm><br>using namespace std;<br>int first[10020],nxt[100200],go[100200],arcnum=1;<br>int dfn[10020],low[10020],stack[100200],top,dex,vis[10020];<br>int rt,ans[10020],temp[10020],sum;<br>void addarc(int a,int b){</algorithm></cstring></cstdio></p>
+<pre><code>nxt[arcnum]=first[a];
+first[a]=arcnum;
+go[arcnum++]=b;
+</code></pre><p>}<br>void tarjan(int u){</p>
+<pre><code>dfn[u]=low[u]=++dex;
+stack[++top]=u; vis[u]=1;
+for(int p=first[u];p!=0;p=nxt[p]){
+    int v=go[p];
+    if(vis[v]==0){
+        vis[v]=1;
+        tarjan(v);
+        low[u]=min(low[u],low[v]);
+    }
+    else if(vis[v]==1)
+        low[u]=min(low[u],dfn[v]);
+}
+if(dfn[u]==low[u])
+{
+    int v; sum=0;
+    do{
+        v=stack[top--];
+        vis[v]=2;
+        temp[++sum]=v;
+    }while(u!=v);
+    if(rt&lt;sum){
+        rt=sum;
+        for(int i=1;i&lt;=sum;i++)
+            ans[i]=temp[i];
+    }
+}
+</code></pre><p>}</p>
+<p>int main()<br>{<br>//    freopen(“in.txt”,”r”,stdin);</p>
+<pre><code>int n,m,a,b;
+scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+for(int i=1;i&lt;=m;i++){
+    scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
+    addarc(a,b);
+}
+</code></pre></li>
+</ol>
+<pre><code>    for(int i=0;i&lt;=n-1;i++)
+        if(vis[i]==0){
+            top=0;dex=0;
+            memset(dfn,0,sizeof(dfn));
+            memset(low,0,sizeof(low));
+            stack[++top]=i;
+            tarjan(i);
+        }
+
+    sort(ans+1,ans+1+rt);
+    for(int i=1;i&lt;=rt;i++)
+         printf(&quot;%d &quot;,ans[i]);
+
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p><strong>Poj2186Popular Cows</strong> <strong>Description</strong> Every cow’s dream is to become the mostpopular cow in the herd. In a herd of N (1 &lt;= N &lt;= 10,000) cows, you aregiven up to M (1 &lt;= M &lt;= 50,000) ordered pairs of the form (A, B) thattell you that cow A thinks that cow B is popular. Since popularity is transitive,if A thinks B is popular and B thinks C is popular, then A will also think thatC is popular, even if this is not explicitlyspecified by an ordered pair in the input. Your task is to compute the numberof cows that are considered popular by every other cow. <strong>Input</strong> * Line 1: Two space-separated integers, Nand M <em> Lines 2..1+M: Two space-separated numbersA and B, meaning that A thinks B is popular. Output <strong>output</strong> \</em> Line 1: A single integer that is thenumber of cows who are considered popular by every other cow. <strong>Sample Input</strong> 3 3 1 2 2 1 2 3 <strong>Sample Output</strong> 1 <strong>Hint</strong> Cow 3 is the only cow of high popularity. <strong>题目大意</strong> N头奶牛(N≤10000) M对关系（a , b），表示a认为b是受欢迎的 关系具有传递性，即若(a,b),(b,c)→(a,c) 询问有多少头奶牛是被其他所有奶牛认为是受欢迎的 <strong>这道题据说不使用强连通算法优化也能做出来，就是说tarjan算法只是进行优化。</strong> <strong>进过分析可以发现，在有向无环图DAG图中，要想一头（群）牛被其它所有牛欢迎，必须满足只有它自己的出度为0，其它的牛所构成的圈子（环）的出度必须大于零才可以</strong> <strong>这样就得到了解决方法，用tarjan算法算出所有的强连通分量并将它们合并成一个点，再做一次搜索，如果这个环对外的出度为0则其中所有牛对其他牛的出度都为0</strong> <strong>如果一个DAG图有两个以上出度为0得点，那么总有一个点无法到达其它任意一个点</strong> <strong>遍历所有环与点，如果出度为0的只有一个则输出答案，否则答案为0</strong></p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MAXN=10000+200,MAXM=50000+200;
+int first[MAXN],nxt[MAXM],go[MAXM],arcnum=1;
+int dfn[MAXN],low[MAXN],stack[MAXM],top;
+int scc[MAXN],idx,cscc,vis[MAXN];//记录强连通分量 
+int cd[MAXN],cd_scc[MAXN];
+void addarc(int a,int b){
+    nxt[arcnum]=first[a];
+    first[a]=arcnum;
+    go[arcnum++]=b;
+    cd[a]++;
+}
+
+void tarjan(int u){
+    low[u]=dfn[u]=++idx;
+    stack[++top]=u; vis[u]=1;
+    for(int p=first[u];p!=0;p=nxt[p]){
+        int v=go[p];
+        if(vis[v]==0){
+            tarjan(v);
+            low[u]=min(low[u],low[v]);
+        }else if(vis[v]==1)
+            low[u]=min(low[u],dfn[v]);
+    }
+    if(dfn[u]==low[u]){
+        int v;
+        cscc++;
+        do{
+            v=stack[top--];
+            vis[v]=2;
+            scc[v]=cscc; 
+        }while(u!=v);
+    }
+}
+
+int main()
+{
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    int n,m,a,b;
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    for(int i=1;i&lt;=m;i++){
+        scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
+        addarc(a,b);
+    }
+    for(int i=1;i&lt;=n;i++)
+        if(vis[i]==0)
+            tarjan(i);
+
+    if(idx&lt;n){
+        printf(&quot;0&quot;);
+        return 0;
+    }
+    for(int u=1;u&lt;=n;u++)
+        for(int p=first[u];p!=0;p=nxt[p]){
+            int v=go[p];
+            if(scc[u]!=scc[v])
+                cd_scc[scc[u]]++;
+        }
+    int c1=0;
+    for(int i=1;i&lt;=cscc;i++){
+        if(cd_scc[i]==0&amp;&amp;c1==0)
+            c1=i;
+        else if(c1!=0&amp;&amp;cd_scc[i]==0){
+            printf(&quot;0&quot;);
+            return 0;
+        }
+    }
+
+    int ans=0;
+    for(int i=1;i&lt;=n;i++)
+        if(scc[i]==c1)
+            ans++;
+    printf(&quot;%d&quot;,ans);
+
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://mrh1s.top/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e5-bc-ba-e8-bf-9e-e9-80-9a-e5-88-86-e9-87-8f-e6-80-bb-e7-bb-93/" data-id="cjv7vtpx9001bzgetbhj29hu2" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e6-8b-93-e6-89-91-e6-8e-92-e5-ba-8f-e4-bb-a5-e5-8f-8a-e5-85-b3-e9-94-ae-e8-b7-af-e5-be-84-e6-80-bb-e7-bb-93" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/06/e6-8b-93-e6-89-91-e6-8e-92-e5-ba-8f-e4-bb-a5-e5-8f-8a-e5-85-b3-e9-94-ae-e8-b7-af-e5-be-84-e6-80-bb-e7-bb-93/" class="article-date">
+  <time datetime="2018-12-06T15:42:05.000Z" itemprop="datePublished">2018-12-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/06/e6-8b-93-e6-89-91-e6-8e-92-e5-ba-8f-e4-bb-a5-e5-8f-8a-e5-85-b3-e9-94-ae-e8-b7-af-e5-be-84-e6-80-bb-e7-bb-93/">拓扑排序以及关键路径总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>  拓扑排序以及关键路径的总结 <strong>拓扑排序：首先纠正一个读音问题：拓扑(tuopu)话说我好几次都读成(tabu) (tuobu)好吗！</strong> <strong>      拓扑排序是针对AOV图（即有向无边图，且图中不允许环的存在）的一种排序算法，它用于将一个AOV图按照顺序排成线性序列</strong> <strong>       基本操作如下：</strong> <strong>1.记录每个节点的入度</strong> <strong>2.每次找到入度为零的点入栈，并将与之相连的节点入度减一</strong> <strong>3.重复2的动作，直到栈为空</strong> <strong>4.判断当前操作进行的次数，少于n次则有环，否则输出拓扑序列</strong> 家谱树 【问题描述】 有个人的家族很大，辈分关系很混乱，请你帮整理一下这种关系。 给出每个人的孩子的信息。 输出一个序列，使得每个人的后辈都比那个人后列出。 【输入格式】 第1行一个整数N（1&lt;=N&lt;=100），表示家族的人数。 接下来N行，第I行描述第I个人的儿子。 每行最后是0表示描述完毕。 【输出格式】 输出一个序列，使得每个人的后辈都比那个人后列出。 如果有多解输出任意一解。 【输入样例】 5 0 4 5 1 0 1 0 5 3 0 3 0 【输出样例】 2 4 5 3 1</p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MAX=10000;
+int first[MAX],nxt[MAX],go[MAX],arcnum=1;
+int rd[MAX],stack[MAX],top;
+void addarc(int a,int b){
+    nxt[arcnum]=first[a];
+    first[a]=arcnum;
+    go[arcnum++]=b;
+}
+
+int main()
+{
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    int n,m;
+    scanf(&quot;%d&quot;,&amp;n);
+    for(int i=1;i&lt;=n;i++)
+        while(scanf(&quot;%d&quot;,&amp;m)!=EOF &amp;&amp;m!=0)
+            addarc(i,m),rd[m]++;
+    for(int i=1;i&lt;=n;i++)
+        if(rd[i]==0)
+            stack[++top]=i;
+    do{
+        int now=stack[top--];
+        printf(&quot;%d &quot;,now);
+        for(int p=first[now];p!=0;p=nxt[p]){
+            rd[go[p]]--;
+            if(rd[go[p]]==0)
+                stack[++top]=go[p];
+        }
+    }while(top!=0);
+
+
+    return 0;
+}
+</code></pre><p><strong>该题是明显的拓扑排序题，按照标准格式写程序即可</strong>  <strong>奖金</strong> （<a href="http://fzoj.xndxfz.com/JudgeOnline/problem.php?id=1624）" target="_blank" rel="noopener">http://fzoj.xndxfz.com/JudgeOnline/problem.php?id=1624）</a> <strong>描述</strong> 由于无敌的凡凡在2005年世界英俊帅气男总决选中胜出，Yali Company总经理Mr.Z心情好，决定给每位员工发奖金。公司决定以每个人本年在公司的贡献为标准来计算他们得到奖金的多少。于是Mr.Z下令召开m方会谈。每位参加会谈的代表提出了自己的意见：“我认为员工a的奖金应该比b高！”Mr.Z决定要找出一种奖金方案，满足各位代表的意见，且同时使得总奖金数最少。每位员工奖金最少为100元。 <strong>输入</strong> 第一行两个整数n,m，表示员工总数和代表数；以下m行，每行2个整数a,b，表示某个代表认为第a号员工奖金应该比第b号员工高。 输出 若无法找到合理方案，则输出“Poor Xed”；否则输出一个数表示最少总奖金。 <strong>样例输入</strong> 2 1 1 2 <strong>样例输出</strong> 201 <strong>提示</strong> 80％的数据满足n&lt;=1000，m&lt;=2000；100％的数据满足n&lt;=10000，m&lt;=20000。 <strong>此题比上一题多加入了点的权值</strong> <strong>也就是计算拓扑序列中权值和最小是多少</strong> <strong>标准做法：使用拓扑排序，在去掉某个点后，遍历它的相连节点时，计算该点的权值，是在(val[v],val[u]+1),其中u为起点，v为中点，中取最大值，开始我的理解出现的偏差，不能在那个点入度为0的时候才计算那个点的权值，因为那个点要满足的条件是比它之前的所有点权值都要小</strong></p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MAX=300000;
+int first[MAX],nxt[MAX],go[MAX],arcnum=1,rd[MAX];
+int stack[MAX],val[MAX],top;
+void addarc(int a,int b){
+    nxt[arcnum]=first[a];
+    first[a]=arcnum;
+    go[arcnum++]=b;
+}
+int main()
+{
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    int n,m,a,b,k=0,tot=0;
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    for(int i=1;i&lt;=m;i++){
+        scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
+        addarc(b,a);//b比a工资低 
+        rd[a]++;//入度+1 
+    }
+    for(int i=1;i&lt;=n;i++)
+        if(rd[i]==0)//将入度为0的点入栈 
+            stack[++top]=i;
+    while(top!=0){
+        int now=stack[top--];//当前点 
+        k++; tot+=100+val[now]; 
+        for(int p=first[now];p!=0;p=nxt[p]){
+            val[go[p]]=max(val[go[p]],val[now]+1);//不应当在入度为0时才更新val[]，而应当每次都更新，取最大值 
+            if(--rd[go[p]]==0)
+                stack[++top]=go[p];
+            }
+    }
+
+    if(k==n) printf(&quot;%d&quot;,tot);
+    else printf(&quot;Poor Xed&quot;);
+
+
+    return 0;
+
+}
+</code></pre><p><strong>fzoj1621:烦人的幻灯片</strong> <strong>题目描述</strong> 李教授于今天下午做一个非常重要的演讲。不幸的是他不是一个非常爱整洁的人，他把自己做演讲要用的幻灯片随便堆放在一起。因此，演讲之前他不得不去整理这些幻灯片。做为一个讲求效率的学者，他希望尽可能简单地完成它。情况是这样，教授这次演讲一共要用n张幻灯片（n&lt;=26），这n张幻灯片按照演讲要使用的顺序已经用数字1，2，…，n在上面编上了号。因为幻灯片是透明的，所以我们不能一下子看清每一个数字所对应的幻灯片。 现在我们用大写字母A，B，C，。。。再次把幻灯片依次编号。你的任务是编写一个程序，把幻灯片的数字编号和字母编号对应起来，显然这种对应应该是唯一的；若出现多种对应的情况或是某些数字编号和字母对应不起来，我们就称对应是无法实现的。 <strong>输入</strong> 第一行：只有一个数n，表示有n张幻灯片。 接下来的n行：包括4个整数Xmin，Xmax，Ymin，Ymax（整数之间用空格分开），为幻灯片的坐标（该区域为幻灯片），这n张幻灯片按其在输入文件中出现的顺序从前到后依次编号为A，B，C，…再接下来的n行依次为n个数字编号的坐标X，Y，显然在幻灯片之外是不会有数字的。 <strong>输出</strong> 若是对应可以实现，你的输出应该包括n行，每一行为一个字母和一个数字，中间以一个空格隔开，并且各行以字母的升序排列，注意输出的字母要大写并且顶格；反之，若是对应无法实现，在第一行顶格输出None即可。行首行末无多余空格。 <strong>样例输入</strong> 4 6 22 10 20 4 18 6 16 8 20 2 18 10 24 4 8 9 15 19 17 11 7 21 11 <strong>样例输出</strong> A 4 B 1 C 2 D 3 <strong>这道题并不完全是拓扑排序题，但却用到了拓扑排序的思想</strong> <strong>读懂题意是关键，本题意思是每个数字都对应了一个或多个幻灯片，然后要求从中找出数字与幻灯片的一一对应关系</strong> <strong>节点个数很少，直接用邻接矩阵存储</strong> <strong>由于是数字对应幻灯片，所以我选择存储每个数字的出度，当某个数字出度为1时，寻找它所对应的幻灯片，记录，并且将与该幻灯片连接的其余数字全部断绝联系，出度也减1</strong> <strong>这样，n次之后就可以得到完整的一一对应关系</strong> </p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MAX=1000;
+int X1[MAX],X2[MAX],Y1[MAX],Y2[MAX],map[MAX][MAX],cd[MAX],ans[MAX];
+int stack[MAX],top;
+
+bool IsInside(int x,int y,int t){//第t张输入的幻灯片
+    return x&gt;X1[t]&amp;&amp;x&lt;X2[t]&amp;&amp;y&gt;Y1[t]&amp;&amp;y&lt;Y2[t];
+} 
+int main()
+{
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    int n,x,y,k=0;
+    scanf(&quot;%d&quot;,&amp;n);
+    for(int i=1;i&lt;=n;i++)
+        scanf(&quot;%d%d%d%d&quot;,&amp;X1[i],&amp;X2[i],&amp;Y1[i],&amp;Y2[i]);
+    for(int i=1;i&lt;=n;i++){
+        scanf(&quot;%d%d&quot;,&amp;x,&amp;y);
+        for(int j=1;j&lt;=n;j++)
+            if(IsInside(x,y,j))
+                map[i][j]=1,cd[i]++;//第i个数字在j-&apos;A&apos;+1的幻灯片中 
+    }
+
+    for(int i=1;i&lt;=n;i++)
+        if(cd[i]==1)
+            stack[++top]=i;
+    do{
+        int u=stack[top--];
+        k++;
+        for(int v=1;v&lt;=n;v++)    
+            if(map[u][v]==1){//如果u到v有路径 则u属于v 
+                ans[v]=u;
+                for(int i=1;i&lt;=n;i++)
+                if(map[i][v]==1){
+                    map[i][v]=0; cd[i]--;
+                    if(cd[i]==1)
+                        stack[++top]=i;
+                }
+                break;
+            }
+
+    }while(top!=0);
+    if(k!=n) printf(&quot;None&quot;);
+    else
+        for(int i=1;i&lt;=n;i++)
+            printf(&quot;%c %d\n&quot;,&apos;A&apos;+i-1,ans[i]);
+
+    return 0;
+}
+</code></pre><p>  <strong>关键路径：</strong> <strong>建立在一种新图上：AOV图（用点表示时间，边表示活动，边的权值表示活动持续的时间的一种图）</strong> <strong>四个重要的量</strong></p>
+<ol>
+<li><strong>事件最早发生时间ve[]</strong></li>
+<li><strong>事件最晚发生时间vl[]</strong></li>
+<li><strong>活动最早开始时间e[]</strong></li>
+<li><strong>活动最晚开始时间l[]</strong></li>
+</ol>
+<p><strong>各个量的求法及求解顺序：</strong></p>
+<ol>
+<li><strong>Ve，以Ve[1]=0开始，所有起点u终点v都按照ve[v]=max(ve[v],ve[u]+dis[u][v])的方法进行计算，并且记录下拓扑序列</strong></li>
+<li><strong>Vl，顺序：逆拓扑序列，以Vl[n]=Ve[n]开始，（因为终点是关键事件，所以最早和最晚开始时间相等）起点u终点v都按照vl[v]=min(vl[v],vl[u]-dis[u][v])的方法求解（此处注意，程序开头必须memset）</strong></li>
+<li><strong>e，事件的最早发生时间就等于活动的最早开始时间</strong></li>
+<li><strong>l，对于起点x终点y之间的活动i，l[i]=vl[y]-dis[x][y]</strong></li>
+</ol>
+<p><strong>如果e[i]==l[i]则说它是关键活动</strong> <strong>结束。</strong>  <strong>Question：活动的最早最晚开始时间和事件的最早最晚发生时间有什么关系，它们各自属于实际问题中的那一个量？（我只会求，但并不能完全明白它们的差别或者用途）</strong> <strong>前面奖金一题所用的方法是不是关键路径中的求事件最早发生时间？</strong> </p>
+<h2 id="关键路径计算"><a href="#关键路径计算" class="headerlink" title="关键路径计算"></a>关键路径计算</h2><p>（<a href="http://fz.openjudge.cn/graph/015/）" target="_blank" rel="noopener">http://fz.openjudge.cn/graph/015/）</a> <strong>描述</strong> 给出一个AOE图，请输出其关键路径； <strong>输入</strong> 第一行：n，m（n,m&lt;=100分别表示节点个数与边的条数） 接下来m行，第i+1行，表示第i条边，每行三个数：ai,bi,ci，表示存在一条ai指向bi权值为ci的边。 注意：起点为结点1，终点为结点n <strong>输出</strong> 将关键路径的边的编号从小到大输出 <strong>样例输入</strong> 9 11 1 2 6 1 3 4 1 4 5 2 5 1 3 5 1 4 6 2 5 7 9 5 8 7 6 8 4 7 9 2 8 9 4 <strong>样例输出</strong> 1 4 7 8 10 11 <strong>标准问题，注意在输出之前要排序</strong></p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MAX=1000;
+int first[MAX],go[MAX],nxt[MAX],dis[MAX][MAX],arcnum=1;
+int stack[MAX],top,ve[MAX],vl[MAX],e[MAX],l[MAX],rd[MAX];
+int order[MAX],ans[MAX],sum;
+void addarc(int a,int b,int c){
+    nxt[arcnum]=first[a];
+    first[a]=arcnum;
+    go[arcnum++]=b;
+    dis[a][b]=c;
+}
+int main(){
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    int n,m,a,b,c,k=0;
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    memset(vl,127,sizeof(vl));
+    for(int i=1;i&lt;=m;i++){
+        scanf(&quot;%d%d%d&quot;,&amp;a,&amp;b,&amp;c);
+        addarc(a,b,c);
+        rd[b]++;
+    }
+    for(int i=1;i&lt;=n;i++)
+        if(rd[i]==0)
+            stack[++top]=i;//入栈 
+    do{//第一次，求事件最早发生时间 
+        int u=stack[top--],v; k++;
+        order[k]=u;//记录顺序 
+        for(int p=first[u];p!=0;p=nxt[p]){
+            v=go[p]; rd[v]--;
+            ve[v]=max(ve[v],ve[u]+dis[u][v]);
+            if(rd[v]==0)
+                stack[++top]=v;
+        }
+    }while(top!=0);
+
+    vl[n]=ve[n];//中点的事件最晚发生时间等于最早发生时间 
+    for(int i=n-1;i&gt;=1;i--){
+        int u=order[i],v;
+        for(int p=first[u];p!=0;p=nxt[p]){
+            v=go[p];
+            vl[u]=min(vl[u],vl[v]-dis[u][v]);
+        }
+    }
+
+    for(int i=1;i&lt;=n-1;i++){//计算活动的最早发生时间和最晚发生时间 
+        int u=order[i],v;
+        for(int p=first[u];p!=0;p=nxt[p]){
+            v=go[p];
+            e[p]=ve[u];//活动最早发生时间等于起始点的最早发生时间 
+            l[p]=vl[v]-dis[u][v];//活动最晚发生时间等于终点最晚发生时间减去活动的长度 
+            if(e[p]==l[p]) ans[++sum]=p;
+        }
+    }
+
+    sort(ans+1,ans+1+sum);
+    for(int i=1;i&lt;=sum;i++)
+        printf(&quot;%d\n&quot;,ans[i]);
+    return 0;
+}
+</code></pre><h1 id="HDU4109-Instrction-Arrangement"><a href="#HDU4109-Instrction-Arrangement" class="headerlink" title="HDU4109 Instrction Arrangement"></a>HDU4109 Instrction Arrangement</h1><p><a href="http://acm.hdu.edu.cn/showproblem.php?pid=4109" target="_blank" rel="noopener">http://acm.hdu.edu.cn/showproblem.php?pid=4109</a> <strong>Problem Description</strong> 阿狸这个学期学了计算机组织结构课程。他知道了指令之间可能有依存关系，像WAR（write after read，读之后写），WAW，RAW。如果两个指令之间的时间小于安全时间，它就会导致危险，从而引起错误的结果。所以我们需要设计特殊的回路去消除危险。然而，解决这个问题最简单的方法是添加等待时间（或者由其它的操作填充），如果没有其它的操作填充就意味着需要浪费时间去保证两个指令之间的时间不小于安全时间。 两个指令之间的时间的定义就是它们起始时间差。 现在我们有很多指令，并且我们知道依存关系和指令之间的安全事件。我们也有非常强大的无限核的CPU。所以你可以在同一时间想跑多少指令就跑多少指令。这个CPU可以只消耗1ns就完成任何指令。 你的工作就是重新安排这些指令顺序所以CPU就可以用最短时间完成所有的指令。 <strong>Input</strong> 输入包括几个测试案例 头两行有两个整数N,M（N&lt;=1000,M&lt;=1000），其中N表示N条指令和M表示M个依存关系 接下来的M行，每行包括3个整数X,Y,Z，意思是X和Y之间的安全时间是Z，而且Y必须在X之后运行。这些指令从0到N-1标号。 <strong>Output</strong> 打印一个整数，CPU运行的最短时间 <strong>Sample Input</strong> 5 2 1 2 1 3 4 1 <strong>Sample Output</strong> 2 <strong>HINT</strong> 在第1ns中，指令0，1和3被执行了。 在第2ns中，指令2,和4被执行了 所以答案是2 <strong>也是求事件最早发生时间（这些指令什么时候最早全部执行完）的题</strong> <strong>注意：</strong></p>
+<ol>
+<li><strong>memset！！！！！！！</strong></li>
+<li><p><strong>指令由0到n-1编号，注意转换</strong></p>
+<p>#include<cstdio><br>#include<cstring><br>#include<algorithm><br>using namespace std;<br>const int MAX=1020;<br>int first[MAX],nxt[10200],go[10200],arcnum;<br>int dis[MAX][MAX],rd[MAX],val[MAX],stack[10200],top;<br>void addarc(int a,int b,int c){</algorithm></cstring></cstdio></p>
+<pre><code>nxt[arcnum]=first[a];
+first[a]=arcnum;
+go[arcnum++]=b;
+dis[a][b]=c;
+</code></pre><p>}</p>
+<p>int main()<br>{<br>//    freopen(“in.txt”,”r”,stdin);</p>
+<pre><code>int n,m,x,y,z,maxx;
+while(scanf(&quot;%d%d&quot;,&amp;n,&amp;m)!=EOF){
+    memset(dis,0,sizeof(dis));
+    memset(rd,0,sizeof(rd));
+    memset(val,0,sizeof(val));
+    memset(first,0,sizeof(first));
+    maxx=-1; arcnum=1;
+    for(int i=1;i&lt;=n;i++)
+        val[i]=1;
+    for(int i=1;i&lt;=m;i++){
+        scanf(&quot;%d%d%d&quot;,&amp;x,&amp;y,&amp;z);
+        addarc(++x,++y,z);
+        rd[y]++;
+    }
+    for(int i=1;i&lt;=n;i++)    
+        if(rd[i]==0)
+            stack[++top]=i;
+    do{
+        int u=stack[top--],v;
+        for(int p=first[u];p!=0;p=nxt[p]){
+            v=go[p];
+            val[v]=max(val[v],val[u]+dis[u][v]);
+            maxx=max(val[v],maxx);
+            if(--rd[v]==0)
+                stack[++top]=v;
+        }
+
+    }while(top!=0);
+    printf(&quot;%d\n&quot;,maxx);
+}
+return 0;
+</code></pre><p>}</p>
+<p><strong>Poj3687 Labeling Balls</strong> <strong>escription</strong> Windy有N个不同重量的求，现在他打算给他们贴上1到N的标签： 没有两个相同的球 这些标签要符合规则例如“标签a球轻于标签b球” 你能帮他解决这个问题吗？ <strong>Input</strong> 第一行是数据个数.每组数据第一行是两个整数： N (1 ≤ N ≤ 200)和 M (0 ≤ M ≤ 40,000).接下来M行，每行两个整数a和 b表示 标签a球轻于标签b球. (1 ≤ a, b ≤ N) 每组数据后有一个空行 <strong>Output</strong> 每组测试数据输出一行，按照小球的1~N，小球的重量输出，如果有多组解： you should output the one with the smallest weight for label 1, then with the smallest weight for label 2, then with the smallest weight for label 3 and so on…如果无解，输出-1。 <strong>Sample Input</strong> 5 4 0 4 1 1 1 4 2 1 2 2 1 4 1 2 1 4 1 3 2 <strong>Sample Output</strong> 1 2 3 4 -1 -1 2 1 3 4 1 3 2 4 <strong>这道题至今未通过。初步思路是建立小顶堆和拓扑排序，以便在几个球重量相等时输出编号最小的。</strong> <strong>但是问题来了，在我操作入度为0的节点时，可能会又有新的节点加入堆，从而导致我整个答案完全不对。</strong></p>
+<p>#include<cstdio><br>#include<cstring><br>#include<algorithm><br>using namespace std;<br>int first[300],nxt[40200],go[40200],arcnum;<br>int rd[300],stack[40200],ans[300],heap[10000],len;<br>void addarc(int a,int b){</algorithm></cstring></cstdio></p>
+<pre><code>nxt[arcnum]=first[a];
+first[a]=arcnum;
+go[arcnum++]=b;
+</code></pre><p>}</p>
+<p>bool cmp(int a,int b){</p>
+<pre><code>return a&lt;b;
+</code></pre><p>}</p>
+<p>int Get(){</p>
+<pre><code>int t=heap[1],now=1,next;
+heap[1]=heap[len--];
+while(now*2&lt;=len){
+    next=now*2;
+    if(next&lt;len&amp;&amp;cmp(heap[next+1],heap[next])) next++;
+    if(cmp(heap[now],heap[next])) break;
+    swap(heap[now],heap[next]);
+    now=next;
+}
+return t;
+</code></pre><p>}</p>
+<p>void Put(int p){</p>
+<pre><code>int now=++len,next;
+heap[len]=p;
+while(now&gt;1){
+    next=now&gt;&gt;1;
+    if(!cmp(heap[now],heap[next])) break;
+    swap(heap[now],heap[next]);    
+    now=next;
+}
+</code></pre><p>}</p>
+<p>int main()<br>{</p>
+<pre><code>int t,n,m,a,b,k;
+scanf(&quot;%d&quot;,&amp;t);
+while(t--){
+    arcnum=1; k=0; len=0;
+    memset(first,0,sizeof(first));
+    memset(rd,0,sizeof(rd));
+    memset(ans,0,sizeof(ans));
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    for(int i=1;i&lt;=m;i++){
+        scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
+        addarc(a,b);
+        rd[b]++;
+    }
+    for(int i=1;i&lt;=n;i++)
+        if(rd[i]==0)
+            Put(i);
+    do{
+        int u=Get(),v;
+        ans[u]=++k;
+        for(int p=first[u];p!=0;p=nxt[p]){
+            v=go[p];
+            if(--rd[v]==0)
+                Put(v);
+        }
+    }while(len&gt;0);
+    if(k!=n) printf(&quot;-1\n&quot;);
+    else{
+        for(int i=1;i&lt;=n;i++)
+            printf(&quot;%d &quot;,ans[i]);
+        printf(&quot;\n&quot;);
+    }
+}
+
+return 0;
+</code></pre><p>}</p>
+</li>
+</ol>
+<p><strong>又想到把拓扑排序后的点记录下来，来个快排，但是有的球没有限制条件，强行把权设为0又会错。</strong></p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+int first[300],nxt[40200],go[40200],arcnum;
+int rd[300],stack[40200],top;
+struct node{
+    int val,id;
+}ans[300];
+
+void addarc(int a,int b){
+    nxt[arcnum]=first[a];
+    first[a]=arcnum;
+    go[arcnum++]=b;
+}
+
+bool cmp(node a,node b){
+    if(a.val!=b.val)
+        return a.val&lt;b.val;
+    return a.id&lt;b.id;
+}
+
+int main()
+{
+    int t,n,m,a,b,k;
+    scanf(&quot;%d&quot;,&amp;t);
+    while(t--){
+        arcnum=1; k=0; top=0;
+        memset(first,0,sizeof(first));
+        memset(rd,0,sizeof(rd));
+        memset(ans,0,sizeof(ans));
+        scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+        for(int i=1;i&lt;=n;i++)
+            ans[i].id=i,ans[i].val=0;
+        for(int i=1;i&lt;=m;i++){
+            scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
+            addarc(a,b);
+            rd[b]++;
+        }
+        for(int i=1;i&lt;=n;i++)
+            if(rd[i]==0)
+                stack[++top]=i;
+        do{
+            int u=stack[top--],v;
+            k++;
+            for(int p=first[u];p!=0;p=nxt[p]){
+                v=go[p];
+                ans[v].val=max(ans[v].val,ans[u].val+1);
+                if(--rd[v]==0)
+                    stack[++top]=v;
+            }
+        }while(top!=0);
+        if(k!=n) printf(&quot;-1\n&quot;);
+        else{
+            sort(ans+1,ans+1+n,cmp);
+            for(int i=1;i&lt;=n;i++)
+                printf(&quot;%d &quot;,ans[i].id);
+            printf(&quot;\n&quot;);
+        }
+    }
+
+    return 0;
+}
+</code></pre><p><strong>据说建立大顶堆就可以解决问题？？？？</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://mrh1s.top/2018/12/06/e6-8b-93-e6-89-91-e6-8e-92-e5-ba-8f-e4-bb-a5-e5-8f-8a-e5-85-b3-e9-94-ae-e8-b7-af-e5-be-84-e6-80-bb-e7-bb-93/" data-id="cjv7vtpyz004azgetro4kga99" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <a class="extend prev" rel="prev" href="/page/2/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/c-c/">c/c++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/notes/">notes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/project/">project</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/">write up</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cgctf/">cgctf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cnss-recruit-201809/">cnss_recruit_201809</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/hgame-20190122/">hgame_20190122</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nationalCTF-20190421/">nationalCTF_20190421</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nctf-20181124/">nctf_20181124</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/牢骚/">牢骚</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Dynamic/">RE_Dynamic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/RE-Dynamic/" style="font-size: 10px;">RE_Dynamic</a> <a href="/tags/RE-Static/" style="font-size: 20px;">RE_Static</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/28/bbvvmm/">bbvvmm</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/28/e5-8d-97-e4-ba-ac-e9-82-ae-e7-94-b5-e5-a4-a7-e5-ad-a6-re-wxyvm2/">南京邮电大学 RE-WxyVM2</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/13/e5-a3-b3-e7-9b-b8-e5-85-b3/">壳相关</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/shinyshot/">ShinyShot!</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/21/happyvm/">HappyVM</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 mrh929<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

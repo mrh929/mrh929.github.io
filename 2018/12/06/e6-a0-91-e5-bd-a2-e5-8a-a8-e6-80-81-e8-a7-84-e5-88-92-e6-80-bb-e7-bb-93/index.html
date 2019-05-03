@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>树形动态规划总结 | mrh929&#39;s home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="树形动规总结树型动规的基本方式同普通的线性动态规划，但遍历的顺序是由高深度向低深度直至根节点，通常一个树型动规包括了状态、阶段、决策、状态转移方程，找到每个题目对应的动归要素，是一个题目的难点所在。  状态：程序求解到每个程度所储存的信息，通常我们需要在一开始找到适合题目的状态并进行定义。Tips：找状态可以通过确定变量，权衡变量的范围来寻找。 阶段：就是求解动态规划的顺序，每次求解的状态都必须运">
+<meta property="og:type" content="article">
+<meta property="og:title" content="树形动态规划总结">
+<meta property="og:url" content="http://mrh1s.top/2018/12/06/e6-a0-91-e5-bd-a2-e5-8a-a8-e6-80-81-e8-a7-84-e5-88-92-e6-80-bb-e7-bb-93/index.html">
+<meta property="og:site_name" content="mrh929&#39;s home">
+<meta property="og:description" content="树形动规总结树型动规的基本方式同普通的线性动态规划，但遍历的顺序是由高深度向低深度直至根节点，通常一个树型动规包括了状态、阶段、决策、状态转移方程，找到每个题目对应的动归要素，是一个题目的难点所在。  状态：程序求解到每个程度所储存的信息，通常我们需要在一开始找到适合题目的状态并进行定义。Tips：找状态可以通过确定变量，权衡变量的范围来寻找。 阶段：就是求解动态规划的顺序，每次求解的状态都必须运">
+<meta property="og:locale" content="cn">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:updated_time" content="2019-05-03T06:19:59.674Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="树形动态规划总结">
+<meta name="twitter:description" content="树形动规总结树型动规的基本方式同普通的线性动态规划，但遍历的顺序是由高深度向低深度直至根节点，通常一个树型动规包括了状态、阶段、决策、状态转移方程，找到每个题目对应的动归要素，是一个题目的难点所在。  状态：程序求解到每个程度所储存的信息，通常我们需要在一开始找到适合题目的状态并进行定义。Tips：找状态可以通过确定变量，权衡变量的范围来寻找。 阶段：就是求解动态规划的顺序，每次求解的状态都必须运">
+<meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+  
+    <link rel="alternate" href="/atom.xml" title="mrh929&#39;s home" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">mrh929&#39;s home</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://mrh1s.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-e6-a0-91-e5-bd-a2-e5-8a-a8-e6-80-81-e8-a7-84-e5-88-92-e6-80-bb-e7-bb-93" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/06/e6-a0-91-e5-bd-a2-e5-8a-a8-e6-80-81-e8-a7-84-e5-88-92-e6-80-bb-e7-bb-93/" class="article-date">
+  <time datetime="2018-12-06T15:45:21.000Z" itemprop="datePublished">2018-12-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      树形动态规划总结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="树形动规总结"><a href="#树形动规总结" class="headerlink" title="树形动规总结"></a>树形动规总结</h1><p><strong>树型动规的基本方式同普通的线性动态规划，但遍历的顺序是由高深度向低深度直至根节点，通常一个树型动规包括了状态、阶段、决策、状态转移方程，找到每个题目对应的动归要素，是一个题目的难点所在。</strong></p>
+<ol>
+<li><strong>状态：程序求解到每个程度所储存的信息，通常我们需要在一开始找到适合题目的状态并进行定义。Tips：找状态可以通过确定变量，权衡变量的范围来寻找。</strong></li>
+<li><strong>阶段：就是求解动态规划的顺序，每次求解的状态都必须运用之前已经求解过的作为辅助。</strong></li>
+<li><strong>决策：选择最优解的过程，通常是求最大值，最小值等。</strong></li>
+<li><p><strong>状态转移方程：思考出决策后，用状态转移方程将其表达出来。</strong></p>
+<p><strong>关于求解顺序：由于树形动归的特殊性（几乎都是无向边），我们应该从叶子节点开始遍历，有三种方法：</strong></p>
+</li>
+<li><p><strong>先给树做一次BFS，然后将队列中的元素一一出队，就是树型动规的顺序。</strong></p>
+</li>
+<li><strong>找度为2的节点，记录，并且更新它的子节点的度数，重复这个拓扑排序操作，得到的也是树型动规的顺序。</strong></li>
+<li><p><strong>用递归将树的后序遍历求出，即可将一棵树线性化</strong></p>
+<p><strong>拓展：状态压缩</strong> <strong>      当我们的某个状态过于繁琐，很难将其用一个维度表示出来，怎么办？</strong> <strong>如山贼集团题目，设立分部的时候各个分部会互相影响，而且不同的分部之间影响的情况是不同的，不像我们通常的动归，所有的物品一视同仁。</strong> <strong>      比如某结点选择1、2、3分部，会导致总资金损失，而选择1、4分部，总资金却会增加……</strong> <strong>      观察分部的总数量，小于等于8，这个时候我们可以用到位运算的相关知识，将1~8分部的选择情况用一个int变量储存起来，从而起到表示状态的作用。</strong>    <strong>Ural 1039没有上司的晚会</strong> 背景 有个公司要举行一场晚会。 为了能玩得开心，公司领导决定：如果邀请了某个人，那么一定不会邀请他的上司 （上司的上司，上司的上司的上司……都可以邀请）。 题目 每个参加晚会的人都能为晚会增添一些气氛，求一个邀请方案，使气氛值的和最大。 输入格式 第1行一个整数N（1&lt;=N&lt;=6000）表示公司的人数。 接下来N行每行一个整数。第i行的数表示第i个人的气氛值x(-128&lt;=x&lt;=127)。 接下来每行两个整数L，K。表示第K个人是第L个人的上司。 输入以0 0结束。 输出格式 一个数，最大的气氛值和。 样例输入 7 1 1 1 1 1 1 1 1 3 2 3 6 4 7 4 4 5 3 5 0 0 样例输出 5 <strong>提交地址：</strong> <a href="http://acm.timus.ru/submit.aspx?space=1&amp;num=1039" target="_blank" rel="noopener">http://acm.timus.ru/submit.aspx?space=1&amp;num=1039</a> <strong>首先定义状态：每个结点，然后我们发现在一个人在不参与聚会时，它的相邻子节点可以参加聚会，也可以不参加；一个人参与聚会时，它的相邻子节点一定不能参与聚会。我们加一个状态：参与或者不参与聚会。</strong> <strong>dp[i][j]表示第i个人参与(j==1)或不参与(j==0)聚会时聚会所能达到的最大气氛值</strong></p>
+<p>#include<cstdio><br>#include<cstring><br>#include<algorithm><br>using namespace std;<br>const int MAX=8000;<br>int w[MAX],f[MAX][2],l,k,rt;<br>int que[MAX],top,rear,father[MAX];<br>int first[MAX],nxt[MAX],go[MAX],arcnum;<br>void addarc(int a,int b){</algorithm></cstring></cstdio></p>
+<pre><code>nxt[++arcnum]=first[a];
+first[a]=arcnum;
+go[arcnum]=b;
+</code></pre><p>}</p>
+<p>int main(){<br>//    freopen(“in.txt”,”r”,stdin);</p>
+<pre><code>int n;
+scanf(&quot;%d&quot;,&amp;n);
+for(int i=1;i&lt;=n;i++)
+    scanf(&quot;%d&quot;,&amp;w[i]);
+
+while(scanf(&quot;%d%d&quot;,&amp;l,&amp;k)!=EOF&amp;&amp;l!=0&amp;&amp;k!=0){
+    father[l]=k;
+    addarc(k,l);
+}
+</code></pre><p>/*    for(int i=1;i&lt;=n;i++){</p>
+<pre><code>    printf(&quot;%d &quot;,i);
+    for(int p=first[i];p!=0;p=nxt[p]){
+        int j=go[p];
+        printf(&quot;%d &quot;,j);
+    }
+    printf(&quot;\n&quot;);
+}printf(&quot;\n&quot;);*/
+for(int i=1;i&lt;=n;i++)
+    if(!father[i]){
+        rt=i; break;
+    }
+que[rear++]=rt;
+do{
+    for(int p=first[que[top++]];p!=0;p=nxt[p])
+        que[rear++]=go[p];
+}while(top!=rear);
+
+for(int k=top-1;k&gt;=0;k--){
+    int i=que[k];
+    if(first[i]==0){
+        f[i][0]=0;
+        f[i][1]=w[i];
+    }else{
+        int sum,j;
+        sum=0;
+        for(int p=first[i];p!=0;p=nxt[p]){
+            j=go[p];
+            sum+=max(f[j][0],f[j][1]);
+        }
+        f[i][0]=sum;
+        sum=0;
+        for(int p=first[i];p!=0;p=nxt[p]){
+            j=go[p];
+            sum+=f[j][0];
+        }
+        f[i][1]=sum+w[i];
+    }
+}
+printf(&quot;%d&quot;,max(f[rt][0],f[rt][1]));
+</code></pre></li>
+</ol>
+<pre><code>/*    printf(&quot;\n&quot;);
+    for(int i=1;i&lt;=n;i++){
+        printf(&quot;%d %d\n&quot;,f[i][0],f[i][1]);
+    }*/
+
+
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p>POJ 1985 Cow Marathon 题目大意 求一棵树的最长路径 输入： 第一行：n,m (2 &lt;= N &lt;= 40,000,1 &lt;= M&lt; 40,000)，表示有n个节点，m条边 接下来m行： 每行四个量：a b w c，表示a与b之间有一条权值为w的路径，将c忽略掉 输出： 最长路径长度 <strong>模版题 但是WA了，就不给代码了。。。。</strong> <strong>Ural 1018 二*苹果树</strong> <strong>题目</strong> 有一棵苹果树，如果树枝有分叉，一定是分2叉（就是说没有只有1个儿子的结点） 这棵树共有N个结点（叶子点或者树枝分叉点），编号为1-N,树根编号一定是1。 我们用一根树枝两端连接的结点的编号来描述一根树枝的位置。下面是一颗有4个树枝的树 2   5 \ / 3   4 \ / 1 现在这颗树枝条太多了，需要剪枝。但是一些树枝上长有苹果。 给定需要保留的树枝数量，求出最多能留住多少苹果。 <strong>输入格式</strong> 第1行2个数，N和Q(1&lt;=Q&lt;=N,1&lt;N&lt;=100)。 N表示树的结点数，Q表示要保留的树枝数量。接下来N-1行描述树枝的信息。 每行3个整数，前两个是它连接的结点的编号。第3个数是这根树枝上苹果的数量。 每根树枝上的苹果不超过30000个。 <strong>输出格式</strong> 一个数，最多能留住的苹果的数量。 <strong>样例输入</strong> 5 2 1 3 1 1 4 10 2 3 20 3 5 20 <strong>样例输出</strong> 21 <strong>状态：结点、树所保留的树枝数量。</strong> <strong>f[i][j]表示在第i个结点以下的子树保留j个树枝所能保留的最大苹果数</strong> <strong>分配树枝需要枚举分配给整个子树的树枝数、再枚举分给左右子树的树枝各有多少，注意这里分给左右子树树枝的同时会损失掉两根树枝</strong> </p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MAX=1000;
+int first[MAX],nxt[MAX],go[MAX],w[MAX][MAX],arcnum;
+int f[MAX][MAX],father[MAX],lch[MAX],rch[MAX],vis[MAX];
+int que[MAX],top,rear;
+void addarc(int a,int b,int c){
+    nxt[++arcnum]=first[a];
+    first[a]=arcnum;
+    go[arcnum]=b;
+    w[a][b]=c;
+}
+int main(){
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    int n,q,a,b,c;
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;q);
+    for(int i=1;i&lt;=n-1;i++){
+        scanf(&quot;%d%d%d&quot;,&amp;a,&amp;b,&amp;c);
+        addarc(a,b,c);
+        addarc(b,a,c);
+    }
+    que[rear++]=1; vis[1]=1;
+    do{
+        int u=que[top++],v;
+        for(int p=first[u];p!=0;p=nxt[p]){
+            v=go[p];
+            if(vis[v]) continue;
+            if(!lch[u]) lch[u]=v;
+            else rch[u]=v;
+            que[rear++]=v; vis[v]=1;
+        }
+    }while(top!=rear);
+
+    for(int k=top-1;k&gt;=0;k--){
+        int i=que[k];
+        if(!lch[i]) continue;
+        for(int j=1;j&lt;=q;j++){//分配j个树枝 
+            f[i][j]=max(f[i][j],max(f[lch[i]][j-1]+w[i][lch[i]],f[rch[i]][j-1]+w[i][rch[i]]));//单独分配 
+            for(int j0=1;j0&lt;j;j0++){//两个都分配 
+                int lw=f[lch[i]][j0-1]+w[i][lch[i]];
+                int rw=f[rch[i]][j-j0-1]+w[i][rch[i]];
+                f[i][j]=max(f[i][j],lw+rw);
+            }
+        }
+    }
+    printf(&quot;%d&quot;,f[1][q]);
+
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p> <strong>POJ1155有限电视网络</strong> 有一棵N个节点的树，树上有M个叶子节点，对应M个用户，其余为转发站，1号节点为根，电视台在1号节点，节目从一个地方传到另一个地方都要费用，同时每一个用户愿意出相应的钱来收看节目。求在电视台不亏本的前提下，最多允许有多少个用户可以看到电视节目。 规模： N&lt;=3000  M<n 输入： n m n表示转发站和用户总数，m为用户数 以下n-m行，第i行第一个k，表示转发站i和k个（转发站或用户）相连,其后第j对数val,cost表示，第i个转发站到val有边，费用cost. 最后一行m个数表示每个用户愿意负的钱。 输出： 不亏本前提下，可以收到节目最多的用户数。 （如果某个用户要收到节目（叶子结点），那么电视台到该用户的路径节点的费用都要付） 思路:在树上进行背包，对于以u为根的子树,该子树供给给j个用户亏本的最少钱 **此题用平常的思维一般会想到用f\[i\]\[j\]的i表示结点，j表示盈亏费用，f\[i\]\[j\]就刚好表示用户的数量，但是盈亏费用并不是一个很好的量，它的范围很大，即使用动态规划也会很耗时间，所以我们只能将f\[i,j\]表示在以i为根的树上允许j的用户数，最大能赚到（最少亏损）的钱** **在最后全部遍历一边，最先被发现f\[i\]\[j\]>=0的i就是答案<strong>  </strong>另外还有一个问题，一个根结点有多个子节点，不像二叉苹果树那么容易枚举出来，这里可以用到一些01背包的思想，如果用动态规划来求解这个动态规划的状态转移方程，将每个子节点看作物品，分配的则是对应的用户数，能在较快的时间内求出状态**  </n></p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MAXN=3020;
+const int MAXM=8000;
+int first[MAXN],nxt[MAXM],go[MAXM],w[MAXM],arcnum;
+int dp[MAXN][MAXN],sum[MAXN],temp[MAXN];
+void addarc(int a,int b,int c){
+    nxt[++arcnum]=first[a];
+    first[a]=arcnum;
+    go[arcnum]=b;
+    w[arcnum]=c;
+}
+
+void DFS(int u){
+    for(int p=first[u];p!=0;p=nxt[p]){
+        int v=go[p];
+        DFS(v);
+        for(int j=0;j&lt;=sum[u];j++)
+            temp[j]=dp[u][j];
+        for(int j=0;j&lt;=sum[u];j++)
+            for(int k=1;k&lt;=sum[v];k++)
+                dp[u][k+j]=max(dp[u][k+j],temp[j]+dp[v][k]-w[p]);
+        sum[u]+=sum[v];
+    }
+}
+
+int main(){
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    int n,m,b,c,t;
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    for(int i=1;i&lt;=n;i++){//不能用memset,会使一个数负得太多从而变成正值 
+          for(int j=1;j&lt;=m;j++)  
+              dp[i][j]=-10000000;  
+    }  
+    for(int i=1;i&lt;=n-m;i++){
+        scanf(&quot;%d&quot;,&amp;t);
+        sum[i]=0;
+        while(t--){
+            scanf(&quot;%d%d&quot;,&amp;b,&amp;c);
+            addarc(i,b,c);
+        }
+    }
+    for(int i=n-m+1;i&lt;=n;i++){
+        sum[i]=1;
+        scanf(&quot;%d&quot;,&amp;dp[i][1]);
+    }
+    DFS(1);
+    for(int i=m;i&gt;=0;i--)
+        if(dp[1][i]&gt;=0){
+            printf(&quot;%d&quot;,i);
+            break;
+        }
+
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<h1 id="山贼集团"><a href="#山贼集团" class="headerlink" title="山贼集团"></a>山贼集团</h1><p>时间限制：4s  空间限制：256MB 题目描述 某山贼集团在绿荫村拥有强大的势力，整个绿荫村由N个连通的小村落组成，并且保证对于每两个小村落有且仅有一条简单路径相连。小村落用阿拉伯数字编号为1,2,3,4,…,n，山贼集团的总部设在编号为1的小村落中。山贼集团除了老大坐镇总部以外，其他的P个部门希望在村落的其他地方建立分部。P个分部可以在同一个小村落中建设，也可以分别建设在不同的小村落中。每个分部到总部的路径称为这个部门的管辖范围，于是这P个分部的管辖范围可能重叠，或者完全相同。在不同的村落建设不同的分部需要花费不同的费用。每个部门可能对他的管辖范围内的小村落收取保护费，但是不同的分部如果对同一小村落同时收取保护费，他们之间可能发生矛盾，从而损失一部分的利益，他们也可能相互合作，从而获取更多的利益。现在请你编写一个程序，确定P个分部的位置，使得山贼集团能够获得最大的收益。 输入格式(cateran.in) 输入文件第一行包含一个整数N和P，表示绿荫村小村落的数量以及山贼集团的部门数量。 接下来N-1行每行包含两个整数X和Y，表示编号为X的村落与编号为Y的村落之间有一条道路相连。(1&lt;=X,Y&lt;=N) 接下来N行，每行P个正整数，第i行第j个数表示在第i个村落建设第j个部门的分部的花费Aij。 然后有一个正整数T，表示下面有T行关于山贼集团的分部门相互影响的代价。(0&lt;=T&lt;=2p) 最后有T行，每行最开始有一个数V，如果V为正，表示会获得额外的收益，如果V为负，则表示会损失一定的收益。然后有一个正整数C，表示本描述涉及的分部的数量，接下来有C个数，Xi，为分部门的编号(Xi不能相同)。表示如果C个分部Xi同时管辖某个小村落（可能同时存在其他分部也管辖这个小村落），可能获得的额外收益或者损失的收益为的|V|。T行中可能存在一些相同的Xi集合，表示同时存在几种收益或者损失。 输出格式(cateran.out) 输出文件要求第一行包含一个数Ans，表示山贼集团设置所有分部后能够获得的最大收益。 样例数据</p>
+<p>输入样例</p>
+<p>输出样例</p>
+<p>2 1 1 2 2 1 1 3 1 1</p>
+<p>5</p>
+<p>数据规模 对于40%的数据，1&lt;=P&lt;=6。 对于100%的数据，1&lt;=N&lt;=100，1&lt;=P&lt;=12，保证答案的绝对值不超过108。  <strong>题目并不难，难在储存各个不同分部的分配方法上，前文讲到可以使用状态压缩的方式，这里给出一种具体的实现方法：</strong> <strong>for(int j’= j ;j’&gt;=0;j’=(j’-1)&amp;j){</strong> <strong>}</strong> <strong>其中的j’就是j方案的一个补集，反复循环，直到遍历到空集才结束</strong>  <strong>如00010011表示选4、7、8分部</strong> <strong>则它的补集为：</strong> <strong>S1=00010010&amp;00010011=00010010  4、7分部</strong> <strong>S2=00010001&amp;00010011=00010001   4、8分部</strong> <strong>S3=00010000&amp;00010011=00010000   4分部</strong> <strong>S4=00001111&amp;00010011=00000011  7、8分部</strong> <strong>S5=00000010&amp;00010011=00000010  7分部</strong> <strong>S6=00000001&amp;00010011=00000001  8分部</strong> <strong>S7=00000000&amp;00010011=0          </strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://mrh1s.top/2018/12/06/e6-a0-91-e5-bd-a2-e5-8a-a8-e6-80-81-e8-a7-84-e5-88-92-e6-80-bb-e7-bb-93/" data-id="cjv7vtpyl003zzgetttxbymzx" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/06/e5-ad-97-e5-85-b8-e6-a0-91-e6-80-bb-e7-bb-93/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          字典树总结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/12/06/e5-8f-af-e5-b9-b6-e5-a0-86-e4-b9-8b-e5-b7-a6-e5-81-8f-e6-a0-91-e6-80-bb-e7-bb-93/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">可并堆之左偏树总结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/c-c/">c/c++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/notes/">notes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/project/">project</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/">write up</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cgctf/">cgctf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cnss-recruit-201809/">cnss_recruit_201809</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/hgame-20190122/">hgame_20190122</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nationalCTF-20190421/">nationalCTF_20190421</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nctf-20181124/">nctf_20181124</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/牢骚/">牢骚</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Dynamic/">RE_Dynamic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/RE-Dynamic/" style="font-size: 10px;">RE_Dynamic</a> <a href="/tags/RE-Static/" style="font-size: 20px;">RE_Static</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/28/bbvvmm/">bbvvmm</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/28/e5-8d-97-e4-ba-ac-e9-82-ae-e7-94-b5-e5-a4-a7-e5-ad-a6-re-wxyvm2/">南京邮电大学 RE-WxyVM2</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/13/e5-a3-b3-e7-9b-b8-e5-85-b3/">壳相关</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/shinyshot/">ShinyShot!</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/21/happyvm/">HappyVM</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 mrh929<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

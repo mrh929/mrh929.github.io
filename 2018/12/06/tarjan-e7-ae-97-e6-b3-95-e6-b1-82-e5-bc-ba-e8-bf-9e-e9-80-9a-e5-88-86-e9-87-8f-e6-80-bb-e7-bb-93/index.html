@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Tarjan算法求强连通分量总结 | mrh929&#39;s home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Tarjan算法求强连通分量总结 首先明确强连通分量的概念：如果图中的任意两个点都能互相到达，则为强连通分量。极大强连通分量：不被其它任何强连通分量包含的强连通分量。 强连通分量主要与两种边有关：交叉边和后向边。 交叉边是两个无关系的点之间所构成的，而后向边是根节点的子节点指向根结点的一种边 Tarjan算法原理：  建立low数组（用于记录该点所在的连通子图的根节点的搜索子树所遍历">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tarjan算法求强连通分量总结">
+<meta property="og:url" content="http://mrh1s.top/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e5-bc-ba-e8-bf-9e-e9-80-9a-e5-88-86-e9-87-8f-e6-80-bb-e7-bb-93/index.html">
+<meta property="og:site_name" content="mrh929&#39;s home">
+<meta property="og:description" content="Tarjan算法求强连通分量总结 首先明确强连通分量的概念：如果图中的任意两个点都能互相到达，则为强连通分量。极大强连通分量：不被其它任何强连通分量包含的强连通分量。 强连通分量主要与两种边有关：交叉边和后向边。 交叉边是两个无关系的点之间所构成的，而后向边是根节点的子节点指向根结点的一种边 Tarjan算法原理：  建立low数组（用于记录该点所在的连通子图的根节点的搜索子树所遍历">
+<meta property="og:locale" content="cn">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:updated_time" content="2019-05-03T06:19:59.674Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tarjan算法求强连通分量总结">
+<meta name="twitter:description" content="Tarjan算法求强连通分量总结 首先明确强连通分量的概念：如果图中的任意两个点都能互相到达，则为强连通分量。极大强连通分量：不被其它任何强连通分量包含的强连通分量。 强连通分量主要与两种边有关：交叉边和后向边。 交叉边是两个无关系的点之间所构成的，而后向边是根节点的子节点指向根结点的一种边 Tarjan算法原理：  建立low数组（用于记录该点所在的连通子图的根节点的搜索子树所遍历">
+<meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+  
+    <link rel="alternate" href="/atom.xml" title="mrh929&#39;s home" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">mrh929&#39;s home</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://mrh1s.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e5-bc-ba-e8-bf-9e-e9-80-9a-e5-88-86-e9-87-8f-e6-80-bb-e7-bb-93" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e5-bc-ba-e8-bf-9e-e9-80-9a-e5-88-86-e9-87-8f-e6-80-bb-e7-bb-93/" class="article-date">
+  <time datetime="2018-12-06T15:42:41.000Z" itemprop="datePublished">2018-12-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Tarjan算法求强连通分量总结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>  <strong>     Tarjan算法求强连通分量总结</strong> <strong>首先明确强连通分量的概念：如果图中的任意两个点都能互相到达，则为强连通分量。极大强连通分量：不被其它任何强连通分量包含的强连通分量。</strong> <strong>强连通分量主要与两种边有关：交叉边和后向边。</strong> <strong>交叉边是两个无关系的点之间所构成的，而后向边是根节点的子节点指向根结点的一种边</strong> <strong>Tarjan算法原理：</strong></p>
+<ol>
+<li><strong>建立low数组（用于记录该点所在的连通子图的根节点的搜索子树所遍历的时间）与dfn数组（记录当前点遍历的时间）Index：记录搜索过程所进行的时间</strong></li>
+<li><strong>初始化dfn、index，当前点u的初始值为时间</strong></li>
+<li><strong>u入栈并标记</strong></li>
+<li><p><strong>遍历与u相连的所有点（记为v）</strong></p>
+</li>
+<li><p><strong>如果v未被遍历，递归遍历v点，然后更新low[u]     low[u]=min(low[u],low[v]);</strong></p>
+</li>
+<li><p><strong>如果 v已经被遍历且在栈中直接更新low[u]</strong> <strong>low[u]=min(low[u],dfn[v]);</strong></p>
+</li>
+<li><p><strong>判断low[u]==low[v]如果成立，将包括u在内的所有点出栈并记录，则求得强连通分量之一</strong></p>
+</li>
+<li><strong>继续遍历，直至结束</strong></li>
+<li><p><strong>注意：在一个图中，起点不唯一，所以tarjan算法应该遍历所有未被遍历的点(vis[i]==0)</strong></p>
+<p><strong>本算法主要应用范围是对复杂的有向图的缩点优化。如果某些点构成一个环，完全可以把它们看作一个点，加快程序运行效率</strong>  <strong>Question:如果是有向有权图使用缩点时应该怎么处理权值的问题？</strong>   <strong>FZOJ1638求强连通分量</strong> <strong>描述</strong> 输入一个图，输出该图中的最大强连通分量。 <strong>输入</strong> 第一行：n和m（n&lt;=10000,m&lt;=100000,n为节点个数，m为边的条数） 接下来m行，每行两个数：a，b，表示a指向b的边（a,b为非负整数）； <strong>输出</strong> 输出最大强连通分量的节点，按照节点编号从小到大输出，如果有多个强连通分量节点数相同，则输出节点编号字典序较小的。 <strong>样例输入</strong> 6 8 1 3 3 5 5 6 1 2 4 1 2 4 4 6 3 4 <strong>样例输出</strong> 1 2 3 4</p>
+<p>#include<cstdio><br>#include<cstring><br>#include<algorithm><br>using namespace std;<br>int first[10020],nxt[100200],go[100200],arcnum=1;<br>int dfn[10020],low[10020],stack[100200],top,dex,vis[10020];<br>int rt,ans[10020],temp[10020],sum;<br>void addarc(int a,int b){</algorithm></cstring></cstdio></p>
+<pre><code>nxt[arcnum]=first[a];
+first[a]=arcnum;
+go[arcnum++]=b;
+</code></pre><p>}<br>void tarjan(int u){</p>
+<pre><code>dfn[u]=low[u]=++dex;
+stack[++top]=u; vis[u]=1;
+for(int p=first[u];p!=0;p=nxt[p]){
+    int v=go[p];
+    if(vis[v]==0){
+        vis[v]=1;
+        tarjan(v);
+        low[u]=min(low[u],low[v]);
+    }
+    else if(vis[v]==1)
+        low[u]=min(low[u],dfn[v]);
+}
+if(dfn[u]==low[u])
+{
+    int v; sum=0;
+    do{
+        v=stack[top--];
+        vis[v]=2;
+        temp[++sum]=v;
+    }while(u!=v);
+    if(rt&lt;sum){
+        rt=sum;
+        for(int i=1;i&lt;=sum;i++)
+            ans[i]=temp[i];
+    }
+}
+</code></pre><p>}</p>
+<p>int main()<br>{<br>//    freopen(“in.txt”,”r”,stdin);</p>
+<pre><code>int n,m,a,b;
+scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+for(int i=1;i&lt;=m;i++){
+    scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
+    addarc(a,b);
+}
+</code></pre></li>
+</ol>
+<pre><code>    for(int i=0;i&lt;=n-1;i++)
+        if(vis[i]==0){
+            top=0;dex=0;
+            memset(dfn,0,sizeof(dfn));
+            memset(low,0,sizeof(low));
+            stack[++top]=i;
+            tarjan(i);
+        }
+
+    sort(ans+1,ans+1+rt);
+    for(int i=1;i&lt;=rt;i++)
+         printf(&quot;%d &quot;,ans[i]);
+
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p><strong>Poj2186Popular Cows</strong> <strong>Description</strong> Every cow’s dream is to become the mostpopular cow in the herd. In a herd of N (1 &lt;= N &lt;= 10,000) cows, you aregiven up to M (1 &lt;= M &lt;= 50,000) ordered pairs of the form (A, B) thattell you that cow A thinks that cow B is popular. Since popularity is transitive,if A thinks B is popular and B thinks C is popular, then A will also think thatC is popular, even if this is not explicitlyspecified by an ordered pair in the input. Your task is to compute the numberof cows that are considered popular by every other cow. <strong>Input</strong> * Line 1: Two space-separated integers, Nand M <em> Lines 2..1+M: Two space-separated numbersA and B, meaning that A thinks B is popular. Output <strong>output</strong> \</em> Line 1: A single integer that is thenumber of cows who are considered popular by every other cow. <strong>Sample Input</strong> 3 3 1 2 2 1 2 3 <strong>Sample Output</strong> 1 <strong>Hint</strong> Cow 3 is the only cow of high popularity. <strong>题目大意</strong> N头奶牛(N≤10000) M对关系（a , b），表示a认为b是受欢迎的 关系具有传递性，即若(a,b),(b,c)→(a,c) 询问有多少头奶牛是被其他所有奶牛认为是受欢迎的 <strong>这道题据说不使用强连通算法优化也能做出来，就是说tarjan算法只是进行优化。</strong> <strong>进过分析可以发现，在有向无环图DAG图中，要想一头（群）牛被其它所有牛欢迎，必须满足只有它自己的出度为0，其它的牛所构成的圈子（环）的出度必须大于零才可以</strong> <strong>这样就得到了解决方法，用tarjan算法算出所有的强连通分量并将它们合并成一个点，再做一次搜索，如果这个环对外的出度为0则其中所有牛对其他牛的出度都为0</strong> <strong>如果一个DAG图有两个以上出度为0得点，那么总有一个点无法到达其它任意一个点</strong> <strong>遍历所有环与点，如果出度为0的只有一个则输出答案，否则答案为0</strong></p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MAXN=10000+200,MAXM=50000+200;
+int first[MAXN],nxt[MAXM],go[MAXM],arcnum=1;
+int dfn[MAXN],low[MAXN],stack[MAXM],top;
+int scc[MAXN],idx,cscc,vis[MAXN];//记录强连通分量 
+int cd[MAXN],cd_scc[MAXN];
+void addarc(int a,int b){
+    nxt[arcnum]=first[a];
+    first[a]=arcnum;
+    go[arcnum++]=b;
+    cd[a]++;
+}
+
+void tarjan(int u){
+    low[u]=dfn[u]=++idx;
+    stack[++top]=u; vis[u]=1;
+    for(int p=first[u];p!=0;p=nxt[p]){
+        int v=go[p];
+        if(vis[v]==0){
+            tarjan(v);
+            low[u]=min(low[u],low[v]);
+        }else if(vis[v]==1)
+            low[u]=min(low[u],dfn[v]);
+    }
+    if(dfn[u]==low[u]){
+        int v;
+        cscc++;
+        do{
+            v=stack[top--];
+            vis[v]=2;
+            scc[v]=cscc; 
+        }while(u!=v);
+    }
+}
+
+int main()
+{
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    int n,m,a,b;
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    for(int i=1;i&lt;=m;i++){
+        scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
+        addarc(a,b);
+    }
+    for(int i=1;i&lt;=n;i++)
+        if(vis[i]==0)
+            tarjan(i);
+
+    if(idx&lt;n){
+        printf(&quot;0&quot;);
+        return 0;
+    }
+    for(int u=1;u&lt;=n;u++)
+        for(int p=first[u];p!=0;p=nxt[p]){
+            int v=go[p];
+            if(scc[u]!=scc[v])
+                cd_scc[scc[u]]++;
+        }
+    int c1=0;
+    for(int i=1;i&lt;=cscc;i++){
+        if(cd_scc[i]==0&amp;&amp;c1==0)
+            c1=i;
+        else if(c1!=0&amp;&amp;cd_scc[i]==0){
+            printf(&quot;0&quot;);
+            return 0;
+        }
+    }
+
+    int ans=0;
+    for(int i=1;i&lt;=n;i++)
+        if(scc[i]==c1)
+            ans++;
+    printf(&quot;%d&quot;,ans);
+
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://mrh1s.top/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e5-bc-ba-e8-bf-9e-e9-80-9a-e5-88-86-e9-87-8f-e6-80-bb-e7-bb-93/" data-id="cjv7vtpx9001bzgetbhj29hu2" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e6-97-a0-e5-90-91-e5-9b-be-e5-89-b2-e8-be-b9-e5-89-b2-e7-82-b9-e3-80-81-e6-9c-80-e8-bf-91-e5-85-ac-e5-85-b1-e7-a5-96-e5-85-88-e7-9a-84-e6-80-bb-e7-bb-93/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Tarjan算法求无向图割边割点、最近公共祖先的总结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/12/06/e6-8b-93-e6-89-91-e6-8e-92-e5-ba-8f-e4-bb-a5-e5-8f-8a-e5-85-b3-e9-94-ae-e8-b7-af-e5-be-84-e6-80-bb-e7-bb-93/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">拓扑排序以及关键路径总结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/c-c/">c/c++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/notes/">notes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/project/">project</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/">write up</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cgctf/">cgctf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cnss-recruit-201809/">cnss_recruit_201809</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/hgame-20190122/">hgame_20190122</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nationalCTF-20190421/">nationalCTF_20190421</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nctf-20181124/">nctf_20181124</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/牢骚/">牢骚</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Dynamic/">RE_Dynamic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/RE-Dynamic/" style="font-size: 10px;">RE_Dynamic</a> <a href="/tags/RE-Static/" style="font-size: 20px;">RE_Static</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/28/bbvvmm/">bbvvmm</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/28/e5-8d-97-e4-ba-ac-e9-82-ae-e7-94-b5-e5-a4-a7-e5-ad-a6-re-wxyvm2/">南京邮电大学 RE-WxyVM2</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/13/e5-a3-b3-e7-9b-b8-e5-85-b3/">壳相关</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/shinyshot/">ShinyShot!</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/21/happyvm/">HappyVM</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 mrh929<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

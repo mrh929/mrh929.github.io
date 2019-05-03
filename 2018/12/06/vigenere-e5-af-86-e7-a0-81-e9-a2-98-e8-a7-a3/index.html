@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>Vigenère密码题解 | mrh929&#39;s home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="08:Vigenère密码总时间限制: 1000ms 内存限制: 65536kB 描述 16世纪法国外交家Blaise de Vigenère设计了一种多表密码加密算法——Vigenère密码。Vigenère密码的加密解密算法简单易用，且破译难度比较高，曾在美国南北战争中为南军所广泛使用。 在密码学中，我们称需要加密的信息为明文，用M表示；称加密后的信息为密文，用C表示；而密钥是一种参数，是将明">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vigenère密码题解">
+<meta property="og:url" content="http://mrh1s.top/2018/12/06/vigenere-e5-af-86-e7-a0-81-e9-a2-98-e8-a7-a3/index.html">
+<meta property="og:site_name" content="mrh929&#39;s home">
+<meta property="og:description" content="08:Vigenère密码总时间限制: 1000ms 内存限制: 65536kB 描述 16世纪法国外交家Blaise de Vigenère设计了一种多表密码加密算法——Vigenère密码。Vigenère密码的加密解密算法简单易用，且破译难度比较高，曾在美国南北战争中为南军所广泛使用。 在密码学中，我们称需要加密的信息为明文，用M表示；称加密后的信息为密文，用C表示；而密钥是一种参数，是将明">
+<meta property="og:locale" content="cn">
+<meta property="og:image" content="http://img.blog.csdn.net/20160123190547906?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="http://img.blog.csdn.net/20160123190547906?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:updated_time" content="2019-05-03T06:19:59.673Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vigenère密码题解">
+<meta name="twitter:description" content="08:Vigenère密码总时间限制: 1000ms 内存限制: 65536kB 描述 16世纪法国外交家Blaise de Vigenère设计了一种多表密码加密算法——Vigenère密码。Vigenère密码的加密解密算法简单易用，且破译难度比较高，曾在美国南北战争中为南军所广泛使用。 在密码学中，我们称需要加密的信息为明文，用M表示；称加密后的信息为密文，用C表示；而密钥是一种参数，是将明">
+<meta name="twitter:image" content="http://img.blog.csdn.net/20160123190547906?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
+  
+    <link rel="alternate" href="/atom.xml" title="mrh929&#39;s home" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">mrh929&#39;s home</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://mrh1s.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-vigenere-e5-af-86-e7-a0-81-e9-a2-98-e8-a7-a3" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/06/vigenere-e5-af-86-e7-a0-81-e9-a2-98-e8-a7-a3/" class="article-date">
+  <time datetime="2018-12-06T15:37:40.000Z" itemprop="datePublished">2018-12-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Vigenère密码题解
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="08-Vigenere密码"><a href="#08-Vigenere密码" class="headerlink" title="08:Vigenère密码"></a>08:Vigenère密码</h2><p>总时间限制: 1000ms 内存限制: 65536kB 描述 16世纪法国外交家Blaise de Vigenère设计了一种多表密码加密算法——Vigenère密码。Vigenère密码的加密解密算法简单易用，且破译难度比较高，曾在美国南北战争中为南军所广泛使用。 在密码学中，我们称需要加密的信息为明文，用M表示；称加密后的信息为密文，用C表示；而密钥是一种参数，是将明文转换为密文或将密文转换为明文的算法中输入的数据，记为k。在Vigenère密码中，密钥k是一个字母串，k=k1k2…kn。当明文M=m1m2…mn时，得到的密文C=c1c2…cn，其中ci=mi®ki，运算®的规则如下表所示： <img src="http://img.blog.csdn.net/20160123190547906?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动">​ Vigenère加密在操作时需要注意： 1. ®运算忽略参与运算的字母的大小写，并保持字母在明文M中的大小写形式； 2. 当明文M的长度大于密钥k的长度时，将密钥k重复使用。 例如，明文M=Helloworld，密钥k=abc时，密文C=Hfnlpyosnd。</p>
+<p>明文</p>
+<p>H</p>
+<p>e</p>
+<p>l</p>
+<p>l</p>
+<p>o</p>
+<p>w</p>
+<p>o</p>
+<p>r</p>
+<p>l</p>
+<p>d</p>
+<p>密钥</p>
+<p>a</p>
+<p>b</p>
+<p>c</p>
+<p>a</p>
+<p>b</p>
+<p>c</p>
+<p>a</p>
+<p>b</p>
+<p>c</p>
+<p>a</p>
+<p>密文</p>
+<p>H</p>
+<p>f</p>
+<p>n</p>
+<p>l</p>
+<p>p</p>
+<p>y</p>
+<p>o</p>
+<p>s</p>
+<p>n</p>
+<p>d</p>
+<p>  输入 输入共2行。 第一行为一个字符串，表示密钥k，长度不超过100，其中仅包含大小写字母。第二行为一个字符串，表示经加密后的密文，长度不超过1000，其中仅包含大小写字母。 对于100%的数据，输入的密钥的长度不超过100，输入的密文的长度不超过1000，且都仅包含英文字母。 输出 输出共1行，一个字符串，表示输入密钥和密文所对应的明文。 样例输入 CompleteVictory Yvqgpxaimmklongnzfwpvxmniytm 样例输出 Wherethereisawillthereisaway 来源 NOIP2012复赛 提高组 第一题 <strong>题解：注意本题是由密文解密为原文。由于密钥和密文需要进行相互运算，所以转换大小写是必不可少的，题目有要求原文大小写与密文一致，所以我们可以用一个数组</strong> <strong>int miwen_x[2000] 来储存原文大小写的数据</strong> <strong>读入密文、密钥，转换大小写并且记录密文的大小写状况</strong> </p>
+<h2 id="接着就是解密数据了，让我们来观察一下Vigenere密码的规律吧"><a href="#接着就是解密数据了，让我们来观察一下Vigenere密码的规律吧" class="headerlink" title="接着就是解密数据了，让我们来观察一下Vigenère密码的规律吧"></a>接着就是解密数据了，让我们来观察一下Vigenère密码的规律吧</h2><p><img src="http://img.blog.csdn.net/20160123190547906?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动">​</p>
+<p><strong>本表指 一对密钥与原文可以加密成密文，现在要翻译密文，也就是知道对应的点，也知道了y轴坐标，求x轴坐标。</strong> <strong>1.</strong> <strong>当密文≥密钥时，我们发现数据是依次递增的，则此时ans[i]=</strong> <strong>miwen[i]-key[j]+’a’</strong> <strong>2.</strong> <strong>当密文&lt;密钥时，数据由最右端向左依次递减，此时ans[i]=</strong> <strong>‘z’-(key[j]-miwen[i]-1)</strong> <strong>j的意义在后面。</strong>  <strong>注意这里还有一个易错点，密钥的长度可能小于密文的长度，那么当密钥较短时就要运用循环多次使用此密钥</strong> <strong>int j=0;</strong> <strong>并且在每次循环后</strong> <strong>j++;</strong> <strong>if(j==strlen(key))</strong> <strong>      j=0;</strong> <strong>最后通过miwen_x[i]的值将原文的大小写形式恢复原样</strong> <strong>这样就解决此问题了</strong>  <strong>本题总思路：</strong> <strong>1.     读入密钥、密文并转换成小写（大写也可），同时记录密文的大小写情况</strong> <strong>2.     运用算法算出原文</strong> <strong>3.     通过大小写情况恢复原文的大小写</strong></p>
+<pre><code>#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;string.h&gt;
+#include&lt;math.h&gt;
+
+int change(int i)//大小写转换 
+{
+    return (i&gt;=&apos;A&apos;&amp;&amp;i&lt;=&apos;Z&apos;)?i+&apos;a&apos;-&apos;A&apos;:i;
+}
+
+
+int main()
+{
+    char key[120];
+    char miwen[1200];
+    int miwen_x[1200];//密文大小写 1小写 2大写 
+    scanf(&quot;%s %s&quot;,key,miwen);
+    int len=strlen(key);
+    for(int i=0;i&lt;=len-1;i++)
+        key[i]=change(key[i]);
+    for(int i=0;i&lt;=strlen(miwen)-1;i++)
+    {
+        if(miwen[i]&gt;=&apos;A&apos;&amp;&amp;miwen[i]&lt;=&apos;Z&apos;)
+            miwen_x[i]=2;
+        else
+            miwen_x[i]=1;
+        miwen[i]=change(miwen[i]);
+    }
+
+    char ans[1200];
+    int j=0;
+    for(int i=0;i&lt;=strlen(miwen)-1;i++)
+    {
+        if(miwen[i]&gt;=key[j])
+            ans[i]=miwen[i]-key[j]+&apos;a&apos;;
+        else
+            ans[i]=&apos;z&apos;-(key[j]-miwen[i]-1);
+        if(miwen_x[i]==2)
+            ans[i]=ans[i]-(&apos;a&apos;-&apos;A&apos;);
+        j++;
+        if(j==len)
+            j=0;
+    }
+    ans[strlen(miwen)]=0;
+    printf(&quot;%s&quot;,ans);
+
+
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://mrh1s.top/2018/12/06/vigenere-e5-af-86-e7-a0-81-e9-a2-98-e8-a7-a3/" data-id="cjv7vtpxa001dzgetrzf5r742" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/06/e9-80-86-e6-b3-a2-e5-85-b0-e8-a1-a8-e8-be-be-e5-bc-8f-e9-a2-98-e8-a7-a3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          逆波兰表达式题解
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/12/06/e9-93-ba-e5-9c-b0-e6-af-af-e9-a2-98-e8-a7-a3/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">铺地毯题解</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/c-c/">c/c++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/notes/">notes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/project/">project</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/">write up</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cgctf/">cgctf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cnss-recruit-201809/">cnss_recruit_201809</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/hgame-20190122/">hgame_20190122</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nationalCTF-20190421/">nationalCTF_20190421</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nctf-20181124/">nctf_20181124</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/牢骚/">牢骚</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Dynamic/">RE_Dynamic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/RE-Dynamic/" style="font-size: 10px;">RE_Dynamic</a> <a href="/tags/RE-Static/" style="font-size: 20px;">RE_Static</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/28/bbvvmm/">bbvvmm</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/28/e5-8d-97-e4-ba-ac-e9-82-ae-e7-94-b5-e5-a4-a7-e5-ad-a6-re-wxyvm2/">南京邮电大学 RE-WxyVM2</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/13/e5-a3-b3-e7-9b-b8-e5-85-b3/">壳相关</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/shinyshot/">ShinyShot!</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/21/happyvm/">HappyVM</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 mrh929<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

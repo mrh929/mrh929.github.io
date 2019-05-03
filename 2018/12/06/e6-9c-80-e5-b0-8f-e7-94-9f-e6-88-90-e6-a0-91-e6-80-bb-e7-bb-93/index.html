@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>最小生成树总结 | mrh929&#39;s home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="啊，先纪念一下吧，难得一天这么666 AC完了所有题 （次小生成树代码看懂） 今天学到了最小生成树算法中的Prim算法和Kruskal算法。从宏观上来讲prim更适合稠密图，krustal更适合稀疏图，但对于我们来说暂时没有什么区别啦。 Prim算法中主要注意的点是  在visit数组与minn数组（最小到达某点的权边的权值）上 注意只有未遍历而且小于当前所存的权才可以更新 循环次数为n-1次">
+<meta property="og:type" content="article">
+<meta property="og:title" content="最小生成树总结">
+<meta property="og:url" content="http://mrh1s.top/2018/12/06/e6-9c-80-e5-b0-8f-e7-94-9f-e6-88-90-e6-a0-91-e6-80-bb-e7-bb-93/index.html">
+<meta property="og:site_name" content="mrh929&#39;s home">
+<meta property="og:description" content="啊，先纪念一下吧，难得一天这么666 AC完了所有题 （次小生成树代码看懂） 今天学到了最小生成树算法中的Prim算法和Kruskal算法。从宏观上来讲prim更适合稠密图，krustal更适合稀疏图，但对于我们来说暂时没有什么区别啦。 Prim算法中主要注意的点是  在visit数组与minn数组（最小到达某点的权边的权值）上 注意只有未遍历而且小于当前所存的权才可以更新 循环次数为n-1次">
+<meta property="og:locale" content="cn">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:updated_time" content="2019-05-03T06:19:59.673Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="最小生成树总结">
+<meta name="twitter:description" content="啊，先纪念一下吧，难得一天这么666 AC完了所有题 （次小生成树代码看懂） 今天学到了最小生成树算法中的Prim算法和Kruskal算法。从宏观上来讲prim更适合稠密图，krustal更适合稀疏图，但对于我们来说暂时没有什么区别啦。 Prim算法中主要注意的点是  在visit数组与minn数组（最小到达某点的权边的权值）上 注意只有未遍历而且小于当前所存的权才可以更新 循环次数为n-1次">
+<meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+  
+    <link rel="alternate" href="/atom.xml" title="mrh929&#39;s home" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">mrh929&#39;s home</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://mrh1s.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-e6-9c-80-e5-b0-8f-e7-94-9f-e6-88-90-e6-a0-91-e6-80-bb-e7-bb-93" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/06/e6-9c-80-e5-b0-8f-e7-94-9f-e6-88-90-e6-a0-91-e6-80-bb-e7-bb-93/" class="article-date">
+  <time datetime="2018-12-06T15:41:33.000Z" itemprop="datePublished">2018-12-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      最小生成树总结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>  啊，先纪念一下吧，难得一天这么666 AC完了所有题 （次小生成树代码看懂） 今天学到了最小生成树算法中的Prim算法和Kruskal算法。从宏观上来讲prim更适合稠密图，krustal更适合稀疏图，但对于我们来说暂时没有什么区别啦。 Prim算法中主要注意的点是</p>
+<ol>
+<li><strong>在visit数组与minn数组（最小到达某点的权边的权值）上 注意只有未遍历而且小于当前所存的权才可以更新</strong></li>
+<li><strong>循环次数为n-1次，错误的次数会导致答案错误</strong></li>
+<li><strong>除自身为0以外，所有点之间的初始距离为正无穷</strong> </li>
+</ol>
+<p><strong>Kruskal算法中主要注意的点是</strong></p>
+<ol>
+<li><strong>所有的边要用结构体存，方便快排</strong></li>
+<li><strong>注意并查集的Getfather函数的压缩路径和union函数的是否父亲相同的判断</strong></li>
+<li><strong>注意变量k的维护，k满足k==n-1时必须及时跳出循环</strong></li>
+</ol>
+<p><strong> 还有一个很容易忽略的问题！！就是memset，特别是有多组数据的时候必须在前面重置内存</strong> 附上我对次小生成树代码的注释：</p>
+<pre><code>#include &lt;iostream&gt;
+#include &lt;stdio.h&gt;
+#include &lt;algorithm&gt;
+#include &lt;string.h&gt;
+using namespace std;
+
+/*
+ * 次小生成树
+ * 求最小生成树时，用数组Max[i][j]来表示MST中i到j最大边权
+ * 求完后，直接枚举所有不在MST中的边，替换掉最大边权的边，更新答案
+ * 点的编号从0开始
+ */
+const int MAXN=110;
+const int INF=0x3f3f3f3f;//最大值 
+bool vis[MAXN];//点是否已使用 
+int lowc[MAXN];//到每一个点权值最短的路径的权值 
+int pre[MAXN];//存父亲 
+int Max[MAXN][MAXN];//Max[i][j]表示在最小生成树中从i到j的路径中的最大边权
+bool used[MAXN][MAXN];//边是否已使用 
+int Prim(int cost[][MAXN],int n){
+    int ans=0;
+    memset(vis,false,sizeof(vis));
+    memset(Max,0,sizeof(Max));
+    memset(used,false,sizeof(used));
+    vis[0]=true;//已遍历 
+    pre[0]=-1;//起始点没有父亲 
+    for(int i=1;i&lt;n;i++){
+        lowc[i]=cost[0][i];
+        pre[i]=0;//设置父亲 
+    }
+    lowc[0]=0;
+    for(int i=1;i&lt;n;i++){
+        int minc=INF;
+        int p=-1;//将要选择的下一个点 
+        for(int j=0;j&lt;n;j++)
+            if(!vis[j]&amp;&amp;minc&gt;lowc[j]){
+                minc=lowc[j];//选择距离最小的边 
+                p=j;
+            }
+        if(minc==INF) return -1;//该图不是连通图 
+        ans+=minc;//权值和计算 
+        vis[p]=true;//点已遍历 
+        used[p][pre[p]]=used[pre[p]][p]=true;//边已遍历 
+        for(int j=0;j&lt;n;j++){
+            if(vis[j]) Max[j][p]=Max[p][j]=max(Max[j][pre[p]],lowc[p]);//DP计算j到p的路径中权值最大的边的权值 
+            if(!vis[j]&amp;&amp;lowc[j]&gt;cost[p][j]){//更新lowc数组 
+                lowc[j]=cost[p][j];
+                pre[j]=p;//设置父亲 
+            }
+        }
+    }
+    return ans;
+}
+int ans;
+int smst(int cost[][MAXN],int n){
+    int Min=INF;
+    for(int i=0;i&lt;n;i++)
+        for(int j=i+1;j&lt;n;j++)
+            if(cost[i][j]!=INF &amp;&amp; !used[i][j])//如果这条边存在而且未被使用 
+                Min=min(Min,ans+cost[i][j]-Max[i][j]);//取最小差值 
+    if(Min==INF) return -1;//不存在
+    return Min;//返回次小生成树的权值和 
+}
+int cost[MAXN][MAXN];
+int main(){
+    int T;
+    int n,m;
+    scanf(&quot;%d&quot;,&amp;T);
+    while(T--){
+        scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+        int u,v,w;
+        for(int i=0;i&lt;n;i++)
+            for(int j=0;j&lt;n;j++){
+                if(i==j) cost[i][j]=0;
+                else cost[i][j]=INF;
+            }
+        while(m--){
+            scanf(&quot;%d%d%d&quot;,&amp;u,&amp;v,&amp;w);
+            u--;v--;
+            cost[u][v]=cost[v][u]=w;//u到v的距离 
+        }
+        ans=Prim(cost,n);
+        if(ans==-1){
+            printf(&quot;Not Unique!\n&quot;);
+            continue;
+        }
+        if(ans==smst(cost,n)) printf(&quot;Not Unique!\n&quot;);//权值和完全相同 
+        else printf(&quot;%d\n&quot;,ans);//输出最小生成树的权值和 
+    }
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://mrh1s.top/2018/12/06/e6-9c-80-e5-b0-8f-e7-94-9f-e6-88-90-e6-a0-91-e6-80-bb-e7-bb-93/" data-id="cjv7vtpwz000ozgetkdfl7rln" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/06/e6-8b-93-e6-89-91-e6-8e-92-e5-ba-8f-e4-bb-a5-e5-8f-8a-e5-85-b3-e9-94-ae-e8-b7-af-e5-be-84-e6-80-bb-e7-bb-93/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          拓扑排序以及关键路径总结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/12/06/e6-9a-91-e6-9c-9f-e4-ba-ba-e7-94-9f-e6-b5-8b-e8-af-95-e4-b8-80-e6-80-bb-e7-bb-93/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">暑期人生测试一总结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/c-c/">c/c++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/notes/">notes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/project/">project</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/">write up</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cgctf/">cgctf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cnss-recruit-201809/">cnss_recruit_201809</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/hgame-20190122/">hgame_20190122</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nationalCTF-20190421/">nationalCTF_20190421</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nctf-20181124/">nctf_20181124</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/牢骚/">牢骚</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Dynamic/">RE_Dynamic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/RE-Dynamic/" style="font-size: 10px;">RE_Dynamic</a> <a href="/tags/RE-Static/" style="font-size: 20px;">RE_Static</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/28/bbvvmm/">bbvvmm</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/28/e5-8d-97-e4-ba-ac-e9-82-ae-e7-94-b5-e5-a4-a7-e5-ad-a6-re-wxyvm2/">南京邮电大学 RE-WxyVM2</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/13/e5-a3-b3-e7-9b-b8-e5-85-b3/">壳相关</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/shinyshot/">ShinyShot!</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/21/happyvm/">HappyVM</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 mrh929<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

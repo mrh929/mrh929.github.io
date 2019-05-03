@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>HappyVM | mrh929&#39;s home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="happyVM  第一次做VM题，花了很多时间，最终还是有所收获  首先逆向虚拟机的操作数，操作数无非几个操作：压栈，出栈，寄存器与内存之间的读写，寄存器与寄存器之间的赋值 使用如下代码配合ida python获得所有操作数： addr = 0x400D40 cnt = 0x78-0x40+1 i = addr print &amp;quot;********my calc********&amp;quot; p">
+<meta name="keywords" content="RE_Static">
+<meta property="og:type" content="article">
+<meta property="og:title" content="HappyVM">
+<meta property="og:url" content="http://mrh1s.top/2019/03/21/happyvm/index.html">
+<meta property="og:site_name" content="mrh929&#39;s home">
+<meta property="og:description" content="happyVM  第一次做VM题，花了很多时间，最终还是有所收获  首先逆向虚拟机的操作数，操作数无非几个操作：压栈，出栈，寄存器与内存之间的读写，寄存器与寄存器之间的赋值 使用如下代码配合ida python获得所有操作数： addr = 0x400D40 cnt = 0x78-0x40+1 i = addr print &amp;quot;********my calc********&amp;quot; p">
+<meta property="og:locale" content="cn">
+<meta property="og:updated_time" content="2019-05-03T09:32:51.379Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="HappyVM">
+<meta name="twitter:description" content="happyVM  第一次做VM题，花了很多时间，最终还是有所收获  首先逆向虚拟机的操作数，操作数无非几个操作：压栈，出栈，寄存器与内存之间的读写，寄存器与寄存器之间的赋值 使用如下代码配合ida python获得所有操作数： addr = 0x400D40 cnt = 0x78-0x40+1 i = addr print &amp;quot;********my calc********&amp;quot; p">
+  
+    <link rel="alternate" href="/atom.xml" title="mrh929&#39;s home" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">mrh929&#39;s home</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://mrh1s.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-happyvm" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/21/happyvm/" class="article-date">
+  <time datetime="2019-03-21T14:25:17.000Z" itemprop="datePublished">2019-03-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/write-up/">write up</a>►<a class="article-category-link" href="/categories/write-up/hgame-20190122/">hgame_20190122</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      HappyVM
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="/uploads/happyVM.7z">happyVM</a></p>
+<blockquote>
+<p>第一次做VM题，花了很多时间，最终还是有所收获</p>
+</blockquote>
+<p>首先逆向虚拟机的操作数，操作数无非几个操作：压栈，出栈，寄存器与内存之间的读写，寄存器与寄存器之间的赋值 使用如下代码配合ida python获得所有操作数：</p>
+<pre><code>addr = 0x400D40
+cnt = 0x78-0x40+1
+i = addr
+print &quot;********my calc********&quot;
+print &quot;********my calc********&quot;
+print &quot;********my calc********&quot;
+print &quot;********my calc********&quot;
+print &quot;********my calc********&quot;
+while(i &lt;= addr + cnt -1):
+        c = int(Byte(i))
+            if(c in [0x0,0x8,0x9,0xA,0xC,0xD,0xE,0x11,0x13,0x14]):
+                i += 1
+                print &quot;opt:&quot; , hex(c) , &quot;   data:&quot;,  hex(Byte(i))
+            else:
+                print &quot;opt:&quot; , hex(c)
+                i += 1
+</code></pre><p>​    </p>
+<p>得到如下指令：</p>
+<pre><code>0(0x00) : opt: 0x11    data: 0x2d
+2(0x01) : opt: 0x0    data: 0x22
+4 : opt: 0x5
+5 : opt: 0x10
+6 : opt: 0x14    data: 0x9
+8 : opt: 0x17
+9(0x9) : opt: 0x0    data: 0x32
+11 : opt: 0x5
+12 : opt: 0x3
+13 : opt: 0x11    data: 0x16
+15 : opt: 0x6
+16 : opt: 0x0    data: 0x16
+18 : opt: 0x5
+19 : opt: 0x11    data: 0x16
+21 : opt: 0x17
+22(0x16) : opt: 0xe    data: 0x1
+24 : opt: 0x15
+25 : opt: 0x4
+26 : opt: 0xf
+27 : opt: 0x1
+28 : opt: 0x16
+29 : opt: 0x2
+30 : opt: 0x0    data: 0x0
+32 : opt: 0x4
+33 : opt: 0x3
+34 : opt: 0x5
+35 : opt: 0x10
+36 : opt: 0x14    data: 0x2b
+38 : opt: 0x5
+39 : opt: 0x9    data: 0x3
+41 : opt: 0x13    data: 0x16
+43(0x2b) : opt: 0x5
+44 : opt: 0x12
+
+45(0x2d) : opt: 0x15
+46 : opt: 0x4
+47 : opt: 0x10
+48 : opt: 0x14    data: 0x36
+50 : opt: 0xa    data: 0x1
+52 : opt: 0x13    data: 0x2d
+
+54(0x36) : opt: 0x3
+55 : opt: 0x4
+56 : opt: 0x12
+</code></pre><p>逐行翻译，其中部分压栈与出栈操作可以合并为内存与寄存器，寄存器与寄存器之间的数据交换，翻译得到如下代码：</p>
+<pre><code>simplify:
+</code></pre><p>​<br>​        call 0x2d;//strlen(str)<br>​        B = 0x22;<br>​        if(A != B) return;//字符串长度为0x22<br>​    0x9:<br>​        B = 0x32;<br>​        push(C);//此时C = 0x22<br>​        call(0x16);<br>​        C = pop();<br>​        B = 0x16;<br>​        call(0x16);<br>​        return;<br>​<br>    0x16:<br>        C–;//倒序处理整个字符串<br>        A = str[C];<br>        A ^= B; //str[C] = str[C] ^ B ，而且B每次加3<br>        str[C] = A;<br>        push(B);<br>        A = 0;<br>        B = C;<br>        if(A == B){//如果这个字符串已经处理完成<br>            goto 0x2b;<br>        }else{<br>            B = pop();<br>            B += 3;<br>            goto 0x16;<br>        }</p>
+<pre><code>0x2b:
+    B = pop();
+
+0x2d:
+    do{
+        A = str[C];
+        if(A == B) break;
+        C++;
+    }while(A != B)
+
+    A = C;
+    ret;
+</code></pre><p>​<br>​<br>​    </p>
+<p>最后获取到s2的数据，solve</p>
+<pre><code>str = [132 , 131 , 157 , 145 , 129 , 151 , 215 , 190 , 67 , 114 , 97 , 115 , 115 , 12 , 106 , 112 , 115 , 17 , 72 , 44 , 52 , 51 , 49 , 54 , 35 , 52 , 62 , 92 , 35 , 78 , 23 , 17 , 25 , 89 ]
+B = 0x16
+for i in range(0x21, -1, -1):
+    str[i] = str[i] ^ B
+    B += 3
+
+B = 0x32
+for i in range(0x21, -1, -1):
+    str[i] = str[i] ^ B
+    B += 3
+
+for i in range(0x22):
+    print(chr(str[i]),end=&quot;&quot;)
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://mrh1s.top/2019/03/21/happyvm/" data-id="cjv7vtpxm0027zgetj7kka5fw" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2019/03/22/shinyshot/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          ShinyShot!
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2019/02/16/maze/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">maze</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/c-c/">c/c++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/notes/">notes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/project/">project</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/">write up</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cgctf/">cgctf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cnss-recruit-201809/">cnss_recruit_201809</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/hgame-20190122/">hgame_20190122</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nationalCTF-20190421/">nationalCTF_20190421</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nctf-20181124/">nctf_20181124</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/牢骚/">牢骚</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Dynamic/">RE_Dynamic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/RE-Dynamic/" style="font-size: 10px;">RE_Dynamic</a> <a href="/tags/RE-Static/" style="font-size: 20px;">RE_Static</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/28/bbvvmm/">bbvvmm</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/28/e5-8d-97-e4-ba-ac-e9-82-ae-e7-94-b5-e5-a4-a7-e5-ad-a6-re-wxyvm2/">南京邮电大学 RE-WxyVM2</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/13/e5-a3-b3-e7-9b-b8-e5-85-b3/">壳相关</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/shinyshot/">ShinyShot!</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/21/happyvm/">HappyVM</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 mrh929<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

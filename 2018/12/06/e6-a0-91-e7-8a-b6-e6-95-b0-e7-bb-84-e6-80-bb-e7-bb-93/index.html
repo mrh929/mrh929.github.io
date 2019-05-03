@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>树状数组总结 | mrh929&#39;s home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="树状数组总结树状数组是一个类似于线段树的树状结构，它通过存储一定区间内的元素来达到快速插入、快速求和的效果。并且可以节省时间，节省空间，减少代码量，可谓是非常优秀的一个树形结构 方格中数字代表对应数组的第几个元素,下排是a数组,其上方的是e数组,最下的二进制则是对应编号的二进制表示. 可以观察到，树状数组把一个数组内的元素进行了一定的二分，并存储某些元素的和，使树的深度达到了logn，这样不论是对">
+<meta property="og:type" content="article">
+<meta property="og:title" content="树状数组总结">
+<meta property="og:url" content="http://mrh1s.top/2018/12/06/e6-a0-91-e7-8a-b6-e6-95-b0-e7-bb-84-e6-80-bb-e7-bb-93/index.html">
+<meta property="og:site_name" content="mrh929&#39;s home">
+<meta property="og:description" content="树状数组总结树状数组是一个类似于线段树的树状结构，它通过存储一定区间内的元素来达到快速插入、快速求和的效果。并且可以节省时间，节省空间，减少代码量，可谓是非常优秀的一个树形结构 方格中数字代表对应数组的第几个元素,下排是a数组,其上方的是e数组,最下的二进制则是对应编号的二进制表示. 可以观察到，树状数组把一个数组内的元素进行了一定的二分，并存储某些元素的和，使树的深度达到了logn，这样不论是对">
+<meta property="og:locale" content="cn">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:updated_time" content="2019-05-03T06:19:59.674Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="树状数组总结">
+<meta name="twitter:description" content="树状数组总结树状数组是一个类似于线段树的树状结构，它通过存储一定区间内的元素来达到快速插入、快速求和的效果。并且可以节省时间，节省空间，减少代码量，可谓是非常优秀的一个树形结构 方格中数字代表对应数组的第几个元素,下排是a数组,其上方的是e数组,最下的二进制则是对应编号的二进制表示. 可以观察到，树状数组把一个数组内的元素进行了一定的二分，并存储某些元素的和，使树的深度达到了logn，这样不论是对">
+<meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+  
+    <link rel="alternate" href="/atom.xml" title="mrh929&#39;s home" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">mrh929&#39;s home</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://mrh1s.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-e6-a0-91-e7-8a-b6-e6-95-b0-e7-bb-84-e6-80-bb-e7-bb-93" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/06/e6-a0-91-e7-8a-b6-e6-95-b0-e7-bb-84-e6-80-bb-e7-bb-93/" class="article-date">
+  <time datetime="2018-12-06T15:46:34.000Z" itemprop="datePublished">2018-12-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      树状数组总结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="树状数组总结"><a href="#树状数组总结" class="headerlink" title="树状数组总结"></a>树状数组总结</h1><p><strong>树状数组是一个类似于线段树的树状结构，它通过存储一定区间内的元素来达到快速插入、快速求和的效果。并且可以节省时间，节省空间，减少代码量，可谓是非常优秀的一个树形结构</strong> <strong>方格中数字代表对应数组的第几个元素,下排是a数组,其上方的是e数组,最下的二进制则是对应编号的二进制表示.</strong> <strong>可以观察到，树状数组把一个数组内的元素进行了一定的二分，并存储某些元素的和，使树的深度达到了logn，这样不论是对于查找还是插入都进行了极大的优化</strong> <strong>      每个数所指向的元素个数为1+它的二进制末尾0的个数我们把二进制中最后一个一出现的位置叫做lowbit，每个元素指向的下一个元素为x+lowbit(x)，现在要修改整棵树就比较容易了。</strong> </p>
+<ol>
+<li><p><strong>累加操作</strong></p>
+<p>void add(int x,int t)</p>
+<p> {</p>
+<pre><code>while(x&lt;=n){
+
+       e[x]+=t;
+
+       x=x+lowbit(x);
+
+}
+</code></pre><p> }</p>
+</li>
+</ol>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<ol>
+<li><p><strong>求和操作</strong></p>
+<pre><code>int sum(int x)
+
+ {
+
+       int s=0;
+
+       while(x&gt;0)
+
+       {
+
+              s+=e[x];
+
+              x-=lowbit(x);
+
+       }
+
+       return s;
+
+ }
+</code></pre></li>
+</ol>
+<pre><code>![](data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== &quot;点击并拖拽以移动&quot;)
+</code></pre><p><strong>其中，求和操作求的是1~x个元素之和，要求a~b个元素之和，只需：</strong> <strong>Ans=sum(b)-sum(a-1);</strong> <strong>其中运用了两次查询，对于查询单个元素，还可以优化为一次：</strong> <strong>借助data[x]=e[x]-(query(x-1)-query(LCA(x,x-1)))</strong></p>
+<pre><code>int sum(x){
+
+       int ans=e[x];
+
+       int lca=x-lowbit(x);//求最近公共祖先 
+
+       x--;
+
+       while(x!=lca){
+
+              ans-=e[x];
+
+              x-=e[x];
+
+       }
+
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p>  <strong>拓展操作：</strong></p>
+<ol>
+<li><strong>区间修改、点查询</strong></li>
+</ol>
+<p><strong>令e[i]为i元素与i-1元素的差值</strong> <strong>那么区间[i,j]修改：</strong> <strong>e[i]+=d; e[j+1]-=d;</strong>  <strong>单个点的求值：data[i]=e[1]+e[2]+…+e[i];</strong> </p>
+<ol>
+<li><strong>找第k小的元素</strong></li>
+</ol>
+<p><strong>e[i]数组存取i出现的次数（有时数据太大可以离散优化）</strong>  <strong>问题可以转化为求区间和为k所对应的下标</strong> <strong>区间和为递增区间，用二分查找</strong>  <strong>如4 6 5 5 2 2 3 1，每个数作为下标，add一次</strong> <strong>然后sum(i)求出的就是当前1~i区间的数字个数，并且数字有序，二分即可</strong>  </p>
+<ol>
+<li><strong>向高维拓展</strong></li>
+</ol>
+<p><strong>树状数组与线段树相比，还是比较方便向高维拓展的，只需加一重循环即可</strong></p>
+<pre><code>void Change(int x,int y,int data){
+
+       While(x&lt;=n){
+
+              int ty=y;
+
+              While(ty&lt;=n){
+
+                     e[x][ty]+=delta;
+
+                     ty+=lowbit(y);
+
+              }
+
+              x+=lowbit(x);
+
+       }
+
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p><strong>树状数组</strong> Ultra-QuickSort <strong>题目（poj 2299）</strong> 请分析，对于一串数列，各个数字不相同，至少要交换多少次才能使该数列有序（从小到大）？ <strong>输入：</strong> 输入包含多组测试样例，每组测试样例都是先输入一个整数n&lt;500000——序列的长度，以下n行每行包括一个整数 0 ≤ a[i]≤ 999,999,999,已输入的n为0作为输入的终止条件。 <strong>输出：</strong> 对于每一组样例，输出一个整数，表示至少要交换的次数。 <strong>输入样例：</strong> 5 9 1 0 5 4 3 1 2 3 0 <strong>输出样例：</strong> 6 0 <strong>很标准的一道题，先将所有元素取出排序，去重，作为离散优化二分的依据</strong> <strong>依次从第一位开始向树状数组对应位置加值，add(find(x),1)，并且同时算出当前比该元素大的值有多少，更新答案</strong></p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#define MAX 500020
+using namespace std;
+int n,m,p,t[MAX],data[MAX];
+long long e[MAX],s,ans;
+int lowbit(int i){
+    return -i&amp;i;
+}
+void add(int x,int p){
+    for(;x&lt;=n;x+=lowbit(x))
+        e[x]+=p;
+}
+
+long long sum(int x){
+    for(s=0;x&gt;0;x-=lowbit(x))
+        s+=e[x];
+    return s;
+}
+
+int Find(int s,int e,int aim){
+    while(s&lt;=e){
+        int m=(s+e)&gt;&gt;1;
+        if(t[m]==aim) return m;
+        if(t[m]&gt;aim) e=m-1;
+        else s=m+1;
+    }
+}
+
+int main(){
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    while(~scanf(&quot;%d&quot;,&amp;n)&amp;&amp;n){
+        memset(e,0,sizeof(e));
+        ans=0;
+        for(int i=1;i&lt;=n;i++){
+            scanf(&quot;%d&quot;,&amp;data[i]);
+            t[i]=data[i];
+        }
+        sort(t+1,t+n+1);
+        m=unique(t+1,t+n)-t;
+        for(int i=1;i&lt;=n;i++){
+            int f=Find(1,m,data[i]);//找离散优化对应元素 
+            ans+=sum(n)-sum(f);//每次看比此数大的数有几个 
+            add(f,1);//将此数加入 
+        }
+        printf(&quot;%lld\n&quot;,ans);
+    }
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p><strong>Poj3928 Ping Pong</strong> 题意： n（3 &lt; = 20000）乒乓球运动员住在一个西大街（考虑街道作为一个线段）。每个球员都有一个独特的技能等级。为了提高他们的技能等级，他们经常互相竞争。如果两个球员想参加比赛，他们必须选择其他乒乓球运动员的裁判，并在裁判的房子举行比赛。因为某些原因，参赛者不能选择一个技能等级较高或低于他们两个级别的裁判。参赛者必须走到裁判的房子，因为他们是懒惰的，他们想使他们的总步行距离不超过他们的房子之间的距离。当然，所有的球员都住在不同的房子，他们的房子的位置都是不同的。如果裁判或任何两名选手是不同的，我们称之为两个不同的游戏。现在的问题是：有多少不同的游戏可以在这个乒乓街举行？ 输入 The first lineof the input contains an integer T(1&lt;=T&lt;=20), indicating the number oftest cases, followed by T lines each of which describes a test case. 输入的第一行包含一个整数t（1 &lt; =T &lt; = 20），表示测试用例的数量，然后是T行，其中每一个描述了一个测试用例。 Every testcase consists of N + 1 integers. The first integer is N, the number of players.Then N distinct integers a1, a2 … aN follow, indicating the skill rank ofeach player, in the order of west to east. (1 &lt;= ai &lt;= 100000, i = 1 …N). 每一个测试用例都是由n个1个整数组成的。第一个整数是n，玩家的数量。然后，n个不同的整数A1、A2…一个跟随，指示每个玩家的技能等级，在西到东的顺序。（1 &lt; = 100000，I = 1…n）。 Output 输出 For each testcase, output a single line contains an integer, the total number of differentgames. 对于每一个测试用例，输出一个单行包含一个整数，不同游戏的总数。 <strong>先把所有选手的能力值排序，然后加入能力值最低的选手，然后枚举所有可能成为裁判的选手，同时计算出这个裁判的左边和右边比裁判能力值大和小的值，ans+=(lmin*rmax+lmax*rmin);</strong> </p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#define MAX 20020
+using namespace std;
+struct node{
+    int id,data;
+}peo[MAX];
+long long e[MAX],t[MAX],data[MAX],lmin,rmin,lmax,rmax,ans;
+int n;
+
+bool cmp(node a,node b){
+    return a.data&lt;b.data;
+}
+int lowbit(int i){
+    return -i&amp;i;
+}
+void add(int x,int t){
+    for(;x&lt;=n;x+=lowbit(x))
+        e[x]+=t;
+}
+long long sum(int x){
+    long long s=0;
+    for(;x&gt;0;x-=lowbit(x))
+        s+=e[x];
+    return s;
+}
+int main(){
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    int cas;
+    scanf(&quot;%d&quot;,&amp;cas);
+    while(cas--){
+        scanf(&quot;%d&quot;,&amp;n); ans=0;
+        memset(e,0,sizeof(e));
+        for(int i=1;i&lt;=n;i++){
+            scanf(&quot;%d&quot;,&amp;peo[i].data);
+            peo[i].id=i;//位置 
+        }
+        sort(peo+1,peo+1+n,cmp);//按能力排序 
+        add(peo[1].id,1);//实力最小的选手 
+        for(int i=2;i&lt;=n-1;i++){
+            lmin=sum(peo[i].id-1);
+            lmax=peo[i].id-lmin-1;
+            rmin=sum(n)-sum(peo[i].id);
+            rmax=n-peo[i].id-rmin;
+            ans+=(lmin*rmax+lmax*rmin);
+            add(peo[i].id,1);
+        }
+        printf(&quot;%lld\n&quot;,ans);
+
+    }
+
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p> Stars <strong>题目（POJ 2352）</strong> 天文学家常常检查星星地图，星星都有它的x,y坐标，星星的等级的是由下边星星数量和星星右边的星星数量决定。 例如,看看上面的星图。星星5的等级为3 (由星星1、2和4决定的)。星星2的等级为1（由星星1决定的）。在这张地图上0级的星星有一颗，1级的星星有两颗，2级的星星有一颗，3级的星星有一颗， 你要编写一个程序,计算每个等级的星星的数量。 <strong>输入：</strong> 第一行为星星的数量N（(1&lt;=N&lt;=15000) 接下来N行，每行为星星的x,y坐标，用空格来分开(0&lt;=X,Y&lt;=32000)，每一个点上只有一个星星，按Y的升序给出坐标，如果Y相同，则按照X的升序给出。 <strong>输出：</strong> 输出应该包含N行,每行一个数字。第一行0级星星的数量,第二行1级星星的数量等等,最后一行包含n – 1星星的数量。 <strong>输入样例：</strong> 5 1 1 5 1 7 1 3 3 5 5 <strong>输出样例：</strong> 1 2 1 1 0  <strong>乍一看像一道二位树状数组题，其实是一维的，因为数据本来就是按y的大小排序，添加每个点x之前先计算sum(x)，这就是星星的等级，加入答案，继续直到循环结束</strong></p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+#define MAX 32020
+using namespace std;
+int e[MAX],cnt[MAX],n;
+
+int lowbit(int i){
+    return -i&amp;i;
+}
+void add(int x,int t){
+    for(;x&lt;=MAX;x+=lowbit(x))
+        e[x]+=t;
+}
+int sum(int x){
+    int s=0;
+    for(;x&gt;0;x-=lowbit(x))
+        s+=e[x];
+    return s;
+}
+int main(){
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    int x,y;
+    while(~scanf(&quot;%d&quot;,&amp;n)){
+        memset(e,0,sizeof(e));
+        memset(cnt,0,sizeof(cnt));
+        for(int i=1;i&lt;=n;i++){
+            scanf(&quot;%d%d&quot;,&amp;x,&amp;y);
+            add(x+1,1);
+            cnt[sum(x+1)]++;
+        }
+        for(int i=1;i&lt;=n;i++)
+            printf(&quot;%d\n&quot;,cnt[i]);
+    }
+
+
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p><strong>Hdu 4031 attack</strong> <strong>问题描述</strong> 今年是911的十周年，基地组织又想攻击美国了，美国有建设了一堵墙来保护自己，而基地组织有一个超级武器，每秒钟可以攻击连续的墙。而美国还有能量护盾来保护墙，每个能量护盾覆盖在一个单位长度的墙上，能抵挡攻击，但是每个能量护盾防御了一次攻击都需要T秒时间冷却下来，冷却期间，它不能抵挡攻击，比如该单位初盾牌抵挡了第k次攻击，那么它不能抵挡第k+1~(k+t-1)次攻击，过后，他们自动继续防御。 在战争中，知己知彼是非常重要的，因此指挥官想知道墙的某一部分被成功攻击了多少次，成功攻击就意味着盾牌没有防御到 <strong>输入</strong> 第一行T(&lt;=20)，表示测试数据组数 每组测试数据第一行：N,Q,T，分别表示墙的长度，Q次攻击或询问，T秒的冷却时间 接下来Q行，格式有两种： Attack si ti 攻击 si 到 ti 的墙. 1 ≤ si ≤ ti ≤ N Query p 询问p位置的墙：1 ≤ p ≤ N 1 ≤ N, Q ≤ 20000 1 ≤ t ≤ 50 <strong>输出</strong> 每组数据第一行： Case i: 接下来是所有询问的答案，每个询问答案一行 <strong>样例输入</strong> 2 3 7 2 Attack 1 2 Query 2 Attack 2 3 Query 2 Attack 1 3 Query 1 Query 3 9 7 3 Attack 5 5 Attack 4 6 Attack 3 7 Attack 2 8 Attack 1 9 Query 5 Query 3 <strong>样例输出</strong> Case 1: 0 1 0 1 Case 2: 3 2 <strong>暂时没A，先放这里吧~</strong> <strong>Poj 2985 The k-th Largest Group</strong> <strong>题意</strong> 有N只猫，M个操作。操作种类如下： 0 a b：把a b猫所在的组合并 1 k： 第K大的组的大小是多少。 <strong>求第k大的数</strong></p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MAX=200020;
+int father[MAX],e[MAX];
+int cnt[MAX];//存储有i只猫的集合数 
+int n,m,op,a,b,num;
+int lowbit(int x){
+    return -x&amp;x;
+}
+void add(int x,int t){
+    for(;x&lt;=MAX;x+=lowbit(x))
+        e[x]+=t;
+}
+int Getfather(int p){
+    if(father[p]!=p) 
+        father[p]=Getfather(father[p]);
+    return father[p];
+}
+int Get_kth(int k){
+    int ans,tot;//二分找第k小 
+    ans=tot=0;
+    for(int i=20;i&gt;=0;i--){
+        ans+=1&lt;&lt;i;//尝试 
+        if(ans&gt;=MAX||tot+e[ans]&gt;=k)//看这次尝试是否超过范围 
+            ans-=1&lt;&lt;i;//复原 
+        else tot+=e[ans];//记录 
+    }
+    return ans+1;
+}
+int main(){
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
+    for(int i=1;i&lt;=n;i++){
+        father[i]=i;//并查集初始化 
+        cnt[i]=1;//表示组内有i只猫的组数，开始只有一组 
+    }num=n;//num个集合 
+    add(1,n);
+    for(int i=1;i&lt;=m;i++){
+        scanf(&quot;%d&quot;,&amp;op);
+        if(op){
+            scanf(&quot;%d&quot;,&amp;a);//第k大就是第num - k + 1小的
+            printf(&quot;%d\n&quot;,Get_kth(num-a+1));
+        }else{
+            scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
+            a=Getfather(a); b=Getfather(b);//取父亲 
+            if(a==b) continue;//本来属于一个集合 
+            add(cnt[a],-1); add(cnt[b],-1);
+            add(cnt[a]+cnt[b],1);
+            cnt[b]=cnt[a]+cnt[b];
+            father[a]=b;
+            num--;
+        }
+    }
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p><strong>Poj 1195 Mobile phones</strong> <strong>题意：</strong> 给你一个矩阵（初始化为0）和一些操作： 1 x y a表示在arr[x][y]加上a 2 l b rt 表示求左上角为(l,b),右下角为(r,t)的矩阵的和。 <strong>高维树状数组即可</strong></p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MAX=1200;
+int e[MAX][MAX],n;
+int lowbit(int i){
+    return -i&amp;i;
+}
+int sum(int x,int y){
+    int ans=0;
+    while(x&gt;0){
+        int ty=y;
+        while(ty&gt;0){
+            ans+=e[x][ty];
+            ty-=lowbit(ty);
+        }
+        x-=lowbit(x);
+    }
+    return ans;
+}
+
+void add(int x,int y,int t){
+    while(x&lt;=n){
+        int ty=y;
+        while(ty&lt;=n){
+            e[x][ty]+=t;
+            ty+=lowbit(ty);
+        }
+        x+=lowbit(x);
+    }
+}
+int main(){
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    int c,x,y,a,x1,x2,y1,y2;
+    scanf(&quot;%d%d&quot;,&amp;c,&amp;n);
+    while(~scanf(&quot;%d&quot;,&amp;c)&amp;&amp;c!=3){
+        if(c==1){
+            scanf(&quot;%d%d%d&quot;,&amp;x,&amp;y,&amp;a);
+            add(x+1,y+1,a);
+        }else{
+            scanf(&quot;%d%d%d%d&quot;,&amp;x1,&amp;y1,&amp;x2,&amp;y2);
+            int ans=sum(x2+1,y2+1)-sum(x1,y2+1)-sum(x2+1,y1)+sum(x1,y1);
+            printf(&quot;%d\n&quot;,ans);
+        }
+    }
+
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://mrh1s.top/2018/12/06/e6-a0-91-e7-8a-b6-e6-95-b0-e7-bb-84-e6-80-bb-e7-bb-93/" data-id="cjv7vtpyk003xzgetmmiafqaj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/06/avl-e6-a0-91-e6-80-bb-e7-bb-93/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          AVL树总结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/12/06/e7-ba-bf-e6-ae-b5-e6-a0-91-e6-80-bb-e7-bb-93/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">线段树总结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/c-c/">c/c++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/notes/">notes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/project/">project</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/">write up</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cgctf/">cgctf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cnss-recruit-201809/">cnss_recruit_201809</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/hgame-20190122/">hgame_20190122</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nationalCTF-20190421/">nationalCTF_20190421</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nctf-20181124/">nctf_20181124</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/牢骚/">牢骚</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Dynamic/">RE_Dynamic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/RE-Dynamic/" style="font-size: 10px;">RE_Dynamic</a> <a href="/tags/RE-Static/" style="font-size: 20px;">RE_Static</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/28/bbvvmm/">bbvvmm</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/28/e5-8d-97-e4-ba-ac-e9-82-ae-e7-94-b5-e5-a4-a7-e5-ad-a6-re-wxyvm2/">南京邮电大学 RE-WxyVM2</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/13/e5-a3-b3-e7-9b-b8-e5-85-b3/">壳相关</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/shinyshot/">ShinyShot!</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/21/happyvm/">HappyVM</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 mrh929<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>字符串hash，康托展开总结 | mrh929&#39;s home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="字符串hash，康托展开总结各种字符串hash函数： ELF HashBKDRHashAPHashDJBHashJSHashRSHashSDBMHashPJWHashELFHash 字符串hash之BKDRhash函数 有研究表明BKDRhash函数冲突率较低，且变成复杂度低，所以可以用来作为常用hash函数 Hash函数 数据1 数据2 数据3 数据4 数据1得分 数据2得分 数据3得分 数据4">
+<meta property="og:type" content="article">
+<meta property="og:title" content="字符串hash，康托展开总结">
+<meta property="og:url" content="http://mrh1s.top/2018/12/06/e5-ad-97-e7-ac-a6-e4-b8-b2hash-ef-bc-8c-e5-ba-b7-e6-89-98-e5-b1-95-e5-bc-80-e6-80-bb-e7-bb-93/index.html">
+<meta property="og:site_name" content="mrh929&#39;s home">
+<meta property="og:description" content="字符串hash，康托展开总结各种字符串hash函数： ELF HashBKDRHashAPHashDJBHashJSHashRSHashSDBMHashPJWHashELFHash 字符串hash之BKDRhash函数 有研究表明BKDRhash函数冲突率较低，且变成复杂度低，所以可以用来作为常用hash函数 Hash函数 数据1 数据2 数据3 数据4 数据1得分 数据2得分 数据3得分 数据4">
+<meta property="og:locale" content="cn">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:updated_time" content="2019-05-03T06:19:59.674Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="字符串hash，康托展开总结">
+<meta name="twitter:description" content="字符串hash，康托展开总结各种字符串hash函数： ELF HashBKDRHashAPHashDJBHashJSHashRSHashSDBMHashPJWHashELFHash 字符串hash之BKDRhash函数 有研究表明BKDRhash函数冲突率较低，且变成复杂度低，所以可以用来作为常用hash函数 Hash函数 数据1 数据2 数据3 数据4 数据1得分 数据2得分 数据3得分 数据4">
+<meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+  
+    <link rel="alternate" href="/atom.xml" title="mrh929&#39;s home" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">mrh929&#39;s home</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://mrh1s.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-e5-ad-97-e7-ac-a6-e4-b8-b2hash-ef-bc-8c-e5-ba-b7-e6-89-98-e5-b1-95-e5-bc-80-e6-80-bb-e7-bb-93" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/06/e5-ad-97-e7-ac-a6-e4-b8-b2hash-ef-bc-8c-e5-ba-b7-e6-89-98-e5-b1-95-e5-bc-80-e6-80-bb-e7-bb-93/" class="article-date">
+  <time datetime="2018-12-06T15:44:39.000Z" itemprop="datePublished">2018-12-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      字符串hash，康托展开总结
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="字符串hash，康托展开总结"><a href="#字符串hash，康托展开总结" class="headerlink" title="字符串hash，康托展开总结"></a>字符串hash，康托展开总结</h1><p><strong>各种字符串hash函数：</strong> <strong>ELF HashBKDRHashAPHashDJBHashJSHashRSHashSDBMHashPJWHashELFHash</strong> <strong>字符串hash之BKDRhash函数</strong> <strong>有研究表明BKDRhash函数冲突率较低，且变成复杂度低，所以可以用来作为常用hash函数</strong></p>
+<p><strong>Hash函数</strong></p>
+<p><strong>数据1</strong></p>
+<p><strong>数据2</strong></p>
+<p><strong>数据3</strong></p>
+<p><strong>数据4</strong></p>
+<p><strong>数据1得分</strong></p>
+<p><strong>数据2得分</strong></p>
+<p><strong>数据3得分</strong></p>
+<p><strong>数据4得分</strong></p>
+<p><strong>平均分</strong></p>
+<p><strong>BKDRHash</strong></p>
+<p><strong>2</strong></p>
+<p><strong>0</strong></p>
+<p><strong>4774</strong></p>
+<p><strong>481</strong></p>
+<p><strong>96.55</strong></p>
+<p><strong>100</strong></p>
+<p><strong>90.95</strong></p>
+<p><strong>82.05</strong></p>
+<p><strong>92.64</strong></p>
+<p><strong>APHash</strong></p>
+<p><strong>2</strong></p>
+<p><strong>3</strong></p>
+<p><strong>4754</strong></p>
+<p><strong>493</strong></p>
+<p><strong>96.55</strong></p>
+<p><strong>88.46</strong></p>
+<p><strong>100</strong></p>
+<p><strong>51.28</strong></p>
+<p><strong>86.28</strong></p>
+<p><strong>DJBHash</strong></p>
+<p><strong>2</strong></p>
+<p><strong>2</strong></p>
+<p><strong>4975</strong></p>
+<p><strong>474</strong></p>
+<p><strong>96.55</strong></p>
+<p><strong>92.31</strong></p>
+<p><strong>0</strong></p>
+<p><strong>100</strong></p>
+<p><strong>83.43</strong></p>
+<p><strong>JSHash</strong></p>
+<p><strong>1</strong></p>
+<p><strong>4</strong></p>
+<p><strong>4761</strong></p>
+<p><strong>506</strong></p>
+<p><strong>100</strong></p>
+<p><strong>84.62</strong></p>
+<p><strong>96.83</strong></p>
+<p><strong>17.95</strong></p>
+<p><strong>81.94</strong></p>
+<p><strong>RSHash</strong></p>
+<p><strong>1</strong></p>
+<p><strong>0</strong></p>
+<p><strong>4861</strong></p>
+<p><strong>505</strong></p>
+<p><strong>100</strong></p>
+<p><strong>100</strong></p>
+<p><strong>51.58</strong></p>
+<p><strong>20.51</strong></p>
+<p><strong>75.96</strong></p>
+<p><strong>SDBMHash</strong></p>
+<p><strong>3</strong></p>
+<p><strong>2</strong></p>
+<p><strong>4849</strong></p>
+<p><strong>504</strong></p>
+<p><strong>93.1</strong></p>
+<p><strong>92.31</strong></p>
+<p><strong>57.01</strong></p>
+<p><strong>23.08</strong></p>
+<p><strong>72.41</strong></p>
+<p><strong>PJWHash</strong></p>
+<p><strong>30</strong></p>
+<p><strong>26</strong></p>
+<p><strong>4878</strong></p>
+<p><strong>513</strong></p>
+<p><strong>0</strong></p>
+<p><strong>0</strong></p>
+<p><strong>43.89</strong></p>
+<p><strong>0</strong></p>
+<p><strong>21.95</strong></p>
+<p><strong>ELFHash</strong></p>
+<p><strong>30</strong></p>
+<p><strong>26</strong></p>
+<p><strong>4878</strong></p>
+<p><strong>513</strong></p>
+<p><strong>0</strong></p>
+<p><strong>0</strong></p>
+<p><strong>43.89</strong></p>
+<p><strong>0</strong></p>
+<p><strong>21.95</strong></p>
+<p>  <strong>unsigned int bkdr_hash(const char* str)</strong> <strong>{            </strong> <strong>      unsignedint seed = 31; // 31 131 1313 13131 131313 etc.. 37（最好是质数）</strong> <strong>      unsignedint hash = 0;</strong> <strong>      while(*str) hash = (hash * seed + (*str++))%P;//P是一个较大质数</strong> <strong>      returnhash;</strong> <strong>}</strong> <strong>各种证明：</strong> <strong><a href="http://www.it165.net/pro/html/201410/24949.html" target="_blank" rel="noopener">http://www.it165.net/pro/html/201410/24949.html</a></strong>    <strong>双hash优化：</strong> <strong>在hash表中想要用线性探查的方式处理hash表的冲突，那么每次比对要查找的元素与当前元素是否相等就显得十分麻烦，特别是两个数据是字符串的时候，strcmp超级耗时，此时我们就可以在存储新元素时通过另一hash算法算出两者的hash值，将这两个hash存入结构体，并且排序，用二分查找第一个hash值，并比较第二个hash值，若符合则相同</strong>  <strong>另外本人想到一个貌似还可以的做法，目前都AC了所做的所有Hash题目</strong> <strong>做法：用两种截然不同的hash算法，hash1算出取模压缩后的值，而hash2算出BKDRhash算法，其中P（较大质数）为10^9+7，算出字符串完整的hash2值，把hash1当作地址，hash2当作数据：HashTable[hash1]=hash2;</strong> <strong>当然有冲突时先比较hash2值是否相同，不相同则继续探查直到所在地址数据为空，hash2相同时就基本可以说明两个字符串是相等的。。。。</strong> <strong>康托展开</strong> <strong>叙述：有一个数字序列，所有数都是[1,n]的，且任意两者互异，此时我们用一一对应的方式存储这些数据就有n！种可能，康托算法对处理这种序列提供了完美的解决方法。称为康托展开。我们把这个数列看作全排列，数字所对hash值就为全排列的大小（第几大）。</strong>  <strong>公式：hash(key)=a[n]<em>(n-1)!+a[n-1]</em>(n-2)!+…+a[2]<em>(2-1)!+a[1]</em>(1-1)!</strong> <strong>其中，a[n]所存的值为在第n个数（从小到大的顺序）之前比n小的数的个数</strong> <strong>Hash值完全可以通过循环在n次内算出，且数列与hash完全一一对应，可谓完美算法。</strong>  <strong>康托逆展开：</strong> <strong>由于康托展开的一一对应性，我们同样可以算出原来的全排列。</strong> <strong>n为康托展开式，k为总阶乘</strong> <strong>第一位：(n-1)/(k-1)余n’</strong> <strong>第二位：n’/(k-2)余n’’</strong> <strong>以此类推。。。</strong>                   <strong>Poj1200</strong> <strong>描述</strong> 许多人喜欢解决难题。一个这样的难题是在一个给定的文本中找到一个隐藏的素数。这个数字是所给字符串中不同子串的个数。当你很快会发现，你真的需要一台计算机和一个很好的算法来解决这样的难题。 你的任务是编写一个程序，文本中不同字符的数量不超过NC，给出这样的字符串，求长度为n的不同的子串有多少个。 举一个例子，当n = 3，NC = 4，字符串为“daababac”。可以在字符串中到到符合条件的子串为：”daa”;”aab”; “aba”; “bab”; “bac”。因此，答案应该是5。 <strong>输入：</strong> 第一行：两个数：n，nc 第二行：要搜索的字符串； 你可以假设，最后你所搜索出来符合要求的子串个数不大于16000000； <strong>输出</strong> 不同子串的个数 <strong>样例输入</strong> 3 4 daababac <strong>样例输出</strong> 5 <strong>提示</strong> 输入数据巨大，不用cin <strong>数据巨大，seed不宜太大，看了poj题解，有一个很棒的方法，seed就是当前字符在整个字符串出现过的个数，刚好可以做到一一对应</strong></p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int Z1=1000000007;
+bool hashtable[Z1+100];
+int n,nc,ans=0,asc[300],num,len,sum;
+char str[8000000];
+int main(){
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    scanf(&quot;%d%d&quot;,&amp;n,&amp;nc);
+    scanf(&quot;%s&quot;,str);
+    len=strlen(str);
+    for(int i=0;i&lt;len;i++)
+        if(!asc[str[i]])
+            asc[str[i]]=++num;
+    for(int i=0;i&lt;len-n+1;i++){
+        sum=0;
+        for(int j=i;j&lt;i+n;j++)
+            sum+=sum*nc+asc[str[j]];//该字符的个数作为seed 
+        if(!hashtable[sum])
+            hashtable[sum]=1,ans++;
+    }
+    printf(&quot;%d&quot;,ans);
+
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p><strong>POJ2503-**</strong>Babelfish<strong> </strong>描述：<strong> 你刚从滑铁卢搬到一个大城市，但是你却不懂他们的语言，还好你有一本词典可以帮助你。   </strong>输入格式<strong> 输入包括高达10万词条，之后是一个空行，然后是长达10万个单词查询。每个字典条目是包含一个英文单词，后面跟一个空格和一个当地语言。没有当地语言在字典中出现超过一次。每行一个词，输入中的每个词至多10小写字母。 </strong>输出格式<strong> 输出翻译成英语的消息，每行一个单词。没有在字典中的外来词应该被译为“en”。 </strong>样例输入<strong> dog ogday cat atcay pig igpay froot ootfray loops oopslay atcay ittenkay oopslay </strong>样例输出<strong> cat eh loops </strong>这里读入就是个问题，我是这样的：先读入s1，在getchar()，如果get到空格就继续读s2<strong> </strong>否则就进行翻译步骤<strong> </strong>这里我使用的方式是双哈希，将字符串的第一个hash作为地址，第二个hash作为数据，线性探查相应单词就会省时省力**</p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MAX=1000000;
+char data[MAX+20][11],s1[11],s2[11];
+unsigned int hashtable[MAX+20];
+unsigned int Hash1(const char* str){ 
+    unsigned int h=0;
+    unsigned int seed=31;
+    while(*str) h+=(h*seed+(*str++))%MAX;
+    return (h%MAX+h+1311)%MAX;
+}
+
+unsigned int Hash2(const char* str){
+    unsigned int h=0;
+    unsigned int seed=131;
+    while(*str) h+=(h*seed+(*str++))%(MAX+3);
+    return h%MAX;
+}
+
+
+int main(){
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    unsigned int h1,h2;
+    while(scanf(&quot;%s&quot;,s1)!=EOF){
+        if(getchar()!=&apos; &apos;) break;
+        scanf(&quot;%s&quot;,s2);
+        h1=Hash1(s2);
+        h2=Hash2(s2);
+        while(data[h1][0]!=0){
+            if(h2==hashtable[h1]) break;
+            h1+=2333;
+            if(h1&gt;MAX) h1%=MAX;
+        }
+        hashtable[h1]=h2;
+        strcpy(data[h1],s1);
+    }
+    do{
+        h1=Hash1(s1);
+        h2=Hash2(s1);
+        while(h2!=hashtable[h1]){
+            if(data[h1][0]==0) break;
+            h1+=2333;
+            if(h1&gt;MAX) h1%=MAX;
+        }
+        if(data[h1][0]==0) printf(&quot;eh\n&quot;);
+        else printf(&quot;%s\n&quot;,data[h1]);
+    }while(scanf(&quot;%s&quot;,s1)!=EOF);
+
+
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p><strong>POJ1002- 487-3279</strong> <strong>描述：</strong> 企业喜欢用容易被记住的电话号码。让电话号码容易被记住的一个办法是将它写成一个容易记住的单词或者短语。例如，你需要给滑铁卢大学打电话时，可以拨打TUT-GLOP。有时，只将电话号码中部分数字拼写成单词。当你晚上回到酒店，可以通过拨打310-GINO来向Gino’s订一份pizza。让电话号码容易被记住的另一个办法是以一种好记的方式对号码的数字进行分组。通过拨打必胜客的“三个十”号码3-10-10-10，你可以从他们那里订pizza。 电话号码的标准格式是七位十进制数，并在第三、第四位数字之间有一个连接符。电话拨号盘提供了从字母到数字的映射，映射关系如下： A, B, 和C映射到 2 D, E, 和F映射到 3 G, H, 和I映射到 4 J, K, 和L映射到 5 M, N, 和O映射到 6 P, R, 和S映射到 7 T, U, 和V映射到 8 W, X, 和Y映射到 9 ITS-EASY 4873279 Q和Z没有映射到任何数字，连字符不需要拨号，可以任意添加和删除。 TUT-GLOP的标准格式是888-4567，310-GINO的标准格式是310-4466，3-10-10-10的标准格式是310-1010。 如果两个号码有相同的标准格式，那么他们就是等同的（相同的拨号） 你的公司正在为本地的公司编写一个电话号码薄。作为质量控制的一部分，你想要检查是否有两个和多个公司拥有相同的电话号码。   <strong>输入格式：</strong> 输入的格式是，第一行是一个正整数，指定电话号码薄中号码的数量（最多100000）。余下的每行是一个电话号码。每个电话号码由数字，大写字母（除了Q和Z）以及连接符组成。每个电话号码中只会刚好有7个数字或者字母。 <strong>输出格式：</strong> 对于每个出现重复的号码产生一行输出，输出是号码的标准格式紧跟一个空格然后是它的重复次数。如果存在多个重复的号码，则按照号码的字典升序输出。如果输入数据中没有重复的号码，输出一行： No duplicates. <strong>样例输入：</strong> 12 4873279 ITS-EASY 888-4567 3-10-10-10 888-GLOP TUT-GLOP 967-11-11 310-GINO F101010 888-1200 -4-8-7-3-2-7-9- 487-3279  <strong>样例输出：</strong></p>
+<pre><code>310-1010 2
+
+487-3279 4
+
+888-4567 3
+</code></pre><p><strong>个人认为这道题不用hash，直接开一个足够大的数组即可，只是在读入数据方面要小心</strong></p>
+<pre><code>#include&lt;cstdio&gt;
+#include&lt;cstring&gt;
+#include&lt;algorithm&gt;
+using namespace std;
+const int MAX=10000000;
+char str[200];
+int data[MAX+200],log[10000000],tot;
+
+int Translate(char c){
+    if(c&gt;=&apos;0&apos;&amp;&amp;c&lt;=&apos;9&apos;) return c-&apos;0&apos;;
+    if(c==&apos;Q&apos;||c==&apos;Z&apos;||c==&apos;-&apos;) return -1;
+    if(c&lt;=&apos;P&apos;) return (c-&apos;A&apos;)/3+2;
+    return (c-&apos;A&apos;-1)/3+2;
+}
+
+int Hash(char* str){
+    int k=1000000,sum=0,a;
+    do{
+        if((a=Translate(*str))!=-1){
+            sum+=k*a;
+            k/=10;
+        }    
+    }while(*str++);
+    return sum;
+}
+
+void Print(int data,int tot){
+    int p[7]={0,0,0,0,0,0,0},k=1000000;
+    for(int i=0;i&lt;=6;i++){
+        p[i]=data/k;
+        data%=k;
+        k/=10;
+    }
+    for(int i=0;i&lt;=2;i++)
+        printf(&quot;%d&quot;,p[i]);
+    printf(&quot;-&quot;);
+    for(int i=3;i&lt;=6;i++)
+        printf(&quot;%d&quot;,p[i]);
+    printf(&quot; %d\n&quot;,tot);
+}
+
+int main(){
+//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
+    int n,h;
+    scanf(&quot;%d&quot;,&amp;n);
+    for(int i=1;i&lt;=n;i++){
+        scanf(&quot;%s&quot;,str);
+        h=Hash(str);
+        if(data[h]==1) log[++tot]=h;
+        data[h]++;
+    }
+    sort(log+1,log+1+tot);
+    for(int i=1;i&lt;=tot;i++)
+        Print(log[i],data[log[i]]);
+    if(tot==0)
+        printf(&quot;No duplicates.&quot;);
+
+/*    printf(&quot;%d&quot;,Translate(&apos;M&apos;));
+    char sr[10]=&quot;ITS-EASY&quot;;
+    printf(&quot;%d&quot;,Hash(sr));*/
+
+
+    return 0;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p>FZOJ1639魔板 <strong>题目描述</strong> 在魔方风靡全球之后，小Y发明了它的简化版——魔板，如图1所示，魔板由8个同样大小的方块组成，每个方块的颜色均不相同，本题中分别用数字1~8表示，它们可能出现在魔板的任一位置。任一时刻魔板的状态可以用方块的颜色序列表示：从魔板的左上角开始，按顺时针方向依次写下各个颜色块的颜色代号，得到数字序列即可表示此时魔板的状态。例如，序列(1,2,3,4,5,6,7,8)表示如图1所示魔板的状态，这也是本题中魔板的初始状态。</p>
+<p>1</p>
+<p>2</p>
+<p>3</p>
+<p>4</p>
+<p>8</p>
+<p>7</p>
+<p>6</p>
+<p>5</p>
+<pre><code>**图 1 魔板的初始状态** 对于魔板，可以施加三种不同的操作，分别以A,B,C标识。具体操作方法如下： A:上下行互换。 B：每一行同时循环右移一格。 C：中间4个方块顺时针旋转一格。 应用这三种基本操作，可以由任一种状态达到任意另外一种状态。 **图 2 魔板的操作方法** 图2描述了上述3种操作的具体含义，图中方格外面的数字标识魔板的8个方块位置，方格内数字表示此次操作前该小方块所在位置，即：如果位置P对应的方格中数字为I，则表示此次操作前该方块在位置I。 任务一：请编一程序，对于输入的一个目标状态寻找一种操作的序列，使得从初始状态开始，经过此操作序列后使该魔板变为目标状态。 任务二：如果你的程序寻找到的操作序列在300步以内，会得到任务二的分数。 输入数据只有一行，内容是8个以一个空隔分隔的正整数，表示目标状态。输入样例对应的状态如图3所示。输出数据要求第一行输出你的程序寻找到的操作序列的步数L，随后L行是相应的操作序列，每行的行首输出一个字符，代表相应的操作。
+</code></pre><p>2</p>
+<p>6</p>
+<p>8</p>
+<p>4</p>
+<p>1</p>
+<p>3</p>
+<p>7</p>
+<p>5</p>
+<pre><code>**图 3 魔板的输入样例的状态** **输入** **输出** 第一行输出你的程序寻找到的操作序列的步数L，随后L行是相应的操作序列，每行的行首输出一个字符，代表相应的操作。 **样例输入** 2 6 8 4 5 7 3 1 **样例输出** 7 B C A B C C B  **学过康托展开，此题的算法就可以大大简化，正好，魔板是标准的全排列，用康托展开的方法算出hash值，并且在这个hash地址上存储相应的步数、是否被遍历等数据，十分方便。**
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://mrh1s.top/2018/12/06/e5-ad-97-e7-ac-a6-e4-b8-b2hash-ef-bc-8c-e5-ba-b7-e6-89-98-e5-b1-95-e5-bc-80-e6-80-bb-e7-bb-93/" data-id="cjv7vtpyg003wzget7pmdrosb" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/06/e5-8f-af-e5-b9-b6-e5-a0-86-e4-b9-8b-e5-b7-a6-e5-81-8f-e6-a0-91-e6-80-bb-e7-bb-93/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          可并堆之左偏树总结
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/12/06/e7-a6-bb-e6-95-a3hash-e4-bc-98-e5-8c-96-e6-80-bb-e7-bb-93/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">离散hash优化总结</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/c-c/">c/c++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/notes/">notes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/project/">project</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/">write up</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cgctf/">cgctf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cnss-recruit-201809/">cnss_recruit_201809</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/hgame-20190122/">hgame_20190122</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nationalCTF-20190421/">nationalCTF_20190421</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nctf-20181124/">nctf_20181124</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/牢骚/">牢骚</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Dynamic/">RE_Dynamic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/RE-Dynamic/" style="font-size: 10px;">RE_Dynamic</a> <a href="/tags/RE-Static/" style="font-size: 20px;">RE_Static</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/28/bbvvmm/">bbvvmm</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/28/e5-8d-97-e4-ba-ac-e9-82-ae-e7-94-b5-e5-a4-a7-e5-ad-a6-re-wxyvm2/">南京邮电大学 RE-WxyVM2</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/13/e5-a3-b3-e7-9b-b8-e5-85-b3/">壳相关</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/shinyshot/">ShinyShot!</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/21/happyvm/">HappyVM</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 mrh929<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

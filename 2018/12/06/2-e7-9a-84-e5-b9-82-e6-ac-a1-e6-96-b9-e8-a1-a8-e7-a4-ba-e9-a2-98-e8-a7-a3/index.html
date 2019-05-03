@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>2的幂次方表示题解 | mrh929&#39;s home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="8758:2的幂次方表示总时间限制: 1000ms 内存限制: 65536kB 描述 任何一个正整数都可以用2的幂次方表示。例如： 137=27+23+20 同时约定方次用括号来表示，即ab可表示为a(b)。由此可知，137可表示为： 2(7)+2(3)+2(0) 进一步：7=22+2+20（21用2表示） 3=2+20 所以最后137可表示为： 2(2(2)+2+2(0))+2(2+2(0))+">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2的幂次方表示题解">
+<meta property="og:url" content="http://mrh1s.top/2018/12/06/2-e7-9a-84-e5-b9-82-e6-ac-a1-e6-96-b9-e8-a1-a8-e7-a4-ba-e9-a2-98-e8-a7-a3/index.html">
+<meta property="og:site_name" content="mrh929&#39;s home">
+<meta property="og:description" content="8758:2的幂次方表示总时间限制: 1000ms 内存限制: 65536kB 描述 任何一个正整数都可以用2的幂次方表示。例如： 137=27+23+20 同时约定方次用括号来表示，即ab可表示为a(b)。由此可知，137可表示为： 2(7)+2(3)+2(0) 进一步：7=22+2+20（21用2表示） 3=2+20 所以最后137可表示为： 2(2(2)+2+2(0))+2(2+2(0))+">
+<meta property="og:locale" content="cn">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:updated_time" content="2019-05-03T06:19:59.673Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2的幂次方表示题解">
+<meta name="twitter:description" content="8758:2的幂次方表示总时间限制: 1000ms 内存限制: 65536kB 描述 任何一个正整数都可以用2的幂次方表示。例如： 137=27+23+20 同时约定方次用括号来表示，即ab可表示为a(b)。由此可知，137可表示为： 2(7)+2(3)+2(0) 进一步：7=22+2+20（21用2表示） 3=2+20 所以最后137可表示为： 2(2(2)+2+2(0))+2(2+2(0))+">
+<meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+  
+    <link rel="alternate" href="/atom.xml" title="mrh929&#39;s home" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">mrh929&#39;s home</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://mrh1s.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-2-e7-9a-84-e5-b9-82-e6-ac-a1-e6-96-b9-e8-a1-a8-e7-a4-ba-e9-a2-98-e8-a7-a3" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/06/2-e7-9a-84-e5-b9-82-e6-ac-a1-e6-96-b9-e8-a1-a8-e7-a4-ba-e9-a2-98-e8-a7-a3/" class="article-date">
+  <time datetime="2018-12-06T15:38:31.000Z" itemprop="datePublished">2018-12-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      2的幂次方表示题解
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="8758-2的幂次方表示"><a href="#8758-2的幂次方表示" class="headerlink" title="8758:2的幂次方表示"></a>8758:2的幂次方表示</h2><p>总时间限制: 1000ms 内存限制: 65536kB 描述 任何一个正整数都可以用2的幂次方表示。例如： 137=27+23+20 同时约定方次用括号来表示，即ab可表示为a(b)。由此可知，137可表示为： 2(7)+2(3)+2(0) 进一步：7=22+2+20（21用2表示） 3=2+20 所以最后137可表示为： 2(2(2)+2+2(0))+2(2+2(0))+2(0) 又如： 1315=210+28+25+2+1 所以1315最后可表示为： 2(2(2+2(0))+2)+2(2(2+2(0)))+2(2(2)+2(0))+2+2(0) 输入 一个正整数n（n≤20000）。 输出 一行，符合约定的n的0，2表示（在表示中不能有空格）。 样例输入 137 样例输出 2(2(2)+2+2(0))+2(2+2(0))+2(0) 来源 NOIP1998复赛 普及组 第一题     <strong>题解：将一个大数拆分为若干个2的n次方的和，并且将次方和再拆分成若干个部分，这样很容易就可以想起递归算法。</strong> <strong>       实际上问题大致分为两步：</strong> <strong>1.    将数字分解为2的n次方</strong> <strong>2.    将n再次分解为2的n次方（调用自身，如果n==2则结束printf(“2”);</strong> <strong>如果n==1 则printf(“2(0)”);）</strong></p>
+<pre><code>#include&lt;stdio.h&gt;
+#include&lt;stdlib.h&gt;
+#include&lt;string.h&gt;
+#include&lt;math.h&gt;
+
+
+void work(int n)
+{
+    if(n==1)//初始判断条件，如果n为1或2则直接输出 
+    {
+        printf(&quot;2(0)&quot;);
+        return;
+    }
+    else if(n==2)
+    {
+        printf(&quot;2&quot;);
+        return; 
+    } 
+    else
+    {
+        int j=1,i=0;//j每次乘2,如果大于了n就分解结束，i为当前次数 
+        do
+        {
+            j*=2;
+            if(j&gt;n)
+            {
+                j/=2;
+                if(i==1)//这步非常重要，确定是否需要继续 2() 
+                    printf(&quot;2&quot;);
+                else
+                {
+                    printf(&quot;2(&quot;);
+                    work(i);
+                    printf(&quot;)&quot;);
+                }    
+                if(n-j!=0)//如果n分解之后还有剩余的数，那么继续分解 
+                {
+                    printf(&quot;+&quot;);
+                    work(n-j);
+                }
+                return;
+            }
+            else
+                i++;
+
+
+        }while(1);
+    }    
+
+
+}
+
+int main()
+{
+    int n;
+    scanf(&quot;%d&quot;,&amp;n);
+    work(n);
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://mrh1s.top/2018/12/06/2-e7-9a-84-e5-b9-82-e6-ac-a1-e6-96-b9-e8-a1-a8-e7-a4-ba-e9-a2-98-e8-a7-a3/" data-id="cjv7vtpwr0009zgetlj597423" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/06/e5-a4-a7-e6-95-b4-e6-95-b0-e4-b9-98-e6-b3-95-e9-a2-98-e8-a7-a3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          大整数乘法题解
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/12/06/e9-80-86-e6-b3-a2-e5-85-b0-e8-a1-a8-e8-be-be-e5-bc-8f-e9-a2-98-e8-a7-a3/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">逆波兰表达式题解</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/c-c/">c/c++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/notes/">notes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/project/">project</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/">write up</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cgctf/">cgctf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cnss-recruit-201809/">cnss_recruit_201809</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/hgame-20190122/">hgame_20190122</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nationalCTF-20190421/">nationalCTF_20190421</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nctf-20181124/">nctf_20181124</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/牢骚/">牢骚</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Dynamic/">RE_Dynamic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/RE-Dynamic/" style="font-size: 10px;">RE_Dynamic</a> <a href="/tags/RE-Static/" style="font-size: 20px;">RE_Static</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/28/bbvvmm/">bbvvmm</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/28/e5-8d-97-e4-ba-ac-e9-82-ae-e7-94-b5-e5-a4-a7-e5-ad-a6-re-wxyvm2/">南京邮电大学 RE-WxyVM2</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/13/e5-a3-b3-e7-9b-b8-e5-85-b3/">壳相关</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/shinyshot/">ShinyShot!</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/21/happyvm/">HappyVM</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 mrh929<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

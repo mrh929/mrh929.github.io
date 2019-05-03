@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.8.0">
+  <meta charset="utf-8">
+  
+
+  
+  <title>商品管理系统 | mrh929&#39;s home</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="大一上C语言期末作业 动态链表真的好烦啊 这次主要纠正了自己的一个错误思想 一个链表的链表头是一个指针，而不是一个结点 所以，每次操作一个链表的时候，要传入指针的指针 才能达到修改第一个结点的目的 GoodList *Head; //这是指向链表头的指针 Change(&amp;amp;Head); //传入指针的指针  实验报告 #include &amp;lt;stdlib.h&amp;gt; #include &amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="商品管理系统">
+<meta property="og:url" content="http://mrh1s.top/2018/12/20/e5-95-86-e5-93-81-e7-ae-a1-e7-90-86-e7-b3-bb-e7-bb-9f/index.html">
+<meta property="og:site_name" content="mrh929&#39;s home">
+<meta property="og:description" content="大一上C语言期末作业 动态链表真的好烦啊 这次主要纠正了自己的一个错误思想 一个链表的链表头是一个指针，而不是一个结点 所以，每次操作一个链表的时候，要传入指针的指针 才能达到修改第一个结点的目的 GoodList *Head; //这是指向链表头的指针 Change(&amp;amp;Head); //传入指针的指针  实验报告 #include &amp;lt;stdlib.h&amp;gt; #include &amp;">
+<meta property="og:locale" content="cn">
+<meta property="og:updated_time" content="2019-05-03T09:31:49.591Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="商品管理系统">
+<meta name="twitter:description" content="大一上C语言期末作业 动态链表真的好烦啊 这次主要纠正了自己的一个错误思想 一个链表的链表头是一个指针，而不是一个结点 所以，每次操作一个链表的时候，要传入指针的指针 才能达到修改第一个结点的目的 GoodList *Head; //这是指向链表头的指针 Change(&amp;amp;Head); //传入指针的指针  实验报告 #include &amp;lt;stdlib.h&amp;gt; #include &amp;">
+  
+    <link rel="alternate" href="/atom.xml" title="mrh929&#39;s home" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+</html>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">mrh929&#39;s home</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://mrh1s.top"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-e5-95-86-e5-93-81-e7-ae-a1-e7-90-86-e7-b3-bb-e7-bb-9f" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/20/e5-95-86-e5-93-81-e7-ae-a1-e7-90-86-e7-b3-bb-e7-bb-9f/" class="article-date">
+  <time datetime="2018-12-20T12:13:14.000Z" itemprop="datePublished">2018-12-20</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/project/">project</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      商品管理系统
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>大一上C语言期末作业 动态链表真的好烦啊 这次主要纠正了自己的一个错误思想 一个链表的链表头是一个指针，而不是一个结点 所以，每次操作一个链表的时候，要传入指针的指针 才能达到修改第一个结点的目的 GoodList *Head; //这是指向链表头的指针 Change(&amp;Head); //传入指针的指针</p>
+</blockquote>
+<p><a href="/uploads/实验报告git.docx">实验报告</a></p>
+<pre><code>#include &lt;stdlib.h&gt;
+#include &lt;stdio.h&gt;
+#include &lt;string.h&gt;
+#include &lt;ctype.h&gt;
+#include &lt;stdbool.h&gt;
+
+#define MAX 100//最大商品数量 
+int CurrentCnt = 0;//当前商品数量 
+
+#define MAX_ID_LEN 30
+#define MAX_NAME_LEN 30
+#define MAX_PRICE_LEN 30
+#define MAX_DISCOUNT_LEN 30
+typedef struct{//商品信息结构 
+    char    good_id[MAX_ID_LEN];
+    char    good_name[MAX_NAME_LEN];
+    int     good_price;
+    char    good_discount[MAX_DISCOUNT_LEN];
+    int     good_amount;
+    int     good_remain;
+}GoodInfo;
+
+typedef struct node{//商品链表结点 
+    GoodInfo data;
+    struct node *next;
+}GoodList;
+
+FILE *fp;//文件指针用来操作文件 
+int file_read(){
+    fp = fopen(&quot;goodinfo.txt&quot;, &quot;r&quot;);//读取文件 
+    return fp != NULL;
+}
+
+void file_write(){
+    fp= fopen(&quot;goodinfo.txt&quot;, &quot;w&quot;);//写文件 
+}
+
+void file_close(){
+    fclose(fp); 
+}
+
+void pause(){
+    system(&quot;pause&quot;);
+    system(&quot;cls&quot;);
+}
+
+bool check_nullfile(){//检查商品文件是否存在或者是否为空
+    if(file_read()) return 0;//找到文件 
+    else{
+        file_write(); file_close();
+        file_read();
+        return 1;//没有找到文件 
+    }
+}
+
+//--------------------------------------------------------------------
+//查找一条商品记录
+//--------------------------------------------------------------------
+GoodList* good_find(GoodList *L,char *p){
+    while(L)
+        if(strcmp(L-&gt;data.good_id, p) == 0) return L;
+        else L = L-&gt;next;
+    return NULL;//没找到 
+}
+
+void info_change(GoodList *L) {
+    printf(&quot;请输入新的商品信息：\n&quot;);
+    printf(&quot;商品ID：&quot;); scanf(&quot;%s&quot;,L-&gt;data.good_id);
+    printf(&quot;商品名称：&quot;); scanf(&quot;%s&quot;,L-&gt;data.good_name);
+    printf(&quot;商品价格：&quot;); scanf(&quot;%d&quot;,&amp;(L-&gt;data.good_price));
+    printf(&quot;商品折扣：&quot;); scanf(&quot;%s&quot;,L-&gt;data.good_discount);
+    printf(&quot;商品数量：&quot;); scanf(&quot;%d&quot;,&amp;(L-&gt;data.good_amount));
+    printf(&quot;商品剩余：&quot;); scanf(&quot;%d&quot;,&amp;(L-&gt;data.good_remain));
+    return;
+}
+
+void info_change_NoRepeat(GoodList *p,GoodList *L) {//p为新增的指针 ， L为链表的头指针 
+    printf(&quot;请输入新的商品信息：\n&quot;);
+    printf(&quot;商品ID：&quot;); scanf(&quot;%s&quot;,p-&gt;data.good_id);
+    while(good_find(L,p-&gt;data.good_id) != NULL){
+        printf(&quot;商品ID已存在，请重新输入：\n&quot;);
+        printf(&quot;商品ID：&quot;); scanf(&quot;%s&quot;,p-&gt;data.good_id);
+    }
+
+    printf(&quot;商品名称：&quot;); scanf(&quot;%s&quot;,p-&gt;data.good_name);
+    printf(&quot;商品价格：&quot;); scanf(&quot;%d&quot;,&amp;(p-&gt;data.good_price));
+    printf(&quot;商品折扣：&quot;); scanf(&quot;%s&quot;,p-&gt;data.good_discount);
+    printf(&quot;商品数量：&quot;); scanf(&quot;%d&quot;,&amp;(p-&gt;data.good_amount));
+    printf(&quot;商品剩余：&quot;); scanf(&quot;%d&quot;,&amp;(p-&gt;data.good_remain));
+    return;
+}
+</code></pre><p>​<br>    void Goodprint(GoodList *p){//打印单个商品链表节点的信息<br>        printf(“\n++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n”);<br>        printf(“ID:%s\t名称:%s\t价格:%d\t折扣:%s\t数量:%d\t剩余:%d\n”,p-&gt;data.good_id,p-&gt;data.good_name,p-&gt;data.good_price,p-&gt;data.good_discount,p-&gt;data.good_amount,p-&gt;data.good_remain);<br>        printf(“++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++\n”);<br>    }</p>
+<pre><code>void info_init(GoodList **L){//读取商品文件goodinfo.txt的内容,并建立链表L
+    *L = NULL;
+    CurrentCnt=0;
+
+    if(check_nullfile())//检查是否为空 
+        printf(&quot;商品文件不存在，已新建\n&quot;);
+    else{
+        GoodList *p, *now;
+        while (!feof(fp)){//一直循环直到把文件读完
+            p = (GoodList*) malloc(sizeof(GoodList));
+            if(*L == NULL){//如果p是第一个非空节点 
+                *L = p;
+                now = p;//暂存之前的节点 
+            }else{ 
+                now -&gt; next = p;
+                now = p;
+            }
+
+            fscanf(fp, &quot;%s&quot;, p-&gt;data.good_id);
+            fscanf(fp, &quot;%s&quot;, p-&gt;data.good_name);
+            fscanf(fp, &quot;%d&quot;, &amp;(p-&gt;data.good_price));
+            fscanf(fp, &quot;%s&quot;, p-&gt;data.good_discount);
+            fscanf(fp, &quot;%d&quot;, &amp;(p-&gt;data.good_amount));
+            fscanf(fp, &quot;%d&quot;, &amp;(p-&gt;data.good_remain));
+            CurrentCnt++;
+        }
+        now-&gt;next = NULL;//把尾节点中的指针置0 
+    }
+    file_close();
+}
+
+void DelAll(GoodList **L){//删除商品文件以及商品链表中的所有信息
+    char str[MAX_ID_LEN];
+    printf(&quot;将会清除所有文件及链表，确定吗？（Y/N）：&quot;);
+    scanf(&quot;%s&quot;,str);
+    if(strcmp(str, &quot;Y&quot;) != 0 &amp;&amp; strcmp(str, &quot;y&quot;) != 0){
+        printf(&quot;操作已取消\n\n&quot;);
+        return; 
+    }
+    printf(&quot;再次询问，这将造成数据的丢失，确定吗？（Y/N）：&quot;);
+    scanf(&quot;%s&quot;,str);
+    if(strcmp(str, &quot;Y&quot;) != 0 &amp;&amp; strcmp(str, &quot;y&quot;) != 0){
+        printf(&quot;操作已取消\n\n&quot;);
+        return; 
+    }
+</code></pre><p>​<br>        GoodList <em>p = </em>L, *now;<br>        while(p != NULL){//free指针<br>            now = p-&gt;next;<br>            free(p);<br>            p = now;<br>        }</p>
+<pre><code>    remove(&quot;goodinfo.txt&quot;);//重写文件
+    printf(&quot;成功删除所有数据\n\n&quot;);
+    info_init(L);
+}
+</code></pre><p>​<br>​<br>    //——————————————————————–<br>    //将当前商品链表中的内容存入商品文件goodinfo.txt，存盘后销毁链表L<br>    //——————————————————————–<br>    void info_flush(GoodList *<em>L){<br>        file_write();<br>        GoodList </em>p = <em>L, </em>now;<br>        while(p != NULL){//free指针<br>            fprintf(fp, “%s\t%s\t%d\t%s\t%d\t%d”,p-&gt;data.good_id,p-&gt;data.good_name,p-&gt;data.good_price,p-&gt;data.good_discount,p-&gt;data.good_amount,p-&gt;data.good_remain);<br>            now = p-&gt;next;<br>            if(now != NULL)<br>                fprintf(fp, “\n”);<br>            free(p);<br>            p = now;<br>        }</p>
+<pre><code>}
+
+//--------------------------------------------------------------------
+//在屏幕上输出所有商品信息
+//--------------------------------------------------------------------
+void OutputAll(GoodList *L){
+    while(L){
+        Goodprint(L);
+        L = L -&gt; next;
+    }
+}
+
+void info_insert(GoodList **L) {
+    GoodList *p = (GoodList*) malloc(sizeof(GoodList));
+    GoodList *now = *L;
+
+    int CHOICE;
+    printf(&quot;请选择插入方法：\n&quot;);
+    printf(&quot;\t1.头插法：\n&quot;);
+    printf(&quot;\t2.尾插法：\n&quot;);
+    printf(&quot;\t3.中间插入：\n\n&quot;);
+    printf(&quot;输入您的选择：&quot;); 
+
+    scanf(&quot;%d&quot;,&amp;CHOICE);
+    switch(CHOICE){
+        case 1:{//头插法 
+            info_change_NoRepeat(p, *L);
+            p-&gt;next = *L;
+            *L = p;
+            CurrentCnt++;
+            break;
+        }
+
+        case 2:{//尾插法 
+            info_change_NoRepeat(p, *L);
+            if(*L == NULL) *L=p;
+            else{
+                while(now-&gt;next != NULL) now = now-&gt;next;
+                now-&gt;next = p;
+                p-&gt;next = NULL;//尾插法 
+            }
+            CurrentCnt++;
+            break;
+        }
+
+        case 3:{
+            char ID[MAX_ID_LEN];
+            info_change_NoRepeat(p, *L);
+            printf(&quot;请输入要将该信息插入到哪个ID后面：&quot;);
+            scanf(&quot;%s&quot;,ID);
+
+            GoodList *now;
+            now=good_find(*L, ID);
+            while(now == NULL){
+                printf(&quot;没有找到该ID，请重新输入ID：&quot;);
+                scanf(&quot;%s&quot;,ID);
+                now=good_find(*L, ID);
+            }
+            p-&gt;next = now-&gt;next;
+            now-&gt;next = p;
+
+            CurrentCnt++;
+            break;
+        }
+</code></pre><p>​<br>​<br>        }<br>        return;<br>    }</p>
+<pre><code>//--------------------------------------------------------------------
+//删除一条商品记录
+//--------------------------------------------------------------------
+void info_dele(GoodList **L) {
+    char ID[MAX_ID_LEN];
+    GoodList *p;
+    printf(&quot;请输入要删除的商品ID：&quot;);
+    scanf(&quot;%s&quot;,ID);
+    p = good_find(*L, ID);
+    while(p == NULL){
+        printf(&quot;未找到该商品，请重新输入ID：&quot;);
+        scanf(&quot;%s&quot;,ID);
+        p = good_find(*L, ID);
+    }
+
+    printf(&quot;\n你确定要删除该商品吗（默认否）？(Y/N)：&quot;);
+    scanf(&quot;%s&quot;,ID);//读入选项 
+    if(strcmp(ID, &quot;Y&quot;) == 0||strcmp(ID, &quot;y&quot;) == 0){
+        if(*L == p){
+            *L = p-&gt;next;
+            free(p);
+        }else{
+            GoodList* now = *L;//寻找p商品之前的那个结点 
+            while(now-&gt;next != p) now = now-&gt;next;
+            now-&gt;next = p-&gt;next;
+            free(p);
+        }
+        CurrentCnt--;
+        printf(&quot;已删除\n\n&quot;);
+    }else printf(&quot;已取消\n\n&quot;);
+    return;
+}
+</code></pre><p>​<br>    void menu_print(){<br>        printf(“商品的链表文件已建立，有%d个商品记录\n”, CurrentCnt);<br>        printf(“<strong><strong><strong><strong><strong><strong><strong><strong><strong><em>**</em></strong></strong></strong></strong></strong></strong></strong></strong></strong>\n”);<br>        printf(“1.显示所有商品的信息：\n”);<br>        printf(“2.修改某个商品的信息：\n”);<br>        printf(“3.插入某个商品的信息：\n”);<br>        printf(“4.删除某个商品的信息：\n”);<br>        printf(“5.查找某个商品的信息：\n”);<br>        printf(“6.商品存盘并退出系统：\n”);<br>        printf(“7.对商品价格进行排序：\n”);<br>        printf(“8.(慎用)删除所有内容：\n”);<br>        printf(“其他，不存盘并退出系统：\n”);<br>        printf(“<strong><strong><strong><strong><strong><strong><strong><strong><strong><em>**</em></strong></strong></strong></strong></strong></strong></strong></strong></strong>\n”);<br>        printf(“输入您的选择：”);<br>    }</p>
+<pre><code>void good_swap(GoodList* a,GoodList* b){//交换两个商品的位置 
+    GoodList a_ = *a, b_ = *b;
+    *a = b_;
+    *b = a_;
+    a-&gt;next = a_.next;
+    b-&gt;next = b_.next;
+    return;
+}
+
+void bubble_sort(GoodList **L){
+    printf(&quot;正在冒泡排序...\n&quot;);
+    for(int i=1;i&lt;=CurrentCnt-1;i++){
+        GoodList* now = *L;
+        while(now-&gt;next != NULL){
+            if(now-&gt;data.good_price &gt; now-&gt;next-&gt;data.good_price)
+                good_swap(now, now-&gt;next);
+            now = now-&gt;next;
+        }
+
+    }
+    printf(&quot;排序完成！\n&quot;);
+    OutputAll(*L);
+}
+</code></pre><p>​<br>    int main(){<br>        char str[MAX_ID_LEN];<br>        int CHOICE;<br>        GoodList <em>Head,</em>p;<br>        Head=NULL;</p>
+<pre><code>info_init(&amp;Head);//读取文件
+
+do{
+    printf(&quot;超市商品管理系统\n&quot;);
+    CHOICE=0;
+    menu_print();//菜单 
+
+    scanf(&quot;%d&quot;,&amp;CHOICE);//输入选择 
+    switch(CHOICE){
+        case 1:{
+            OutputAll(Head);
+            pause();
+            break;
+        }
+
+        case 2:{
+            int ok=0;
+            do{
+                printf(&quot;请输入需要修改的商品ID（输入-1退出）:&quot;); 
+                scanf(&quot;%s&quot;,str);
+                if(strcmp(str,&quot;-1&quot;) == 0) break;
+                p = good_find(Head, str);
+                if(p == NULL) printf(&quot;\n对不起，没有找到该商品，请重新输入:\n&quot;);
+                else Goodprint(p),ok=1;
+            }while(!p);
+
+            if(ok){
+                info_change(p);
+                printf(&quot;\n修改成功!\n\n&quot;);
+            }
+            pause();
+            break;
+        }
+
+        case 3:{
+            info_insert(&amp;Head);
+            pause();
+            break;
+        }
+
+        case 4:{
+            info_dele(&amp;Head);
+            pause();
+            break;
+        }
+
+        case 5:{
+            printf(&quot;请输入需要查询的商品ID:&quot;); 
+            scanf(&quot;%s&quot;,str);
+            p = good_find(Head, str);
+            if(p == NULL) printf(&quot;\n对不起，没有找到该商品\n\n&quot;);
+            else Goodprint(p);
+
+            pause();
+            break;
+        }
+</code></pre><p>​<br>                case 6:{<br>                    char str[MAX_ID_LEN];<br>                    printf(“确定要保存吗？（Y/N）：”);<br>                    scanf(“%s”,str);</p>
+<pre><code>                if(strcmp(str, &quot;Y&quot;) == 0||strcmp(str, &quot;y&quot;) == 0){
+                    info_flush(&amp;Head);
+                    printf(&quot;保存成功，即将退出系统\n&quot;);
+                    CHOICE=0;//退出信号 
+                }else{
+                    printf(&quot;已取消\n&quot;);
+                    pause();
+                }
+                break;
+            }
+
+            case 7:{
+                bubble_sort(&amp;Head);
+
+                pause();
+                break;
+            }
+
+            case 8:{
+                DelAll(&amp;Head);
+
+                pause();
+                break;
+            }
+
+            default:{
+                CHOICE=0;//退出信号 
+                printf(&quot;\n即将不存盘并退出系统\n\n\n\n&quot;);
+            }
+        }
+    }while(CHOICE);
+
+    system(&quot;pause&quot;);
+    return 0;
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://mrh1s.top/2018/12/20/e5-95-86-e5-93-81-e7-ae-a1-e7-90-86-e7-b3-bb-e7-bb-9f/" data-id="cjv7vtpyp0045zgety1e3t91w" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/12/30/e8-ae-b0-e7-ac-ac-e4-b8-80-e6-ac-a1-e7-94-b5-e8-84-91-e7-bb-84-e8-a3-85-ef-bc-88-e4-b8-80-ef-bc-89/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          记第一次电脑组装（一）
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/12/13/e7-bd-91-e7-bb-9c-e5-ae-89-e5-85-a8-e8-af-be-e7-ac-94-e8-ae-b0-of-shijie-zhou-2/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">网络安全课笔记 of Shijie Zhou #2</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/c-c/">c/c++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/notes/">notes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/project/">project</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/">write up</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cgctf/">cgctf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cnss-recruit-201809/">cnss_recruit_201809</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/hgame-20190122/">hgame_20190122</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nationalCTF-20190421/">nationalCTF_20190421</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nctf-20181124/">nctf_20181124</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/牢骚/">牢骚</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Dynamic/">RE_Dynamic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/RE-Dynamic/" style="font-size: 10px;">RE_Dynamic</a> <a href="/tags/RE-Static/" style="font-size: 20px;">RE_Static</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2019/04/28/bbvvmm/">bbvvmm</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/28/e5-8d-97-e4-ba-ac-e9-82-ae-e7-94-b5-e5-a4-a7-e5-ad-a6-re-wxyvm2/">南京邮电大学 RE-WxyVM2</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/13/e5-a3-b3-e7-9b-b8-e5-85-b3/">壳相关</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/shinyshot/">ShinyShot!</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/21/happyvm/">HappyVM</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2019 mrh929<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

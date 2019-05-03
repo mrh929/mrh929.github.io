@@ -65,12 +65,16 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-bbvvmm" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2019/04/28/hello-world/" class="article-date">
-  <time datetime="2019-04-28T13:09:56.589Z" itemprop="datePublished">2019-04-28</time>
+    <a href="/2019/04/28/bbvvmm/" class="article-date">
+  <time datetime="2019-04-28T04:56:40.000Z" itemprop="datePublished">2019-04-28</time>
 </a>
     
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/write-up/">write up</a>►<a class="article-category-link" href="/categories/write-up/nationalCTF-20190421/">nationalCTF_20190421</a>
+  </div>
+
   </div>
   <div class="article-inner">
     
@@ -79,7 +83,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/28/hello-world/">Hello World</a>
+      <a class="article-title" href="/2019/04/28/bbvvmm/">bbvvmm</a>
     </h1>
   
 
@@ -87,20 +91,159 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <h3 id="bbvvmm"><a href="#bbvvmm" class="headerlink" title="bbvvmm"></a>bbvvmm</h3><p><a href="/uploads/bbvvmm.7z">bbvvmm</a></p>
+<pre><code>用ida打开 可以发现程序读入了用户名和密码，然后对用户名和密码进行了加密，如果用户名和密码校验正确，那么就cat flag
+
+首先是用户名，用户名先进行一层加密，后进行sm4加密，最后进行变表base64转换为了一串密文
+
+首先解决base64：
+
+
+import base64
+tab2 = &quot;IJLMNOPKABDEFGHCQRTUVWXSYZbcdefa45789+/6ghjklmnioprstuvqwxz0123y=&quot;
+tab1 = &quot;ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=&quot;
+
+s2 = &quot;RVYtG85NQ9OPHU4uQ8AuFM+MHVVrFMJMR8FuF8WJQ8Y=&quot;
+s1 = &quot;&quot;
+for c in s2:
+    for i in range(len(tab2)):
+        if(tab2[i] == c):
+            s1 += tab1[i]
+            break
+
+print(base64.b64decode(s1))
+</code></pre><p>​    </p>
+<p>得到“EF468DBAF985B2509C9E200CF3525AB6” 然后是sm4加密算法，直接在网上找轮子 解密得到“36 32 36 31 36 34 37 32 36 35 37 32 33 31 33 32” 最后 两次转化成ascii 第一次62 61 54 72 65 72 31 32 第二次b a d r e r 1 2 然后就得到了用户名 对于密码，并不清楚这个密码使用了什么加密算法，只清楚这是一个虚拟机，有几百个操作数，好像是对密码进行了某种运算，最后将运算结果保存到内存的某个地方，如果这个内存数据为0，那么密码便正确 直接开ida动态远程调试： 能找到一个类似于栈的结构（一直+4 -4），在内存中找到这个栈对应的位置 <img src="https://i.imgur.com/JBq8VUh.png" alt> 通过不断地循环fastcall，看到栈中出现了我刚刚输入的字符串，并且旁边是一堆奇特字符串，而且长度也是六位，于是尝试交上去，成功 getshell的时候：输入密码之后不能直接按回车键，这样会多输入一个 \n，而应该ctrl+d，输入文本中断符，然后拿到flag</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://mrh1s.top/2019/04/28/hello-world/" data-id="cjv1xih2r0000jgetpnmuv7ad" class="article-share-link">Share</a>
+      <a data-url="http://mrh1s.top/2019/04/28/bbvvmm/" data-id="cjv7vtpxq002izget5vpwp0ho" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e5-8d-97-e4-ba-ac-e9-82-ae-e7-94-b5-e5-a4-a7-e5-ad-a6-re-wxyvm2" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/28/e5-8d-97-e4-ba-ac-e9-82-ae-e7-94-b5-e5-a4-a7-e5-ad-a6-re-wxyvm2/" class="article-date">
+  <time datetime="2019-04-28T04:51:47.000Z" itemprop="datePublished">2019-04-28</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/write-up/">write up</a>►<a class="article-category-link" href="/categories/write-up/cgctf/">cgctf</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/28/e5-8d-97-e4-ba-ac-e9-82-ae-e7-94-b5-e5-a4-a7-e5-ad-a6-re-wxyvm2/">南京邮电大学 RE-WxyVM2</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="/uploads/WxyVM2.7z">WxyVM2</a></p>
+<p>大概是要读这个程序里面的一段汇编代码，这段汇编代码非常长，连ida都无法反编译，但是非常有规律，可以通过写脚本来还原 这是初始化代码，估计是对加密的字符串进行还原的：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">.text:00000000004005FE                 mov     cs:dword_694140, 9C06AA99h</span><br><span class="line">.text:0000000000400608                 mov     cs:dword_694144, 0B4B2B03Fh</span><br><span class="line">.text:0000000000400612                 mov     cs:dword_694148, 0C51F73CFh</span><br><span class="line">.text:000000000040061C                 mov     cs:dword_69414C, 223520F8h</span><br><span class="line">.text:0000000000400626                 mov     cs:dword_694150, 0C0C53B9h</span><br><span class="line">.text:0000000000400630                 mov     cs:dword_694154, 0B59C78EAh</span><br><span class="line">.text:000000000040063A                 mov     cs:dword_694158, 0F7DE2D34h</span><br><span class="line">.text:0000000000400644                 mov     cs:dword_69415C, 0B27EEE2Ch</span><br></pre></td></tr></table></figure>
+<p>类似于下面这样的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.text:000000000048BAF1                 mov     edx, cs:dword_694174</span><br><span class="line">.text:000000000048BAF7                 mov     eax, cs:dword_694178</span><br><span class="line">.text:000000000048BAFD                 xor     eax, edx</span><br><span class="line">.text:000000000048BAFF                 mov     cs:dword_694178, eax</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.text:000000000048B93B                 movzx   eax, cs:byte_694116</span><br><span class="line">.text:000000000048B93C                 add     eax, 7Dh</span><br><span class="line">.text:000000000048B93F                 mov     cs:byte_694116, al</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.text:000000000048B95C                 movzx   eax, cs:byte_694100</span><br><span class="line">.text:000000000048B95C                 xor     eax, 6Ah</span><br><span class="line">.text:000000000048B95F                 mov     cs:byte_694100, al</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.text:000000000041DD09                 movzx   eax, cs:byte_69410F</span><br><span class="line">.text:000000000041DD09                 sub     eax, 6Eh</span><br><span class="line">.text:000000000041DD0C                 mov     cs:byte_69410F, al</span><br></pre></td></tr></table></figure>
+<p>还有一种 我 mov 我 自 己</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.text:000000000040093E                 movzx   eax, cs:byte_694114</span><br><span class="line">.text:0000000000400945                 mov     cs:byte_694114, al</span><br></pre></td></tr></table></figure>
+<hr>
+<p>ida可以修改配置文件，这样就可以反编译了 byte_694100是字符串读入的起始地址 读取18h字节</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">.text:00000000004005CD                 call    _puts</span><br><span class="line">.text:00000000004005D2                 mov     esi, offset byte_694100</span><br><span class="line">.text:00000000004005D7                 mov     edi, offset format ; &quot;%s&quot;</span><br><span class="line">.text:00000000004005DC                 mov     eax, 0</span><br><span class="line">.text:00000000004005E1                 call    _ssanf</span><br></pre></td></tr></table></figure>
+<p>694100~694117 查看汇编代码后发现很多操作都超出了这个内存的范围，而且最后也没有对这个内存进行任何修改，那么就应该直接舍去 先将所有汇编代码dump下来，用脚本筛掉垃圾代码</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_string</span><span class="params">(line)</span>:</span></span><br><span class="line">    l = []</span><br><span class="line">    s = <span class="string">""</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(line)):</span><br><span class="line">        <span class="keyword">if</span>(line[i] == <span class="string">' '</span> <span class="keyword">or</span> line[i] == <span class="string">','</span> <span class="keyword">or</span> i == len(line) - <span class="number">1</span>):<span class="comment">#如果读取到了末尾</span></span><br><span class="line">            <span class="keyword">if</span>(len(s) != <span class="number">0</span>):</span><br><span class="line">                l.append(s)</span><br><span class="line">                s = <span class="string">""</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            s = s + line[i]</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> l</span><br><span class="line"></span><br><span class="line">i = <span class="number">0</span></span><br><span class="line">f = open(<span class="string">"code.dump"</span>, <span class="string">"r"</span>)</span><br><span class="line">fout = open(<span class="string">"decode.txt"</span>, <span class="string">"w"</span>)</span><br><span class="line"><span class="comment">#fout.write("Below is decoded code.\n(format:) addr [opt] num\n")</span></span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>):</span><br><span class="line">    line = f.readline()</span><br><span class="line">    i += <span class="number">1</span></span><br><span class="line">    <span class="keyword">if</span>(line == <span class="string">""</span>):</span><br><span class="line">        print(<span class="string">"正常退出"</span>)</span><br><span class="line">        fout.close()</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    tab = get_string(line)<span class="comment">#获取到一个汇编指令</span></span><br><span class="line">    <span class="keyword">if</span>(tab[<span class="number">1</span>] == <span class="string">"mov"</span>):<span class="comment">#如果是垃圾指令，就直接跳过</span></span><br><span class="line">        line = f.readline()</span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">        line = f.readline()</span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line">        line = f.readline()</span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">elif</span>(tab[<span class="number">1</span>] == <span class="string">"movzx"</span>):</span><br><span class="line">        addr = tab[<span class="number">3</span>]</span><br><span class="line">        addr = <span class="string">"0x"</span> + addr[<span class="number">8</span>::]<span class="comment">#获取地址信息</span></span><br><span class="line">        addr_num = int(addr, <span class="number">16</span>)</span><br><span class="line">        addr_num -= <span class="number">6897920</span> <span class="comment">#减去起始地址 得到偏移量</span></span><br><span class="line">        addr = str(addr_num)</span><br><span class="line"></span><br><span class="line">        line = f.readline()</span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">        tab = get_string(line)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(tab[<span class="number">1</span>] != <span class="string">"mov"</span>):<span class="comment">#只有当这个指令不是mov的时候才进行判断，因为有一种垃圾指令是自己mov自己</span></span><br><span class="line">            <span class="keyword">if</span>(tab[<span class="number">1</span>] == <span class="string">"add"</span>):</span><br><span class="line">                opt = <span class="string">"+="</span></span><br><span class="line">            <span class="keyword">elif</span>(tab[<span class="number">1</span>] == <span class="string">"xor"</span>):</span><br><span class="line">                opt = <span class="string">"^="</span></span><br><span class="line">            <span class="keyword">elif</span>(tab[<span class="number">1</span>] == <span class="string">"sub"</span>):</span><br><span class="line">                opt = <span class="string">"-="</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                print(<span class="string">"something goes wrong! "</span> + tab[<span class="number">1</span>] + <span class="string">" at :"</span> + str(i))</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">            s = tab[<span class="number">3</span>]</span><br><span class="line">    <span class="comment">#        s = s[:-1:]</span></span><br><span class="line">    <span class="comment">#        s = "0x" + s</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span>(s[<span class="number">-1</span>] == <span class="string">"h"</span>):</span><br><span class="line">                s = s[:<span class="number">-1</span>]</span><br><span class="line">            s = <span class="string">"0x"</span> + s</span><br><span class="line"></span><br><span class="line">            s = str(int(s, <span class="number">16</span>) % <span class="number">128</span>)</span><br><span class="line"></span><br><span class="line">            line = f.readline()</span><br><span class="line">            i += <span class="number">1</span></span><br><span class="line">            fout.write(addr + <span class="string">" "</span> + opt + <span class="string">" "</span> + s + <span class="string">"\n"</span>)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        print(<span class="string">"something goes wrong! "</span> + tab[<span class="number">1</span>] + <span class="string">" at :"</span> + str(i))</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">f.close()</span><br><span class="line">fout.close()</span><br></pre></td></tr></table></figure>
+<p>得到类似于如下的数据</p>
+<pre><code>23 += 11
+3 += 31
+5 += 78
+23 += 109
+2 -= 25
+1 -= 48
+11 += 123
+13 ^= 38
+23 ^= 89
+12 += 3
+11 -= 5
+13 += 75
+4 ^= 72
+5 -= 88
+4 -= 107
+0 ^= 60
+23 ^= 27
+</code></pre><p>再写python进行逆向计算：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_string</span><span class="params">(line)</span>:</span></span><br><span class="line">    l = []</span><br><span class="line">    s = <span class="string">""</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(line)):</span><br><span class="line">        <span class="keyword">if</span>(line[i] == <span class="string">' '</span> ):<span class="comment">#如果读取到了末尾</span></span><br><span class="line">            <span class="keyword">if</span>(len(s) != <span class="number">0</span>):</span><br><span class="line">                l.append(s)</span><br><span class="line">                s = <span class="string">""</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            s = s + line[i]</span><br><span class="line">    <span class="keyword">if</span>(len(s) != <span class="number">0</span>):</span><br><span class="line">        l.append(s)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> l</span><br><span class="line"></span><br><span class="line">enc =[<span class="number">0xC0</span>,<span class="number">0x85</span>,<span class="number">0xF9</span>,<span class="number">0x6C</span>,<span class="number">0xE2</span>,<span class="number">0x14</span>,<span class="number">0xBB</span>,<span class="number">0xe4</span>,<span class="number">0xd</span>,<span class="number">0x59</span>,<span class="number">0x1c</span>,<span class="number">0x23</span>,<span class="number">0x88</span>,<span class="number">0x6e</span>,<span class="number">0x9b</span>,<span class="number">0xca</span>,<span class="number">0xba</span>,<span class="number">0x5c</span>,<span class="number">0x37</span>,<span class="number">0xfff</span>,<span class="number">0x48</span>,<span class="number">0xd8</span>,<span class="number">0x1f</span>,<span class="number">0xab</span>,<span class="number">0xa5</span>]</span><br></pre></td></tr></table></figure>
+<p>​<br><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">f = open(<span class="string">"decode.txt"</span>, <span class="string">"r"</span>)</span><br><span class="line">all = []</span><br><span class="line"></span><br><span class="line">i = <span class="number">-1</span></span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>):</span><br><span class="line">    line = f.readline()</span><br><span class="line">    <span class="keyword">if</span>(line == <span class="string">""</span>):</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    i += <span class="number">1</span></span><br><span class="line">    all.append(line)</span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(i &gt;= <span class="number">0</span>):</span><br><span class="line">    line = all[i]</span><br><span class="line">    tab = get_string(line)</span><br><span class="line">    i -= <span class="number">1</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(tab[<span class="number">1</span>] == <span class="string">"+="</span>):</span><br><span class="line">        enc[int(tab[<span class="number">0</span>])] -= int(tab[<span class="number">2</span>])</span><br><span class="line">    <span class="keyword">elif</span>(tab[<span class="number">1</span>] == <span class="string">"-="</span>):</span><br><span class="line">        enc[int(tab[<span class="number">0</span>])] += int(tab[<span class="number">2</span>])</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        enc[int(tab[<span class="number">0</span>])] ^= int(tab[<span class="number">2</span>])</span><br><span class="line">    enc[int(tab[<span class="number">0</span>])] %= <span class="number">128</span></span><br><span class="line">ans = <span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> enc:</span><br><span class="line">    ans = ans + chr(c)</span><br><span class="line">print(ans)</span><br></pre></td></tr></table></figure></p>
+<p>​    </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://mrh1s.top/2019/04/28/e5-8d-97-e4-ba-ac-e9-82-ae-e7-94-b5-e5-a4-a7-e5-ad-a6-re-wxyvm2/" data-id="cjv7vtpxr002kzgetbzygk5ks" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-e5-a3-b3-e7-9b-b8-e5-85-b3" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/04/13/e5-a3-b3-e7-9b-b8-e5-85-b3/" class="article-date">
+  <time datetime="2019-04-12T17:22:09.000Z" itemprop="datePublished">2019-04-13</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/notes/">notes</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/13/e5-a3-b3-e7-9b-b8-e5-85-b3/">壳相关</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>壳主要是用来混淆代码，让你找不到程序入口点的，通常带壳程序可以用PEid来分析并且用相应的工具去除，如果去除失败的话，就只能手动调试了</p>
+</blockquote>
+<h5 id="重点：ESP定律法"><a href="#重点：ESP定律法" class="headerlink" title="重点：ESP定律法"></a>重点：ESP定律法</h5><p><a href="https://blog.csdn.net/qiurisuixiang/article/details/7649799" target="_blank" rel="noopener">https://blog.csdn.net/qiurisuixiang/article/details/7649799</a></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://mrh1s.top/2019/04/13/e5-a3-b3-e7-9b-b8-e5-85-b3/" data-id="cjv7vtpxp002ezgete2cxp5eq" class="article-share-link">Share</a>
       
       
     </footer>
@@ -110,25 +253,566 @@
 
 
   
+    <article id="post-shinyshot" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/22/shinyshot/" class="article-date">
+  <time datetime="2019-03-22T03:00:30.000Z" itemprop="datePublished">2019-03-22</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/write-up/">write up</a>►<a class="article-category-link" href="/categories/write-up/hgame-20190122/">hgame_20190122</a>
+  </div>
 
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/22/shinyshot/">ShinyShot!</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="/uploads/utf-8-ShinyShot.7z">utf-8’ ‘ShinyShot!</a></p>
+<blockquote>
+<p>这个程序主要是利用了smc（动态代码修改技术） 首先我们向程序里面输入一个数，然后这个程序利用这个数去修改了一些程序的代码 然后输入一个字符串，将字符串base64加密后得到的密文与程序尾所保存的字符串进行比较，如果相同，则flag正确</p>
+</blockquote>
+<p>程序在我们输入了一个数字之后 执行了</p>
+<pre><code>*((_BYTE *)TopLevelExceptionFilter + (cout &gt;&gt; 3)) ^= 1 &lt;&lt; (cout &amp; 7);
+</code></pre><p>这个指令，TopLevelExceptionFilter的意义暂时不明白，大概就是一个指向某个内存的指针，简记为T, 值为0x401000 程序把*(p + (cout &gt;&gt; 3)) 处的数据异或了一个1 &lt;&lt; (cout &amp; 7) 其实1 &lt;&lt; (cout &amp; 7)就是将1左移了几位 我们看到后面的</p>
+<pre><code>.text:004018DE EB 15             jmp     short loc_4018F5
+.text:004018E0                   ; ---------------------------------------------------------------------------
+.text:004018E0
+.text:004018E0                   loc_4018E0:                   ; CODE XREF: sub_4017AA+126↑j
+.text:004018E0 E8 A7 FE FF FF    call    sub_40178C
+.text:004018E5                   ; ---------------------------------------------------------------------------
+.text:004018E5
+.text:004018E5                   loc_4018E5:
+.text:004018E5 8D 85 40 FF FF FF lea     eax, [ebp-0C0h]
+.text:004018EB 89 44 24 04       mov     [esp+414h+var_410], eax ; char *
+.text:004018EF 8D 45 A4          lea     eax, [ebp+Buf]
+.text:004018F2 89 04 24          mov     [esp+414h+var_414], eax ; char *
+.text:004018F5
+.text:004018F5                   loc_4018F5:                   ; CODE XREF: sub_4017AA+134↑j
+.text:004018F5 E8 00 FC FF FF    call    sub_4014FA
+</code></pre><p>0x 004018DE jmp 15 的意义是，除开jmp 15，往后数0x15个字节，将程序运行指针设置到此处。 而sub_4014FA是一个需要两个参数的函数，没有参数的传入，函数一定不会有正确答案。 所以我们应当将 jmp 15改为jmp到传入参数的位置 经过计算jmp 5 即可，现在我们的工作是要把0x004018DF处的15修改为5 0x15 = ‭00010101‬ 0x5 = 00000101 也就是把第五位的1抹掉就行了，之前那个不明意义的内存修改就是这个用处了。 num = (0x8df&lt;&lt;3) + 0x4 = 18172 后面是一个base64加密，但闲鱼本人并不是密码学选手，太菜了，所以暂时跳过。。 最后将改版的base64加密后的字符串与程序内的进行比较，得到flag</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://mrh1s.top/2019/03/22/shinyshot/" data-id="cjv7vtpxn002bzgetwzp6yzcq" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-happyvm" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/03/21/happyvm/" class="article-date">
+  <time datetime="2019-03-21T14:25:17.000Z" itemprop="datePublished">2019-03-21</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/write-up/">write up</a>►<a class="article-category-link" href="/categories/write-up/hgame-20190122/">hgame_20190122</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/21/happyvm/">HappyVM</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="/uploads/happyVM.7z">happyVM</a></p>
+<blockquote>
+<p>第一次做VM题，花了很多时间，最终还是有所收获</p>
+</blockquote>
+<p>首先逆向虚拟机的操作数，操作数无非几个操作：压栈，出栈，寄存器与内存之间的读写，寄存器与寄存器之间的赋值 使用如下代码配合ida python获得所有操作数：</p>
+<pre><code>addr = 0x400D40
+cnt = 0x78-0x40+1
+i = addr
+print &quot;********my calc********&quot;
+print &quot;********my calc********&quot;
+print &quot;********my calc********&quot;
+print &quot;********my calc********&quot;
+print &quot;********my calc********&quot;
+while(i &lt;= addr + cnt -1):
+        c = int(Byte(i))
+            if(c in [0x0,0x8,0x9,0xA,0xC,0xD,0xE,0x11,0x13,0x14]):
+                i += 1
+                print &quot;opt:&quot; , hex(c) , &quot;   data:&quot;,  hex(Byte(i))
+            else:
+                print &quot;opt:&quot; , hex(c)
+                i += 1
+</code></pre><p>​    </p>
+<p>得到如下指令：</p>
+<pre><code>0(0x00) : opt: 0x11    data: 0x2d
+2(0x01) : opt: 0x0    data: 0x22
+4 : opt: 0x5
+5 : opt: 0x10
+6 : opt: 0x14    data: 0x9
+8 : opt: 0x17
+9(0x9) : opt: 0x0    data: 0x32
+11 : opt: 0x5
+12 : opt: 0x3
+13 : opt: 0x11    data: 0x16
+15 : opt: 0x6
+16 : opt: 0x0    data: 0x16
+18 : opt: 0x5
+19 : opt: 0x11    data: 0x16
+21 : opt: 0x17
+22(0x16) : opt: 0xe    data: 0x1
+24 : opt: 0x15
+25 : opt: 0x4
+26 : opt: 0xf
+27 : opt: 0x1
+28 : opt: 0x16
+29 : opt: 0x2
+30 : opt: 0x0    data: 0x0
+32 : opt: 0x4
+33 : opt: 0x3
+34 : opt: 0x5
+35 : opt: 0x10
+36 : opt: 0x14    data: 0x2b
+38 : opt: 0x5
+39 : opt: 0x9    data: 0x3
+41 : opt: 0x13    data: 0x16
+43(0x2b) : opt: 0x5
+44 : opt: 0x12
+
+45(0x2d) : opt: 0x15
+46 : opt: 0x4
+47 : opt: 0x10
+48 : opt: 0x14    data: 0x36
+50 : opt: 0xa    data: 0x1
+52 : opt: 0x13    data: 0x2d
+
+54(0x36) : opt: 0x3
+55 : opt: 0x4
+56 : opt: 0x12
+</code></pre><p>逐行翻译，其中部分压栈与出栈操作可以合并为内存与寄存器，寄存器与寄存器之间的数据交换，翻译得到如下代码：</p>
+<pre><code>simplify:
+</code></pre><p>​<br>​        call 0x2d;//strlen(str)<br>​        B = 0x22;<br>​        if(A != B) return;//字符串长度为0x22<br>​    0x9:<br>​        B = 0x32;<br>​        push(C);//此时C = 0x22<br>​        call(0x16);<br>​        C = pop();<br>​        B = 0x16;<br>​        call(0x16);<br>​        return;<br>​<br>    0x16:<br>        C–;//倒序处理整个字符串<br>        A = str[C];<br>        A ^= B; //str[C] = str[C] ^ B ，而且B每次加3<br>        str[C] = A;<br>        push(B);<br>        A = 0;<br>        B = C;<br>        if(A == B){//如果这个字符串已经处理完成<br>            goto 0x2b;<br>        }else{<br>            B = pop();<br>            B += 3;<br>            goto 0x16;<br>        }</p>
+<pre><code>0x2b:
+    B = pop();
+
+0x2d:
+    do{
+        A = str[C];
+        if(A == B) break;
+        C++;
+    }while(A != B)
+
+    A = C;
+    ret;
+</code></pre><p>​<br>​<br>​    </p>
+<p>最后获取到s2的数据，solve</p>
+<pre><code>str = [132 , 131 , 157 , 145 , 129 , 151 , 215 , 190 , 67 , 114 , 97 , 115 , 115 , 12 , 106 , 112 , 115 , 17 , 72 , 44 , 52 , 51 , 49 , 54 , 35 , 52 , 62 , 92 , 35 , 78 , 23 , 17 , 25 , 89 ]
+B = 0x16
+for i in range(0x21, -1, -1):
+    str[i] = str[i] ^ B
+    B += 3
+
+B = 0x32
+for i in range(0x21, -1, -1):
+    str[i] = str[i] ^ B
+    B += 3
+
+for i in range(0x22):
+    print(chr(str[i]),end=&quot;&quot;)
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://mrh1s.top/2019/03/21/happyvm/" data-id="cjv7vtpxm0027zgetj7kka5fw" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-maze" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/16/maze/" class="article-date">
+  <time datetime="2019-02-16T08:22:32.000Z" itemprop="datePublished">2019-02-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/write-up/">write up</a>►<a class="article-category-link" href="/categories/write-up/hgame-20190122/">hgame_20190122</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/16/maze/">maze</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="/uploads/maze.7z">maze</a> 迷宫题，用正确的方式走出迷宫即可，wsad分别控制上下左右</p>
+<pre><code>aaa = &quot;&quot;&quot;11111111111111111111111111111111111111111111111111111111111111111111...............111111111111111...............111
+    111111111111.1111111111111.111111111111111.1111111111111.111111111111111.1111111111111.111111111111111.1111111111111
+    .111111111111111.1111111111111.111111111111111.1111111111111.111111111111111.1111111111111s111111111111111.111111111
+    1111s111111111111111.11111111111111111111111111111.11111111111111111111111111111.11111111111111111111111111111.11111
+    111111111111111111111111.11111111111111111111111111111.1111.111111111111111111111111.1t............111111111111111.1
+    t............111111111111111.1111111111111.111111111111111.1111111111111.111111111111111.1111111111111.1111111111111
+    11.1111111111111.111111111111111.1111111111111.111111111111111.1111111111111.111111111111111.1111111111111.111111111
+    111111.1111111111111.111111111111111.1111111111111.111111111111111.1111111111111.111111111111111.1111111111111.11111
+    1111111111.1111111111111.111111111111111...............111111111111111...............1111111111111111111111111111111
+    111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111&quot;&quot;&quot;
+
+cnt = 0
+map = &quot;&quot;
+
+for c in aaa:
+    if(c != &apos;\n&apos; and c != &apos; &apos;):
+        map = map + c
+        cnt += 1
+        if(cnt % 60 == 0):
+            map = map + &apos;\n&apos;
+
+print(map)
+</code></pre><p>得到如下地图：</p>
+<pre><code>111111111111111111111111111111111111111111111111111111111111
+11111111...............111111111111111...............1111111
+11111111.1111111111111.111111111111111.1111111111111.1111111
+11111111.1111111111111.111111111111111.1111111111111.1111111
+11111111.1111111111111.111111111111111.1111111111111.1111111
+11111111.1111111111111s111111111111111.1111111111111s1111111
+11111111.11111111111111111111111111111.111111111111111111111
+11111111.11111111111111111111111111111.111111111111111111111
+11111111.11111111111111111111111111111.1111.1111111111111111
+11111111.1t............111111111111111.1t............1111111
+11111111.1111111111111.111111111111111.1111111111111.1111111
+11111111.1111111111111.111111111111111.1111111111111.1111111
+11111111.1111111111111.111111111111111.1111111111111.1111111
+11111111.1111111111111.111111111111111.1111111111111.1111111
+11111111.1111111111111.111111111111111.1111111111111.1111111
+11111111.1111111111111.111111111111111.1111111111111.1111111
+11111111...............111111111111111...............1111111
+111111111111111111111111111111111111111111111111111111111111
+111111111111111111111111111111111111111111111111111111111111
+</code></pre><p>走出迷宫即可： wwwwaaaaaaaaaaaaaasssssssssssssssddddddddddddddwwwwwwwaaaaaaaaaaaa</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://mrh1s.top/2019/02/16/maze/" data-id="cjv7vtpxl0025zget1556ae3h" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-brainfuck" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/16/brainfuck/" class="article-date">
+  <time datetime="2019-02-15T16:11:14.000Z" itemprop="datePublished">2019-02-16</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/notes/">notes</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/16/brainfuck/">brainfuck</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>brainfuck是一种小型化程序语言，符合图灵完全思想</p>
+<p>字符</p>
+<p>含义</p>
+<blockquote>
+</blockquote>
+<p>指针加一</p>
+<p>&lt;</p>
+<p>指针减一</p>
+<p>+</p>
+<p>指针指向的字节的值加一</p>
+<p>-</p>
+<p>指针指向的字节的值减一</p>
+<p>.</p>
+<p>输出指针指向的单元内容（ASCⅡ码）</p>
+<p>,</p>
+<p>输入内容到指针指向的单元（ASCⅡ码）</p>
+<p>[</p>
+<p>如果指针指向的单元值为零，向后跳转到对应的]指令的次一指令处</p>
+<p>]</p>
+<p>如果指针指向的单元值不为零，向前跳转到对应的[指令的次一指令处</p>
+<p>,.充当输入输出 +-用于数值操作 &lt;&gt;用于指针操作 []用于循环（其中执行到”[“时，程序会判断当前指针所指空间是否为0，为0则终止循环，否则继续循环） 用更通俗一点的C语言来描述：</p>
+<p>Brainfuck</p>
+<p>C</p>
+<blockquote>
+</blockquote>
+<p>++ptr;</p>
+<p>&lt;</p>
+<p>–ptr;</p>
+<p>+</p>
+<p>++*ptr;</p>
+<p>-</p>
+<p>–*ptr;</p>
+<p>.</p>
+<p>*ptr</p>
+<p>,</p>
+<p>*ptr =getch();</p>
+<p>[</p>
+<p>while (*ptr) {</p>
+<p>]</p>
+<p>}</p>
+<p><strong>当前位置清零</strong> [-] 将当前指针的值归零 <strong>之前位置清零</strong> [[-]&lt;] 将当前指针以及之前的指针归零 <strong>字符I/O</strong> ,. 从键盘读取一个字符并输出到屏幕上。 <strong>简单的循环</strong> ,[.,] 这是一个连续从键盘读取字符并回显到屏幕上的循环。注意，这里假定0表示输入结束，事实上有些系统并非如此。以-1和”未改变”作为判断依据的程序代码分别是”,+[-.,+]“和”,[.[-],]“。 <strong>指针维护</strong> “&gt;,[.&gt;,] “通过移动指针保存所有的输入，供后面的程序使用。 <strong>加法</strong> [-&gt;+&lt;] 把当前位置的值加到后面的单元中（破坏性的加，它导致左边的单元被归零）。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://mrh1s.top/2019/02/16/brainfuck/" data-id="cjv7vtpxk0021zgetkm2zngxh" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-pro-e7-9a-84python-e6-95-99-e5-ae-a4-e4-ba-8c" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/15/pro-e7-9a-84python-e6-95-99-e5-ae-a4-e4-ba-8c/" class="article-date">
+  <time datetime="2019-02-15T11:05:13.000Z" itemprop="datePublished">2019-02-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/write-up/">write up</a>►<a class="article-category-link" href="/categories/write-up/hgame-20190122/">hgame_20190122</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/15/pro-e7-9a-84python-e6-95-99-e5-ae-a4-e4-ba-8c/">Pro的Python教室(二)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="/uploads/secend.7z">secend</a> 很简单的一道题，python入门 使用如下网站进行反编译： <a href="https://tool.lu/pyc/" target="_blank" rel="noopener">https://tool.lu/pyc/</a> 得到</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">print</span> <span class="string">"Welcome to Processor's Python Classroom Part 2!\n"</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"Now let's start the origin of Python!\n"</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'Plz Input Your Flag:\n'</span></span><br><span class="line">enc = raw_input()</span><br><span class="line">len = len(enc)</span><br><span class="line">enc1 = []</span><br><span class="line">enc2 = <span class="string">''</span></span><br><span class="line">aaa = <span class="string">'ioOavquaDb&#125;x2ha4[~ifqZaujQ#'</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len):</span><br><span class="line">    <span class="keyword">if</span> i % <span class="number">2</span> == <span class="number">0</span>:</span><br><span class="line">        enc1.append(chr(ord(enc[i]) + <span class="number">1</span>))</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">    enc1.append(chr(ord(enc[i]) + <span class="number">2</span>))</span><br><span class="line"></span><br><span class="line">s1 = []</span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">3</span>):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len):</span><br><span class="line">        <span class="keyword">if</span> (i + x) % <span class="number">3</span> == <span class="number">0</span>:</span><br><span class="line">            s1.append(enc1[i])</span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line">enc2 = enc2.join(s1)</span><br><span class="line"><span class="keyword">if</span> enc2 <span class="keyword">in</span> aaa:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"You 're Right!"</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">"You're Wrong!"</span></span><br><span class="line">    exit(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
+<p>解密代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">aaa = <span class="string">'ioOavquaDb&#125;x2ha4[~ifqZaujQ#'</span></span><br><span class="line">list = list(aaa)</span><br><span class="line">len = len(aaa)</span><br><span class="line"></span><br><span class="line">dec1 = [<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>]</span><br><span class="line">dec2 = <span class="string">''</span></span><br><span class="line">cnt = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> range(<span class="number">3</span>):</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len):</span><br><span class="line">        <span class="keyword">if</span> (i + x) % <span class="number">3</span> == <span class="number">0</span>:</span><br><span class="line">            dec1[i] = list[cnt]</span><br><span class="line">            cnt += <span class="number">1</span></span><br><span class="line">            <span class="keyword">continue</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len):</span><br><span class="line">    <span class="keyword">if</span> i % <span class="number">2</span> == <span class="number">0</span>:</span><br><span class="line">        dec2 = dec2 + chr(ord(dec1[i]) - <span class="number">1</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        dec2 = dec2 + chr(ord(dec1[i]) - <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">print(dec2)</span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://mrh1s.top/2019/02/15/pro-e7-9a-84python-e6-95-99-e5-ae-a4-e4-ba-8c/" data-id="cjv7vtpxh001szget45o056tt" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-xor" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/15/xor/" class="article-date">
+  <time datetime="2019-02-15T08:38:16.000Z" itemprop="datePublished">2019-02-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/write-up/">write up</a>►<a class="article-category-link" href="/categories/write-up/hgame-20190122/">hgame_20190122</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/15/xor/">xor</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="/uploads/xor.7z">xor</a>  题目本身难度不大，就是异或即可，但是这个地方IDA有点问题，本来程序定义了一个数组，但是IDA里面的显示为一个变量，通过计算偏移值可以算出它是数组，这个地方以后要多加注意。</p>
+<pre><code>#include&lt;cstdio&gt;
+char a[50]=&quot;hgame{Y0u_mayb3_need_th1s_0ne!!!!!}&quot;;
+int b[50]={0,0,0,0,0,0,1,0,7,0,92,18,38,11,93,43,11,23,0,23,43,69,6,86,44,54,67,0,66,85,126,72,85,30};
+</code></pre><p>​<br>​    int main(){<br>​        for(int i = 0; i &lt; 35; i++)<br>​            printf(“%c”, a[i] ^ b[i]);<br>​    }</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://mrh1s.top/2019/02/15/xor/" data-id="cjv7vtpxj001yzgett8hdu21t" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-wakarimasu" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/15/wakarimasu/" class="article-date">
+  <time datetime="2019-02-15T08:31:00.000Z" itemprop="datePublished">2019-02-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/write-up/">write up</a>►<a class="article-category-link" href="/categories/write-up/hgame-20190122/">hgame_20190122</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/15/wakarimasu/">wakarimasu</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="/uploads/wakarimasu.7z">wakarimasu</a> 本质是解两个矩阵，一个是乘法矩阵求逆，另外一个仅仅是矩阵的加减 由于矩阵求逆的时候存在小数精度问题，故用计算机算出来的值不会精确到整数，但是一旦你看到那个结果就一定会知道你算对了 算矩阵的网站： <a href="https://zh.numberempire.com/matrixcalculator.php" target="_blank" rel="noopener">https://zh.numberempire.com/matrixcalculator.php</a> <a href="https://zh.numberempire.com/matrixbinarycalculator.php" target="_blank" rel="noopener">https://zh.numberempire.com/matrixbinarycalculator.php</a> A = 8 1 7 1 1 0 4 8 1 2 3 9 3 8 6 6 4 8 3 5 7 8 8 7 0 9 0 2 3 4 2 3 2 5 4 0 B = 122 207 140 149 142 168 95 201 122 145 136 167 112 192 127 137 134 147 95 207 110 134 133 173 136 212 160 162 152 179 121 193 126 126 119 147 c = 16 8 8 14 6 11 5 23 5 10 12 23 14 23 19 7 8 10 4 13 22 17 11 22 6 14 2 11 18 9 5 8 8 10 16 13 X1 * B = A X2 + B = C X1=AB^-1 = 5.999951 5.999888 6.000136 5.999828 5.999879 7.000097 2.999953 4.999902 7.000126 5.999842 5.999886 6.000086 5.999953 4.999893 4.000127 5.99984 6.99989 7.000089 2.999956 6.999908 5.000125 5.999846 6.999877 5.000089 6.999948 5.999879 7.000144 6.999816 4.999875 7.000104 6.999956 5.999896 6.000123 2.999842 5.999887 7.000091 x2 = C - B = 8 7 1 13 5 11 1 15 4 8 9 14 11 15 13 1 4 2 1 8 15 9 3 15 6 5 2 9 15 5 3 5 6 5 12 13 再将X1与X2结合（X1为高四位，X2为低四位）</p>
+<pre><code>#include&lt;cstdio&gt;
+int a[]={6,6,6,6,6,7,3,5,7,6,6,6,6,5,4,6,7,7,3,7,5,6,7,5,7,6,7,7,5,7,7,6,6,3,6,7};
+int b[]={8,7,1,13,5,11,1,15,4,8,9,14,11,15,13,1,4,2,1,8,15,9,3,15,6,5,2,9,15,5,3,5,6,5,12,13};
+
+int main(){
+    for(int i = 0; i &lt;= 35; i++)
+        printf(&quot;%c&quot;, (a[i]&lt;&lt;4) + b[i]);
+
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://mrh1s.top/2019/02/15/wakarimasu/" data-id="cjv7vtpxi001uzget5a7s1ax3" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+  </nav>
 
 </section>
         
           <aside id="sidebar">
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/c-c/">c/c++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/notes/">notes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/project/">project</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/">write up</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cgctf/">cgctf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cnss-recruit-201809/">cnss_recruit_201809</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/hgame-20190122/">hgame_20190122</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nationalCTF-20190421/">nationalCTF_20190421</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nctf-20181124/">nctf_20181124</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/牢骚/">牢骚</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Dynamic/">RE_Dynamic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/RE-Dynamic/" style="font-size: 10px;">RE_Dynamic</a> <a href="/tags/RE-Static/" style="font-size: 20px;">RE_Static</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
     </div>
   </div>
 
@@ -141,7 +825,23 @@
       <ul>
         
           <li>
-            <a href="/2019/04/28/hello-world/">Hello World</a>
+            <a href="/2019/04/28/bbvvmm/">bbvvmm</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/28/e5-8d-97-e4-ba-ac-e9-82-ae-e7-94-b5-e5-a4-a7-e5-ad-a6-re-wxyvm2/">南京邮电大学 RE-WxyVM2</a>
+          </li>
+        
+          <li>
+            <a href="/2019/04/13/e5-a3-b3-e7-9b-b8-e5-85-b3/">壳相关</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/22/shinyshot/">ShinyShot!</a>
+          </li>
+        
+          <li>
+            <a href="/2019/03/21/happyvm/">HappyVM</a>
           </li>
         
       </ul>
