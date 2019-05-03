@@ -1,18 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  
 
-  
-  <title>离散hash优化总结 | mrh929&#39;s home</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="离散优化总结离散优化是一种常见的高效数据结构，它通过建立数据与存储结构（数组）之间（不一定）一一对应的映射关系来达到对复杂数据的优化。 离散优化最重要的一点是建立映射，对于特殊的线段、点而言，这些映射可以是对一个区间的映射，即将某段线或者某块区域映射到数组里面去，从而在计算时降低时间复杂度。 Hash优化：是对于字符串和数字的一种优化方式。它通过将数据映射到数组内的某个元素从而达到节省空间的效果。">
+
+<!DOCTYPE html>
+<html lang="cn">
+<head prefix="og: http://ogp.me/ns#"><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta name="description" content="Blog">
+    <title>离散hash优化总结 | mrh929&#39;s home</title>
+
+    <!-- Open Graph -->
+    <meta name="description" content="&amp;#x79BB;&amp;#x6563;&amp;#x4F18;&amp;#x5316;&amp;#x603B;&amp;#x7ED3;&amp;#x79BB;&amp;#x6563;&amp;#x4F18;&amp;#x5316;&amp;#x662F;&amp;#x4E00;&amp;#x79CD;&amp;#x5E38;&amp;#x89C1;&amp;#x7684;&amp;#x9AD8;&amp;#x6548;&amp;#x6570;&amp;#x636E;&amp;#x7ED3;&amp;#x6784;&amp;#xFF0C;&amp;#x5B83;&amp;#x901A;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="离散hash优化总结">
 <meta property="og:url" content="http://mrh1s.top/2018/12/06/e7-a6-bb-e6-95-a3hash-e4-bc-98-e5-8c-96-e6-80-bb-e7-bb-93/index.html">
 <meta property="og:site_name" content="mrh929&#39;s home">
-<meta property="og:description" content="离散优化总结离散优化是一种常见的高效数据结构，它通过建立数据与存储结构（数组）之间（不一定）一一对应的映射关系来达到对复杂数据的优化。 离散优化最重要的一点是建立映射，对于特殊的线段、点而言，这些映射可以是对一个区间的映射，即将某段线或者某块区域映射到数组里面去，从而在计算时降低时间复杂度。 Hash优化：是对于字符串和数字的一种优化方式。它通过将数据映射到数组内的某个元素从而达到节省空间的效果。">
+<meta property="og:description" content="&amp;#x79BB;&amp;#x6563;&amp;#x4F18;&amp;#x5316;&amp;#x603B;&amp;#x7ED3;&amp;#x79BB;&amp;#x6563;&amp;#x4F18;&amp;#x5316;&amp;#x662F;&amp;#x4E00;&amp;#x79CD;&amp;#x5E38;&amp;#x89C1;&amp;#x7684;&amp;#x9AD8;&amp;#x6548;&amp;#x6570;&amp;#x636E;&amp;#x7ED3;&amp;#x6784;&amp;#xFF0C;&amp;#x5B83;&amp;#x901A;">
 <meta property="og:locale" content="cn">
 <meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
 <meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
@@ -20,117 +22,166 @@
 <meta property="og:updated_time" content="2019-05-03T06:19:59.674Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="离散hash优化总结">
-<meta name="twitter:description" content="离散优化总结离散优化是一种常见的高效数据结构，它通过建立数据与存储结构（数组）之间（不一定）一一对应的映射关系来达到对复杂数据的优化。 离散优化最重要的一点是建立映射，对于特殊的线段、点而言，这些映射可以是对一个区间的映射，即将某段线或者某块区域映射到数组里面去，从而在计算时降低时间复杂度。 Hash优化：是对于字符串和数字的一种优化方式。它通过将数据映射到数组内的某个元素从而达到节省空间的效果。">
+<meta name="twitter:description" content="&amp;#x79BB;&amp;#x6563;&amp;#x4F18;&amp;#x5316;&amp;#x603B;&amp;#x7ED3;&amp;#x79BB;&amp;#x6563;&amp;#x4F18;&amp;#x5316;&amp;#x662F;&amp;#x4E00;&amp;#x79CD;&amp;#x5E38;&amp;#x89C1;&amp;#x7684;&amp;#x9AD8;&amp;#x6548;&amp;#x6570;&amp;#x636E;&amp;#x7ED3;&amp;#x6784;&amp;#xFF0C;&amp;#x5B83;&amp;#x901A;">
 <meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
-  
-    <link rel="alternate" href="/atom.xml" title="mrh929&#39;s home" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
+
+    <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Person",
+  "email": "mailto:",
+  "image": "",
+  "name": "mrh929",
+  "url": "http://mrh1s.top"
+}
+</script>
+    <script>
+    var algoliaEnabled = false;
+    
+</script>
+
+    
+
+    
+    
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    
+    
+    
+        <!-- stylesheets list from config.yml -->
+        
+        <link rel="stylesheet" href="/css/aloha.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/magnific-popup.js/1.1.0/magnific-popup.min.css">
+        
+    
+
 </head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">mrh929&#39;s home</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://mrh1s.top"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-e7-a6-bb-e6-95-a3hash-e4-bc-98-e5-8c-96-e6-80-bb-e7-bb-93" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/12/06/e7-a6-bb-e6-95-a3hash-e4-bc-98-e5-8c-96-e6-80-bb-e7-bb-93/" class="article-date">
-  <time datetime="2018-12-06T15:44:06.000Z" itemprop="datePublished">2018-12-06</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a>
-  </div>
+<body id="body" style="margin-bottom: 0;" class="pushable">
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      离散hash优化总结
-    </h1>
-  
+    <div class="ui top fixed menu">
+        <a class="item" id="menu-icon"><i class="sidebar icon"></i></a>
+    </div>
 
-      </header>
+    <div id="menu-sidebar" class="ui left vertical sidebar menu">
+
+    <div id="sidebar-top">
+        <div class="content">
+            <h3>mrh929&#39;s home</h3>
+        </div>
+    </div>
+    <div class="ui container sidebar-card">
+    <div class="ui people shape content">
+        <div class="active side">
+            <div class="ui card">
+                <div class="image">
+                    <img class="ui medium bordered image" src="/images/avatar.jpg">
+                </div>
+                <div class="content">
+                    <a class="header">mrh929</a>
+                    
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                        
+                    </div>
+
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="离散优化总结"><a href="#离散优化总结" class="headerlink" title="离散优化总结"></a>离散优化总结</h1><p><strong>离散优化是一种常见的高效数据结构，它通过建立数据与存储结构（数组）之间（不一定）一一对应的映射关系来达到对复杂数据的优化。</strong> <strong>离散优化最重要的一点是建立映射，对于特殊的线段、点而言，这些映射可以是对一个区间的映射，即将某段线或者某块区域映射到数组里面去，从而在计算时降低时间复杂度。</strong> <strong>Hash优化：是对于字符串和数字的一种优化方式。它通过将数据映射到数组内的某个元素从而达到节省空间的效果。</strong> <strong>根据hash算法的不同，可能会引起数据的碰撞，即hash(key1)==hash(key2)，会使得数据存储出现错误。有两个方法可以解决：</strong></p>
-<ol>
-<li><strong>拉链法，将hash所对密码指向链表头，每次查找元素遍历整串链表，直到找到该元素为止（编程复杂度较高）</strong></li>
-<li><strong>开地址法，当hash所对密码冲突时，将数据存入另外的位置（可以是下一个空位置，也可以是计算出的任意位置），当然如果使用线性开地址法，只要有一个数据碰撞，那么其余所有数据都很有可能进行至少一次碰撞，非常耗费时间。所以我们运用hash算出另一个位置并存储：</strong></li>
+    
+
+    
+
+    
+    <a href="/index.html" class="item">
+        <i class="home icon"></i>
+        HOME
+    </a>
+
+    
+
+    
+</div>
+
+    <div class="pusher body-content">
+        <div id="content" class="ui main container">
+            <!--<div class="ui one column grid">-->
+                <!--<div class="column">-->
+                    <!--<div class="ui main container">-->
+                        <div id="post-e7-a6-bb-e6-95-a3hash-e4-bc-98-e5-8c-96-e6-80-bb-e7-bb-93" class="ui main container article-type-post">
+
+    
+
+    <div class="ui divided grid">
+
+        <div class="two column row" id="article-content">
+
+            <div class="thirteen wide computer thirteen wide tablet sixteen wide mobile column">
+                
+
+<h1 class="ui header">
+    
+    离散hash优化总结
+</h1>
+
+
+
+                <div class="article-inner">
+
+                    <div class="article-entry" itemprop="articleBody">
+                        
+                        <h1 id="&#x79BB;&#x6563;&#x4F18;&#x5316;&#x603B;&#x7ED3;"><a href="#&#x79BB;&#x6563;&#x4F18;&#x5316;&#x603B;&#x7ED3;" class="headerlink" title="&#x79BB;&#x6563;&#x4F18;&#x5316;&#x603B;&#x7ED3;"></a>&#x79BB;&#x6563;&#x4F18;&#x5316;&#x603B;&#x7ED3;</h1><p><strong>&#x79BB;&#x6563;&#x4F18;&#x5316;&#x662F;&#x4E00;&#x79CD;&#x5E38;&#x89C1;&#x7684;&#x9AD8;&#x6548;&#x6570;&#x636E;&#x7ED3;&#x6784;&#xFF0C;&#x5B83;&#x901A;&#x8FC7;&#x5EFA;&#x7ACB;&#x6570;&#x636E;&#x4E0E;&#x5B58;&#x50A8;&#x7ED3;&#x6784;&#xFF08;&#x6570;&#x7EC4;&#xFF09;&#x4E4B;&#x95F4;&#xFF08;&#x4E0D;&#x4E00;&#x5B9A;&#xFF09;&#x4E00;&#x4E00;&#x5BF9;&#x5E94;&#x7684;&#x6620;&#x5C04;&#x5173;&#x7CFB;&#x6765;&#x8FBE;&#x5230;&#x5BF9;&#x590D;&#x6742;&#x6570;&#x636E;&#x7684;&#x4F18;&#x5316;&#x3002;</strong> <strong>&#x79BB;&#x6563;&#x4F18;&#x5316;&#x6700;&#x91CD;&#x8981;&#x7684;&#x4E00;&#x70B9;&#x662F;&#x5EFA;&#x7ACB;&#x6620;&#x5C04;&#xFF0C;&#x5BF9;&#x4E8E;&#x7279;&#x6B8A;&#x7684;&#x7EBF;&#x6BB5;&#x3001;&#x70B9;&#x800C;&#x8A00;&#xFF0C;&#x8FD9;&#x4E9B;&#x6620;&#x5C04;&#x53EF;&#x4EE5;&#x662F;&#x5BF9;&#x4E00;&#x4E2A;&#x533A;&#x95F4;&#x7684;&#x6620;&#x5C04;&#xFF0C;&#x5373;&#x5C06;&#x67D0;&#x6BB5;&#x7EBF;&#x6216;&#x8005;&#x67D0;&#x5757;&#x533A;&#x57DF;&#x6620;&#x5C04;&#x5230;&#x6570;&#x7EC4;&#x91CC;&#x9762;&#x53BB;&#xFF0C;&#x4ECE;&#x800C;&#x5728;&#x8BA1;&#x7B97;&#x65F6;&#x964D;&#x4F4E;&#x65F6;&#x95F4;&#x590D;&#x6742;&#x5EA6;&#x3002;</strong> <strong>Hash&#x4F18;&#x5316;&#xFF1A;&#x662F;&#x5BF9;&#x4E8E;&#x5B57;&#x7B26;&#x4E32;&#x548C;&#x6570;&#x5B57;&#x7684;&#x4E00;&#x79CD;&#x4F18;&#x5316;&#x65B9;&#x5F0F;&#x3002;&#x5B83;&#x901A;&#x8FC7;&#x5C06;&#x6570;&#x636E;&#x6620;&#x5C04;&#x5230;&#x6570;&#x7EC4;&#x5185;&#x7684;&#x67D0;&#x4E2A;&#x5143;&#x7D20;&#x4ECE;&#x800C;&#x8FBE;&#x5230;&#x8282;&#x7701;&#x7A7A;&#x95F4;&#x7684;&#x6548;&#x679C;&#x3002;</strong> <strong>&#x6839;&#x636E;hash&#x7B97;&#x6CD5;&#x7684;&#x4E0D;&#x540C;&#xFF0C;&#x53EF;&#x80FD;&#x4F1A;&#x5F15;&#x8D77;&#x6570;&#x636E;&#x7684;&#x78B0;&#x649E;&#xFF0C;&#x5373;hash(key1)==hash(key2)&#xFF0C;&#x4F1A;&#x4F7F;&#x5F97;&#x6570;&#x636E;&#x5B58;&#x50A8;&#x51FA;&#x73B0;&#x9519;&#x8BEF;&#x3002;&#x6709;&#x4E24;&#x4E2A;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x89E3;&#x51B3;&#xFF1A;</strong></p>
+<ol class="ui list">
+<li><strong>&#x62C9;&#x94FE;&#x6CD5;&#xFF0C;&#x5C06;hash&#x6240;&#x5BF9;&#x5BC6;&#x7801;&#x6307;&#x5411;&#x94FE;&#x8868;&#x5934;&#xFF0C;&#x6BCF;&#x6B21;&#x67E5;&#x627E;&#x5143;&#x7D20;&#x904D;&#x5386;&#x6574;&#x4E32;&#x94FE;&#x8868;&#xFF0C;&#x76F4;&#x5230;&#x627E;&#x5230;&#x8BE5;&#x5143;&#x7D20;&#x4E3A;&#x6B62;&#xFF08;&#x7F16;&#x7A0B;&#x590D;&#x6742;&#x5EA6;&#x8F83;&#x9AD8;&#xFF09;</strong></li>
+<li><strong>&#x5F00;&#x5730;&#x5740;&#x6CD5;&#xFF0C;&#x5F53;hash&#x6240;&#x5BF9;&#x5BC6;&#x7801;&#x51B2;&#x7A81;&#x65F6;&#xFF0C;&#x5C06;&#x6570;&#x636E;&#x5B58;&#x5165;&#x53E6;&#x5916;&#x7684;&#x4F4D;&#x7F6E;&#xFF08;&#x53EF;&#x4EE5;&#x662F;&#x4E0B;&#x4E00;&#x4E2A;&#x7A7A;&#x4F4D;&#x7F6E;&#xFF0C;&#x4E5F;&#x53EF;&#x4EE5;&#x662F;&#x8BA1;&#x7B97;&#x51FA;&#x7684;&#x4EFB;&#x610F;&#x4F4D;&#x7F6E;&#xFF09;&#xFF0C;&#x5F53;&#x7136;&#x5982;&#x679C;&#x4F7F;&#x7528;&#x7EBF;&#x6027;&#x5F00;&#x5730;&#x5740;&#x6CD5;&#xFF0C;&#x53EA;&#x8981;&#x6709;&#x4E00;&#x4E2A;&#x6570;&#x636E;&#x78B0;&#x649E;&#xFF0C;&#x90A3;&#x4E48;&#x5176;&#x4F59;&#x6240;&#x6709;&#x6570;&#x636E;&#x90FD;&#x5F88;&#x6709;&#x53EF;&#x80FD;&#x8FDB;&#x884C;&#x81F3;&#x5C11;&#x4E00;&#x6B21;&#x78B0;&#x649E;&#xFF0C;&#x975E;&#x5E38;&#x8017;&#x8D39;&#x65F6;&#x95F4;&#x3002;&#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x8FD0;&#x7528;hash&#x7B97;&#x51FA;&#x53E6;&#x4E00;&#x4E2A;&#x4F4D;&#x7F6E;&#x5E76;&#x5B58;&#x50A8;&#xFF1A;</strong></li>
 </ol>
-<p><strong>while(hashtable[ad]!=0){</strong> <strong>    ad+=ad%3+1;//可以是异于主hash算法的另一hash算法</strong> <strong>}</strong>  <strong>       通常Hash算法分为两个板块：</strong></p>
-<ol>
-<li><strong>查找元素，hash(key)对应的不一定是目标元素，需要对目标进行搜索，推荐使用开地址法进行搜索</strong></li>
-<li><p><strong>插入元素，与查找同理，在插入之前必须检查此元素是否已被插入，再用开地址法存入相应的地址</strong></p>
-<p><strong>Hash可用的构造方法</strong></p>
+<p><strong>while(hashtable[ad]!=0){</strong> <strong>    ad+=ad%3+1;//&#x53EF;&#x4EE5;&#x662F;&#x5F02;&#x4E8E;&#x4E3B;hash&#x7B97;&#x6CD5;&#x7684;&#x53E6;&#x4E00;hash&#x7B97;&#x6CD5;</strong> <strong>}</strong>  <strong>       &#x901A;&#x5E38;Hash&#x7B97;&#x6CD5;&#x5206;&#x4E3A;&#x4E24;&#x4E2A;&#x677F;&#x5757;&#xFF1A;</strong></p>
+<ol class="ui list">
+<li><strong>&#x67E5;&#x627E;&#x5143;&#x7D20;&#xFF0C;hash(key)&#x5BF9;&#x5E94;&#x7684;&#x4E0D;&#x4E00;&#x5B9A;&#x662F;&#x76EE;&#x6807;&#x5143;&#x7D20;&#xFF0C;&#x9700;&#x8981;&#x5BF9;&#x76EE;&#x6807;&#x8FDB;&#x884C;&#x641C;&#x7D22;&#xFF0C;&#x63A8;&#x8350;&#x4F7F;&#x7528;&#x5F00;&#x5730;&#x5740;&#x6CD5;&#x8FDB;&#x884C;&#x641C;&#x7D22;</strong></li>
+<li><p><strong>&#x63D2;&#x5165;&#x5143;&#x7D20;&#xFF0C;&#x4E0E;&#x67E5;&#x627E;&#x540C;&#x7406;&#xFF0C;&#x5728;&#x63D2;&#x5165;&#x4E4B;&#x524D;&#x5FC5;&#x987B;&#x68C0;&#x67E5;&#x6B64;&#x5143;&#x7D20;&#x662F;&#x5426;&#x5DF2;&#x88AB;&#x63D2;&#x5165;&#xFF0C;&#x518D;&#x7528;&#x5F00;&#x5730;&#x5740;&#x6CD5;&#x5B58;&#x5165;&#x76F8;&#x5E94;&#x7684;&#x5730;&#x5740;</strong></p>
+<p><strong>Hash&#x53EF;&#x7528;&#x7684;&#x6784;&#x9020;&#x65B9;&#x6CD5;</strong></p>
 </li>
-<li><p><strong>直接定址</strong></p>
+<li><p><strong>&#x76F4;&#x63A5;&#x5B9A;&#x5740;</strong></p>
 </li>
-<li><strong>取模法</strong></li>
-<li><strong>平均取中值</strong></li>
-<li><strong>随机数</strong></li>
-<li><strong>数字分析法，将最有代表特色的位置作为特征码</strong></li>
-<li><strong>折叠法，将数拆分成几部分并求和</strong></li>
-<li><strong>基数法，将低进制数当作高进制数转化为原进制的数，并进行分析，取特征码（两个进制之间应该是互质的关系）</strong></li>
+<li><strong>&#x53D6;&#x6A21;&#x6CD5;</strong></li>
+<li><strong>&#x5E73;&#x5747;&#x53D6;&#x4E2D;&#x503C;</strong></li>
+<li><strong>&#x968F;&#x673A;&#x6570;</strong></li>
+<li><strong>&#x6570;&#x5B57;&#x5206;&#x6790;&#x6CD5;&#xFF0C;&#x5C06;&#x6700;&#x6709;&#x4EE3;&#x8868;&#x7279;&#x8272;&#x7684;&#x4F4D;&#x7F6E;&#x4F5C;&#x4E3A;&#x7279;&#x5F81;&#x7801;</strong></li>
+<li><strong>&#x6298;&#x53E0;&#x6CD5;&#xFF0C;&#x5C06;&#x6570;&#x62C6;&#x5206;&#x6210;&#x51E0;&#x90E8;&#x5206;&#x5E76;&#x6C42;&#x548C;</strong></li>
+<li><strong>&#x57FA;&#x6570;&#x6CD5;&#xFF0C;&#x5C06;&#x4F4E;&#x8FDB;&#x5236;&#x6570;&#x5F53;&#x4F5C;&#x9AD8;&#x8FDB;&#x5236;&#x6570;&#x8F6C;&#x5316;&#x4E3A;&#x539F;&#x8FDB;&#x5236;&#x7684;&#x6570;&#xFF0C;&#x5E76;&#x8FDB;&#x884C;&#x5206;&#x6790;&#xFF0C;&#x53D6;&#x7279;&#x5F81;&#x7801;&#xFF08;&#x4E24;&#x4E2A;&#x8FDB;&#x5236;&#x4E4B;&#x95F4;&#x5E94;&#x8BE5;&#x662F;&#x4E92;&#x8D28;&#x7684;&#x5173;&#x7CFB;&#xFF09;</strong></li>
 </ol>
-<h2 id="1640-线段覆盖"><a href="#1640-线段覆盖" class="headerlink" title="1640: 线段覆盖"></a>1640: 线段覆盖</h2><p>时间限制:1 Sec  内存限制: 128 MB 提交:43  解决: 27 [<a href="http://fzoj.xndxfz.com/JudgeOnline/submitpage.php?id=1640" target="_blank" rel="noopener">提交</a>][<a href="http://fzoj.xndxfz.com/JudgeOnline/problemstatus.php?id=1640" target="_blank" rel="noopener">状态</a>][<a href="http://fzoj.xndxfz.com/JudgeOnline/bbs.php?pid=1640" target="_blank" rel="noopener">讨论版</a>]</p>
-<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>X轴上方有若干条平行于X轴的线段，求这些线段能覆盖到的X轴的总长度？</p>
-<h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>第一行一个数n(n&lt;=1000)，表示线段的个数； 接下来n行，每行两个整数ai,bi （-10^8&lt;=ai,bi&lt;=10^8)，代表一个线段的两个端点。</p>
-<h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><p>输出覆盖x轴的长度。</p>
-<h2 id="样例输入"><a href="#样例输入" class="headerlink" title="样例输入"></a>样例输入</h2><pre><code>2
+<h2 id="1640-&#x7EBF;&#x6BB5;&#x8986;&#x76D6;"><a href="#1640-&#x7EBF;&#x6BB5;&#x8986;&#x76D6;" class="headerlink" title="1640: &#x7EBF;&#x6BB5;&#x8986;&#x76D6;"></a>1640: &#x7EBF;&#x6BB5;&#x8986;&#x76D6;</h2><p>&#x65F6;&#x95F4;&#x9650;&#x5236;:1 Sec  &#x5185;&#x5B58;&#x9650;&#x5236;: 128 MB &#x63D0;&#x4EA4;:43  &#x89E3;&#x51B3;: 27 [<a href="http://fzoj.xndxfz.com/JudgeOnline/submitpage.php?id=1640" target="_blank" rel="noopener">&#x63D0;&#x4EA4;</a>][<a href="http://fzoj.xndxfz.com/JudgeOnline/problemstatus.php?id=1640" target="_blank" rel="noopener">&#x72B6;&#x6001;</a>][<a href="http://fzoj.xndxfz.com/JudgeOnline/bbs.php?pid=1640" target="_blank" rel="noopener">&#x8BA8;&#x8BBA;&#x7248;</a>]</p>
+<h2 id="&#x9898;&#x76EE;&#x63CF;&#x8FF0;"><a href="#&#x9898;&#x76EE;&#x63CF;&#x8FF0;" class="headerlink" title="&#x9898;&#x76EE;&#x63CF;&#x8FF0;"></a>&#x9898;&#x76EE;&#x63CF;&#x8FF0;</h2><p>X&#x8F74;&#x4E0A;&#x65B9;&#x6709;&#x82E5;&#x5E72;&#x6761;&#x5E73;&#x884C;&#x4E8E;X&#x8F74;&#x7684;&#x7EBF;&#x6BB5;&#xFF0C;&#x6C42;&#x8FD9;&#x4E9B;&#x7EBF;&#x6BB5;&#x80FD;&#x8986;&#x76D6;&#x5230;&#x7684;X&#x8F74;&#x7684;&#x603B;&#x957F;&#x5EA6;&#xFF1F;</p>
+<h2 id="&#x8F93;&#x5165;"><a href="#&#x8F93;&#x5165;" class="headerlink" title="&#x8F93;&#x5165;"></a>&#x8F93;&#x5165;</h2><p>&#x7B2C;&#x4E00;&#x884C;&#x4E00;&#x4E2A;&#x6570;n(n&lt;=1000)&#xFF0C;&#x8868;&#x793A;&#x7EBF;&#x6BB5;&#x7684;&#x4E2A;&#x6570;&#xFF1B; &#x63A5;&#x4E0B;&#x6765;n&#x884C;&#xFF0C;&#x6BCF;&#x884C;&#x4E24;&#x4E2A;&#x6574;&#x6570;ai,bi &#xFF08;-10^8&lt;=ai,bi&lt;=10^8)&#xFF0C;&#x4EE3;&#x8868;&#x4E00;&#x4E2A;&#x7EBF;&#x6BB5;&#x7684;&#x4E24;&#x4E2A;&#x7AEF;&#x70B9;&#x3002;</p>
+<h2 id="&#x8F93;&#x51FA;"><a href="#&#x8F93;&#x51FA;" class="headerlink" title="&#x8F93;&#x51FA;"></a>&#x8F93;&#x51FA;</h2><p>&#x8F93;&#x51FA;&#x8986;&#x76D6;x&#x8F74;&#x7684;&#x957F;&#x5EA6;&#x3002;</p>
+<h2 id="&#x6837;&#x4F8B;&#x8F93;&#x5165;"><a href="#&#x6837;&#x4F8B;&#x8F93;&#x5165;" class="headerlink" title="&#x6837;&#x4F8B;&#x8F93;&#x5165;"></a>&#x6837;&#x4F8B;&#x8F93;&#x5165;</h2><pre><code>2
 
 10 12
 
 2 4
-</code></pre><h2 id="样例输出"><a href="#样例输出" class="headerlink" title="样例输出"></a>样例输出</h2><pre><code>4
-</code></pre><p><strong>将每个点存入数组进行排序，然后遍历所有线段，将线段所覆盖到的点全部记录，输出结果</strong></p>
+</code></pre><h2 id="&#x6837;&#x4F8B;&#x8F93;&#x51FA;"><a href="#&#x6837;&#x4F8B;&#x8F93;&#x51FA;" class="headerlink" title="&#x6837;&#x4F8B;&#x8F93;&#x51FA;"></a>&#x6837;&#x4F8B;&#x8F93;&#x51FA;</h2><pre><code>4
+</code></pre><p><strong>&#x5C06;&#x6BCF;&#x4E2A;&#x70B9;&#x5B58;&#x5165;&#x6570;&#x7EC4;&#x8FDB;&#x884C;&#x6392;&#x5E8F;&#xFF0C;&#x7136;&#x540E;&#x904D;&#x5386;&#x6240;&#x6709;&#x7EBF;&#x6BB5;&#xFF0C;&#x5C06;&#x7EBF;&#x6BB5;&#x6240;&#x8986;&#x76D6;&#x5230;&#x7684;&#x70B9;&#x5168;&#x90E8;&#x8BB0;&#x5F55;&#xFF0C;&#x8F93;&#x51FA;&#x7ED3;&#x679C;</strong></p>
 <pre><code>#include&lt;cstdio&gt;
 #include&lt;cstring&gt;
 #include&lt;algorithm&gt;
 using namespace std;
 int n,a[1200],b[1200],t[2400],flag[2400],tot,sum;
-//flag[i]表示i到i+1之间是否被覆盖 
+//flag[i]&#x8868;&#x793A;i&#x5230;i+1&#x4E4B;&#x95F4;&#x662F;&#x5426;&#x88AB;&#x8986;&#x76D6; 
 int find(int s,int e,int aim){
     int mid;
     while(s&lt;=e){
@@ -169,20 +220,20 @@ int main(){
 
     return 0;
 }
-</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
-<h2 id="1234-图形面积"><a href="#1234-图形面积" class="headerlink" title="1234: 图形面积"></a>1234: 图形面积</h2><p>时间限制:0 Sec  内存限制: 128 MB 提交:11  解决: 2 [<a href="http://fzoj.xndxfz.com/JudgeOnline/submitpage.php?id=1234" target="_blank" rel="noopener">提交</a>][<a href="http://fzoj.xndxfz.com/JudgeOnline/problemstatus.php?id=1234" target="_blank" rel="noopener">状态</a>][<a href="http://fzoj.xndxfz.com/JudgeOnline/bbs.php?pid=1234" target="_blank" rel="noopener">讨论版</a>]</p>
-<h2 id="题目描述-1"><a href="#题目描述-1" class="headerlink" title="题目描述"></a>题目描述</h2><p>桌面上放了N个矩形，这N个矩形可能有互相覆盖的部分，求它们组成的图形的面积。</p>
-<h2 id="输入-1"><a href="#输入-1" class="headerlink" title="输入"></a>输入</h2><p>输入第一行为一个数N（1≤N≤100），表示矩形的数量。下面N行，每行四个整数，分别表示每个矩形的左下角和右上角的坐标，坐标范围为–10^8到10^8之间的整数。</p>
-<h2 id="输出-1"><a href="#输出-1" class="headerlink" title="输出"></a>输出</h2><p>输出只有一行，一个整数，表示图形的面积。</p>
-<h2 id="样例输入-1"><a href="#样例输入-1" class="headerlink" title="样例输入"></a>样例输入</h2><pre><code>3
+</code></pre><p><a class="magnific-img" href="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="&#x70B9;&#x51FB;&#x5E76;&#x62D6;&#x62FD;&#x4EE5;&#x79FB;&#x52A8;" class="ui centered image"></a></p>
+<h2 id="1234-&#x56FE;&#x5F62;&#x9762;&#x79EF;"><a href="#1234-&#x56FE;&#x5F62;&#x9762;&#x79EF;" class="headerlink" title="1234: &#x56FE;&#x5F62;&#x9762;&#x79EF;"></a>1234: &#x56FE;&#x5F62;&#x9762;&#x79EF;</h2><p>&#x65F6;&#x95F4;&#x9650;&#x5236;:0 Sec  &#x5185;&#x5B58;&#x9650;&#x5236;: 128 MB &#x63D0;&#x4EA4;:11  &#x89E3;&#x51B3;: 2 [<a href="http://fzoj.xndxfz.com/JudgeOnline/submitpage.php?id=1234" target="_blank" rel="noopener">&#x63D0;&#x4EA4;</a>][<a href="http://fzoj.xndxfz.com/JudgeOnline/problemstatus.php?id=1234" target="_blank" rel="noopener">&#x72B6;&#x6001;</a>][<a href="http://fzoj.xndxfz.com/JudgeOnline/bbs.php?pid=1234" target="_blank" rel="noopener">&#x8BA8;&#x8BBA;&#x7248;</a>]</p>
+<h2 id="&#x9898;&#x76EE;&#x63CF;&#x8FF0;-1"><a href="#&#x9898;&#x76EE;&#x63CF;&#x8FF0;-1" class="headerlink" title="&#x9898;&#x76EE;&#x63CF;&#x8FF0;"></a>&#x9898;&#x76EE;&#x63CF;&#x8FF0;</h2><p>&#x684C;&#x9762;&#x4E0A;&#x653E;&#x4E86;N&#x4E2A;&#x77E9;&#x5F62;&#xFF0C;&#x8FD9;N&#x4E2A;&#x77E9;&#x5F62;&#x53EF;&#x80FD;&#x6709;&#x4E92;&#x76F8;&#x8986;&#x76D6;&#x7684;&#x90E8;&#x5206;&#xFF0C;&#x6C42;&#x5B83;&#x4EEC;&#x7EC4;&#x6210;&#x7684;&#x56FE;&#x5F62;&#x7684;&#x9762;&#x79EF;&#x3002;</p>
+<h2 id="&#x8F93;&#x5165;-1"><a href="#&#x8F93;&#x5165;-1" class="headerlink" title="&#x8F93;&#x5165;"></a>&#x8F93;&#x5165;</h2><p>&#x8F93;&#x5165;&#x7B2C;&#x4E00;&#x884C;&#x4E3A;&#x4E00;&#x4E2A;&#x6570;N&#xFF08;1&#x2264;N&#x2264;100&#xFF09;&#xFF0C;&#x8868;&#x793A;&#x77E9;&#x5F62;&#x7684;&#x6570;&#x91CF;&#x3002;&#x4E0B;&#x9762;N&#x884C;&#xFF0C;&#x6BCF;&#x884C;&#x56DB;&#x4E2A;&#x6574;&#x6570;&#xFF0C;&#x5206;&#x522B;&#x8868;&#x793A;&#x6BCF;&#x4E2A;&#x77E9;&#x5F62;&#x7684;&#x5DE6;&#x4E0B;&#x89D2;&#x548C;&#x53F3;&#x4E0A;&#x89D2;&#x7684;&#x5750;&#x6807;&#xFF0C;&#x5750;&#x6807;&#x8303;&#x56F4;&#x4E3A;&#x2013;10^8&#x5230;10^8&#x4E4B;&#x95F4;&#x7684;&#x6574;&#x6570;&#x3002;</p>
+<h2 id="&#x8F93;&#x51FA;-1"><a href="#&#x8F93;&#x51FA;-1" class="headerlink" title="&#x8F93;&#x51FA;"></a>&#x8F93;&#x51FA;</h2><p>&#x8F93;&#x51FA;&#x53EA;&#x6709;&#x4E00;&#x884C;&#xFF0C;&#x4E00;&#x4E2A;&#x6574;&#x6570;&#xFF0C;&#x8868;&#x793A;&#x56FE;&#x5F62;&#x7684;&#x9762;&#x79EF;&#x3002;</p>
+<h2 id="&#x6837;&#x4F8B;&#x8F93;&#x5165;-1"><a href="#&#x6837;&#x4F8B;&#x8F93;&#x5165;-1" class="headerlink" title="&#x6837;&#x4F8B;&#x8F93;&#x5165;"></a>&#x6837;&#x4F8B;&#x8F93;&#x5165;</h2><pre><code>3
 
 1 1 4 3
 
 2 -1 3 2
 
 4 0 5 2
-</code></pre><h2 id="样例输出-1"><a href="#样例输出-1" class="headerlink" title="样例输出"></a>样例输出</h2><pre><code>10
-</code></pre><p><strong>二维离散优化，将图形在x轴上投影的点找出，并且分析相邻两点间的距离（即图形的宽），以及投影这段线的图形在y轴上的投影（即图形的高），ans+=d*h即可</strong> <a href="http://noi.openjudge.cn/ch0305/1551/" target="_blank" rel="noopener">http://noi.openjudge.cn/ch0305/1551/</a> <strong>Sumsets</strong> <strong>描述</strong> 给出一个整数集合s，找到集合中最大的d，让等式a+b+c=d成立， 其中，a,b,c,d是集合S中不同的元素。 输入 Several S, each consisting of a line containing an integer 1 &lt;= n&lt;= 1000 indicating the number of elements in S, followed by the elements ofS, one per line. Each element of S is a distinct integer between -536870912 and+536870911 inclusive. The last line of input contains 0. 输出 For each S, a single line containing d, or a single line containing”no solution”. 样例输入 5 2 3 5 7 12 5 2 16 64 256 1024 0 样例输出 12 no solution <strong>经过变形可得a+b=d-c，先枚举a+b用hash表存储</strong> <strong>再枚举d-c，如果在hash表中有值,且该值对应的a，b异于d，c，那么将此时的d存起来，取最大值</strong></p>
+</code></pre><h2 id="&#x6837;&#x4F8B;&#x8F93;&#x51FA;-1"><a href="#&#x6837;&#x4F8B;&#x8F93;&#x51FA;-1" class="headerlink" title="&#x6837;&#x4F8B;&#x8F93;&#x51FA;"></a>&#x6837;&#x4F8B;&#x8F93;&#x51FA;</h2><pre><code>10
+</code></pre><p><strong>&#x4E8C;&#x7EF4;&#x79BB;&#x6563;&#x4F18;&#x5316;&#xFF0C;&#x5C06;&#x56FE;&#x5F62;&#x5728;x&#x8F74;&#x4E0A;&#x6295;&#x5F71;&#x7684;&#x70B9;&#x627E;&#x51FA;&#xFF0C;&#x5E76;&#x4E14;&#x5206;&#x6790;&#x76F8;&#x90BB;&#x4E24;&#x70B9;&#x95F4;&#x7684;&#x8DDD;&#x79BB;&#xFF08;&#x5373;&#x56FE;&#x5F62;&#x7684;&#x5BBD;&#xFF09;&#xFF0C;&#x4EE5;&#x53CA;&#x6295;&#x5F71;&#x8FD9;&#x6BB5;&#x7EBF;&#x7684;&#x56FE;&#x5F62;&#x5728;y&#x8F74;&#x4E0A;&#x7684;&#x6295;&#x5F71;&#xFF08;&#x5373;&#x56FE;&#x5F62;&#x7684;&#x9AD8;&#xFF09;&#xFF0C;ans+=d*h&#x5373;&#x53EF;</strong> <a href="http://noi.openjudge.cn/ch0305/1551/" target="_blank" rel="noopener">http://noi.openjudge.cn/ch0305/1551/</a> <strong>Sumsets</strong> <strong>&#x63CF;&#x8FF0;</strong> &#x7ED9;&#x51FA;&#x4E00;&#x4E2A;&#x6574;&#x6570;&#x96C6;&#x5408;s&#xFF0C;&#x627E;&#x5230;&#x96C6;&#x5408;&#x4E2D;&#x6700;&#x5927;&#x7684;d&#xFF0C;&#x8BA9;&#x7B49;&#x5F0F;a+b+c=d&#x6210;&#x7ACB;&#xFF0C; &#x5176;&#x4E2D;&#xFF0C;a,b,c,d&#x662F;&#x96C6;&#x5408;S&#x4E2D;&#x4E0D;&#x540C;&#x7684;&#x5143;&#x7D20;&#x3002; &#x8F93;&#x5165; Several S, each consisting of a line containing an integer 1 &lt;= n&lt;= 1000 indicating the number of elements in S, followed by the elements ofS, one per line. Each element of S is a distinct integer between -536870912 and+536870911 inclusive. The last line of input contains 0. &#x8F93;&#x51FA; For each S, a single line containing d, or a single line containing&#x201D;no solution&#x201D;. &#x6837;&#x4F8B;&#x8F93;&#x5165; 5 2 3 5 7 12 5 2 16 64 256 1024 0 &#x6837;&#x4F8B;&#x8F93;&#x51FA; 12 no solution <strong>&#x7ECF;&#x8FC7;&#x53D8;&#x5F62;&#x53EF;&#x5F97;a+b=d-c&#xFF0C;&#x5148;&#x679A;&#x4E3E;a+b&#x7528;hash&#x8868;&#x5B58;&#x50A8;</strong> <strong>&#x518D;&#x679A;&#x4E3E;d-c&#xFF0C;&#x5982;&#x679C;&#x5728;hash&#x8868;&#x4E2D;&#x6709;&#x503C;,&#x4E14;&#x8BE5;&#x503C;&#x5BF9;&#x5E94;&#x7684;a&#xFF0C;b&#x5F02;&#x4E8E;d&#xFF0C;c&#xFF0C;&#x90A3;&#x4E48;&#x5C06;&#x6B64;&#x65F6;&#x7684;d&#x5B58;&#x8D77;&#x6765;&#xFF0C;&#x53D6;&#x6700;&#x5927;&#x503C;</strong></p>
 <pre><code>#include&lt;cstdio&gt;
 #include&lt;cstring&gt;
 #include&lt;algorithm&gt;
@@ -237,8 +288,8 @@ int main(){
 
     return 0;
 }
-</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
-<h2 id="1807-正方形"><a href="#1807-正方形" class="headerlink" title="1807:正方形"></a>1807:正方形</h2><p><a href="http://noi.openjudge.cn/ch0305/1807/" target="_blank" rel="noopener">http://noi.openjudge.cn/ch0305/1807/</a> 描述 给出平面上一些点的坐标，统计由这些点可以组成多少个正方形。注意：正方形的边不一定平行于坐标轴。 输入 输入包括多组测试数据。每组的第一行是一个整数n (1 &lt;= n &lt;= 1000)，表示平面上点的数目，接下来n行，每行包括两个整数，分别给出一个点在平面上的x坐标和y坐标。输入保证：平面上点的位置是两两不同的，而且坐标的绝对值都不大于20000。最后一组输入数据中n = 0，这组数据表示输入的结束，不用进行处理。 输出 对每组输入数据，输出一行，表示这些点能够组成的正方形的数目。 样例输入 4 1 0 0 1 1 1 0 0 9 0 0 1 0 2 0 0 2 1 2 2 2 0 1 1 1 2 1 4 -2 5 3 7 0 0 5 2 0 样例输出 1 6 1 <strong>将每个点用hash表存起来，这里有个小技巧，可以开longlong数组，从而实现一个变量存一个点的功效。然后枚举任意两个未枚举的点，将它们作为正方形的一条边，通过规律我们可以确定两个待定的正方形，寻找计算出的正方形另两个点的位置，搜索hash表，如果都有相应的元素对应，那么即为找到一个正方形。注意：每两个点都会被遍历，即每条边都会被遍历，所以正方形的个数是边数d&gt;&gt;2</strong></p>
+</code></pre><p><a class="magnific-img" href="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="&#x70B9;&#x51FB;&#x5E76;&#x62D6;&#x62FD;&#x4EE5;&#x79FB;&#x52A8;" class="ui centered image"></a></p>
+<h2 id="1807-&#x6B63;&#x65B9;&#x5F62;"><a href="#1807-&#x6B63;&#x65B9;&#x5F62;" class="headerlink" title="1807:&#x6B63;&#x65B9;&#x5F62;"></a>1807:&#x6B63;&#x65B9;&#x5F62;</h2><p><a href="http://noi.openjudge.cn/ch0305/1807/" target="_blank" rel="noopener">http://noi.openjudge.cn/ch0305/1807/</a> &#x63CF;&#x8FF0; &#x7ED9;&#x51FA;&#x5E73;&#x9762;&#x4E0A;&#x4E00;&#x4E9B;&#x70B9;&#x7684;&#x5750;&#x6807;&#xFF0C;&#x7EDF;&#x8BA1;&#x7531;&#x8FD9;&#x4E9B;&#x70B9;&#x53EF;&#x4EE5;&#x7EC4;&#x6210;&#x591A;&#x5C11;&#x4E2A;&#x6B63;&#x65B9;&#x5F62;&#x3002;&#x6CE8;&#x610F;&#xFF1A;&#x6B63;&#x65B9;&#x5F62;&#x7684;&#x8FB9;&#x4E0D;&#x4E00;&#x5B9A;&#x5E73;&#x884C;&#x4E8E;&#x5750;&#x6807;&#x8F74;&#x3002; &#x8F93;&#x5165; &#x8F93;&#x5165;&#x5305;&#x62EC;&#x591A;&#x7EC4;&#x6D4B;&#x8BD5;&#x6570;&#x636E;&#x3002;&#x6BCF;&#x7EC4;&#x7684;&#x7B2C;&#x4E00;&#x884C;&#x662F;&#x4E00;&#x4E2A;&#x6574;&#x6570;n (1 &lt;= n &lt;= 1000)&#xFF0C;&#x8868;&#x793A;&#x5E73;&#x9762;&#x4E0A;&#x70B9;&#x7684;&#x6570;&#x76EE;&#xFF0C;&#x63A5;&#x4E0B;&#x6765;n&#x884C;&#xFF0C;&#x6BCF;&#x884C;&#x5305;&#x62EC;&#x4E24;&#x4E2A;&#x6574;&#x6570;&#xFF0C;&#x5206;&#x522B;&#x7ED9;&#x51FA;&#x4E00;&#x4E2A;&#x70B9;&#x5728;&#x5E73;&#x9762;&#x4E0A;&#x7684;x&#x5750;&#x6807;&#x548C;y&#x5750;&#x6807;&#x3002;&#x8F93;&#x5165;&#x4FDD;&#x8BC1;&#xFF1A;&#x5E73;&#x9762;&#x4E0A;&#x70B9;&#x7684;&#x4F4D;&#x7F6E;&#x662F;&#x4E24;&#x4E24;&#x4E0D;&#x540C;&#x7684;&#xFF0C;&#x800C;&#x4E14;&#x5750;&#x6807;&#x7684;&#x7EDD;&#x5BF9;&#x503C;&#x90FD;&#x4E0D;&#x5927;&#x4E8E;20000&#x3002;&#x6700;&#x540E;&#x4E00;&#x7EC4;&#x8F93;&#x5165;&#x6570;&#x636E;&#x4E2D;n = 0&#xFF0C;&#x8FD9;&#x7EC4;&#x6570;&#x636E;&#x8868;&#x793A;&#x8F93;&#x5165;&#x7684;&#x7ED3;&#x675F;&#xFF0C;&#x4E0D;&#x7528;&#x8FDB;&#x884C;&#x5904;&#x7406;&#x3002; &#x8F93;&#x51FA; &#x5BF9;&#x6BCF;&#x7EC4;&#x8F93;&#x5165;&#x6570;&#x636E;&#xFF0C;&#x8F93;&#x51FA;&#x4E00;&#x884C;&#xFF0C;&#x8868;&#x793A;&#x8FD9;&#x4E9B;&#x70B9;&#x80FD;&#x591F;&#x7EC4;&#x6210;&#x7684;&#x6B63;&#x65B9;&#x5F62;&#x7684;&#x6570;&#x76EE;&#x3002; &#x6837;&#x4F8B;&#x8F93;&#x5165; 4 1 0 0 1 1 1 0 0 9 0 0 1 0 2 0 0 2 1 2 2 2 0 1 1 1 2 1 4 -2 5 3 7 0 0 5 2 0 &#x6837;&#x4F8B;&#x8F93;&#x51FA; 1 6 1 <strong>&#x5C06;&#x6BCF;&#x4E2A;&#x70B9;&#x7528;hash&#x8868;&#x5B58;&#x8D77;&#x6765;&#xFF0C;&#x8FD9;&#x91CC;&#x6709;&#x4E2A;&#x5C0F;&#x6280;&#x5DE7;&#xFF0C;&#x53EF;&#x4EE5;&#x5F00;longlong&#x6570;&#x7EC4;&#xFF0C;&#x4ECE;&#x800C;&#x5B9E;&#x73B0;&#x4E00;&#x4E2A;&#x53D8;&#x91CF;&#x5B58;&#x4E00;&#x4E2A;&#x70B9;&#x7684;&#x529F;&#x6548;&#x3002;&#x7136;&#x540E;&#x679A;&#x4E3E;&#x4EFB;&#x610F;&#x4E24;&#x4E2A;&#x672A;&#x679A;&#x4E3E;&#x7684;&#x70B9;&#xFF0C;&#x5C06;&#x5B83;&#x4EEC;&#x4F5C;&#x4E3A;&#x6B63;&#x65B9;&#x5F62;&#x7684;&#x4E00;&#x6761;&#x8FB9;&#xFF0C;&#x901A;&#x8FC7;&#x89C4;&#x5F8B;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x786E;&#x5B9A;&#x4E24;&#x4E2A;&#x5F85;&#x5B9A;&#x7684;&#x6B63;&#x65B9;&#x5F62;&#xFF0C;&#x5BFB;&#x627E;&#x8BA1;&#x7B97;&#x51FA;&#x7684;&#x6B63;&#x65B9;&#x5F62;&#x53E6;&#x4E24;&#x4E2A;&#x70B9;&#x7684;&#x4F4D;&#x7F6E;&#xFF0C;&#x641C;&#x7D22;hash&#x8868;&#xFF0C;&#x5982;&#x679C;&#x90FD;&#x6709;&#x76F8;&#x5E94;&#x7684;&#x5143;&#x7D20;&#x5BF9;&#x5E94;&#xFF0C;&#x90A3;&#x4E48;&#x5373;&#x4E3A;&#x627E;&#x5230;&#x4E00;&#x4E2A;&#x6B63;&#x65B9;&#x5F62;&#x3002;&#x6CE8;&#x610F;&#xFF1A;&#x6BCF;&#x4E24;&#x4E2A;&#x70B9;&#x90FD;&#x4F1A;&#x88AB;&#x904D;&#x5386;&#xFF0C;&#x5373;&#x6BCF;&#x6761;&#x8FB9;&#x90FD;&#x4F1A;&#x88AB;&#x904D;&#x5386;&#xFF0C;&#x6240;&#x4EE5;&#x6B63;&#x65B9;&#x5F62;&#x7684;&#x4E2A;&#x6570;&#x662F;&#x8FB9;&#x6570;d&gt;&gt;2</strong></p>
 <pre><code>#include&lt;cstdio&gt;
 #include&lt;cstring&gt;
 #include&lt;algorithm&gt;
@@ -248,7 +299,7 @@ struct node{
     int x,y;
 }poi[MAX+500];
 long long hashtable[MAX+500];
-//任意选取两个点，可确定两个正方形，将两个正方形除已选择外的点hash存储 
+//&#x4EFB;&#x610F;&#x9009;&#x53D6;&#x4E24;&#x4E2A;&#x70B9;&#xFF0C;&#x53EF;&#x786E;&#x5B9A;&#x4E24;&#x4E2A;&#x6B63;&#x65B9;&#x5F62;&#xFF0C;&#x5C06;&#x4E24;&#x4E2A;&#x6B63;&#x65B9;&#x5F62;&#x9664;&#x5DF2;&#x9009;&#x62E9;&#x5916;&#x7684;&#x70B9;hash&#x5B58;&#x50A8; 
 void InsertHash(int x,int y){
     int ad=(x*x+y*y)%30000;
     long long aim=x*100000+y;
@@ -301,12 +352,12 @@ int main(){
                 x2=poi[j].x-dely; y2=poi[j].y+delx;
                 if(FindHash(x1,y1)&amp;&amp;FindHash(x2,y2)) ans++;
             }
-        printf(&quot;%d\n&quot;,ans&gt;&gt;2);//根据两个点找正方形会找四次 
+        printf(&quot;%d\n&quot;,ans&gt;&gt;2);//&#x6839;&#x636E;&#x4E24;&#x4E2A;&#x70B9;&#x627E;&#x6B63;&#x65B9;&#x5F62;&#x4F1A;&#x627E;&#x56DB;&#x6B21; 
     }
     return 0;
 }
-</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
-<p>FZOJ1639魔板 <strong>题目描述</strong> 在魔方风靡全球之后，小Y发明了它的简化版——魔板，如图1所示，魔板由8个同样大小的方块组成，每个方块的颜色均不相同，本题中分别用数字1~8表示，它们可能出现在魔板的任一位置。任一时刻魔板的状态可以用方块的颜色序列表示：从魔板的左上角开始，按顺时针方向依次写下各个颜色块的颜色代号，得到数字序列即可表示此时魔板的状态。例如，序列(1,2,3,4,5,6,7,8)表示如图1所示魔板的状态，这也是本题中魔板的初始状态。</p>
+</code></pre><p><a class="magnific-img" href="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="&#x70B9;&#x51FB;&#x5E76;&#x62D6;&#x62FD;&#x4EE5;&#x79FB;&#x52A8;" class="ui centered image"></a></p>
+<p>FZOJ1639&#x9B54;&#x677F; <strong>&#x9898;&#x76EE;&#x63CF;&#x8FF0;</strong> &#x5728;&#x9B54;&#x65B9;&#x98CE;&#x9761;&#x5168;&#x7403;&#x4E4B;&#x540E;&#xFF0C;&#x5C0F;Y&#x53D1;&#x660E;&#x4E86;&#x5B83;&#x7684;&#x7B80;&#x5316;&#x7248;&#x2014;&#x2014;&#x9B54;&#x677F;&#xFF0C;&#x5982;&#x56FE;1&#x6240;&#x793A;&#xFF0C;&#x9B54;&#x677F;&#x7531;8&#x4E2A;&#x540C;&#x6837;&#x5927;&#x5C0F;&#x7684;&#x65B9;&#x5757;&#x7EC4;&#x6210;&#xFF0C;&#x6BCF;&#x4E2A;&#x65B9;&#x5757;&#x7684;&#x989C;&#x8272;&#x5747;&#x4E0D;&#x76F8;&#x540C;&#xFF0C;&#x672C;&#x9898;&#x4E2D;&#x5206;&#x522B;&#x7528;&#x6570;&#x5B57;1~8&#x8868;&#x793A;&#xFF0C;&#x5B83;&#x4EEC;&#x53EF;&#x80FD;&#x51FA;&#x73B0;&#x5728;&#x9B54;&#x677F;&#x7684;&#x4EFB;&#x4E00;&#x4F4D;&#x7F6E;&#x3002;&#x4EFB;&#x4E00;&#x65F6;&#x523B;&#x9B54;&#x677F;&#x7684;&#x72B6;&#x6001;&#x53EF;&#x4EE5;&#x7528;&#x65B9;&#x5757;&#x7684;&#x989C;&#x8272;&#x5E8F;&#x5217;&#x8868;&#x793A;&#xFF1A;&#x4ECE;&#x9B54;&#x677F;&#x7684;&#x5DE6;&#x4E0A;&#x89D2;&#x5F00;&#x59CB;&#xFF0C;&#x6309;&#x987A;&#x65F6;&#x9488;&#x65B9;&#x5411;&#x4F9D;&#x6B21;&#x5199;&#x4E0B;&#x5404;&#x4E2A;&#x989C;&#x8272;&#x5757;&#x7684;&#x989C;&#x8272;&#x4EE3;&#x53F7;&#xFF0C;&#x5F97;&#x5230;&#x6570;&#x5B57;&#x5E8F;&#x5217;&#x5373;&#x53EF;&#x8868;&#x793A;&#x6B64;&#x65F6;&#x9B54;&#x677F;&#x7684;&#x72B6;&#x6001;&#x3002;&#x4F8B;&#x5982;&#xFF0C;&#x5E8F;&#x5217;(1,2,3,4,5,6,7,8)&#x8868;&#x793A;&#x5982;&#x56FE;1&#x6240;&#x793A;&#x9B54;&#x677F;&#x7684;&#x72B6;&#x6001;&#xFF0C;&#x8FD9;&#x4E5F;&#x662F;&#x672C;&#x9898;&#x4E2D;&#x9B54;&#x677F;&#x7684;&#x521D;&#x59CB;&#x72B6;&#x6001;&#x3002;</p>
 <p>1</p>
 <p>2</p>
 <p>3</p>
@@ -315,7 +366,7 @@ int main(){
 <p>7</p>
 <p>6</p>
 <p>5</p>
-<pre><code>**图 1 魔板的初始状态** 对于魔板，可以施加三种不同的操作，分别以A,B,C标识。具体操作方法如下： A:上下行互换。 B：每一行同时循环右移一格。 C：中间4个方块顺时针旋转一格。 应用这三种基本操作，可以由任一种状态达到任意另外一种状态。 **图 2 魔板的操作方法** 图2描述了上述3种操作的具体含义，图中方格外面的数字标识魔板的8个方块位置，方格内数字表示此次操作前该小方块所在位置，即：如果位置P对应的方格中数字为I，则表示此次操作前该方块在位置I。 任务一：请编一程序，对于输入的一个目标状态寻找一种操作的序列，使得从初始状态开始，经过此操作序列后使该魔板变为目标状态。 任务二：如果你的程序寻找到的操作序列在300步以内，会得到任务二的分数。 输入数据只有一行，内容是8个以一个空隔分隔的正整数，表示目标状态。输入样例对应的状态如图3所示。输出数据要求第一行输出你的程序寻找到的操作序列的步数L，随后L行是相应的操作序列，每行的行首输出一个字符，代表相应的操作。
+<pre><code>**&#x56FE; 1 &#x9B54;&#x677F;&#x7684;&#x521D;&#x59CB;&#x72B6;&#x6001;** &#x5BF9;&#x4E8E;&#x9B54;&#x677F;&#xFF0C;&#x53EF;&#x4EE5;&#x65BD;&#x52A0;&#x4E09;&#x79CD;&#x4E0D;&#x540C;&#x7684;&#x64CD;&#x4F5C;&#xFF0C;&#x5206;&#x522B;&#x4EE5;A,B,C&#x6807;&#x8BC6;&#x3002;&#x5177;&#x4F53;&#x64CD;&#x4F5C;&#x65B9;&#x6CD5;&#x5982;&#x4E0B;&#xFF1A; A:&#x4E0A;&#x4E0B;&#x884C;&#x4E92;&#x6362;&#x3002; B&#xFF1A;&#x6BCF;&#x4E00;&#x884C;&#x540C;&#x65F6;&#x5FAA;&#x73AF;&#x53F3;&#x79FB;&#x4E00;&#x683C;&#x3002; C&#xFF1A;&#x4E2D;&#x95F4;4&#x4E2A;&#x65B9;&#x5757;&#x987A;&#x65F6;&#x9488;&#x65CB;&#x8F6C;&#x4E00;&#x683C;&#x3002; &#x5E94;&#x7528;&#x8FD9;&#x4E09;&#x79CD;&#x57FA;&#x672C;&#x64CD;&#x4F5C;&#xFF0C;&#x53EF;&#x4EE5;&#x7531;&#x4EFB;&#x4E00;&#x79CD;&#x72B6;&#x6001;&#x8FBE;&#x5230;&#x4EFB;&#x610F;&#x53E6;&#x5916;&#x4E00;&#x79CD;&#x72B6;&#x6001;&#x3002; **&#x56FE; 2 &#x9B54;&#x677F;&#x7684;&#x64CD;&#x4F5C;&#x65B9;&#x6CD5;** &#x56FE;2&#x63CF;&#x8FF0;&#x4E86;&#x4E0A;&#x8FF0;3&#x79CD;&#x64CD;&#x4F5C;&#x7684;&#x5177;&#x4F53;&#x542B;&#x4E49;&#xFF0C;&#x56FE;&#x4E2D;&#x65B9;&#x683C;&#x5916;&#x9762;&#x7684;&#x6570;&#x5B57;&#x6807;&#x8BC6;&#x9B54;&#x677F;&#x7684;8&#x4E2A;&#x65B9;&#x5757;&#x4F4D;&#x7F6E;&#xFF0C;&#x65B9;&#x683C;&#x5185;&#x6570;&#x5B57;&#x8868;&#x793A;&#x6B64;&#x6B21;&#x64CD;&#x4F5C;&#x524D;&#x8BE5;&#x5C0F;&#x65B9;&#x5757;&#x6240;&#x5728;&#x4F4D;&#x7F6E;&#xFF0C;&#x5373;&#xFF1A;&#x5982;&#x679C;&#x4F4D;&#x7F6E;P&#x5BF9;&#x5E94;&#x7684;&#x65B9;&#x683C;&#x4E2D;&#x6570;&#x5B57;&#x4E3A;I&#xFF0C;&#x5219;&#x8868;&#x793A;&#x6B64;&#x6B21;&#x64CD;&#x4F5C;&#x524D;&#x8BE5;&#x65B9;&#x5757;&#x5728;&#x4F4D;&#x7F6E;I&#x3002; &#x4EFB;&#x52A1;&#x4E00;&#xFF1A;&#x8BF7;&#x7F16;&#x4E00;&#x7A0B;&#x5E8F;&#xFF0C;&#x5BF9;&#x4E8E;&#x8F93;&#x5165;&#x7684;&#x4E00;&#x4E2A;&#x76EE;&#x6807;&#x72B6;&#x6001;&#x5BFB;&#x627E;&#x4E00;&#x79CD;&#x64CD;&#x4F5C;&#x7684;&#x5E8F;&#x5217;&#xFF0C;&#x4F7F;&#x5F97;&#x4ECE;&#x521D;&#x59CB;&#x72B6;&#x6001;&#x5F00;&#x59CB;&#xFF0C;&#x7ECF;&#x8FC7;&#x6B64;&#x64CD;&#x4F5C;&#x5E8F;&#x5217;&#x540E;&#x4F7F;&#x8BE5;&#x9B54;&#x677F;&#x53D8;&#x4E3A;&#x76EE;&#x6807;&#x72B6;&#x6001;&#x3002; &#x4EFB;&#x52A1;&#x4E8C;&#xFF1A;&#x5982;&#x679C;&#x4F60;&#x7684;&#x7A0B;&#x5E8F;&#x5BFB;&#x627E;&#x5230;&#x7684;&#x64CD;&#x4F5C;&#x5E8F;&#x5217;&#x5728;300&#x6B65;&#x4EE5;&#x5185;&#xFF0C;&#x4F1A;&#x5F97;&#x5230;&#x4EFB;&#x52A1;&#x4E8C;&#x7684;&#x5206;&#x6570;&#x3002; &#x8F93;&#x5165;&#x6570;&#x636E;&#x53EA;&#x6709;&#x4E00;&#x884C;&#xFF0C;&#x5185;&#x5BB9;&#x662F;8&#x4E2A;&#x4EE5;&#x4E00;&#x4E2A;&#x7A7A;&#x9694;&#x5206;&#x9694;&#x7684;&#x6B63;&#x6574;&#x6570;&#xFF0C;&#x8868;&#x793A;&#x76EE;&#x6807;&#x72B6;&#x6001;&#x3002;&#x8F93;&#x5165;&#x6837;&#x4F8B;&#x5BF9;&#x5E94;&#x7684;&#x72B6;&#x6001;&#x5982;&#x56FE;3&#x6240;&#x793A;&#x3002;&#x8F93;&#x51FA;&#x6570;&#x636E;&#x8981;&#x6C42;&#x7B2C;&#x4E00;&#x884C;&#x8F93;&#x51FA;&#x4F60;&#x7684;&#x7A0B;&#x5E8F;&#x5BFB;&#x627E;&#x5230;&#x7684;&#x64CD;&#x4F5C;&#x5E8F;&#x5217;&#x7684;&#x6B65;&#x6570;L&#xFF0C;&#x968F;&#x540E;L&#x884C;&#x662F;&#x76F8;&#x5E94;&#x7684;&#x64CD;&#x4F5C;&#x5E8F;&#x5217;&#xFF0C;&#x6BCF;&#x884C;&#x7684;&#x884C;&#x9996;&#x8F93;&#x51FA;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#xFF0C;&#x4EE3;&#x8868;&#x76F8;&#x5E94;&#x7684;&#x64CD;&#x4F5C;&#x3002;
 </code></pre><p>2</p>
 <p>6</p>
 <p>8</p>
@@ -324,147 +375,110 @@ int main(){
 <p>3</p>
 <p>7</p>
 <p>5</p>
-<pre><code>**图 3 魔板的输入样例的状态** **输入** **输出** 第一行输出你的程序寻找到的操作序列的步数L，随后L行是相应的操作序列，每行的行首输出一个字符，代表相应的操作。 **样例输入** 2 6 8 4 5 7 3 1 **样例输出** 7 B C A B C C B  **如果魔板数据太小，可用直接地址法，但本题魔板有10^8种可能，不现实。又考虑到在300步内可得到目标魔板，于是想到使用hash表存储已经遍历过的走法。** **从初始状态开始，进行BFS，取出一个元素，每次考虑三种可能的变化情况，搜索hash表，如果还未考虑此情况，就加入队列，继续搜索，同时记录每种走法的上一步father\[\]** **直到程序找到了目标解，那么依次遍历father\[\]，输出结果即可**
+<pre><code>**&#x56FE; 3 &#x9B54;&#x677F;&#x7684;&#x8F93;&#x5165;&#x6837;&#x4F8B;&#x7684;&#x72B6;&#x6001;** **&#x8F93;&#x5165;** **&#x8F93;&#x51FA;** &#x7B2C;&#x4E00;&#x884C;&#x8F93;&#x51FA;&#x4F60;&#x7684;&#x7A0B;&#x5E8F;&#x5BFB;&#x627E;&#x5230;&#x7684;&#x64CD;&#x4F5C;&#x5E8F;&#x5217;&#x7684;&#x6B65;&#x6570;L&#xFF0C;&#x968F;&#x540E;L&#x884C;&#x662F;&#x76F8;&#x5E94;&#x7684;&#x64CD;&#x4F5C;&#x5E8F;&#x5217;&#xFF0C;&#x6BCF;&#x884C;&#x7684;&#x884C;&#x9996;&#x8F93;&#x51FA;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#xFF0C;&#x4EE3;&#x8868;&#x76F8;&#x5E94;&#x7684;&#x64CD;&#x4F5C;&#x3002; **&#x6837;&#x4F8B;&#x8F93;&#x5165;** 2 6 8 4 5 7 3 1 **&#x6837;&#x4F8B;&#x8F93;&#x51FA;** 7 B C A B C C B  **&#x5982;&#x679C;&#x9B54;&#x677F;&#x6570;&#x636E;&#x592A;&#x5C0F;&#xFF0C;&#x53EF;&#x7528;&#x76F4;&#x63A5;&#x5730;&#x5740;&#x6CD5;&#xFF0C;&#x4F46;&#x672C;&#x9898;&#x9B54;&#x677F;&#x6709;10^8&#x79CD;&#x53EF;&#x80FD;&#xFF0C;&#x4E0D;&#x73B0;&#x5B9E;&#x3002;&#x53C8;&#x8003;&#x8651;&#x5230;&#x5728;300&#x6B65;&#x5185;&#x53EF;&#x5F97;&#x5230;&#x76EE;&#x6807;&#x9B54;&#x677F;&#xFF0C;&#x4E8E;&#x662F;&#x60F3;&#x5230;&#x4F7F;&#x7528;hash&#x8868;&#x5B58;&#x50A8;&#x5DF2;&#x7ECF;&#x904D;&#x5386;&#x8FC7;&#x7684;&#x8D70;&#x6CD5;&#x3002;** **&#x4ECE;&#x521D;&#x59CB;&#x72B6;&#x6001;&#x5F00;&#x59CB;&#xFF0C;&#x8FDB;&#x884C;BFS&#xFF0C;&#x53D6;&#x51FA;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#xFF0C;&#x6BCF;&#x6B21;&#x8003;&#x8651;&#x4E09;&#x79CD;&#x53EF;&#x80FD;&#x7684;&#x53D8;&#x5316;&#x60C5;&#x51B5;&#xFF0C;&#x641C;&#x7D22;hash&#x8868;&#xFF0C;&#x5982;&#x679C;&#x8FD8;&#x672A;&#x8003;&#x8651;&#x6B64;&#x60C5;&#x51B5;&#xFF0C;&#x5C31;&#x52A0;&#x5165;&#x961F;&#x5217;&#xFF0C;&#x7EE7;&#x7EED;&#x641C;&#x7D22;&#xFF0C;&#x540C;&#x65F6;&#x8BB0;&#x5F55;&#x6BCF;&#x79CD;&#x8D70;&#x6CD5;&#x7684;&#x4E0A;&#x4E00;&#x6B65;father\[\]** **&#x76F4;&#x5230;&#x7A0B;&#x5E8F;&#x627E;&#x5230;&#x4E86;&#x76EE;&#x6807;&#x89E3;&#xFF0C;&#x90A3;&#x4E48;&#x4F9D;&#x6B21;&#x904D;&#x5386;father\[\]&#xFF0C;&#x8F93;&#x51FA;&#x7ED3;&#x679C;&#x5373;&#x53EF;**
 </code></pre>
-      
+                        
+                    </div>
+
+                    
+                    
+                    
+
+                    <div class="description post-description">
+    <span class="post-description-item">
+        <time datetime="2018-12-06T15:44:06.000Z" itemprop="datePublished">2018-12-06</time>
+
+    </span>
+    <span class="post-description-item">
+        
+    </span>
+</div>
+
+                </div>
+                
+                <div id="pagination" class="nav-web ui text container pagination">
+
+    <div class="ui stackable two column divided grid container">
+        <div class="row">
+            <div class="column nav-left">
+                
+
+                <a href="/2018/12/06/e5-ad-97-e7-ac-a6-e4-b8-b2hash-ef-bc-8c-e5-ba-b7-e6-89-98-e5-b1-95-e5-bc-80-e6-80-bb-e7-bb-93/" class="ui tiny button">
+
+                    <i class="angle left icon"></i>
+                    
+                    字符串hash，康托展开总结
+                    
+
+                </a>
+
+                
+            </div>
+            <div class="column nav-right">
+                
+
+                <a href="/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e6-97-a0-e5-90-91-e5-9b-be-e5-89-b2-e8-be-b9-e5-89-b2-e7-82-b9-e3-80-81-e6-9c-80-e8-bf-91-e5-85-ac-e5-85-b1-e7-a5-96-e5-85-88-e7-9a-84-e6-80-bb-e7-bb-93/" class="ui tiny button">
+                    
+                    Tarjan算法求无向图割边割点、最近公共祖先的总结
+                    
+                    <i class="angle right icon"></i></a>
+                
+            </div>
+        </div>
     </div>
-    <footer class="article-footer">
-      <a data-url="http://mrh1s.top/2018/12/06/e7-a6-bb-e6-95-a3hash-e4-bc-98-e5-8c-96-e6-80-bb-e7-bb-93/" data-id="cjv80bexw003wa0etujqtloic" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2018/12/06/e5-ad-97-e7-ac-a6-e4-b8-b2hash-ef-bc-8c-e5-ba-b7-e6-89-98-e5-b1-95-e5-bc-80-e6-80-bb-e7-bb-93/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          字符串hash，康托展开总结
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e6-97-a0-e5-90-91-e5-9b-be-e5-89-b2-e8-be-b9-e5-89-b2-e7-82-b9-e3-80-81-e6-9c-80-e8-bf-91-e5-85-ac-e5-85-b1-e7-a5-96-e5-85-88-e7-9a-84-e6-80-bb-e7-bb-93/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Tarjan算法求无向图割边割点、最近公共祖先的总结</div>
-    </a>
-  
-</nav>
 
-  
-</article>
+</div>
+                
+            </div>
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/c-c/">c/c++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/notes/">notes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/project/">project</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/">write up</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cgctf/">cgctf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cnss-recruit-201809/">cnss_recruit_201809</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/hgame-20190122/">hgame_20190122</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nationalCTF-20190421/">nationalCTF_20190421</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nctf-20181124/">nctf_20181124</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/牢骚/">牢骚</a></li></ul>
+            
+            <div class="three wide computer three wide tablet column">
+
+                <div class="ui sticky article-toc" id="article-toc">
+                    <!-- toc -->
+                    <ol class="ui ordered list"><li><a href="#离散优化总结"><span>离散优化总结</span></a><ol><li><a href="#1640-线段覆盖"><span>1640: 线段覆盖</span></a></li><li><a href="#题目描述"><span>题目描述</span></a></li><li><a href="#输入"><span>输入</span></a></li><li><a href="#输出"><span>输出</span></a></li><li><a href="#样例输入"><span>样例输入</span></a></li><li><a href="#样例输出"><span>样例输出</span></a></li><li><a href="#1234-图形面积"><span>1234: 图形面积</span></a></li><li><a href="#题目描述-1"><span>题目描述</span></a></li><li><a href="#输入-1"><span>输入</span></a></li><li><a href="#输出-1"><span>输出</span></a></li><li><a href="#样例输入-1"><span>样例输入</span></a></li><li><a href="#样例输出-1"><span>样例输出</span></a></li><li><a href="#1807-正方形"><span>1807:正方形</span></a></li></ol></li></ol>
+                </div>
+
+            </div>
+            
+
+        </div>
     </div>
-  </div>
+</div>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Dynamic/">RE_Dynamic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+        <div class="ui vertical footer segment">
+    <div class="ui center aligned container">
+        <div class="ui inverted section divider"></div>
+        &copy; 2019 <a href="/">mrh929</a>,
+        Powered by <a href="https://github.com/henryhuang/hexo-theme-aloha" target="_blank">Aloha</a> and <a href="http://hexo.io/" target="_blank">Hexo</a>.
     </div>
-  </div>
+</div>
 
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/RE-Dynamic/" style="font-size: 10px;">RE_Dynamic</a> <a href="/tags/RE-Static/" style="font-size: 20px;">RE_Static</a>
     </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2019/05/03/Migration-Success/">Migration_Success!</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/28/bbvvmm/">bbvvmm</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/28/e5-8d-97-e4-ba-ac-e9-82-ae-e7-94-b5-e5-a4-a7-e5-ad-a6-re-wxyvm2/">南京邮电大学 RE-WxyVM2</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/13/e5-a3-b3-e7-9b-b8-e5-85-b3/">壳相关</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/22/shinyshot/">ShinyShot!</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 mrh929<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
 
 
 
-  </div>
+
+<!-- scripts list from theme config.yml -->
+
+<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+
+<script src="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch/3.18.1/algoliasearch.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch-helper-js/2.13.0/algoliasearch.helper.min.js"></script>
+
+<script src="/js/semantic-ui-algolia.js"></script>
+
+<script src="/js/aloha-events.js"></script>
+
+
+
 </body>
 </html>

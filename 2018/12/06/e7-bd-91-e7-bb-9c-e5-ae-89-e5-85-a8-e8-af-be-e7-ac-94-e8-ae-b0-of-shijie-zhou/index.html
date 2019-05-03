@@ -1,241 +1,255 @@
-<!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  
 
-  
-  <title>网络安全课笔记 of Shijie Zhou #1 | mrh929&#39;s home</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="周世杰一改以往作风，拿来点名册抽人回答问题 有节课没去的我瑟瑟发抖  信息安全基础知识信息，信息技术（3C，传感） 信息安全： ​ 1.通信安全 ​ 2.信息安全（五大属性） ​ 3.信息保障（强调过程） 网络空间安全：​ 从信息基础设施的角度去考虑、通信设备 密码学基础知识密码算法的分类 ​ 1.对称（DES、AES）与非对称（RSA、ECC） ​ 2.分组（用于有线通信）/流密码（用于无线通">
+
+<!DOCTYPE html>
+<html lang="cn">
+<head prefix="og: http://ogp.me/ns#"><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta name="description" content="Blog">
+    <title>网络安全课笔记 of Shijie Zhou #1 | mrh929&#39;s home</title>
+
+    <!-- Open Graph -->
+    <meta name="description" content="&amp;#x5468;&amp;#x4E16;&amp;#x6770;&amp;#x4E00;&amp;#x6539;&amp;#x4EE5;&amp;#x5F80;&amp;#x4F5C;&amp;#x98CE;&amp;#xFF0C;&amp;#x62FF;&amp;#x6765;&amp;#x70B9;&amp;#x540D;&amp;#x518C;&amp;#x62BD;&amp;#x4EBA;&amp;#x56DE;&amp;#x7B54;&amp;#x95EE;&amp;#x9898; &amp;#x6709;&amp;#x8282;&amp;#x8BFE;&amp;#x6CA">
 <meta property="og:type" content="article">
 <meta property="og:title" content="网络安全课笔记 of Shijie Zhou #1">
 <meta property="og:url" content="http://mrh1s.top/2018/12/06/e7-bd-91-e7-bb-9c-e5-ae-89-e5-85-a8-e8-af-be-e7-ac-94-e8-ae-b0-of-shijie-zhou/index.html">
 <meta property="og:site_name" content="mrh929&#39;s home">
-<meta property="og:description" content="周世杰一改以往作风，拿来点名册抽人回答问题 有节课没去的我瑟瑟发抖  信息安全基础知识信息，信息技术（3C，传感） 信息安全： ​ 1.通信安全 ​ 2.信息安全（五大属性） ​ 3.信息保障（强调过程） 网络空间安全：​ 从信息基础设施的角度去考虑、通信设备 密码学基础知识密码算法的分类 ​ 1.对称（DES、AES）与非对称（RSA、ECC） ​ 2.分组（用于有线通信）/流密码（用于无线通">
+<meta property="og:description" content="&amp;#x5468;&amp;#x4E16;&amp;#x6770;&amp;#x4E00;&amp;#x6539;&amp;#x4EE5;&amp;#x5F80;&amp;#x4F5C;&amp;#x98CE;&amp;#xFF0C;&amp;#x62FF;&amp;#x6765;&amp;#x70B9;&amp;#x540D;&amp;#x518C;&amp;#x62BD;&amp;#x4EBA;&amp;#x56DE;&amp;#x7B54;&amp;#x95EE;&amp;#x9898; &amp;#x6709;&amp;#x8282;&amp;#x8BFE;&amp;#x6CA">
 <meta property="og:locale" content="cn">
 <meta property="og:updated_time" content="2019-05-03T06:19:59.673Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="网络安全课笔记 of Shijie Zhou #1">
-<meta name="twitter:description" content="周世杰一改以往作风，拿来点名册抽人回答问题 有节课没去的我瑟瑟发抖  信息安全基础知识信息，信息技术（3C，传感） 信息安全： ​ 1.通信安全 ​ 2.信息安全（五大属性） ​ 3.信息保障（强调过程） 网络空间安全：​ 从信息基础设施的角度去考虑、通信设备 密码学基础知识密码算法的分类 ​ 1.对称（DES、AES）与非对称（RSA、ECC） ​ 2.分组（用于有线通信）/流密码（用于无线通">
-  
-    <link rel="alternate" href="/atom.xml" title="mrh929&#39;s home" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
+<meta name="twitter:description" content="&amp;#x5468;&amp;#x4E16;&amp;#x6770;&amp;#x4E00;&amp;#x6539;&amp;#x4EE5;&amp;#x5F80;&amp;#x4F5C;&amp;#x98CE;&amp;#xFF0C;&amp;#x62FF;&amp;#x6765;&amp;#x70B9;&amp;#x540D;&amp;#x518C;&amp;#x62BD;&amp;#x4EBA;&amp;#x56DE;&amp;#x7B54;&amp;#x95EE;&amp;#x9898; &amp;#x6709;&amp;#x8282;&amp;#x8BFE;&amp;#x6CA">
+
+    <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Person",
+  "email": "mailto:",
+  "image": "",
+  "name": "mrh929",
+  "url": "http://mrh1s.top"
+}
+</script>
+    <script>
+    var algoliaEnabled = false;
+    
+</script>
+
+    
+
+    
+    
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    
+    
+    
+        <!-- stylesheets list from config.yml -->
+        
+        <link rel="stylesheet" href="/css/aloha.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/magnific-popup.js/1.1.0/magnific-popup.min.css">
+        
+    
+
 </head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">mrh929&#39;s home</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://mrh1s.top"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-e7-bd-91-e7-bb-9c-e5-ae-89-e5-85-a8-e8-af-be-e7-ac-94-e8-ae-b0-of-shijie-zhou" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/12/06/e7-bd-91-e7-bb-9c-e5-ae-89-e5-85-a8-e8-af-be-e7-ac-94-e8-ae-b0-of-shijie-zhou/" class="article-date">
-  <time datetime="2018-12-06T13:58:05.000Z" itemprop="datePublished">2018-12-06</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/notes/">notes</a>
-  </div>
+<body id="body" style="margin-bottom: 0;" class="pushable">
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      网络安全课笔记 of Shijie Zhou #1
-    </h1>
-  
+    <div class="ui top fixed menu">
+        <a class="item" id="menu-icon"><i class="sidebar icon"></i></a>
+    </div>
 
-      </header>
+    <div id="menu-sidebar" class="ui left vertical sidebar menu">
+
+    <div id="sidebar-top">
+        <div class="content">
+            <h3>mrh929&#39;s home</h3>
+        </div>
+    </div>
+    <div class="ui container sidebar-card">
+    <div class="ui people shape content">
+        <div class="active side">
+            <div class="ui card">
+                <div class="image">
+                    <img class="ui medium bordered image" src="/images/avatar.jpg">
+                </div>
+                <div class="content">
+                    <a class="header">mrh929</a>
+                    
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                        
+                    </div>
+
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>周世杰一改以往作风，拿来点名册抽人回答问题 有节课没去的我瑟瑟发抖</p>
+    
+
+    
+
+    
+    <a href="/index.html" class="item">
+        <i class="home icon"></i>
+        HOME
+    </a>
+
+    
+
+    
+</div>
+
+    <div class="pusher body-content">
+        <div id="content" class="ui main container">
+            <!--<div class="ui one column grid">-->
+                <!--<div class="column">-->
+                    <!--<div class="ui main container">-->
+                        <div id="post-e7-bd-91-e7-bb-9c-e5-ae-89-e5-85-a8-e8-af-be-e7-ac-94-e8-ae-b0-of-shijie-zhou" class="ui main container article-type-post">
+
+    
+
+    <div class="ui divided grid">
+
+        <div class="two column row" id="article-content">
+
+            <div class="thirteen wide computer thirteen wide tablet sixteen wide mobile column">
+                
+
+<h1 class="ui header">
+    
+    网络安全课笔记 of Shijie Zhou #1
+</h1>
+
+
+
+                <div class="article-inner">
+
+                    <div class="article-entry" itemprop="articleBody">
+                        
+                        <blockquote>
+<p>&#x5468;&#x4E16;&#x6770;&#x4E00;&#x6539;&#x4EE5;&#x5F80;&#x4F5C;&#x98CE;&#xFF0C;&#x62FF;&#x6765;&#x70B9;&#x540D;&#x518C;&#x62BD;&#x4EBA;&#x56DE;&#x7B54;&#x95EE;&#x9898; &#x6709;&#x8282;&#x8BFE;&#x6CA1;&#x53BB;&#x7684;&#x6211;&#x745F;&#x745F;&#x53D1;&#x6296;</p>
 </blockquote>
-<h2 id="信息安全基础知识"><a href="#信息安全基础知识" class="headerlink" title="信息安全基础知识"></a>信息安全基础知识</h2><p><strong>信息，信息技术（3C，传感）</strong> <strong>信息安全：</strong> ​ 1.通信安全 ​ 2.信息安全（五大属性） ​ 3.信息保障（强调过程）</p>
-<h5 id="网络空间安全："><a href="#网络空间安全：" class="headerlink" title="网络空间安全："></a><strong>网络空间安全：</strong></h5><p>​ 从信息基础设施的角度去考虑、通信设备</p>
-<h2 id="密码学基础知识"><a href="#密码学基础知识" class="headerlink" title="密码学基础知识"></a>密码学基础知识</h2><p><strong>密码算法的分类</strong> ​ 1.对称（DES、AES）与非对称（RSA、ECC） ​ 2.分组（用于有线通信）/流密码（用于无线通信、RC4） <strong>对称加密算法特点：</strong>加密速度快，安全性较低 <strong>非对称加密算法特点：</strong>加密速度慢，安全性较强 <strong>会话密钥：</strong>用非对称加密算法加密数据，用对称加密算法加密密钥，再把密钥分发 <strong>非对称加密算法的提出</strong>： ​ 1.密钥如何安全分发，在不安全的信道上如何通信？（Merkle难题，短密钥加密长密钥） ​ 2.非对称加密算法的基本思想：数学难题（大整数因子分解，欧拉数，欧拉定理，欧几里德算法） <strong>公钥可信问题</strong>： ​ PKI-&gt;证书签名（用私钥去加密证书内容的hash值） <strong>单向函数</strong>： ​ 正向计算简单，逆向计算复杂（MD5，SHA-1，王小云）</p>
+<h2 id="&#x4FE1;&#x606F;&#x5B89;&#x5168;&#x57FA;&#x7840;&#x77E5;&#x8BC6;"><a href="#&#x4FE1;&#x606F;&#x5B89;&#x5168;&#x57FA;&#x7840;&#x77E5;&#x8BC6;" class="headerlink" title="&#x4FE1;&#x606F;&#x5B89;&#x5168;&#x57FA;&#x7840;&#x77E5;&#x8BC6;"></a>&#x4FE1;&#x606F;&#x5B89;&#x5168;&#x57FA;&#x7840;&#x77E5;&#x8BC6;</h2><p><strong>&#x4FE1;&#x606F;&#xFF0C;&#x4FE1;&#x606F;&#x6280;&#x672F;&#xFF08;3C&#xFF0C;&#x4F20;&#x611F;&#xFF09;</strong> <strong>&#x4FE1;&#x606F;&#x5B89;&#x5168;&#xFF1A;</strong> &#x200B; 1.&#x901A;&#x4FE1;&#x5B89;&#x5168; &#x200B; 2.&#x4FE1;&#x606F;&#x5B89;&#x5168;&#xFF08;&#x4E94;&#x5927;&#x5C5E;&#x6027;&#xFF09; &#x200B; 3.&#x4FE1;&#x606F;&#x4FDD;&#x969C;&#xFF08;&#x5F3A;&#x8C03;&#x8FC7;&#x7A0B;&#xFF09;</p>
+<h5 id="&#x7F51;&#x7EDC;&#x7A7A;&#x95F4;&#x5B89;&#x5168;&#xFF1A;"><a href="#&#x7F51;&#x7EDC;&#x7A7A;&#x95F4;&#x5B89;&#x5168;&#xFF1A;" class="headerlink" title="&#x7F51;&#x7EDC;&#x7A7A;&#x95F4;&#x5B89;&#x5168;&#xFF1A;"></a><strong>&#x7F51;&#x7EDC;&#x7A7A;&#x95F4;&#x5B89;&#x5168;&#xFF1A;</strong></h5><p>&#x200B; &#x4ECE;&#x4FE1;&#x606F;&#x57FA;&#x7840;&#x8BBE;&#x65BD;&#x7684;&#x89D2;&#x5EA6;&#x53BB;&#x8003;&#x8651;&#x3001;&#x901A;&#x4FE1;&#x8BBE;&#x5907;</p>
+<h2 id="&#x5BC6;&#x7801;&#x5B66;&#x57FA;&#x7840;&#x77E5;&#x8BC6;"><a href="#&#x5BC6;&#x7801;&#x5B66;&#x57FA;&#x7840;&#x77E5;&#x8BC6;" class="headerlink" title="&#x5BC6;&#x7801;&#x5B66;&#x57FA;&#x7840;&#x77E5;&#x8BC6;"></a>&#x5BC6;&#x7801;&#x5B66;&#x57FA;&#x7840;&#x77E5;&#x8BC6;</h2><p><strong>&#x5BC6;&#x7801;&#x7B97;&#x6CD5;&#x7684;&#x5206;&#x7C7B;</strong> &#x200B; 1.&#x5BF9;&#x79F0;&#xFF08;DES&#x3001;AES&#xFF09;&#x4E0E;&#x975E;&#x5BF9;&#x79F0;&#xFF08;RSA&#x3001;ECC&#xFF09; &#x200B; 2.&#x5206;&#x7EC4;&#xFF08;&#x7528;&#x4E8E;&#x6709;&#x7EBF;&#x901A;&#x4FE1;&#xFF09;/&#x6D41;&#x5BC6;&#x7801;&#xFF08;&#x7528;&#x4E8E;&#x65E0;&#x7EBF;&#x901A;&#x4FE1;&#x3001;RC4&#xFF09; <strong>&#x5BF9;&#x79F0;&#x52A0;&#x5BC6;&#x7B97;&#x6CD5;&#x7279;&#x70B9;&#xFF1A;</strong>&#x52A0;&#x5BC6;&#x901F;&#x5EA6;&#x5FEB;&#xFF0C;&#x5B89;&#x5168;&#x6027;&#x8F83;&#x4F4E; <strong>&#x975E;&#x5BF9;&#x79F0;&#x52A0;&#x5BC6;&#x7B97;&#x6CD5;&#x7279;&#x70B9;&#xFF1A;</strong>&#x52A0;&#x5BC6;&#x901F;&#x5EA6;&#x6162;&#xFF0C;&#x5B89;&#x5168;&#x6027;&#x8F83;&#x5F3A; <strong>&#x4F1A;&#x8BDD;&#x5BC6;&#x94A5;&#xFF1A;</strong>&#x7528;&#x975E;&#x5BF9;&#x79F0;&#x52A0;&#x5BC6;&#x7B97;&#x6CD5;&#x52A0;&#x5BC6;&#x6570;&#x636E;&#xFF0C;&#x7528;&#x5BF9;&#x79F0;&#x52A0;&#x5BC6;&#x7B97;&#x6CD5;&#x52A0;&#x5BC6;&#x5BC6;&#x94A5;&#xFF0C;&#x518D;&#x628A;&#x5BC6;&#x94A5;&#x5206;&#x53D1; <strong>&#x975E;&#x5BF9;&#x79F0;&#x52A0;&#x5BC6;&#x7B97;&#x6CD5;&#x7684;&#x63D0;&#x51FA;</strong>&#xFF1A; &#x200B; 1.&#x5BC6;&#x94A5;&#x5982;&#x4F55;&#x5B89;&#x5168;&#x5206;&#x53D1;&#xFF0C;&#x5728;&#x4E0D;&#x5B89;&#x5168;&#x7684;&#x4FE1;&#x9053;&#x4E0A;&#x5982;&#x4F55;&#x901A;&#x4FE1;&#xFF1F;&#xFF08;Merkle&#x96BE;&#x9898;&#xFF0C;&#x77ED;&#x5BC6;&#x94A5;&#x52A0;&#x5BC6;&#x957F;&#x5BC6;&#x94A5;&#xFF09; &#x200B; 2.&#x975E;&#x5BF9;&#x79F0;&#x52A0;&#x5BC6;&#x7B97;&#x6CD5;&#x7684;&#x57FA;&#x672C;&#x601D;&#x60F3;&#xFF1A;&#x6570;&#x5B66;&#x96BE;&#x9898;&#xFF08;&#x5927;&#x6574;&#x6570;&#x56E0;&#x5B50;&#x5206;&#x89E3;&#xFF0C;&#x6B27;&#x62C9;&#x6570;&#xFF0C;&#x6B27;&#x62C9;&#x5B9A;&#x7406;&#xFF0C;&#x6B27;&#x51E0;&#x91CC;&#x5FB7;&#x7B97;&#x6CD5;&#xFF09; <strong>&#x516C;&#x94A5;&#x53EF;&#x4FE1;&#x95EE;&#x9898;</strong>&#xFF1A; &#x200B; PKI-&gt;&#x8BC1;&#x4E66;&#x7B7E;&#x540D;&#xFF08;&#x7528;&#x79C1;&#x94A5;&#x53BB;&#x52A0;&#x5BC6;&#x8BC1;&#x4E66;&#x5185;&#x5BB9;&#x7684;hash&#x503C;&#xFF09; <strong>&#x5355;&#x5411;&#x51FD;&#x6570;</strong>&#xFF1A; &#x200B; &#x6B63;&#x5411;&#x8BA1;&#x7B97;&#x7B80;&#x5355;&#xFF0C;&#x9006;&#x5411;&#x8BA1;&#x7B97;&#x590D;&#x6742;&#xFF08;MD5&#xFF0C;SHA-1&#xFF0C;&#x738B;&#x5C0F;&#x4E91;&#xFF09;</p>
 
-      
+                        
+                    </div>
+
+                    
+                    
+                    
+
+                    <div class="description post-description">
+    <span class="post-description-item">
+        <time datetime="2018-12-06T13:58:05.000Z" itemprop="datePublished">2018-12-06</time>
+
+    </span>
+    <span class="post-description-item">
+        
+    </span>
+</div>
+
+                </div>
+                
+                <div id="pagination" class="nav-web ui text container pagination">
+
+    <div class="ui stackable two column divided grid container">
+        <div class="row">
+            <div class="column nav-left">
+                
+
+                <a href="/2018/12/06/e6-9d-a5-e4-b8-80-e6-ac-a1-e8-bf-81-e7-a7-bb-e5-b7-a5-e4-bd-9c-e5-90-a7/" class="ui tiny button">
+
+                    <i class="angle left icon"></i>
+                    
+                    来一次迁移工作吧
+                    
+
+                </a>
+
+                
+            </div>
+            <div class="column nav-right">
+                
+
+                <a href="/2018/12/01/some-boxes/" class="ui tiny button">
+                    
+                    Some Boxes
+                    
+                    <i class="angle right icon"></i></a>
+                
+            </div>
+        </div>
     </div>
-    <footer class="article-footer">
-      <a data-url="http://mrh1s.top/2018/12/06/e7-bd-91-e7-bb-9c-e5-ae-89-e5-85-a8-e8-af-be-e7-ac-94-e8-ae-b0-of-shijie-zhou/" data-id="cjv80bewk000za0eth6yk9xhf" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2018/12/06/e6-9d-a5-e4-b8-80-e6-ac-a1-e8-bf-81-e7-a7-bb-e5-b7-a5-e4-bd-9c-e5-90-a7/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          来一次迁移工作吧
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2018/12/01/some-boxes/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Some Boxes</div>
-    </a>
-  
-</nav>
 
-  
-</article>
+</div>
+                
+            </div>
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/c-c/">c/c++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/notes/">notes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/project/">project</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/">write up</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cgctf/">cgctf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cnss-recruit-201809/">cnss_recruit_201809</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/hgame-20190122/">hgame_20190122</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nationalCTF-20190421/">nationalCTF_20190421</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nctf-20181124/">nctf_20181124</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/牢骚/">牢骚</a></li></ul>
+            
+            <div class="three wide computer three wide tablet column">
+
+                <div class="ui sticky article-toc" id="article-toc">
+                    <!-- toc -->
+                    <ol class="ui ordered list"><li><a href="#信息安全基础知识"><span>信息安全基础知识</span></a><ol><li><a href="#网络空间安全："><span>网络空间安全：</span></a></li></ol></li></ol><li><a href="#密码学基础知识"><span>密码学基础知识</span></a></li>
+                </div>
+
+            </div>
+            
+
+        </div>
     </div>
-  </div>
+</div>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Dynamic/">RE_Dynamic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+        <div class="ui vertical footer segment">
+    <div class="ui center aligned container">
+        <div class="ui inverted section divider"></div>
+        &copy; 2019 <a href="/">mrh929</a>,
+        Powered by <a href="https://github.com/henryhuang/hexo-theme-aloha" target="_blank">Aloha</a> and <a href="http://hexo.io/" target="_blank">Hexo</a>.
     </div>
-  </div>
+</div>
 
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/RE-Dynamic/" style="font-size: 10px;">RE_Dynamic</a> <a href="/tags/RE-Static/" style="font-size: 20px;">RE_Static</a>
     </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2019/05/03/Migration-Success/">Migration_Success!</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/28/bbvvmm/">bbvvmm</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/28/e5-8d-97-e4-ba-ac-e9-82-ae-e7-94-b5-e5-a4-a7-e5-ad-a6-re-wxyvm2/">南京邮电大学 RE-WxyVM2</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/13/e5-a3-b3-e7-9b-b8-e5-85-b3/">壳相关</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/22/shinyshot/">ShinyShot!</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 mrh929<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
 
 
 
-  </div>
+
+<!-- scripts list from theme config.yml -->
+
+<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+
+<script src="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch/3.18.1/algoliasearch.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch-helper-js/2.13.0/algoliasearch.helper.min.js"></script>
+
+<script src="/js/semantic-ui-algolia.js"></script>
+
+<script src="/js/aloha-events.js"></script>
+
+
+
 </body>
 </html>

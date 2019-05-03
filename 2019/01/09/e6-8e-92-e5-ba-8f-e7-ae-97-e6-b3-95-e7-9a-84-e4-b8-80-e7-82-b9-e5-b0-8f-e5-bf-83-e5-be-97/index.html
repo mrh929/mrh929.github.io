@@ -1,241 +1,255 @@
-<!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  
 
-  
-  <title>排序算法的一点小心得 | mrh929&#39;s home</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="手写了两种排序算法，但是写快排的时候，数据一大就开始死循环 原来是我判断循环跳出条件那个地方出了一点问题，cmp函数里面我写的时候当a&amp;lt;b时才返回真，而当a==b时，程序会认为两个元素需要交换，从而无限次地交换，死循环  一句话总结：快排一定要 跳过两个元素相等的情况 1234567891011121314151617181920212223242526272829303132333435">
+
+<!DOCTYPE html>
+<html lang="cn">
+<head prefix="og: http://ogp.me/ns#"><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta name="description" content="Blog">
+    <title>排序算法的一点小心得 | mrh929&#39;s home</title>
+
+    <!-- Open Graph -->
+    <meta name="description" content="&amp;#x624B;&amp;#x5199;&amp;#x4E86;&amp;#x4E24;&amp;#x79CD;&amp;#x6392;&amp;#x5E8F;&amp;#x7B97;&amp;#x6CD5;&amp;#xFF0C;&amp;#x4F46;&amp;#x662F;&amp;#x5199;&amp;#x5FEB;&amp;#x6392;&amp;#x7684;&amp;#x65F6;&amp;#x5019;&amp;#xFF0C;&amp;#x6570;&amp;#x636E;&amp;#x4E00;&amp;#x5927;&amp;#x5C31;&amp;#x5F00">
 <meta property="og:type" content="article">
 <meta property="og:title" content="排序算法的一点小心得">
 <meta property="og:url" content="http://mrh1s.top/2019/01/09/e6-8e-92-e5-ba-8f-e7-ae-97-e6-b3-95-e7-9a-84-e4-b8-80-e7-82-b9-e5-b0-8f-e5-bf-83-e5-be-97/index.html">
 <meta property="og:site_name" content="mrh929&#39;s home">
-<meta property="og:description" content="手写了两种排序算法，但是写快排的时候，数据一大就开始死循环 原来是我判断循环跳出条件那个地方出了一点问题，cmp函数里面我写的时候当a&amp;lt;b时才返回真，而当a==b时，程序会认为两个元素需要交换，从而无限次地交换，死循环  一句话总结：快排一定要 跳过两个元素相等的情况 1234567891011121314151617181920212223242526272829303132333435">
+<meta property="og:description" content="&amp;#x624B;&amp;#x5199;&amp;#x4E86;&amp;#x4E24;&amp;#x79CD;&amp;#x6392;&amp;#x5E8F;&amp;#x7B97;&amp;#x6CD5;&amp;#xFF0C;&amp;#x4F46;&amp;#x662F;&amp;#x5199;&amp;#x5FEB;&amp;#x6392;&amp;#x7684;&amp;#x65F6;&amp;#x5019;&amp;#xFF0C;&amp;#x6570;&amp;#x636E;&amp;#x4E00;&amp;#x5927;&amp;#x5C31;&amp;#x5F00">
 <meta property="og:locale" content="cn">
 <meta property="og:updated_time" content="2019-05-03T06:31:46.039Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="排序算法的一点小心得">
-<meta name="twitter:description" content="手写了两种排序算法，但是写快排的时候，数据一大就开始死循环 原来是我判断循环跳出条件那个地方出了一点问题，cmp函数里面我写的时候当a&amp;lt;b时才返回真，而当a==b时，程序会认为两个元素需要交换，从而无限次地交换，死循环  一句话总结：快排一定要 跳过两个元素相等的情况 1234567891011121314151617181920212223242526272829303132333435">
-  
-    <link rel="alternate" href="/atom.xml" title="mrh929&#39;s home" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
+<meta name="twitter:description" content="&amp;#x624B;&amp;#x5199;&amp;#x4E86;&amp;#x4E24;&amp;#x79CD;&amp;#x6392;&amp;#x5E8F;&amp;#x7B97;&amp;#x6CD5;&amp;#xFF0C;&amp;#x4F46;&amp;#x662F;&amp;#x5199;&amp;#x5FEB;&amp;#x6392;&amp;#x7684;&amp;#x65F6;&amp;#x5019;&amp;#xFF0C;&amp;#x6570;&amp;#x636E;&amp;#x4E00;&amp;#x5927;&amp;#x5C31;&amp;#x5F00">
+
+    <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Person",
+  "email": "mailto:",
+  "image": "",
+  "name": "mrh929",
+  "url": "http://mrh1s.top"
+}
+</script>
+    <script>
+    var algoliaEnabled = false;
+    
+</script>
+
+    
+
+    
+    
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    
+    
+    
+        <!-- stylesheets list from config.yml -->
+        
+        <link rel="stylesheet" href="/css/aloha.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/magnific-popup.js/1.1.0/magnific-popup.min.css">
+        
+    
+
 </head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">mrh929&#39;s home</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://mrh1s.top"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-e6-8e-92-e5-ba-8f-e7-ae-97-e6-b3-95-e7-9a-84-e4-b8-80-e7-82-b9-e5-b0-8f-e5-bf-83-e5-be-97" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/01/09/e6-8e-92-e5-ba-8f-e7-ae-97-e6-b3-95-e7-9a-84-e4-b8-80-e7-82-b9-e5-b0-8f-e5-bf-83-e5-be-97/" class="article-date">
-  <time datetime="2019-01-09T07:01:14.000Z" itemprop="datePublished">2019-01-09</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/c-c/">c/c++</a>
-  </div>
+<body id="body" style="margin-bottom: 0;" class="pushable">
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      排序算法的一点小心得
-    </h1>
-  
+    <div class="ui top fixed menu">
+        <a class="item" id="menu-icon"><i class="sidebar icon"></i></a>
+    </div>
 
-      </header>
+    <div id="menu-sidebar" class="ui left vertical sidebar menu">
+
+    <div id="sidebar-top">
+        <div class="content">
+            <h3>mrh929&#39;s home</h3>
+        </div>
+    </div>
+    <div class="ui container sidebar-card">
+    <div class="ui people shape content">
+        <div class="active side">
+            <div class="ui card">
+                <div class="image">
+                    <img class="ui medium bordered image" src="/images/avatar.jpg">
+                </div>
+                <div class="content">
+                    <a class="header">mrh929</a>
+                    
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                        
+                    </div>
+
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <blockquote>
-<p>手写了两种排序算法，但是写快排的时候，数据一大就开始死循环 原来是我判断循环跳出条件那个地方出了一点问题，cmp函数里面我写的时候当a&lt;b时才返回真，而当a==b时，程序会认为两个元素需要交换，从而无限次地交换，死循环</p>
+    
+
+    
+
+    
+    <a href="/index.html" class="item">
+        <i class="home icon"></i>
+        HOME
+    </a>
+
+    
+
+    
+</div>
+
+    <div class="pusher body-content">
+        <div id="content" class="ui main container">
+            <!--<div class="ui one column grid">-->
+                <!--<div class="column">-->
+                    <!--<div class="ui main container">-->
+                        <div id="post-e6-8e-92-e5-ba-8f-e7-ae-97-e6-b3-95-e7-9a-84-e4-b8-80-e7-82-b9-e5-b0-8f-e5-bf-83-e5-be-97" class="ui main container article-type-post">
+
+    
+
+    <div class="ui divided grid">
+
+        <div class="two column row" id="article-content">
+
+            <div class="thirteen wide computer thirteen wide tablet sixteen wide mobile column">
+                
+
+<h1 class="ui header">
+    
+    排序算法的一点小心得
+</h1>
+
+
+
+                <div class="article-inner">
+
+                    <div class="article-entry" itemprop="articleBody">
+                        
+                        <blockquote>
+<p>&#x624B;&#x5199;&#x4E86;&#x4E24;&#x79CD;&#x6392;&#x5E8F;&#x7B97;&#x6CD5;&#xFF0C;&#x4F46;&#x662F;&#x5199;&#x5FEB;&#x6392;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x6570;&#x636E;&#x4E00;&#x5927;&#x5C31;&#x5F00;&#x59CB;&#x6B7B;&#x5FAA;&#x73AF; &#x539F;&#x6765;&#x662F;&#x6211;&#x5224;&#x65AD;&#x5FAA;&#x73AF;&#x8DF3;&#x51FA;&#x6761;&#x4EF6;&#x90A3;&#x4E2A;&#x5730;&#x65B9;&#x51FA;&#x4E86;&#x4E00;&#x70B9;&#x95EE;&#x9898;&#xFF0C;cmp&#x51FD;&#x6570;&#x91CC;&#x9762;&#x6211;&#x5199;&#x7684;&#x65F6;&#x5019;&#x5F53;a&lt;b&#x65F6;&#x624D;&#x8FD4;&#x56DE;&#x771F;&#xFF0C;&#x800C;&#x5F53;a==b&#x65F6;&#xFF0C;&#x7A0B;&#x5E8F;&#x4F1A;&#x8BA4;&#x4E3A;&#x4E24;&#x4E2A;&#x5143;&#x7D20;&#x9700;&#x8981;&#x4EA4;&#x6362;&#xFF0C;&#x4ECE;&#x800C;&#x65E0;&#x9650;&#x6B21;&#x5730;&#x4EA4;&#x6362;&#xFF0C;&#x6B7B;&#x5FAA;&#x73AF;</p>
 </blockquote>
-<p>一句话总结：快排一定要 跳过两个元素相等的情况</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;ctime&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX = <span class="number">100000</span>;</span><br><span class="line"><span class="keyword">int</span> a[MAX];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> a &lt; b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">set_array</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        a[i] = rand() % <span class="number">100</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d "</span>, a[i]);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n\n"</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bubble_sort</span><span class="params">(<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n - <span class="number">1</span>; i++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n - i; j++)</span><br><span class="line">            <span class="keyword">if</span>(!cmp(a[j], a[j + <span class="number">1</span>])) swap(a[j], a[j + <span class="number">1</span>]);</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">quick_sort</span><span class="params">(<span class="keyword">int</span> s, <span class="keyword">int</span> e)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(s &gt;= e ) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">int</span> i = s, j = e;</span><br><span class="line">    <span class="keyword">while</span>(i &lt; j)&#123;</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    下方while中，如果两个元素相等，必须跳过，因为一旦不跳过</span></span><br><span class="line"><span class="comment">    程序将陷入死循环 </span></span><br><span class="line"><span class="comment">    即加上 a[i]==a[j]</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">        <span class="keyword">while</span>(i &lt; j &amp;&amp; cmp(a[i], a[j]) || a[i] == a[j]) j--;</span><br><span class="line">        swap(a[i], a[j]);</span><br><span class="line">        <span class="keyword">while</span>(i &lt; j &amp;&amp; cmp(a[i], a[j]) || a[i] == a[j]) i++;</span><br><span class="line">        swap(a[i], a[j]);</span><br><span class="line">    &#125;</span><br><span class="line">    quick_sort(s, i<span class="number">-1</span>);</span><br><span class="line">    quick_sort(i+<span class="number">1</span>, e);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    srand(time(<span class="literal">NULL</span>));</span><br><span class="line">    <span class="keyword">int</span> n,CHOICE;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">    set_array(n);</span><br><span class="line">    print(n);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;CHOICE);</span><br><span class="line">    <span class="keyword">switch</span>(CHOICE)&#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">1</span>:&#123;</span><br><span class="line">            bubble_sort(n);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">2</span>:&#123;</span><br><span class="line">            quick_sort(<span class="number">1</span>, n);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    print(n);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>​    </p>
+<p>&#x4E00;&#x53E5;&#x8BDD;&#x603B;&#x7ED3;&#xFF1A;&#x5FEB;&#x6392;&#x4E00;&#x5B9A;&#x8981; &#x8DF3;&#x8FC7;&#x4E24;&#x4E2A;&#x5143;&#x7D20;&#x76F8;&#x7B49;&#x7684;&#x60C5;&#x51B5;</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;ctime&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX = <span class="number">100000</span>;</span><br><span class="line"><span class="keyword">int</span> a[MAX];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">cmp</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span>{</span><br><span class="line">    <span class="keyword">return</span> a &lt; b;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">set_array</span><span class="params">(<span class="keyword">int</span> n)</span></span>{</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        a[i] = rand() % <span class="number">100</span>;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">int</span> n)</span></span>{</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; i++)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%d &quot;</span>, a[i]);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n\n&quot;</span>);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bubble_sort</span><span class="params">(<span class="keyword">int</span> n)</span></span>{</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n - <span class="number">1</span>; i++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n - i; j++)</span><br><span class="line">            <span class="keyword">if</span>(!cmp(a[j], a[j + <span class="number">1</span>])) swap(a[j], a[j + <span class="number">1</span>]);</span><br><span class="line">}</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">quick_sort</span><span class="params">(<span class="keyword">int</span> s, <span class="keyword">int</span> e)</span></span>{</span><br><span class="line">    <span class="keyword">if</span>(s &gt;= e ) <span class="keyword">return</span>;</span><br><span class="line">    <span class="keyword">int</span> i = s, j = e;</span><br><span class="line">    <span class="keyword">while</span>(i &lt; j){</span><br><span class="line">    <span class="comment">/*</span></span><br><span class="line"><span class="comment">    &#x4E0B;&#x65B9;while&#x4E2D;&#xFF0C;&#x5982;&#x679C;&#x4E24;&#x4E2A;&#x5143;&#x7D20;&#x76F8;&#x7B49;&#xFF0C;&#x5FC5;&#x987B;&#x8DF3;&#x8FC7;&#xFF0C;&#x56E0;&#x4E3A;&#x4E00;&#x65E6;&#x4E0D;&#x8DF3;&#x8FC7;</span></span><br><span class="line"><span class="comment">    &#x7A0B;&#x5E8F;&#x5C06;&#x9677;&#x5165;&#x6B7B;&#x5FAA;&#x73AF; </span></span><br><span class="line"><span class="comment">    &#x5373;&#x52A0;&#x4E0A; a[i]==a[j]</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">        <span class="keyword">while</span>(i &lt; j &amp;&amp; cmp(a[i], a[j]) || a[i] == a[j]) j--;</span><br><span class="line">        swap(a[i], a[j]);</span><br><span class="line">        <span class="keyword">while</span>(i &lt; j &amp;&amp; cmp(a[i], a[j]) || a[i] == a[j]) i++;</span><br><span class="line">        swap(a[i], a[j]);</span><br><span class="line">    }</span><br><span class="line">    quick_sort(s, i<span class="number">-1</span>);</span><br><span class="line">    quick_sort(i+<span class="number">1</span>, e);</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>{</span><br><span class="line">    srand(time(<span class="literal">NULL</span>));</span><br><span class="line">    <span class="keyword">int</span> n,CHOICE;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">    set_array(n);</span><br><span class="line">    print(n);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;CHOICE);</span><br><span class="line">    <span class="keyword">switch</span>(CHOICE){</span><br><span class="line">        <span class="keyword">case</span> <span class="number">1</span>:{</span><br><span class="line">            bubble_sort(n);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">        <span class="keyword">case</span> <span class="number">2</span>:{</span><br><span class="line">            quick_sort(<span class="number">1</span>, n);</span><br><span class="line">            <span class="keyword">break</span>;</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line">    print(n);</span><br><span class="line"></span><br><span class="line">}</span><br></pre></td></tr></table></figure>
+<p>&#x200B;    </p>
 
-      
+                        
+                    </div>
+
+                    
+                    
+                    
+
+                    <div class="description post-description">
+    <span class="post-description-item">
+        <time datetime="2019-01-09T07:01:14.000Z" itemprop="datePublished">2019-01-09</time>
+
+    </span>
+    <span class="post-description-item">
+        
+    </span>
+</div>
+
+                </div>
+                
+                <div id="pagination" class="nav-web ui text container pagination">
+
+    <div class="ui stackable two column divided grid container">
+        <div class="row">
+            <div class="column nav-left">
+                
+
+                <a href="/2019/02/04/fat16-e6-96-87-e4-bb-b6-e7-b3-bb-e7-bb-9f/" class="ui tiny button">
+
+                    <i class="angle left icon"></i>
+                    
+                    FAT16文件系统
+                    
+
+                </a>
+
+                
+            </div>
+            <div class="column nav-right">
+                
+
+                <a href="/2019/01/03/e7-bd-91-e5-ae-89-e8-af-be-e7-ad-94-e8-be-a9-e6-af-94-e7-89-b9-e5-b8-81-e4-b8-8e-e5-8c-ba-e5-9d-97-e9-93-be/" class="ui tiny button">
+                    
+                    网安课答辩-比特币与区块链
+                    
+                    <i class="angle right icon"></i></a>
+                
+            </div>
+        </div>
     </div>
-    <footer class="article-footer">
-      <a data-url="http://mrh1s.top/2019/01/09/e6-8e-92-e5-ba-8f-e7-ae-97-e6-b3-95-e7-9a-84-e4-b8-80-e7-82-b9-e5-b0-8f-e5-bf-83-e5-be-97/" data-id="cjv80bewx001qa0etpbkq0u8b" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2019/02/04/fat16-e6-96-87-e4-bb-b6-e7-b3-bb-e7-bb-9f/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          FAT16文件系统
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2019/01/03/e7-bd-91-e5-ae-89-e8-af-be-e7-ad-94-e8-be-a9-e6-af-94-e7-89-b9-e5-b8-81-e4-b8-8e-e5-8c-ba-e5-9d-97-e9-93-be/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">网安课答辩-比特币与区块链</div>
-    </a>
-  
-</nav>
 
-  
-</article>
+</div>
+                
+            </div>
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/c-c/">c/c++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/notes/">notes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/project/">project</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/">write up</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cgctf/">cgctf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cnss-recruit-201809/">cnss_recruit_201809</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/hgame-20190122/">hgame_20190122</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nationalCTF-20190421/">nationalCTF_20190421</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nctf-20181124/">nctf_20181124</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/牢骚/">牢骚</a></li></ul>
+            
+            <div class="three wide computer three wide tablet column">
+
+                <div class="ui sticky article-toc" id="article-toc">
+                    <!-- toc -->
+                    
+                </div>
+
+            </div>
+            
+
+        </div>
     </div>
-  </div>
+</div>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Dynamic/">RE_Dynamic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+        <div class="ui vertical footer segment">
+    <div class="ui center aligned container">
+        <div class="ui inverted section divider"></div>
+        &copy; 2019 <a href="/">mrh929</a>,
+        Powered by <a href="https://github.com/henryhuang/hexo-theme-aloha" target="_blank">Aloha</a> and <a href="http://hexo.io/" target="_blank">Hexo</a>.
     </div>
-  </div>
+</div>
 
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/RE-Dynamic/" style="font-size: 10px;">RE_Dynamic</a> <a href="/tags/RE-Static/" style="font-size: 20px;">RE_Static</a>
     </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2019/05/03/Migration-Success/">Migration_Success!</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/28/bbvvmm/">bbvvmm</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/28/e5-8d-97-e4-ba-ac-e9-82-ae-e7-94-b5-e5-a4-a7-e5-ad-a6-re-wxyvm2/">南京邮电大学 RE-WxyVM2</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/13/e5-a3-b3-e7-9b-b8-e5-85-b3/">壳相关</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/22/shinyshot/">ShinyShot!</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 mrh929<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
 
 
 
-  </div>
+
+<!-- scripts list from theme config.yml -->
+
+<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+
+<script src="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch/3.18.1/algoliasearch.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch-helper-js/2.13.0/algoliasearch.helper.min.js"></script>
+
+<script src="/js/semantic-ui-algolia.js"></script>
+
+<script src="/js/aloha-events.js"></script>
+
+
+
 </body>
 </html>

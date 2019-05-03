@@ -1,107 +1,158 @@
-<!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  
 
-  
-  <title>ShinyShot! | mrh929&#39;s home</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="utf-8’ ‘ShinyShot!  这个程序主要是利用了smc（动态代码修改技术） 首先我们向程序里面输入一个数，然后这个程序利用这个数去修改了一些程序的代码 然后输入一个字符串，将字符串base64加密后得到的密文与程序尾所保存的字符串进行比较，如果相同，则flag正确  程序在我们输入了一个数字之后 执行了 *((_BYTE *)TopLevelExceptionFilter + (cou">
+
+<!DOCTYPE html>
+<html lang="cn">
+<head prefix="og: http://ogp.me/ns#"><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta name="description" content="Blog">
+    <title>ShinyShot! | mrh929&#39;s home</title>
+
+    <!-- Open Graph -->
+    <meta name="description" content="utf-8&amp;#x2019; &amp;#x2018;ShinyShot!  &amp;#x8FD9;&amp;#x4E2A;&amp;#x7A0B;&amp;#x5E8F;&amp;#x4E3B;&amp;#x8981;&amp;#x662F;&amp;#x5229;&amp;#x7528;&amp;#x4E86;smc&amp;#xFF08;&amp;#x52A8;&amp;#x6001;&amp;#x4EE3;&amp;#x7801;&amp;#x4FEE;&amp;#x6539;&amp;#x6280;&amp;#x672F;&amp;#xFF09; &amp;#">
 <meta name="keywords" content="RE_Static">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ShinyShot!">
 <meta property="og:url" content="http://mrh1s.top/2019/03/22/shinyshot/index.html">
 <meta property="og:site_name" content="mrh929&#39;s home">
-<meta property="og:description" content="utf-8’ ‘ShinyShot!  这个程序主要是利用了smc（动态代码修改技术） 首先我们向程序里面输入一个数，然后这个程序利用这个数去修改了一些程序的代码 然后输入一个字符串，将字符串base64加密后得到的密文与程序尾所保存的字符串进行比较，如果相同，则flag正确  程序在我们输入了一个数字之后 执行了 *((_BYTE *)TopLevelExceptionFilter + (cou">
+<meta property="og:description" content="utf-8&amp;#x2019; &amp;#x2018;ShinyShot!  &amp;#x8FD9;&amp;#x4E2A;&amp;#x7A0B;&amp;#x5E8F;&amp;#x4E3B;&amp;#x8981;&amp;#x662F;&amp;#x5229;&amp;#x7528;&amp;#x4E86;smc&amp;#xFF08;&amp;#x52A8;&amp;#x6001;&amp;#x4EE3;&amp;#x7801;&amp;#x4FEE;&amp;#x6539;&amp;#x6280;&amp;#x672F;&amp;#xFF09; &amp;#">
 <meta property="og:locale" content="cn">
 <meta property="og:updated_time" content="2019-05-03T09:32:59.993Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ShinyShot!">
-<meta name="twitter:description" content="utf-8’ ‘ShinyShot!  这个程序主要是利用了smc（动态代码修改技术） 首先我们向程序里面输入一个数，然后这个程序利用这个数去修改了一些程序的代码 然后输入一个字符串，将字符串base64加密后得到的密文与程序尾所保存的字符串进行比较，如果相同，则flag正确  程序在我们输入了一个数字之后 执行了 *((_BYTE *)TopLevelExceptionFilter + (cou">
-  
-    <link rel="alternate" href="/atom.xml" title="mrh929&#39;s home" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
+<meta name="twitter:description" content="utf-8&amp;#x2019; &amp;#x2018;ShinyShot!  &amp;#x8FD9;&amp;#x4E2A;&amp;#x7A0B;&amp;#x5E8F;&amp;#x4E3B;&amp;#x8981;&amp;#x662F;&amp;#x5229;&amp;#x7528;&amp;#x4E86;smc&amp;#xFF08;&amp;#x52A8;&amp;#x6001;&amp;#x4EE3;&amp;#x7801;&amp;#x4FEE;&amp;#x6539;&amp;#x6280;&amp;#x672F;&amp;#xFF09; &amp;#">
+
+    <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Person",
+  "email": "mailto:",
+  "image": "",
+  "name": "mrh929",
+  "url": "http://mrh1s.top"
+}
+</script>
+    <script>
+    var algoliaEnabled = false;
+    
+</script>
+
+    
+
+    
+    
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    
+    
+    
+        <!-- stylesheets list from config.yml -->
+        
+        <link rel="stylesheet" href="/css/aloha.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/magnific-popup.js/1.1.0/magnific-popup.min.css">
+        
+    
+
 </head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">mrh929&#39;s home</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://mrh1s.top"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-shinyshot" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2019/03/22/shinyshot/" class="article-date">
-  <time datetime="2019-03-22T03:00:30.000Z" itemprop="datePublished">2019-03-22</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/write-up/">write up</a>►<a class="article-category-link" href="/categories/write-up/hgame-20190122/">hgame_20190122</a>
-  </div>
+<body id="body" style="margin-bottom: 0;" class="pushable">
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      ShinyShot!
-    </h1>
-  
+    <div class="ui top fixed menu">
+        <a class="item" id="menu-icon"><i class="sidebar icon"></i></a>
+    </div>
 
-      </header>
+    <div id="menu-sidebar" class="ui left vertical sidebar menu">
+
+    <div id="sidebar-top">
+        <div class="content">
+            <h3>mrh929&#39;s home</h3>
+        </div>
+    </div>
+    <div class="ui container sidebar-card">
+    <div class="ui people shape content">
+        <div class="active side">
+            <div class="ui card">
+                <div class="image">
+                    <img class="ui medium bordered image" src="/images/avatar.jpg">
+                </div>
+                <div class="content">
+                    <a class="header">mrh929</a>
+                    
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                        
+                    </div>
+
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><a href="/uploads/utf-8-ShinyShot.7z">utf-8’ ‘ShinyShot!</a></p>
+    
+
+    
+
+    
+    <a href="/index.html" class="item">
+        <i class="home icon"></i>
+        HOME
+    </a>
+
+    
+
+    
+</div>
+
+    <div class="pusher body-content">
+        <div id="content" class="ui main container">
+            <!--<div class="ui one column grid">-->
+                <!--<div class="column">-->
+                    <!--<div class="ui main container">-->
+                        <div id="post-shinyshot" class="ui main container article-type-post">
+
+    
+
+    <div class="ui divided grid">
+
+        <div class="two column row" id="article-content">
+
+            <div class="thirteen wide computer thirteen wide tablet sixteen wide mobile column">
+                
+
+<h1 class="ui header">
+    
+    ShinyShot!
+</h1>
+
+
+
+                <div class="article-inner">
+
+                    <div class="article-entry" itemprop="articleBody">
+                        
+                        <p><a href="/uploads/utf-8-ShinyShot.7z">utf-8&#x2019; &#x2018;ShinyShot!</a></p>
 <blockquote>
-<p>这个程序主要是利用了smc（动态代码修改技术） 首先我们向程序里面输入一个数，然后这个程序利用这个数去修改了一些程序的代码 然后输入一个字符串，将字符串base64加密后得到的密文与程序尾所保存的字符串进行比较，如果相同，则flag正确</p>
+<p>&#x8FD9;&#x4E2A;&#x7A0B;&#x5E8F;&#x4E3B;&#x8981;&#x662F;&#x5229;&#x7528;&#x4E86;smc&#xFF08;&#x52A8;&#x6001;&#x4EE3;&#x7801;&#x4FEE;&#x6539;&#x6280;&#x672F;&#xFF09; &#x9996;&#x5148;&#x6211;&#x4EEC;&#x5411;&#x7A0B;&#x5E8F;&#x91CC;&#x9762;&#x8F93;&#x5165;&#x4E00;&#x4E2A;&#x6570;&#xFF0C;&#x7136;&#x540E;&#x8FD9;&#x4E2A;&#x7A0B;&#x5E8F;&#x5229;&#x7528;&#x8FD9;&#x4E2A;&#x6570;&#x53BB;&#x4FEE;&#x6539;&#x4E86;&#x4E00;&#x4E9B;&#x7A0B;&#x5E8F;&#x7684;&#x4EE3;&#x7801; &#x7136;&#x540E;&#x8F93;&#x5165;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5C06;&#x5B57;&#x7B26;&#x4E32;base64&#x52A0;&#x5BC6;&#x540E;&#x5F97;&#x5230;&#x7684;&#x5BC6;&#x6587;&#x4E0E;&#x7A0B;&#x5E8F;&#x5C3E;&#x6240;&#x4FDD;&#x5B58;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x8FDB;&#x884C;&#x6BD4;&#x8F83;&#xFF0C;&#x5982;&#x679C;&#x76F8;&#x540C;&#xFF0C;&#x5219;flag&#x6B63;&#x786E;</p>
 </blockquote>
-<p>程序在我们输入了一个数字之后 执行了</p>
+<p>&#x7A0B;&#x5E8F;&#x5728;&#x6211;&#x4EEC;&#x8F93;&#x5165;&#x4E86;&#x4E00;&#x4E2A;&#x6570;&#x5B57;&#x4E4B;&#x540E; &#x6267;&#x884C;&#x4E86;</p>
 <pre><code>*((_BYTE *)TopLevelExceptionFilter + (cout &gt;&gt; 3)) ^= 1 &lt;&lt; (cout &amp; 7);
-</code></pre><p>这个指令，TopLevelExceptionFilter的意义暂时不明白，大概就是一个指向某个内存的指针，简记为T, 值为0x401000 程序把*(p + (cout &gt;&gt; 3)) 处的数据异或了一个1 &lt;&lt; (cout &amp; 7) 其实1 &lt;&lt; (cout &amp; 7)就是将1左移了几位 我们看到后面的</p>
+</code></pre><p>&#x8FD9;&#x4E2A;&#x6307;&#x4EE4;&#xFF0C;TopLevelExceptionFilter&#x7684;&#x610F;&#x4E49;&#x6682;&#x65F6;&#x4E0D;&#x660E;&#x767D;&#xFF0C;&#x5927;&#x6982;&#x5C31;&#x662F;&#x4E00;&#x4E2A;&#x6307;&#x5411;&#x67D0;&#x4E2A;&#x5185;&#x5B58;&#x7684;&#x6307;&#x9488;&#xFF0C;&#x7B80;&#x8BB0;&#x4E3A;T, &#x503C;&#x4E3A;0x401000 &#x7A0B;&#x5E8F;&#x628A;*(p + (cout &gt;&gt; 3)) &#x5904;&#x7684;&#x6570;&#x636E;&#x5F02;&#x6216;&#x4E86;&#x4E00;&#x4E2A;1 &lt;&lt; (cout &amp; 7) &#x5176;&#x5B9E;1 &lt;&lt; (cout &amp; 7)&#x5C31;&#x662F;&#x5C06;1&#x5DE6;&#x79FB;&#x4E86;&#x51E0;&#x4F4D; &#x6211;&#x4EEC;&#x770B;&#x5230;&#x540E;&#x9762;&#x7684;</p>
 <pre><code>.text:004018DE EB 15             jmp     short loc_4018F5
 .text:004018E0                   ; ---------------------------------------------------------------------------
 .text:004018E0
-.text:004018E0                   loc_4018E0:                   ; CODE XREF: sub_4017AA+126↑j
+.text:004018E0                   loc_4018E0:                   ; CODE XREF: sub_4017AA+126&#x2191;j
 .text:004018E0 E8 A7 FE FF FF    call    sub_40178C
 .text:004018E5                   ; ---------------------------------------------------------------------------
 .text:004018E5
@@ -111,151 +162,124 @@
 .text:004018EF 8D 45 A4          lea     eax, [ebp+Buf]
 .text:004018F2 89 04 24          mov     [esp+414h+var_414], eax ; char *
 .text:004018F5
-.text:004018F5                   loc_4018F5:                   ; CODE XREF: sub_4017AA+134↑j
+.text:004018F5                   loc_4018F5:                   ; CODE XREF: sub_4017AA+134&#x2191;j
 .text:004018F5 E8 00 FC FF FF    call    sub_4014FA
-</code></pre><p>0x 004018DE jmp 15 的意义是，除开jmp 15，往后数0x15个字节，将程序运行指针设置到此处。 而sub_4014FA是一个需要两个参数的函数，没有参数的传入，函数一定不会有正确答案。 所以我们应当将 jmp 15改为jmp到传入参数的位置 经过计算jmp 5 即可，现在我们的工作是要把0x004018DF处的15修改为5 0x15 = ‭00010101‬ 0x5 = 00000101 也就是把第五位的1抹掉就行了，之前那个不明意义的内存修改就是这个用处了。 num = (0x8df&lt;&lt;3) + 0x4 = 18172 后面是一个base64加密，但闲鱼本人并不是密码学选手，太菜了，所以暂时跳过。。 最后将改版的base64加密后的字符串与程序内的进行比较，得到flag</p>
+</code></pre><p>0x 004018DE jmp 15 &#x7684;&#x610F;&#x4E49;&#x662F;&#xFF0C;&#x9664;&#x5F00;jmp 15&#xFF0C;&#x5F80;&#x540E;&#x6570;0x15&#x4E2A;&#x5B57;&#x8282;&#xFF0C;&#x5C06;&#x7A0B;&#x5E8F;&#x8FD0;&#x884C;&#x6307;&#x9488;&#x8BBE;&#x7F6E;&#x5230;&#x6B64;&#x5904;&#x3002; &#x800C;sub_4014FA&#x662F;&#x4E00;&#x4E2A;&#x9700;&#x8981;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#x7684;&#x51FD;&#x6570;&#xFF0C;&#x6CA1;&#x6709;&#x53C2;&#x6570;&#x7684;&#x4F20;&#x5165;&#xFF0C;&#x51FD;&#x6570;&#x4E00;&#x5B9A;&#x4E0D;&#x4F1A;&#x6709;&#x6B63;&#x786E;&#x7B54;&#x6848;&#x3002; &#x6240;&#x4EE5;&#x6211;&#x4EEC;&#x5E94;&#x5F53;&#x5C06; jmp 15&#x6539;&#x4E3A;jmp&#x5230;&#x4F20;&#x5165;&#x53C2;&#x6570;&#x7684;&#x4F4D;&#x7F6E; &#x7ECF;&#x8FC7;&#x8BA1;&#x7B97;jmp 5 &#x5373;&#x53EF;&#xFF0C;&#x73B0;&#x5728;&#x6211;&#x4EEC;&#x7684;&#x5DE5;&#x4F5C;&#x662F;&#x8981;&#x628A;0x004018DF&#x5904;&#x7684;15&#x4FEE;&#x6539;&#x4E3A;5 0x15 = &#x202D;00010101&#x202C; 0x5 = 00000101 &#x4E5F;&#x5C31;&#x662F;&#x628A;&#x7B2C;&#x4E94;&#x4F4D;&#x7684;1&#x62B9;&#x6389;&#x5C31;&#x884C;&#x4E86;&#xFF0C;&#x4E4B;&#x524D;&#x90A3;&#x4E2A;&#x4E0D;&#x660E;&#x610F;&#x4E49;&#x7684;&#x5185;&#x5B58;&#x4FEE;&#x6539;&#x5C31;&#x662F;&#x8FD9;&#x4E2A;&#x7528;&#x5904;&#x4E86;&#x3002; num = (0x8df&lt;&lt;3) + 0x4 = 18172 &#x540E;&#x9762;&#x662F;&#x4E00;&#x4E2A;base64&#x52A0;&#x5BC6;&#xFF0C;&#x4F46;&#x95F2;&#x9C7C;&#x672C;&#x4EBA;&#x5E76;&#x4E0D;&#x662F;&#x5BC6;&#x7801;&#x5B66;&#x9009;&#x624B;&#xFF0C;&#x592A;&#x83DC;&#x4E86;&#xFF0C;&#x6240;&#x4EE5;&#x6682;&#x65F6;&#x8DF3;&#x8FC7;&#x3002;&#x3002; &#x6700;&#x540E;&#x5C06;&#x6539;&#x7248;&#x7684;base64&#x52A0;&#x5BC6;&#x540E;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x4E0E;&#x7A0B;&#x5E8F;&#x5185;&#x7684;&#x8FDB;&#x884C;&#x6BD4;&#x8F83;&#xFF0C;&#x5F97;&#x5230;flag</p>
 
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://mrh1s.top/2019/03/22/shinyshot/" data-id="cjv80bex5002ca0etcix3losa" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+                        
+                    </div>
 
-    </footer>
-  </div>
-  
+                    
+                    
+                    
+
+                    <div class="description post-description">
+    <span class="post-description-item">
+        <time datetime="2019-03-22T03:00:30.000Z" itemprop="datePublished">2019-03-22</time>
+
+    </span>
+    <span class="post-description-item">
+        
+
+    <span>
+        <i class="tags icon"></i>
+    </span>
+
     
-<nav id="article-nav">
-  
-    <a href="/2019/04/13/e5-a3-b3-e7-9b-b8-e5-85-b3/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          壳相关
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2019/03/21/happyvm/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">HappyVM</div>
-    </a>
-  
-</nav>
+    <span class="ui tiny label">
+        <a href="/tags/RE-Static/">RE_Static</a>
+    </span>
 
-  
-</article>
-
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/c-c/">c/c++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/notes/">notes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/project/">project</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/">write up</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cgctf/">cgctf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cnss-recruit-201809/">cnss_recruit_201809</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/hgame-20190122/">hgame_20190122</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nationalCTF-20190421/">nationalCTF_20190421</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nctf-20181124/">nctf_20181124</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/牢骚/">牢骚</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Dynamic/">RE_Dynamic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/RE-Dynamic/" style="font-size: 10px;">RE_Dynamic</a> <a href="/tags/RE-Static/" style="font-size: 20px;">RE_Static</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2019/05/03/Migration-Success/">Migration_Success!</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/28/bbvvmm/">bbvvmm</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/28/e5-8d-97-e4-ba-ac-e9-82-ae-e7-94-b5-e5-a4-a7-e5-ad-a6-re-wxyvm2/">南京邮电大学 RE-WxyVM2</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/13/e5-a3-b3-e7-9b-b8-e5-85-b3/">壳相关</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/22/shinyshot/">ShinyShot!</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 mrh929<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    </span>
+</div>
+
+                </div>
+                
+                <div id="pagination" class="nav-web ui text container pagination">
+
+    <div class="ui stackable two column divided grid container">
+        <div class="row">
+            <div class="column nav-left">
+                
+
+                <a href="/2019/04/13/e5-a3-b3-e7-9b-b8-e5-85-b3/" class="ui tiny button">
+
+                    <i class="angle left icon"></i>
+                    
+                    壳相关
+                    
+
+                </a>
+
+                
+            </div>
+            <div class="column nav-right">
+                
+
+                <a href="/2019/03/21/happyvm/" class="ui tiny button">
+                    
+                    HappyVM
+                    
+                    <i class="angle right icon"></i></a>
+                
+            </div>
+        </div>
+    </div>
+
+</div>
+                
+            </div>
+
+            
+            <div class="three wide computer three wide tablet column">
+
+                <div class="ui sticky article-toc" id="article-toc">
+                    <!-- toc -->
+                    
+                </div>
+
+            </div>
+            
+
+        </div>
+    </div>
+</div>
 
 
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+        <div class="ui vertical footer segment">
+    <div class="ui center aligned container">
+        <div class="ui inverted section divider"></div>
+        &copy; 2019 <a href="/">mrh929</a>,
+        Powered by <a href="https://github.com/henryhuang/hexo-theme-aloha" target="_blank">Aloha</a> and <a href="http://hexo.io/" target="_blank">Hexo</a>.
+    </div>
+</div>
+
+    </div>
 
 
-<script src="/js/script.js"></script>
+
+
+<!-- scripts list from theme config.yml -->
+
+<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+
+<script src="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch/3.18.1/algoliasearch.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch-helper-js/2.13.0/algoliasearch.helper.min.js"></script>
+
+<script src="/js/semantic-ui-algolia.js"></script>
+
+<script src="/js/aloha-events.js"></script>
 
 
 
-  </div>
 </body>
 </html>

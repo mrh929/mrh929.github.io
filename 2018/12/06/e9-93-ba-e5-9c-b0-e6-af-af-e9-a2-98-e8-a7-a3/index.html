@@ -1,98 +1,149 @@
-<!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  
 
-  
-  <title>铺地毯题解 | mrh929&#39;s home</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="14:铺地毯总时间限制: 1000ms 内存限制: 65536kB 描述 为了准备一个独特的颁奖典礼，组织者在会场的一片矩形区域（可看做是平面直角坐标系的第一象限）铺上一些矩形地毯。一共有n张地毯，编号从1到n。现在将这些地毯按照编号从小到大的顺序平行于坐标轴先后铺设，后铺的地毯覆盖在前面已经铺好的地毯之上。地毯铺设完成后，组织者想知道覆盖地面某个点的最上面的那张地毯的编号。注意：在矩形地毯边界和">
+
+<!DOCTYPE html>
+<html lang="cn">
+<head prefix="og: http://ogp.me/ns#"><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta name="description" content="Blog">
+    <title>铺地毯题解 | mrh929&#39;s home</title>
+
+    <!-- Open Graph -->
+    <meta name="description" content="14:&amp;#x94FA;&amp;#x5730;&amp;#x6BEF;&amp;#x603B;&amp;#x65F6;&amp;#x95F4;&amp;#x9650;&amp;#x5236;: 1000ms &amp;#x5185;&amp;#x5B58;&amp;#x9650;&amp;#x5236;: 65536kB &amp;#x63CF;&amp;#x8FF0; &amp;#x4E3A;&amp;#x4E86;&amp;#x51C6;&amp;#x5907;&amp;#x4E00;&amp;#x4E2A;&amp;#x72EC;&amp;#x7279;&amp;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="铺地毯题解">
 <meta property="og:url" content="http://mrh1s.top/2018/12/06/e9-93-ba-e5-9c-b0-e6-af-af-e9-a2-98-e8-a7-a3/index.html">
 <meta property="og:site_name" content="mrh929&#39;s home">
-<meta property="og:description" content="14:铺地毯总时间限制: 1000ms 内存限制: 65536kB 描述 为了准备一个独特的颁奖典礼，组织者在会场的一片矩形区域（可看做是平面直角坐标系的第一象限）铺上一些矩形地毯。一共有n张地毯，编号从1到n。现在将这些地毯按照编号从小到大的顺序平行于坐标轴先后铺设，后铺的地毯覆盖在前面已经铺好的地毯之上。地毯铺设完成后，组织者想知道覆盖地面某个点的最上面的那张地毯的编号。注意：在矩形地毯边界和">
+<meta property="og:description" content="14:&amp;#x94FA;&amp;#x5730;&amp;#x6BEF;&amp;#x603B;&amp;#x65F6;&amp;#x95F4;&amp;#x9650;&amp;#x5236;: 1000ms &amp;#x5185;&amp;#x5B58;&amp;#x9650;&amp;#x5236;: 65536kB &amp;#x63CF;&amp;#x8FF0; &amp;#x4E3A;&amp;#x4E86;&amp;#x51C6;&amp;#x5907;&amp;#x4E00;&amp;#x4E2A;&amp;#x72EC;&amp;#x7279;&amp;">
 <meta property="og:locale" content="cn">
 <meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
 <meta property="og:updated_time" content="2019-05-03T06:19:59.673Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="铺地毯题解">
-<meta name="twitter:description" content="14:铺地毯总时间限制: 1000ms 内存限制: 65536kB 描述 为了准备一个独特的颁奖典礼，组织者在会场的一片矩形区域（可看做是平面直角坐标系的第一象限）铺上一些矩形地毯。一共有n张地毯，编号从1到n。现在将这些地毯按照编号从小到大的顺序平行于坐标轴先后铺设，后铺的地毯覆盖在前面已经铺好的地毯之上。地毯铺设完成后，组织者想知道覆盖地面某个点的最上面的那张地毯的编号。注意：在矩形地毯边界和">
+<meta name="twitter:description" content="14:&amp;#x94FA;&amp;#x5730;&amp;#x6BEF;&amp;#x603B;&amp;#x65F6;&amp;#x95F4;&amp;#x9650;&amp;#x5236;: 1000ms &amp;#x5185;&amp;#x5B58;&amp;#x9650;&amp;#x5236;: 65536kB &amp;#x63CF;&amp;#x8FF0; &amp;#x4E3A;&amp;#x4E86;&amp;#x51C6;&amp;#x5907;&amp;#x4E00;&amp;#x4E2A;&amp;#x72EC;&amp;#x7279;&amp;">
 <meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
-  
-    <link rel="alternate" href="/atom.xml" title="mrh929&#39;s home" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
+
+    <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Person",
+  "email": "mailto:",
+  "image": "",
+  "name": "mrh929",
+  "url": "http://mrh1s.top"
+}
+</script>
+    <script>
+    var algoliaEnabled = false;
+    
+</script>
+
+    
+
+    
+    
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    
+    
+    
+        <!-- stylesheets list from config.yml -->
+        
+        <link rel="stylesheet" href="/css/aloha.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/magnific-popup.js/1.1.0/magnific-popup.min.css">
+        
+    
+
 </head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">mrh929&#39;s home</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://mrh1s.top"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-e9-93-ba-e5-9c-b0-e6-af-af-e9-a2-98-e8-a7-a3" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/12/06/e9-93-ba-e5-9c-b0-e6-af-af-e9-a2-98-e8-a7-a3/" class="article-date">
-  <time datetime="2018-12-06T15:36:10.000Z" itemprop="datePublished">2018-12-06</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a>
-  </div>
+<body id="body" style="margin-bottom: 0;" class="pushable">
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      铺地毯题解
-    </h1>
-  
+    <div class="ui top fixed menu">
+        <a class="item" id="menu-icon"><i class="sidebar icon"></i></a>
+    </div>
 
-      </header>
+    <div id="menu-sidebar" class="ui left vertical sidebar menu">
+
+    <div id="sidebar-top">
+        <div class="content">
+            <h3>mrh929&#39;s home</h3>
+        </div>
+    </div>
+    <div class="ui container sidebar-card">
+    <div class="ui people shape content">
+        <div class="active side">
+            <div class="ui card">
+                <div class="image">
+                    <img class="ui medium bordered image" src="/images/avatar.jpg">
+                </div>
+                <div class="content">
+                    <a class="header">mrh929</a>
+                    
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                        
+                    </div>
+
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="14-铺地毯"><a href="#14-铺地毯" class="headerlink" title="14:铺地毯"></a>14:铺地毯</h2><p>总时间限制: 1000ms 内存限制: 65536kB 描述 为了准备一个独特的颁奖典礼，组织者在会场的一片矩形区域（可看做是平面直角坐标系的第一象限）铺上一些矩形地毯。一共有n张地毯，编号从1到n。现在将这些地毯按照编号从小到大的顺序平行于坐标轴先后铺设，后铺的地毯覆盖在前面已经铺好的地毯之上。地毯铺设完成后，组织者想知道覆盖地面某个点的最上面的那张地毯的编号。注意：在矩形地毯边界和四个顶点上的点也算被地毯覆盖。 输入输出样例1说明：如下图，1号地毯用实线表示，2号地毯用虚线表示，3号用双实线表示，覆盖点（2，2）的最上面一张地毯是3号地毯。 输入输出样例2说明：如下图，1号地毯用实线表示，2号地毯用虚线表示，3号用双实线表示，覆盖点（4，5）的最上面一张地毯是3号地毯。   输入 输入共n+2行。 第一行，一个整数n，表示总共有n张地毯。 接下来的n行中，第i+1行表示编号i的地毯的信息，包含四个正整数a，b，g，k，每两个整数之间用一个空格隔开，分别表示铺设地毯的左下角的坐标（a，b）以及地毯在x轴和y轴方向的长度。 第n+2行包含两个正整数x和y，表示所求的地面的点的坐标（x，y）。 对于30%的数据，有n≤2； 对于50%的数据，0≤a, b, g, k≤100； 对于100%的数据，有0≤n≤10,000，0≤a, b, g, k≤100,000。 输出 输出共1行，一个整数，表示所求的地毯的编号；若此处没有被地毯覆盖则输出-1。 样例输入 样例 #1： 3 1 0 2 3 0 2 3 3 2 1 3 3 2 2   样例 #2： 3 1 0 2 3 0 2 3 3 2 1 3 3 4 5 样例输出 样例 #1： 3   样例 #2： -1 来源 NOIP2011复赛 提高组 第一题     题解 根据习惯性思维，看到这道题我们通常会建一个二维数组，用二维数组的每个元素来表示各个点的地毯覆盖情况。这样的方法可行，但是效率较低，不适合数据过大的运算，本题n&lt;=10000。 仔细审题，我们发现题目所需要的仅仅是一个点的地毯覆盖情况，所以撒大网的方式并不是最优的算法。 于是就考虑对于目标点单独进行操作，题目给出了毯子左下角的坐标，也给出了毯子的长宽，通过这两组数据我们就可以求到毯子的四个角所在的坐标，然后判断该点是否存在于此范围中，然后进行操作就可以了。 先建立一个二维数组，第一个下标表示毯子的次序，第二个下标分别用1,2,3,4来表示该毯子的左下角坐标a，b 和 长宽g，k int a[20020][4]; int log=-1 读入相应数据与目标点后，开始操作 循环判断目标点是否在相应毯子中，如果是则将负责记录的变量更新 for(int i=1;i&lt;=n;i++) if(x&lt;=a[i][1]+a[i][3]&amp;&amp;x&gt;=a[i][1]&amp;&amp;y&lt;=a[i][2]+a[i][4]&amp;&amp;y&gt;=a[i][2]) log=i; 如果无一个毯子符合条件，则log=-1 输出，AC！</p>
+    
+
+    
+
+    
+    <a href="/index.html" class="item">
+        <i class="home icon"></i>
+        HOME
+    </a>
+
+    
+
+    
+</div>
+
+    <div class="pusher body-content">
+        <div id="content" class="ui main container">
+            <!--<div class="ui one column grid">-->
+                <!--<div class="column">-->
+                    <!--<div class="ui main container">-->
+                        <div id="post-e9-93-ba-e5-9c-b0-e6-af-af-e9-a2-98-e8-a7-a3" class="ui main container article-type-post">
+
+    
+
+    <div class="ui divided grid">
+
+        <div class="two column row" id="article-content">
+
+            <div class="thirteen wide computer thirteen wide tablet sixteen wide mobile column">
+                
+
+<h1 class="ui header">
+    
+    铺地毯题解
+</h1>
+
+
+
+                <div class="article-inner">
+
+                    <div class="article-entry" itemprop="articleBody">
+                        
+                        <h2 id="14-&#x94FA;&#x5730;&#x6BEF;"><a href="#14-&#x94FA;&#x5730;&#x6BEF;" class="headerlink" title="14:&#x94FA;&#x5730;&#x6BEF;"></a>14:&#x94FA;&#x5730;&#x6BEF;</h2><p>&#x603B;&#x65F6;&#x95F4;&#x9650;&#x5236;: 1000ms &#x5185;&#x5B58;&#x9650;&#x5236;: 65536kB &#x63CF;&#x8FF0; &#x4E3A;&#x4E86;&#x51C6;&#x5907;&#x4E00;&#x4E2A;&#x72EC;&#x7279;&#x7684;&#x9881;&#x5956;&#x5178;&#x793C;&#xFF0C;&#x7EC4;&#x7EC7;&#x8005;&#x5728;&#x4F1A;&#x573A;&#x7684;&#x4E00;&#x7247;&#x77E9;&#x5F62;&#x533A;&#x57DF;&#xFF08;&#x53EF;&#x770B;&#x505A;&#x662F;&#x5E73;&#x9762;&#x76F4;&#x89D2;&#x5750;&#x6807;&#x7CFB;&#x7684;&#x7B2C;&#x4E00;&#x8C61;&#x9650;&#xFF09;&#x94FA;&#x4E0A;&#x4E00;&#x4E9B;&#x77E9;&#x5F62;&#x5730;&#x6BEF;&#x3002;&#x4E00;&#x5171;&#x6709;n&#x5F20;&#x5730;&#x6BEF;&#xFF0C;&#x7F16;&#x53F7;&#x4ECE;1&#x5230;n&#x3002;&#x73B0;&#x5728;&#x5C06;&#x8FD9;&#x4E9B;&#x5730;&#x6BEF;&#x6309;&#x7167;&#x7F16;&#x53F7;&#x4ECE;&#x5C0F;&#x5230;&#x5927;&#x7684;&#x987A;&#x5E8F;&#x5E73;&#x884C;&#x4E8E;&#x5750;&#x6807;&#x8F74;&#x5148;&#x540E;&#x94FA;&#x8BBE;&#xFF0C;&#x540E;&#x94FA;&#x7684;&#x5730;&#x6BEF;&#x8986;&#x76D6;&#x5728;&#x524D;&#x9762;&#x5DF2;&#x7ECF;&#x94FA;&#x597D;&#x7684;&#x5730;&#x6BEF;&#x4E4B;&#x4E0A;&#x3002;&#x5730;&#x6BEF;&#x94FA;&#x8BBE;&#x5B8C;&#x6210;&#x540E;&#xFF0C;&#x7EC4;&#x7EC7;&#x8005;&#x60F3;&#x77E5;&#x9053;&#x8986;&#x76D6;&#x5730;&#x9762;&#x67D0;&#x4E2A;&#x70B9;&#x7684;&#x6700;&#x4E0A;&#x9762;&#x7684;&#x90A3;&#x5F20;&#x5730;&#x6BEF;&#x7684;&#x7F16;&#x53F7;&#x3002;&#x6CE8;&#x610F;&#xFF1A;&#x5728;&#x77E9;&#x5F62;&#x5730;&#x6BEF;&#x8FB9;&#x754C;&#x548C;&#x56DB;&#x4E2A;&#x9876;&#x70B9;&#x4E0A;&#x7684;&#x70B9;&#x4E5F;&#x7B97;&#x88AB;&#x5730;&#x6BEF;&#x8986;&#x76D6;&#x3002; &#x8F93;&#x5165;&#x8F93;&#x51FA;&#x6837;&#x4F8B;1&#x8BF4;&#x660E;&#xFF1A;&#x5982;&#x4E0B;&#x56FE;&#xFF0C;1&#x53F7;&#x5730;&#x6BEF;&#x7528;&#x5B9E;&#x7EBF;&#x8868;&#x793A;&#xFF0C;2&#x53F7;&#x5730;&#x6BEF;&#x7528;&#x865A;&#x7EBF;&#x8868;&#x793A;&#xFF0C;3&#x53F7;&#x7528;&#x53CC;&#x5B9E;&#x7EBF;&#x8868;&#x793A;&#xFF0C;&#x8986;&#x76D6;&#x70B9;&#xFF08;2&#xFF0C;2&#xFF09;&#x7684;&#x6700;&#x4E0A;&#x9762;&#x4E00;&#x5F20;&#x5730;&#x6BEF;&#x662F;3&#x53F7;&#x5730;&#x6BEF;&#x3002; &#x8F93;&#x5165;&#x8F93;&#x51FA;&#x6837;&#x4F8B;2&#x8BF4;&#x660E;&#xFF1A;&#x5982;&#x4E0B;&#x56FE;&#xFF0C;1&#x53F7;&#x5730;&#x6BEF;&#x7528;&#x5B9E;&#x7EBF;&#x8868;&#x793A;&#xFF0C;2&#x53F7;&#x5730;&#x6BEF;&#x7528;&#x865A;&#x7EBF;&#x8868;&#x793A;&#xFF0C;3&#x53F7;&#x7528;&#x53CC;&#x5B9E;&#x7EBF;&#x8868;&#x793A;&#xFF0C;&#x8986;&#x76D6;&#x70B9;&#xFF08;4&#xFF0C;5&#xFF09;&#x7684;&#x6700;&#x4E0A;&#x9762;&#x4E00;&#x5F20;&#x5730;&#x6BEF;&#x662F;3&#x53F7;&#x5730;&#x6BEF;&#x3002;   &#x8F93;&#x5165; &#x8F93;&#x5165;&#x5171;n+2&#x884C;&#x3002; &#x7B2C;&#x4E00;&#x884C;&#xFF0C;&#x4E00;&#x4E2A;&#x6574;&#x6570;n&#xFF0C;&#x8868;&#x793A;&#x603B;&#x5171;&#x6709;n&#x5F20;&#x5730;&#x6BEF;&#x3002; &#x63A5;&#x4E0B;&#x6765;&#x7684;n&#x884C;&#x4E2D;&#xFF0C;&#x7B2C;i+1&#x884C;&#x8868;&#x793A;&#x7F16;&#x53F7;i&#x7684;&#x5730;&#x6BEF;&#x7684;&#x4FE1;&#x606F;&#xFF0C;&#x5305;&#x542B;&#x56DB;&#x4E2A;&#x6B63;&#x6574;&#x6570;a&#xFF0C;b&#xFF0C;g&#xFF0C;k&#xFF0C;&#x6BCF;&#x4E24;&#x4E2A;&#x6574;&#x6570;&#x4E4B;&#x95F4;&#x7528;&#x4E00;&#x4E2A;&#x7A7A;&#x683C;&#x9694;&#x5F00;&#xFF0C;&#x5206;&#x522B;&#x8868;&#x793A;&#x94FA;&#x8BBE;&#x5730;&#x6BEF;&#x7684;&#x5DE6;&#x4E0B;&#x89D2;&#x7684;&#x5750;&#x6807;&#xFF08;a&#xFF0C;b&#xFF09;&#x4EE5;&#x53CA;&#x5730;&#x6BEF;&#x5728;x&#x8F74;&#x548C;y&#x8F74;&#x65B9;&#x5411;&#x7684;&#x957F;&#x5EA6;&#x3002; &#x7B2C;n+2&#x884C;&#x5305;&#x542B;&#x4E24;&#x4E2A;&#x6B63;&#x6574;&#x6570;x&#x548C;y&#xFF0C;&#x8868;&#x793A;&#x6240;&#x6C42;&#x7684;&#x5730;&#x9762;&#x7684;&#x70B9;&#x7684;&#x5750;&#x6807;&#xFF08;x&#xFF0C;y&#xFF09;&#x3002; &#x5BF9;&#x4E8E;30%&#x7684;&#x6570;&#x636E;&#xFF0C;&#x6709;n&#x2264;2&#xFF1B; &#x5BF9;&#x4E8E;50%&#x7684;&#x6570;&#x636E;&#xFF0C;0&#x2264;a, b, g, k&#x2264;100&#xFF1B; &#x5BF9;&#x4E8E;100%&#x7684;&#x6570;&#x636E;&#xFF0C;&#x6709;0&#x2264;n&#x2264;10,000&#xFF0C;0&#x2264;a, b, g, k&#x2264;100,000&#x3002; &#x8F93;&#x51FA; &#x8F93;&#x51FA;&#x5171;1&#x884C;&#xFF0C;&#x4E00;&#x4E2A;&#x6574;&#x6570;&#xFF0C;&#x8868;&#x793A;&#x6240;&#x6C42;&#x7684;&#x5730;&#x6BEF;&#x7684;&#x7F16;&#x53F7;&#xFF1B;&#x82E5;&#x6B64;&#x5904;&#x6CA1;&#x6709;&#x88AB;&#x5730;&#x6BEF;&#x8986;&#x76D6;&#x5219;&#x8F93;&#x51FA;-1&#x3002; &#x6837;&#x4F8B;&#x8F93;&#x5165; &#x6837;&#x4F8B; #1&#xFF1A; 3 1 0 2 3 0 2 3 3 2 1 3 3 2 2   &#x6837;&#x4F8B; #2&#xFF1A; 3 1 0 2 3 0 2 3 3 2 1 3 3 4 5 &#x6837;&#x4F8B;&#x8F93;&#x51FA; &#x6837;&#x4F8B; #1&#xFF1A; 3   &#x6837;&#x4F8B; #2&#xFF1A; -1 &#x6765;&#x6E90; NOIP2011&#x590D;&#x8D5B; &#x63D0;&#x9AD8;&#x7EC4; &#x7B2C;&#x4E00;&#x9898;     &#x9898;&#x89E3; &#x6839;&#x636E;&#x4E60;&#x60EF;&#x6027;&#x601D;&#x7EF4;&#xFF0C;&#x770B;&#x5230;&#x8FD9;&#x9053;&#x9898;&#x6211;&#x4EEC;&#x901A;&#x5E38;&#x4F1A;&#x5EFA;&#x4E00;&#x4E2A;&#x4E8C;&#x7EF4;&#x6570;&#x7EC4;&#xFF0C;&#x7528;&#x4E8C;&#x7EF4;&#x6570;&#x7EC4;&#x7684;&#x6BCF;&#x4E2A;&#x5143;&#x7D20;&#x6765;&#x8868;&#x793A;&#x5404;&#x4E2A;&#x70B9;&#x7684;&#x5730;&#x6BEF;&#x8986;&#x76D6;&#x60C5;&#x51B5;&#x3002;&#x8FD9;&#x6837;&#x7684;&#x65B9;&#x6CD5;&#x53EF;&#x884C;&#xFF0C;&#x4F46;&#x662F;&#x6548;&#x7387;&#x8F83;&#x4F4E;&#xFF0C;&#x4E0D;&#x9002;&#x5408;&#x6570;&#x636E;&#x8FC7;&#x5927;&#x7684;&#x8FD0;&#x7B97;&#xFF0C;&#x672C;&#x9898;n&lt;=10000&#x3002; &#x4ED4;&#x7EC6;&#x5BA1;&#x9898;&#xFF0C;&#x6211;&#x4EEC;&#x53D1;&#x73B0;&#x9898;&#x76EE;&#x6240;&#x9700;&#x8981;&#x7684;&#x4EC5;&#x4EC5;&#x662F;&#x4E00;&#x4E2A;&#x70B9;&#x7684;&#x5730;&#x6BEF;&#x8986;&#x76D6;&#x60C5;&#x51B5;&#xFF0C;&#x6240;&#x4EE5;&#x6492;&#x5927;&#x7F51;&#x7684;&#x65B9;&#x5F0F;&#x5E76;&#x4E0D;&#x662F;&#x6700;&#x4F18;&#x7684;&#x7B97;&#x6CD5;&#x3002; &#x4E8E;&#x662F;&#x5C31;&#x8003;&#x8651;&#x5BF9;&#x4E8E;&#x76EE;&#x6807;&#x70B9;&#x5355;&#x72EC;&#x8FDB;&#x884C;&#x64CD;&#x4F5C;&#xFF0C;&#x9898;&#x76EE;&#x7ED9;&#x51FA;&#x4E86;&#x6BEF;&#x5B50;&#x5DE6;&#x4E0B;&#x89D2;&#x7684;&#x5750;&#x6807;&#xFF0C;&#x4E5F;&#x7ED9;&#x51FA;&#x4E86;&#x6BEF;&#x5B50;&#x7684;&#x957F;&#x5BBD;&#xFF0C;&#x901A;&#x8FC7;&#x8FD9;&#x4E24;&#x7EC4;&#x6570;&#x636E;&#x6211;&#x4EEC;&#x5C31;&#x53EF;&#x4EE5;&#x6C42;&#x5230;&#x6BEF;&#x5B50;&#x7684;&#x56DB;&#x4E2A;&#x89D2;&#x6240;&#x5728;&#x7684;&#x5750;&#x6807;&#xFF0C;&#x7136;&#x540E;&#x5224;&#x65AD;&#x8BE5;&#x70B9;&#x662F;&#x5426;&#x5B58;&#x5728;&#x4E8E;&#x6B64;&#x8303;&#x56F4;&#x4E2D;&#xFF0C;&#x7136;&#x540E;&#x8FDB;&#x884C;&#x64CD;&#x4F5C;&#x5C31;&#x53EF;&#x4EE5;&#x4E86;&#x3002; &#x5148;&#x5EFA;&#x7ACB;&#x4E00;&#x4E2A;&#x4E8C;&#x7EF4;&#x6570;&#x7EC4;&#xFF0C;&#x7B2C;&#x4E00;&#x4E2A;&#x4E0B;&#x6807;&#x8868;&#x793A;&#x6BEF;&#x5B50;&#x7684;&#x6B21;&#x5E8F;&#xFF0C;&#x7B2C;&#x4E8C;&#x4E2A;&#x4E0B;&#x6807;&#x5206;&#x522B;&#x7528;1,2,3,4&#x6765;&#x8868;&#x793A;&#x8BE5;&#x6BEF;&#x5B50;&#x7684;&#x5DE6;&#x4E0B;&#x89D2;&#x5750;&#x6807;a&#xFF0C;b &#x548C; &#x957F;&#x5BBD;g&#xFF0C;k int a[20020][4]; int log=-1 &#x8BFB;&#x5165;&#x76F8;&#x5E94;&#x6570;&#x636E;&#x4E0E;&#x76EE;&#x6807;&#x70B9;&#x540E;&#xFF0C;&#x5F00;&#x59CB;&#x64CD;&#x4F5C; &#x5FAA;&#x73AF;&#x5224;&#x65AD;&#x76EE;&#x6807;&#x70B9;&#x662F;&#x5426;&#x5728;&#x76F8;&#x5E94;&#x6BEF;&#x5B50;&#x4E2D;&#xFF0C;&#x5982;&#x679C;&#x662F;&#x5219;&#x5C06;&#x8D1F;&#x8D23;&#x8BB0;&#x5F55;&#x7684;&#x53D8;&#x91CF;&#x66F4;&#x65B0; for(int i=1;i&lt;=n;i++) if(x&lt;=a[i][1]+a[i][3]&amp;&amp;x&gt;=a[i][1]&amp;&amp;y&lt;=a[i][2]+a[i][4]&amp;&amp;y&gt;=a[i][2]) log=i; &#x5982;&#x679C;&#x65E0;&#x4E00;&#x4E2A;&#x6BEF;&#x5B50;&#x7B26;&#x5408;&#x6761;&#x4EF6;&#xFF0C;&#x5219;log=-1 &#x8F93;&#x51FA;&#xFF0C;AC&#xFF01;</p>
 <pre><code>#include&lt;stdio.h&gt;
 #include&lt;stdlib.h&gt;
 #include&lt;string.h&gt;
@@ -116,147 +167,110 @@ int main()
 
     return 0;
 }
-</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+</code></pre><p><a class="magnific-img" href="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="&#x70B9;&#x51FB;&#x5E76;&#x62D6;&#x62FD;&#x4EE5;&#x79FB;&#x52A8;" class="ui centered image"></a></p>
 
-      
+                        
+                    </div>
+
+                    
+                    
+                    
+
+                    <div class="description post-description">
+    <span class="post-description-item">
+        <time datetime="2018-12-06T15:36:10.000Z" itemprop="datePublished">2018-12-06</time>
+
+    </span>
+    <span class="post-description-item">
+        
+    </span>
+</div>
+
+                </div>
+                
+                <div id="pagination" class="nav-web ui text container pagination">
+
+    <div class="ui stackable two column divided grid container">
+        <div class="row">
+            <div class="column nav-left">
+                
+
+                <a href="/2018/12/06/vigenere-e5-af-86-e7-a0-81-e9-a2-98-e8-a7-a3/" class="ui tiny button">
+
+                    <i class="angle left icon"></i>
+                    
+                    Vigenère密码题解
+                    
+
+                </a>
+
+                
+            </div>
+            <div class="column nav-right">
+                
+
+                <a href="/2018/12/06/e8-9e-ba-e6-97-8b-e7-9f-a9-e9-98-b5-e9-a2-98-e8-a7-a3/" class="ui tiny button">
+                    
+                    螺旋矩阵题解
+                    
+                    <i class="angle right icon"></i></a>
+                
+            </div>
+        </div>
     </div>
-    <footer class="article-footer">
-      <a data-url="http://mrh1s.top/2018/12/06/e9-93-ba-e5-9c-b0-e6-af-af-e9-a2-98-e8-a7-a3/" data-id="cjv80bewo0017a0et3ahy66bp" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2018/12/06/vigenere-e5-af-86-e7-a0-81-e9-a2-98-e8-a7-a3/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Vigenère密码题解
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2018/12/06/e8-9e-ba-e6-97-8b-e7-9f-a9-e9-98-b5-e9-a2-98-e8-a7-a3/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">螺旋矩阵题解</div>
-    </a>
-  
-</nav>
 
-  
-</article>
+</div>
+                
+            </div>
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/c-c/">c/c++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/notes/">notes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/project/">project</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/">write up</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cgctf/">cgctf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cnss-recruit-201809/">cnss_recruit_201809</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/hgame-20190122/">hgame_20190122</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nationalCTF-20190421/">nationalCTF_20190421</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nctf-20181124/">nctf_20181124</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/牢骚/">牢骚</a></li></ul>
+            
+            <div class="three wide computer three wide tablet column">
+
+                <div class="ui sticky article-toc" id="article-toc">
+                    <!-- toc -->
+                    <ol class="ui ordered list"><li><a href="#14-铺地毯"><span>14:铺地毯</span></a></li></ol>
+                </div>
+
+            </div>
+            
+
+        </div>
     </div>
-  </div>
+</div>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Dynamic/">RE_Dynamic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+        <div class="ui vertical footer segment">
+    <div class="ui center aligned container">
+        <div class="ui inverted section divider"></div>
+        &copy; 2019 <a href="/">mrh929</a>,
+        Powered by <a href="https://github.com/henryhuang/hexo-theme-aloha" target="_blank">Aloha</a> and <a href="http://hexo.io/" target="_blank">Hexo</a>.
     </div>
-  </div>
+</div>
 
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/RE-Dynamic/" style="font-size: 10px;">RE_Dynamic</a> <a href="/tags/RE-Static/" style="font-size: 20px;">RE_Static</a>
     </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2019/05/03/Migration-Success/">Migration_Success!</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/28/bbvvmm/">bbvvmm</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/28/e5-8d-97-e4-ba-ac-e9-82-ae-e7-94-b5-e5-a4-a7-e5-ad-a6-re-wxyvm2/">南京邮电大学 RE-WxyVM2</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/13/e5-a3-b3-e7-9b-b8-e5-85-b3/">壳相关</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/22/shinyshot/">ShinyShot!</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 mrh929<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
 
 
 
-  </div>
+
+<!-- scripts list from theme config.yml -->
+
+<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+
+<script src="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch/3.18.1/algoliasearch.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch-helper-js/2.13.0/algoliasearch.helper.min.js"></script>
+
+<script src="/js/semantic-ui-algolia.js"></script>
+
+<script src="/js/aloha-events.js"></script>
+
+
+
 </body>
 </html>

@@ -1,114 +1,165 @@
-<!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  
 
-  
-  <title>Tarjan算法求强连通分量总结 | mrh929&#39;s home</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Tarjan算法求强连通分量总结 首先明确强连通分量的概念：如果图中的任意两个点都能互相到达，则为强连通分量。极大强连通分量：不被其它任何强连通分量包含的强连通分量。 强连通分量主要与两种边有关：交叉边和后向边。 交叉边是两个无关系的点之间所构成的，而后向边是根节点的子节点指向根结点的一种边 Tarjan算法原理：  建立low数组（用于记录该点所在的连通子图的根节点的搜索子树所遍历">
+
+<!DOCTYPE html>
+<html lang="cn">
+<head prefix="og: http://ogp.me/ns#"><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta name="description" content="Blog">
+    <title>Tarjan算法求强连通分量总结 | mrh929&#39;s home</title>
+
+    <!-- Open Graph -->
+    <meta name="description" content="Tarjan&amp;#x7B97;&amp;#x6CD5;&amp;#x6C42;&amp;#x5F3A;&amp;#x8FDE;&amp;#x901A;&amp;#x5206;&amp;#x91CF;&amp;#x603B;&amp;#x7ED3; &amp;#x9996;&amp;#x5148;&amp;#x660E;&amp;#x786E;&amp;#x5F3A;&amp;#x8FDE;&amp;#x901A;&amp;#x5206;&amp;#x91CF;&amp;#x7684;&amp;#x6982;&amp;#x5FF5;&amp;#xFF1A;&amp;#">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Tarjan算法求强连通分量总结">
 <meta property="og:url" content="http://mrh1s.top/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e5-bc-ba-e8-bf-9e-e9-80-9a-e5-88-86-e9-87-8f-e6-80-bb-e7-bb-93/index.html">
 <meta property="og:site_name" content="mrh929&#39;s home">
-<meta property="og:description" content="Tarjan算法求强连通分量总结 首先明确强连通分量的概念：如果图中的任意两个点都能互相到达，则为强连通分量。极大强连通分量：不被其它任何强连通分量包含的强连通分量。 强连通分量主要与两种边有关：交叉边和后向边。 交叉边是两个无关系的点之间所构成的，而后向边是根节点的子节点指向根结点的一种边 Tarjan算法原理：  建立low数组（用于记录该点所在的连通子图的根节点的搜索子树所遍历">
+<meta property="og:description" content="Tarjan&amp;#x7B97;&amp;#x6CD5;&amp;#x6C42;&amp;#x5F3A;&amp;#x8FDE;&amp;#x901A;&amp;#x5206;&amp;#x91CF;&amp;#x603B;&amp;#x7ED3; &amp;#x9996;&amp;#x5148;&amp;#x660E;&amp;#x786E;&amp;#x5F3A;&amp;#x8FDE;&amp;#x901A;&amp;#x5206;&amp;#x91CF;&amp;#x7684;&amp;#x6982;&amp;#x5FF5;&amp;#xFF1A;&amp;#">
 <meta property="og:locale" content="cn">
 <meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
 <meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
 <meta property="og:updated_time" content="2019-05-03T06:19:59.674Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Tarjan算法求强连通分量总结">
-<meta name="twitter:description" content="Tarjan算法求强连通分量总结 首先明确强连通分量的概念：如果图中的任意两个点都能互相到达，则为强连通分量。极大强连通分量：不被其它任何强连通分量包含的强连通分量。 强连通分量主要与两种边有关：交叉边和后向边。 交叉边是两个无关系的点之间所构成的，而后向边是根节点的子节点指向根结点的一种边 Tarjan算法原理：  建立low数组（用于记录该点所在的连通子图的根节点的搜索子树所遍历">
+<meta name="twitter:description" content="Tarjan&amp;#x7B97;&amp;#x6CD5;&amp;#x6C42;&amp;#x5F3A;&amp;#x8FDE;&amp;#x901A;&amp;#x5206;&amp;#x91CF;&amp;#x603B;&amp;#x7ED3; &amp;#x9996;&amp;#x5148;&amp;#x660E;&amp;#x786E;&amp;#x5F3A;&amp;#x8FDE;&amp;#x901A;&amp;#x5206;&amp;#x91CF;&amp;#x7684;&amp;#x6982;&amp;#x5FF5;&amp;#xFF1A;&amp;#">
 <meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
-  
-    <link rel="alternate" href="/atom.xml" title="mrh929&#39;s home" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
+
+    <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Person",
+  "email": "mailto:",
+  "image": "",
+  "name": "mrh929",
+  "url": "http://mrh1s.top"
+}
+</script>
+    <script>
+    var algoliaEnabled = false;
+    
+</script>
+
+    
+
+    
+    
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    
+    
+    
+        <!-- stylesheets list from config.yml -->
+        
+        <link rel="stylesheet" href="/css/aloha.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/magnific-popup.js/1.1.0/magnific-popup.min.css">
+        
+    
+
 </head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">mrh929&#39;s home</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://mrh1s.top"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e5-bc-ba-e8-bf-9e-e9-80-9a-e5-88-86-e9-87-8f-e6-80-bb-e7-bb-93" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e5-bc-ba-e8-bf-9e-e9-80-9a-e5-88-86-e9-87-8f-e6-80-bb-e7-bb-93/" class="article-date">
-  <time datetime="2018-12-06T15:42:41.000Z" itemprop="datePublished">2018-12-06</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a>
-  </div>
+<body id="body" style="margin-bottom: 0;" class="pushable">
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Tarjan算法求强连通分量总结
-    </h1>
-  
+    <div class="ui top fixed menu">
+        <a class="item" id="menu-icon"><i class="sidebar icon"></i></a>
+    </div>
 
-      </header>
+    <div id="menu-sidebar" class="ui left vertical sidebar menu">
+
+    <div id="sidebar-top">
+        <div class="content">
+            <h3>mrh929&#39;s home</h3>
+        </div>
+    </div>
+    <div class="ui container sidebar-card">
+    <div class="ui people shape content">
+        <div class="active side">
+            <div class="ui card">
+                <div class="image">
+                    <img class="ui medium bordered image" src="/images/avatar.jpg">
+                </div>
+                <div class="content">
+                    <a class="header">mrh929</a>
+                    
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                        
+                    </div>
+
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>  <strong>     Tarjan算法求强连通分量总结</strong> <strong>首先明确强连通分量的概念：如果图中的任意两个点都能互相到达，则为强连通分量。极大强连通分量：不被其它任何强连通分量包含的强连通分量。</strong> <strong>强连通分量主要与两种边有关：交叉边和后向边。</strong> <strong>交叉边是两个无关系的点之间所构成的，而后向边是根节点的子节点指向根结点的一种边</strong> <strong>Tarjan算法原理：</strong></p>
-<ol>
-<li><strong>建立low数组（用于记录该点所在的连通子图的根节点的搜索子树所遍历的时间）与dfn数组（记录当前点遍历的时间）Index：记录搜索过程所进行的时间</strong></li>
-<li><strong>初始化dfn、index，当前点u的初始值为时间</strong></li>
-<li><strong>u入栈并标记</strong></li>
-<li><p><strong>遍历与u相连的所有点（记为v）</strong></p>
+    
+
+    
+
+    
+    <a href="/index.html" class="item">
+        <i class="home icon"></i>
+        HOME
+    </a>
+
+    
+
+    
+</div>
+
+    <div class="pusher body-content">
+        <div id="content" class="ui main container">
+            <!--<div class="ui one column grid">-->
+                <!--<div class="column">-->
+                    <!--<div class="ui main container">-->
+                        <div id="post-tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e5-bc-ba-e8-bf-9e-e9-80-9a-e5-88-86-e9-87-8f-e6-80-bb-e7-bb-93" class="ui main container article-type-post">
+
+    
+
+    <div class="ui divided grid">
+
+        <div class="two column row" id="article-content">
+
+            <div class="thirteen wide computer thirteen wide tablet sixteen wide mobile column">
+                
+
+<h1 class="ui header">
+    
+    Tarjan算法求强连通分量总结
+</h1>
+
+
+
+                <div class="article-inner">
+
+                    <div class="article-entry" itemprop="articleBody">
+                        
+                        <p>  <strong>     Tarjan&#x7B97;&#x6CD5;&#x6C42;&#x5F3A;&#x8FDE;&#x901A;&#x5206;&#x91CF;&#x603B;&#x7ED3;</strong> <strong>&#x9996;&#x5148;&#x660E;&#x786E;&#x5F3A;&#x8FDE;&#x901A;&#x5206;&#x91CF;&#x7684;&#x6982;&#x5FF5;&#xFF1A;&#x5982;&#x679C;&#x56FE;&#x4E2D;&#x7684;&#x4EFB;&#x610F;&#x4E24;&#x4E2A;&#x70B9;&#x90FD;&#x80FD;&#x4E92;&#x76F8;&#x5230;&#x8FBE;&#xFF0C;&#x5219;&#x4E3A;&#x5F3A;&#x8FDE;&#x901A;&#x5206;&#x91CF;&#x3002;&#x6781;&#x5927;&#x5F3A;&#x8FDE;&#x901A;&#x5206;&#x91CF;&#xFF1A;&#x4E0D;&#x88AB;&#x5176;&#x5B83;&#x4EFB;&#x4F55;&#x5F3A;&#x8FDE;&#x901A;&#x5206;&#x91CF;&#x5305;&#x542B;&#x7684;&#x5F3A;&#x8FDE;&#x901A;&#x5206;&#x91CF;&#x3002;</strong> <strong>&#x5F3A;&#x8FDE;&#x901A;&#x5206;&#x91CF;&#x4E3B;&#x8981;&#x4E0E;&#x4E24;&#x79CD;&#x8FB9;&#x6709;&#x5173;&#xFF1A;&#x4EA4;&#x53C9;&#x8FB9;&#x548C;&#x540E;&#x5411;&#x8FB9;&#x3002;</strong> <strong>&#x4EA4;&#x53C9;&#x8FB9;&#x662F;&#x4E24;&#x4E2A;&#x65E0;&#x5173;&#x7CFB;&#x7684;&#x70B9;&#x4E4B;&#x95F4;&#x6240;&#x6784;&#x6210;&#x7684;&#xFF0C;&#x800C;&#x540E;&#x5411;&#x8FB9;&#x662F;&#x6839;&#x8282;&#x70B9;&#x7684;&#x5B50;&#x8282;&#x70B9;&#x6307;&#x5411;&#x6839;&#x7ED3;&#x70B9;&#x7684;&#x4E00;&#x79CD;&#x8FB9;</strong> <strong>Tarjan&#x7B97;&#x6CD5;&#x539F;&#x7406;&#xFF1A;</strong></p>
+<ol class="ui list">
+<li><strong>&#x5EFA;&#x7ACB;low&#x6570;&#x7EC4;&#xFF08;&#x7528;&#x4E8E;&#x8BB0;&#x5F55;&#x8BE5;&#x70B9;&#x6240;&#x5728;&#x7684;&#x8FDE;&#x901A;&#x5B50;&#x56FE;&#x7684;&#x6839;&#x8282;&#x70B9;&#x7684;&#x641C;&#x7D22;&#x5B50;&#x6811;&#x6240;&#x904D;&#x5386;&#x7684;&#x65F6;&#x95F4;&#xFF09;&#x4E0E;dfn&#x6570;&#x7EC4;&#xFF08;&#x8BB0;&#x5F55;&#x5F53;&#x524D;&#x70B9;&#x904D;&#x5386;&#x7684;&#x65F6;&#x95F4;&#xFF09;Index&#xFF1A;&#x8BB0;&#x5F55;&#x641C;&#x7D22;&#x8FC7;&#x7A0B;&#x6240;&#x8FDB;&#x884C;&#x7684;&#x65F6;&#x95F4;</strong></li>
+<li><strong>&#x521D;&#x59CB;&#x5316;dfn&#x3001;index&#xFF0C;&#x5F53;&#x524D;&#x70B9;u&#x7684;&#x521D;&#x59CB;&#x503C;&#x4E3A;&#x65F6;&#x95F4;</strong></li>
+<li><strong>u&#x5165;&#x6808;&#x5E76;&#x6807;&#x8BB0;</strong></li>
+<li><p><strong>&#x904D;&#x5386;&#x4E0E;u&#x76F8;&#x8FDE;&#x7684;&#x6240;&#x6709;&#x70B9;&#xFF08;&#x8BB0;&#x4E3A;v&#xFF09;</strong></p>
 </li>
-<li><p><strong>如果v未被遍历，递归遍历v点，然后更新low[u]     low[u]=min(low[u],low[v]);</strong></p>
+<li><p><strong>&#x5982;&#x679C;v&#x672A;&#x88AB;&#x904D;&#x5386;&#xFF0C;&#x9012;&#x5F52;&#x904D;&#x5386;v&#x70B9;&#xFF0C;&#x7136;&#x540E;&#x66F4;&#x65B0;low[u]     low[u]=min(low[u],low[v]);</strong></p>
 </li>
-<li><p><strong>如果 v已经被遍历且在栈中直接更新low[u]</strong> <strong>low[u]=min(low[u],dfn[v]);</strong></p>
+<li><p><strong>&#x5982;&#x679C; v&#x5DF2;&#x7ECF;&#x88AB;&#x904D;&#x5386;&#x4E14;&#x5728;&#x6808;&#x4E2D;&#x76F4;&#x63A5;&#x66F4;&#x65B0;low[u]</strong> <strong>low[u]=min(low[u],dfn[v]);</strong></p>
 </li>
-<li><p><strong>判断low[u]==low[v]如果成立，将包括u在内的所有点出栈并记录，则求得强连通分量之一</strong></p>
+<li><p><strong>&#x5224;&#x65AD;low[u]==low[v]&#x5982;&#x679C;&#x6210;&#x7ACB;&#xFF0C;&#x5C06;&#x5305;&#x62EC;u&#x5728;&#x5185;&#x7684;&#x6240;&#x6709;&#x70B9;&#x51FA;&#x6808;&#x5E76;&#x8BB0;&#x5F55;&#xFF0C;&#x5219;&#x6C42;&#x5F97;&#x5F3A;&#x8FDE;&#x901A;&#x5206;&#x91CF;&#x4E4B;&#x4E00;</strong></p>
 </li>
-<li><strong>继续遍历，直至结束</strong></li>
-<li><p><strong>注意：在一个图中，起点不唯一，所以tarjan算法应该遍历所有未被遍历的点(vis[i]==0)</strong></p>
-<p><strong>本算法主要应用范围是对复杂的有向图的缩点优化。如果某些点构成一个环，完全可以把它们看作一个点，加快程序运行效率</strong>  <strong>Question:如果是有向有权图使用缩点时应该怎么处理权值的问题？</strong>   <strong>FZOJ1638求强连通分量</strong> <strong>描述</strong> 输入一个图，输出该图中的最大强连通分量。 <strong>输入</strong> 第一行：n和m（n&lt;=10000,m&lt;=100000,n为节点个数，m为边的条数） 接下来m行，每行两个数：a，b，表示a指向b的边（a,b为非负整数）； <strong>输出</strong> 输出最大强连通分量的节点，按照节点编号从小到大输出，如果有多个强连通分量节点数相同，则输出节点编号字典序较小的。 <strong>样例输入</strong> 6 8 1 3 3 5 5 6 1 2 4 1 2 4 4 6 3 4 <strong>样例输出</strong> 1 2 3 4</p>
+<li><strong>&#x7EE7;&#x7EED;&#x904D;&#x5386;&#xFF0C;&#x76F4;&#x81F3;&#x7ED3;&#x675F;</strong></li>
+<li><p><strong>&#x6CE8;&#x610F;&#xFF1A;&#x5728;&#x4E00;&#x4E2A;&#x56FE;&#x4E2D;&#xFF0C;&#x8D77;&#x70B9;&#x4E0D;&#x552F;&#x4E00;&#xFF0C;&#x6240;&#x4EE5;tarjan&#x7B97;&#x6CD5;&#x5E94;&#x8BE5;&#x904D;&#x5386;&#x6240;&#x6709;&#x672A;&#x88AB;&#x904D;&#x5386;&#x7684;&#x70B9;(vis[i]==0)</strong></p>
+<p><strong>&#x672C;&#x7B97;&#x6CD5;&#x4E3B;&#x8981;&#x5E94;&#x7528;&#x8303;&#x56F4;&#x662F;&#x5BF9;&#x590D;&#x6742;&#x7684;&#x6709;&#x5411;&#x56FE;&#x7684;&#x7F29;&#x70B9;&#x4F18;&#x5316;&#x3002;&#x5982;&#x679C;&#x67D0;&#x4E9B;&#x70B9;&#x6784;&#x6210;&#x4E00;&#x4E2A;&#x73AF;&#xFF0C;&#x5B8C;&#x5168;&#x53EF;&#x4EE5;&#x628A;&#x5B83;&#x4EEC;&#x770B;&#x4F5C;&#x4E00;&#x4E2A;&#x70B9;&#xFF0C;&#x52A0;&#x5FEB;&#x7A0B;&#x5E8F;&#x8FD0;&#x884C;&#x6548;&#x7387;</strong>  <strong>Question:&#x5982;&#x679C;&#x662F;&#x6709;&#x5411;&#x6709;&#x6743;&#x56FE;&#x4F7F;&#x7528;&#x7F29;&#x70B9;&#x65F6;&#x5E94;&#x8BE5;&#x600E;&#x4E48;&#x5904;&#x7406;&#x6743;&#x503C;&#x7684;&#x95EE;&#x9898;&#xFF1F;</strong>   <strong>FZOJ1638&#x6C42;&#x5F3A;&#x8FDE;&#x901A;&#x5206;&#x91CF;</strong> <strong>&#x63CF;&#x8FF0;</strong> &#x8F93;&#x5165;&#x4E00;&#x4E2A;&#x56FE;&#xFF0C;&#x8F93;&#x51FA;&#x8BE5;&#x56FE;&#x4E2D;&#x7684;&#x6700;&#x5927;&#x5F3A;&#x8FDE;&#x901A;&#x5206;&#x91CF;&#x3002; <strong>&#x8F93;&#x5165;</strong> &#x7B2C;&#x4E00;&#x884C;&#xFF1A;n&#x548C;m&#xFF08;n&lt;=10000,m&lt;=100000,n&#x4E3A;&#x8282;&#x70B9;&#x4E2A;&#x6570;&#xFF0C;m&#x4E3A;&#x8FB9;&#x7684;&#x6761;&#x6570;&#xFF09; &#x63A5;&#x4E0B;&#x6765;m&#x884C;&#xFF0C;&#x6BCF;&#x884C;&#x4E24;&#x4E2A;&#x6570;&#xFF1A;a&#xFF0C;b&#xFF0C;&#x8868;&#x793A;a&#x6307;&#x5411;b&#x7684;&#x8FB9;&#xFF08;a,b&#x4E3A;&#x975E;&#x8D1F;&#x6574;&#x6570;&#xFF09;&#xFF1B; <strong>&#x8F93;&#x51FA;</strong> &#x8F93;&#x51FA;&#x6700;&#x5927;&#x5F3A;&#x8FDE;&#x901A;&#x5206;&#x91CF;&#x7684;&#x8282;&#x70B9;&#xFF0C;&#x6309;&#x7167;&#x8282;&#x70B9;&#x7F16;&#x53F7;&#x4ECE;&#x5C0F;&#x5230;&#x5927;&#x8F93;&#x51FA;&#xFF0C;&#x5982;&#x679C;&#x6709;&#x591A;&#x4E2A;&#x5F3A;&#x8FDE;&#x901A;&#x5206;&#x91CF;&#x8282;&#x70B9;&#x6570;&#x76F8;&#x540C;&#xFF0C;&#x5219;&#x8F93;&#x51FA;&#x8282;&#x70B9;&#x7F16;&#x53F7;&#x5B57;&#x5178;&#x5E8F;&#x8F83;&#x5C0F;&#x7684;&#x3002; <strong>&#x6837;&#x4F8B;&#x8F93;&#x5165;</strong> 6 8 1 3 3 5 5 6 1 2 4 1 2 4 4 6 3 4 <strong>&#x6837;&#x4F8B;&#x8F93;&#x51FA;</strong> 1 2 3 4</p>
 <p>#include<cstdio><br>#include<cstring><br>#include<algorithm><br>using namespace std;<br>int first[10020],nxt[100200],go[100200],arcnum=1;<br>int dfn[10020],low[10020],stack[100200],top,dex,vis[10020];<br>int rt,ans[10020],temp[10020],sum;<br>void addarc(int a,int b){</algorithm></cstring></cstdio></p>
 <pre><code>nxt[arcnum]=first[a];
 first[a]=arcnum;
@@ -141,7 +192,7 @@ if(dfn[u]==low[u])
     }
 }
 </code></pre><p>}</p>
-<p>int main()<br>{<br>//    freopen(“in.txt”,”r”,stdin);</p>
+<p>int main()<br>{<br>//    freopen(&#x201C;in.txt&#x201D;,&#x201D;r&#x201D;,stdin);</p>
 <pre><code>int n,m,a,b;
 scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
 for(int i=1;i&lt;=m;i++){
@@ -165,8 +216,8 @@ for(int i=1;i&lt;=m;i++){
 
     return 0;
 }
-</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
-<p><strong>Poj2186Popular Cows</strong> <strong>Description</strong> Every cow’s dream is to become the mostpopular cow in the herd. In a herd of N (1 &lt;= N &lt;= 10,000) cows, you aregiven up to M (1 &lt;= M &lt;= 50,000) ordered pairs of the form (A, B) thattell you that cow A thinks that cow B is popular. Since popularity is transitive,if A thinks B is popular and B thinks C is popular, then A will also think thatC is popular, even if this is not explicitlyspecified by an ordered pair in the input. Your task is to compute the numberof cows that are considered popular by every other cow. <strong>Input</strong> * Line 1: Two space-separated integers, Nand M <em> Lines 2..1+M: Two space-separated numbersA and B, meaning that A thinks B is popular. Output <strong>output</strong> \</em> Line 1: A single integer that is thenumber of cows who are considered popular by every other cow. <strong>Sample Input</strong> 3 3 1 2 2 1 2 3 <strong>Sample Output</strong> 1 <strong>Hint</strong> Cow 3 is the only cow of high popularity. <strong>题目大意</strong> N头奶牛(N≤10000) M对关系（a , b），表示a认为b是受欢迎的 关系具有传递性，即若(a,b),(b,c)→(a,c) 询问有多少头奶牛是被其他所有奶牛认为是受欢迎的 <strong>这道题据说不使用强连通算法优化也能做出来，就是说tarjan算法只是进行优化。</strong> <strong>进过分析可以发现，在有向无环图DAG图中，要想一头（群）牛被其它所有牛欢迎，必须满足只有它自己的出度为0，其它的牛所构成的圈子（环）的出度必须大于零才可以</strong> <strong>这样就得到了解决方法，用tarjan算法算出所有的强连通分量并将它们合并成一个点，再做一次搜索，如果这个环对外的出度为0则其中所有牛对其他牛的出度都为0</strong> <strong>如果一个DAG图有两个以上出度为0得点，那么总有一个点无法到达其它任意一个点</strong> <strong>遍历所有环与点，如果出度为0的只有一个则输出答案，否则答案为0</strong></p>
+</code></pre><p><a class="magnific-img" href="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="&#x70B9;&#x51FB;&#x5E76;&#x62D6;&#x62FD;&#x4EE5;&#x79FB;&#x52A8;" class="ui centered image"></a></p>
+<p><strong>Poj2186Popular Cows</strong> <strong>Description</strong> Every cow&#x2019;s dream is to become the mostpopular cow in the herd. In a herd of N (1 &lt;= N &lt;= 10,000) cows, you aregiven up to M (1 &lt;= M &lt;= 50,000) ordered pairs of the form (A, B) thattell you that cow A thinks that cow B is popular. Since popularity is transitive,if A thinks B is popular and B thinks C is popular, then A will also think thatC is popular, even if this is not explicitlyspecified by an ordered pair in the input. Your task is to compute the numberof cows that are considered popular by every other cow. <strong>Input</strong> * Line 1: Two space-separated integers, Nand M <em> Lines 2..1+M: Two space-separated numbersA and B, meaning that A thinks B is popular. Output <strong>output</strong> \</em> Line 1: A single integer that is thenumber of cows who are considered popular by every other cow. <strong>Sample Input</strong> 3 3 1 2 2 1 2 3 <strong>Sample Output</strong> 1 <strong>Hint</strong> Cow 3 is the only cow of high popularity. <strong>&#x9898;&#x76EE;&#x5927;&#x610F;</strong> N&#x5934;&#x5976;&#x725B;(N&#x2264;10000) M&#x5BF9;&#x5173;&#x7CFB;&#xFF08;a , b&#xFF09;&#xFF0C;&#x8868;&#x793A;a&#x8BA4;&#x4E3A;b&#x662F;&#x53D7;&#x6B22;&#x8FCE;&#x7684; &#x5173;&#x7CFB;&#x5177;&#x6709;&#x4F20;&#x9012;&#x6027;&#xFF0C;&#x5373;&#x82E5;(a,b),(b,c)&#x2192;(a,c) &#x8BE2;&#x95EE;&#x6709;&#x591A;&#x5C11;&#x5934;&#x5976;&#x725B;&#x662F;&#x88AB;&#x5176;&#x4ED6;&#x6240;&#x6709;&#x5976;&#x725B;&#x8BA4;&#x4E3A;&#x662F;&#x53D7;&#x6B22;&#x8FCE;&#x7684; <strong>&#x8FD9;&#x9053;&#x9898;&#x636E;&#x8BF4;&#x4E0D;&#x4F7F;&#x7528;&#x5F3A;&#x8FDE;&#x901A;&#x7B97;&#x6CD5;&#x4F18;&#x5316;&#x4E5F;&#x80FD;&#x505A;&#x51FA;&#x6765;&#xFF0C;&#x5C31;&#x662F;&#x8BF4;tarjan&#x7B97;&#x6CD5;&#x53EA;&#x662F;&#x8FDB;&#x884C;&#x4F18;&#x5316;&#x3002;</strong> <strong>&#x8FDB;&#x8FC7;&#x5206;&#x6790;&#x53EF;&#x4EE5;&#x53D1;&#x73B0;&#xFF0C;&#x5728;&#x6709;&#x5411;&#x65E0;&#x73AF;&#x56FE;DAG&#x56FE;&#x4E2D;&#xFF0C;&#x8981;&#x60F3;&#x4E00;&#x5934;&#xFF08;&#x7FA4;&#xFF09;&#x725B;&#x88AB;&#x5176;&#x5B83;&#x6240;&#x6709;&#x725B;&#x6B22;&#x8FCE;&#xFF0C;&#x5FC5;&#x987B;&#x6EE1;&#x8DB3;&#x53EA;&#x6709;&#x5B83;&#x81EA;&#x5DF1;&#x7684;&#x51FA;&#x5EA6;&#x4E3A;0&#xFF0C;&#x5176;&#x5B83;&#x7684;&#x725B;&#x6240;&#x6784;&#x6210;&#x7684;&#x5708;&#x5B50;&#xFF08;&#x73AF;&#xFF09;&#x7684;&#x51FA;&#x5EA6;&#x5FC5;&#x987B;&#x5927;&#x4E8E;&#x96F6;&#x624D;&#x53EF;&#x4EE5;</strong> <strong>&#x8FD9;&#x6837;&#x5C31;&#x5F97;&#x5230;&#x4E86;&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#xFF0C;&#x7528;tarjan&#x7B97;&#x6CD5;&#x7B97;&#x51FA;&#x6240;&#x6709;&#x7684;&#x5F3A;&#x8FDE;&#x901A;&#x5206;&#x91CF;&#x5E76;&#x5C06;&#x5B83;&#x4EEC;&#x5408;&#x5E76;&#x6210;&#x4E00;&#x4E2A;&#x70B9;&#xFF0C;&#x518D;&#x505A;&#x4E00;&#x6B21;&#x641C;&#x7D22;&#xFF0C;&#x5982;&#x679C;&#x8FD9;&#x4E2A;&#x73AF;&#x5BF9;&#x5916;&#x7684;&#x51FA;&#x5EA6;&#x4E3A;0&#x5219;&#x5176;&#x4E2D;&#x6240;&#x6709;&#x725B;&#x5BF9;&#x5176;&#x4ED6;&#x725B;&#x7684;&#x51FA;&#x5EA6;&#x90FD;&#x4E3A;0</strong> <strong>&#x5982;&#x679C;&#x4E00;&#x4E2A;DAG&#x56FE;&#x6709;&#x4E24;&#x4E2A;&#x4EE5;&#x4E0A;&#x51FA;&#x5EA6;&#x4E3A;0&#x5F97;&#x70B9;&#xFF0C;&#x90A3;&#x4E48;&#x603B;&#x6709;&#x4E00;&#x4E2A;&#x70B9;&#x65E0;&#x6CD5;&#x5230;&#x8FBE;&#x5176;&#x5B83;&#x4EFB;&#x610F;&#x4E00;&#x4E2A;&#x70B9;</strong> <strong>&#x904D;&#x5386;&#x6240;&#x6709;&#x73AF;&#x4E0E;&#x70B9;&#xFF0C;&#x5982;&#x679C;&#x51FA;&#x5EA6;&#x4E3A;0&#x7684;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x5219;&#x8F93;&#x51FA;&#x7B54;&#x6848;&#xFF0C;&#x5426;&#x5219;&#x7B54;&#x6848;&#x4E3A;0</strong></p>
 <pre><code>#include&lt;cstdio&gt;
 #include&lt;cstring&gt;
 #include&lt;algorithm&gt;
@@ -174,7 +225,7 @@ using namespace std;
 const int MAXN=10000+200,MAXM=50000+200;
 int first[MAXN],nxt[MAXM],go[MAXM],arcnum=1;
 int dfn[MAXN],low[MAXN],stack[MAXM],top;
-int scc[MAXN],idx,cscc,vis[MAXN];//记录强连通分量 
+int scc[MAXN],idx,cscc,vis[MAXN];//&#x8BB0;&#x5F55;&#x5F3A;&#x8FDE;&#x901A;&#x5206;&#x91CF; 
 int cd[MAXN],cd_scc[MAXN];
 void addarc(int a,int b){
     nxt[arcnum]=first[a];
@@ -246,147 +297,110 @@ int main()
 
     return 0;
 }
-</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+</code></pre><p><a class="magnific-img" href="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="&#x70B9;&#x51FB;&#x5E76;&#x62D6;&#x62FD;&#x4EE5;&#x79FB;&#x52A8;" class="ui centered image"></a></p>
 
-      
+                        
+                    </div>
+
+                    
+                    
+                    
+
+                    <div class="description post-description">
+    <span class="post-description-item">
+        <time datetime="2018-12-06T15:42:41.000Z" itemprop="datePublished">2018-12-06</time>
+
+    </span>
+    <span class="post-description-item">
+        
+    </span>
+</div>
+
+                </div>
+                
+                <div id="pagination" class="nav-web ui text container pagination">
+
+    <div class="ui stackable two column divided grid container">
+        <div class="row">
+            <div class="column nav-left">
+                
+
+                <a href="/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e6-97-a0-e5-90-91-e5-9b-be-e5-89-b2-e8-be-b9-e5-89-b2-e7-82-b9-e3-80-81-e6-9c-80-e8-bf-91-e5-85-ac-e5-85-b1-e7-a5-96-e5-85-88-e7-9a-84-e6-80-bb-e7-bb-93/" class="ui tiny button">
+
+                    <i class="angle left icon"></i>
+                    
+                    Tarjan算法求无向图割边割点、最近公共祖先的总结
+                    
+
+                </a>
+
+                
+            </div>
+            <div class="column nav-right">
+                
+
+                <a href="/2018/12/06/e6-8b-93-e6-89-91-e6-8e-92-e5-ba-8f-e4-bb-a5-e5-8f-8a-e5-85-b3-e9-94-ae-e8-b7-af-e5-be-84-e6-80-bb-e7-bb-93/" class="ui tiny button">
+                    
+                    拓扑排序以及关键路径总结
+                    
+                    <i class="angle right icon"></i></a>
+                
+            </div>
+        </div>
     </div>
-    <footer class="article-footer">
-      <a data-url="http://mrh1s.top/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e5-bc-ba-e8-bf-9e-e9-80-9a-e5-88-86-e9-87-8f-e6-80-bb-e7-bb-93/" data-id="cjv80bewq001ba0etgnmiqw0r" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e6-97-a0-e5-90-91-e5-9b-be-e5-89-b2-e8-be-b9-e5-89-b2-e7-82-b9-e3-80-81-e6-9c-80-e8-bf-91-e5-85-ac-e5-85-b1-e7-a5-96-e5-85-88-e7-9a-84-e6-80-bb-e7-bb-93/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Tarjan算法求无向图割边割点、最近公共祖先的总结
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2018/12/06/e6-8b-93-e6-89-91-e6-8e-92-e5-ba-8f-e4-bb-a5-e5-8f-8a-e5-85-b3-e9-94-ae-e8-b7-af-e5-be-84-e6-80-bb-e7-bb-93/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">拓扑排序以及关键路径总结</div>
-    </a>
-  
-</nav>
 
-  
-</article>
+</div>
+                
+            </div>
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/c-c/">c/c++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/notes/">notes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/project/">project</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/">write up</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cgctf/">cgctf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cnss-recruit-201809/">cnss_recruit_201809</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/hgame-20190122/">hgame_20190122</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nationalCTF-20190421/">nationalCTF_20190421</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nctf-20181124/">nctf_20181124</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/牢骚/">牢骚</a></li></ul>
+            
+            <div class="three wide computer three wide tablet column">
+
+                <div class="ui sticky article-toc" id="article-toc">
+                    <!-- toc -->
+                    
+                </div>
+
+            </div>
+            
+
+        </div>
     </div>
-  </div>
+</div>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Dynamic/">RE_Dynamic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+        <div class="ui vertical footer segment">
+    <div class="ui center aligned container">
+        <div class="ui inverted section divider"></div>
+        &copy; 2019 <a href="/">mrh929</a>,
+        Powered by <a href="https://github.com/henryhuang/hexo-theme-aloha" target="_blank">Aloha</a> and <a href="http://hexo.io/" target="_blank">Hexo</a>.
     </div>
-  </div>
+</div>
 
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/RE-Dynamic/" style="font-size: 10px;">RE_Dynamic</a> <a href="/tags/RE-Static/" style="font-size: 20px;">RE_Static</a>
     </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2019/05/03/Migration-Success/">Migration_Success!</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/28/bbvvmm/">bbvvmm</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/28/e5-8d-97-e4-ba-ac-e9-82-ae-e7-94-b5-e5-a4-a7-e5-ad-a6-re-wxyvm2/">南京邮电大学 RE-WxyVM2</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/13/e5-a3-b3-e7-9b-b8-e5-85-b3/">壳相关</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/22/shinyshot/">ShinyShot!</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 mrh929<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
 
 
 
-  </div>
+
+<!-- scripts list from theme config.yml -->
+
+<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+
+<script src="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch/3.18.1/algoliasearch.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch-helper-js/2.13.0/algoliasearch.helper.min.js"></script>
+
+<script src="/js/semantic-ui-algolia.js"></script>
+
+<script src="/js/aloha-events.js"></script>
+
+
+
 </body>
 </html>

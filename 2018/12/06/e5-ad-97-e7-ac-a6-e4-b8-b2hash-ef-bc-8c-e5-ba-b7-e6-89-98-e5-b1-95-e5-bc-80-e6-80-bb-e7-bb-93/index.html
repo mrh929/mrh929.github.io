@@ -1,18 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  
 
-  
-  <title>字符串hash，康托展开总结 | mrh929&#39;s home</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="字符串hash，康托展开总结各种字符串hash函数： ELF HashBKDRHashAPHashDJBHashJSHashRSHashSDBMHashPJWHashELFHash 字符串hash之BKDRhash函数 有研究表明BKDRhash函数冲突率较低，且变成复杂度低，所以可以用来作为常用hash函数 Hash函数 数据1 数据2 数据3 数据4 数据1得分 数据2得分 数据3得分 数据4">
+
+<!DOCTYPE html>
+<html lang="cn">
+<head prefix="og: http://ogp.me/ns#"><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta name="description" content="Blog">
+    <title>字符串hash，康托展开总结 | mrh929&#39;s home</title>
+
+    <!-- Open Graph -->
+    <meta name="description" content="&amp;#x5B57;&amp;#x7B26;&amp;#x4E32;hash&amp;#xFF0C;&amp;#x5EB7;&amp;#x6258;&amp;#x5C55;&amp;#x5F00;&amp;#x603B;&amp;#x7ED3;&amp;#x5404;&amp;#x79CD;&amp;#x5B57;&amp;#x7B26;&amp;#x4E32;hash&amp;#x51FD;&amp;#x6570;&amp;#xFF1A; ELF HashBKDRHashAPHashDJBHashJSHashRSHashSDBMHa">
 <meta property="og:type" content="article">
 <meta property="og:title" content="字符串hash，康托展开总结">
 <meta property="og:url" content="http://mrh1s.top/2018/12/06/e5-ad-97-e7-ac-a6-e4-b8-b2hash-ef-bc-8c-e5-ba-b7-e6-89-98-e5-b1-95-e5-bc-80-e6-80-bb-e7-bb-93/index.html">
 <meta property="og:site_name" content="mrh929&#39;s home">
-<meta property="og:description" content="字符串hash，康托展开总结各种字符串hash函数： ELF HashBKDRHashAPHashDJBHashJSHashRSHashSDBMHashPJWHashELFHash 字符串hash之BKDRhash函数 有研究表明BKDRhash函数冲突率较低，且变成复杂度低，所以可以用来作为常用hash函数 Hash函数 数据1 数据2 数据3 数据4 数据1得分 数据2得分 数据3得分 数据4">
+<meta property="og:description" content="&amp;#x5B57;&amp;#x7B26;&amp;#x4E32;hash&amp;#xFF0C;&amp;#x5EB7;&amp;#x6258;&amp;#x5C55;&amp;#x5F00;&amp;#x603B;&amp;#x7ED3;&amp;#x5404;&amp;#x79CD;&amp;#x5B57;&amp;#x7B26;&amp;#x4E32;hash&amp;#x51FD;&amp;#x6570;&amp;#xFF1A; ELF HashBKDRHashAPHashDJBHashJSHashRSHashSDBMHa">
 <meta property="og:locale" content="cn">
 <meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
 <meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
@@ -20,91 +22,140 @@
 <meta property="og:updated_time" content="2019-05-03T06:19:59.674Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="字符串hash，康托展开总结">
-<meta name="twitter:description" content="字符串hash，康托展开总结各种字符串hash函数： ELF HashBKDRHashAPHashDJBHashJSHashRSHashSDBMHashPJWHashELFHash 字符串hash之BKDRhash函数 有研究表明BKDRhash函数冲突率较低，且变成复杂度低，所以可以用来作为常用hash函数 Hash函数 数据1 数据2 数据3 数据4 数据1得分 数据2得分 数据3得分 数据4">
+<meta name="twitter:description" content="&amp;#x5B57;&amp;#x7B26;&amp;#x4E32;hash&amp;#xFF0C;&amp;#x5EB7;&amp;#x6258;&amp;#x5C55;&amp;#x5F00;&amp;#x603B;&amp;#x7ED3;&amp;#x5404;&amp;#x79CD;&amp;#x5B57;&amp;#x7B26;&amp;#x4E32;hash&amp;#x51FD;&amp;#x6570;&amp;#xFF1A; ELF HashBKDRHashAPHashDJBHashJSHashRSHashSDBMHa">
 <meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
-  
-    <link rel="alternate" href="/atom.xml" title="mrh929&#39;s home" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
+
+    <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Person",
+  "email": "mailto:",
+  "image": "",
+  "name": "mrh929",
+  "url": "http://mrh1s.top"
+}
+</script>
+    <script>
+    var algoliaEnabled = false;
+    
+</script>
+
+    
+
+    
+    
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    
+    
+    
+        <!-- stylesheets list from config.yml -->
+        
+        <link rel="stylesheet" href="/css/aloha.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/magnific-popup.js/1.1.0/magnific-popup.min.css">
+        
+    
+
 </head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">mrh929&#39;s home</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://mrh1s.top"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-e5-ad-97-e7-ac-a6-e4-b8-b2hash-ef-bc-8c-e5-ba-b7-e6-89-98-e5-b1-95-e5-bc-80-e6-80-bb-e7-bb-93" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/12/06/e5-ad-97-e7-ac-a6-e4-b8-b2hash-ef-bc-8c-e5-ba-b7-e6-89-98-e5-b1-95-e5-bc-80-e6-80-bb-e7-bb-93/" class="article-date">
-  <time datetime="2018-12-06T15:44:39.000Z" itemprop="datePublished">2018-12-06</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a>
-  </div>
+<body id="body" style="margin-bottom: 0;" class="pushable">
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      字符串hash，康托展开总结
-    </h1>
-  
+    <div class="ui top fixed menu">
+        <a class="item" id="menu-icon"><i class="sidebar icon"></i></a>
+    </div>
 
-      </header>
+    <div id="menu-sidebar" class="ui left vertical sidebar menu">
+
+    <div id="sidebar-top">
+        <div class="content">
+            <h3>mrh929&#39;s home</h3>
+        </div>
+    </div>
+    <div class="ui container sidebar-card">
+    <div class="ui people shape content">
+        <div class="active side">
+            <div class="ui card">
+                <div class="image">
+                    <img class="ui medium bordered image" src="/images/avatar.jpg">
+                </div>
+                <div class="content">
+                    <a class="header">mrh929</a>
+                    
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                        
+                    </div>
+
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="字符串hash，康托展开总结"><a href="#字符串hash，康托展开总结" class="headerlink" title="字符串hash，康托展开总结"></a>字符串hash，康托展开总结</h1><p><strong>各种字符串hash函数：</strong> <strong>ELF HashBKDRHashAPHashDJBHashJSHashRSHashSDBMHashPJWHashELFHash</strong> <strong>字符串hash之BKDRhash函数</strong> <strong>有研究表明BKDRhash函数冲突率较低，且变成复杂度低，所以可以用来作为常用hash函数</strong></p>
-<p><strong>Hash函数</strong></p>
-<p><strong>数据1</strong></p>
-<p><strong>数据2</strong></p>
-<p><strong>数据3</strong></p>
-<p><strong>数据4</strong></p>
-<p><strong>数据1得分</strong></p>
-<p><strong>数据2得分</strong></p>
-<p><strong>数据3得分</strong></p>
-<p><strong>数据4得分</strong></p>
-<p><strong>平均分</strong></p>
+    
+
+    
+
+    
+    <a href="/index.html" class="item">
+        <i class="home icon"></i>
+        HOME
+    </a>
+
+    
+
+    
+</div>
+
+    <div class="pusher body-content">
+        <div id="content" class="ui main container">
+            <!--<div class="ui one column grid">-->
+                <!--<div class="column">-->
+                    <!--<div class="ui main container">-->
+                        <div id="post-e5-ad-97-e7-ac-a6-e4-b8-b2hash-ef-bc-8c-e5-ba-b7-e6-89-98-e5-b1-95-e5-bc-80-e6-80-bb-e7-bb-93" class="ui main container article-type-post">
+
+    
+
+    <div class="ui divided grid">
+
+        <div class="two column row" id="article-content">
+
+            <div class="thirteen wide computer thirteen wide tablet sixteen wide mobile column">
+                
+
+<h1 class="ui header">
+    
+    字符串hash，康托展开总结
+</h1>
+
+
+
+                <div class="article-inner">
+
+                    <div class="article-entry" itemprop="articleBody">
+                        
+                        <h1 id="&#x5B57;&#x7B26;&#x4E32;hash&#xFF0C;&#x5EB7;&#x6258;&#x5C55;&#x5F00;&#x603B;&#x7ED3;"><a href="#&#x5B57;&#x7B26;&#x4E32;hash&#xFF0C;&#x5EB7;&#x6258;&#x5C55;&#x5F00;&#x603B;&#x7ED3;" class="headerlink" title="&#x5B57;&#x7B26;&#x4E32;hash&#xFF0C;&#x5EB7;&#x6258;&#x5C55;&#x5F00;&#x603B;&#x7ED3;"></a>&#x5B57;&#x7B26;&#x4E32;hash&#xFF0C;&#x5EB7;&#x6258;&#x5C55;&#x5F00;&#x603B;&#x7ED3;</h1><p><strong>&#x5404;&#x79CD;&#x5B57;&#x7B26;&#x4E32;hash&#x51FD;&#x6570;&#xFF1A;</strong> <strong>ELF HashBKDRHashAPHashDJBHashJSHashRSHashSDBMHashPJWHashELFHash</strong> <strong>&#x5B57;&#x7B26;&#x4E32;hash&#x4E4B;BKDRhash&#x51FD;&#x6570;</strong> <strong>&#x6709;&#x7814;&#x7A76;&#x8868;&#x660E;BKDRhash&#x51FD;&#x6570;&#x51B2;&#x7A81;&#x7387;&#x8F83;&#x4F4E;&#xFF0C;&#x4E14;&#x53D8;&#x6210;&#x590D;&#x6742;&#x5EA6;&#x4F4E;&#xFF0C;&#x6240;&#x4EE5;&#x53EF;&#x4EE5;&#x7528;&#x6765;&#x4F5C;&#x4E3A;&#x5E38;&#x7528;hash&#x51FD;&#x6570;</strong></p>
+<p><strong>Hash&#x51FD;&#x6570;</strong></p>
+<p><strong>&#x6570;&#x636E;1</strong></p>
+<p><strong>&#x6570;&#x636E;2</strong></p>
+<p><strong>&#x6570;&#x636E;3</strong></p>
+<p><strong>&#x6570;&#x636E;4</strong></p>
+<p><strong>&#x6570;&#x636E;1&#x5F97;&#x5206;</strong></p>
+<p><strong>&#x6570;&#x636E;2&#x5F97;&#x5206;</strong></p>
+<p><strong>&#x6570;&#x636E;3&#x5F97;&#x5206;</strong></p>
+<p><strong>&#x6570;&#x636E;4&#x5F97;&#x5206;</strong></p>
+<p><strong>&#x5E73;&#x5747;&#x5206;</strong></p>
 <p><strong>BKDRHash</strong></p>
 <p><strong>2</strong></p>
 <p><strong>0</strong></p>
@@ -185,7 +236,7 @@
 <p><strong>43.89</strong></p>
 <p><strong>0</strong></p>
 <p><strong>21.95</strong></p>
-<p>  <strong>unsigned int bkdr_hash(const char* str)</strong> <strong>{            </strong> <strong>      unsignedint seed = 31; // 31 131 1313 13131 131313 etc.. 37（最好是质数）</strong> <strong>      unsignedint hash = 0;</strong> <strong>      while(*str) hash = (hash * seed + (*str++))%P;//P是一个较大质数</strong> <strong>      returnhash;</strong> <strong>}</strong> <strong>各种证明：</strong> <strong><a href="http://www.it165.net/pro/html/201410/24949.html" target="_blank" rel="noopener">http://www.it165.net/pro/html/201410/24949.html</a></strong>    <strong>双hash优化：</strong> <strong>在hash表中想要用线性探查的方式处理hash表的冲突，那么每次比对要查找的元素与当前元素是否相等就显得十分麻烦，特别是两个数据是字符串的时候，strcmp超级耗时，此时我们就可以在存储新元素时通过另一hash算法算出两者的hash值，将这两个hash存入结构体，并且排序，用二分查找第一个hash值，并比较第二个hash值，若符合则相同</strong>  <strong>另外本人想到一个貌似还可以的做法，目前都AC了所做的所有Hash题目</strong> <strong>做法：用两种截然不同的hash算法，hash1算出取模压缩后的值，而hash2算出BKDRhash算法，其中P（较大质数）为10^9+7，算出字符串完整的hash2值，把hash1当作地址，hash2当作数据：HashTable[hash1]=hash2;</strong> <strong>当然有冲突时先比较hash2值是否相同，不相同则继续探查直到所在地址数据为空，hash2相同时就基本可以说明两个字符串是相等的。。。。</strong> <strong>康托展开</strong> <strong>叙述：有一个数字序列，所有数都是[1,n]的，且任意两者互异，此时我们用一一对应的方式存储这些数据就有n！种可能，康托算法对处理这种序列提供了完美的解决方法。称为康托展开。我们把这个数列看作全排列，数字所对hash值就为全排列的大小（第几大）。</strong>  <strong>公式：hash(key)=a[n]<em>(n-1)!+a[n-1]</em>(n-2)!+…+a[2]<em>(2-1)!+a[1]</em>(1-1)!</strong> <strong>其中，a[n]所存的值为在第n个数（从小到大的顺序）之前比n小的数的个数</strong> <strong>Hash值完全可以通过循环在n次内算出，且数列与hash完全一一对应，可谓完美算法。</strong>  <strong>康托逆展开：</strong> <strong>由于康托展开的一一对应性，我们同样可以算出原来的全排列。</strong> <strong>n为康托展开式，k为总阶乘</strong> <strong>第一位：(n-1)/(k-1)余n’</strong> <strong>第二位：n’/(k-2)余n’’</strong> <strong>以此类推。。。</strong>                   <strong>Poj1200</strong> <strong>描述</strong> 许多人喜欢解决难题。一个这样的难题是在一个给定的文本中找到一个隐藏的素数。这个数字是所给字符串中不同子串的个数。当你很快会发现，你真的需要一台计算机和一个很好的算法来解决这样的难题。 你的任务是编写一个程序，文本中不同字符的数量不超过NC，给出这样的字符串，求长度为n的不同的子串有多少个。 举一个例子，当n = 3，NC = 4，字符串为“daababac”。可以在字符串中到到符合条件的子串为：”daa”;”aab”; “aba”; “bab”; “bac”。因此，答案应该是5。 <strong>输入：</strong> 第一行：两个数：n，nc 第二行：要搜索的字符串； 你可以假设，最后你所搜索出来符合要求的子串个数不大于16000000； <strong>输出</strong> 不同子串的个数 <strong>样例输入</strong> 3 4 daababac <strong>样例输出</strong> 5 <strong>提示</strong> 输入数据巨大，不用cin <strong>数据巨大，seed不宜太大，看了poj题解，有一个很棒的方法，seed就是当前字符在整个字符串出现过的个数，刚好可以做到一一对应</strong></p>
+<p>  <strong>unsigned int bkdr_hash(const char* str)</strong> <strong>{            </strong> <strong>      unsignedint seed = 31; // 31 131 1313 13131 131313 etc.. 37&#xFF08;&#x6700;&#x597D;&#x662F;&#x8D28;&#x6570;&#xFF09;</strong> <strong>      unsignedint hash = 0;</strong> <strong>      while(*str) hash = (hash * seed + (*str++))%P;//P&#x662F;&#x4E00;&#x4E2A;&#x8F83;&#x5927;&#x8D28;&#x6570;</strong> <strong>      returnhash;</strong> <strong>}</strong> <strong>&#x5404;&#x79CD;&#x8BC1;&#x660E;&#xFF1A;</strong> <strong><a href="http://www.it165.net/pro/html/201410/24949.html" target="_blank" rel="noopener">http://www.it165.net/pro/html/201410/24949.html</a></strong>    <strong>&#x53CC;hash&#x4F18;&#x5316;&#xFF1A;</strong> <strong>&#x5728;hash&#x8868;&#x4E2D;&#x60F3;&#x8981;&#x7528;&#x7EBF;&#x6027;&#x63A2;&#x67E5;&#x7684;&#x65B9;&#x5F0F;&#x5904;&#x7406;hash&#x8868;&#x7684;&#x51B2;&#x7A81;&#xFF0C;&#x90A3;&#x4E48;&#x6BCF;&#x6B21;&#x6BD4;&#x5BF9;&#x8981;&#x67E5;&#x627E;&#x7684;&#x5143;&#x7D20;&#x4E0E;&#x5F53;&#x524D;&#x5143;&#x7D20;&#x662F;&#x5426;&#x76F8;&#x7B49;&#x5C31;&#x663E;&#x5F97;&#x5341;&#x5206;&#x9EBB;&#x70E6;&#xFF0C;&#x7279;&#x522B;&#x662F;&#x4E24;&#x4E2A;&#x6570;&#x636E;&#x662F;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x65F6;&#x5019;&#xFF0C;strcmp&#x8D85;&#x7EA7;&#x8017;&#x65F6;&#xFF0C;&#x6B64;&#x65F6;&#x6211;&#x4EEC;&#x5C31;&#x53EF;&#x4EE5;&#x5728;&#x5B58;&#x50A8;&#x65B0;&#x5143;&#x7D20;&#x65F6;&#x901A;&#x8FC7;&#x53E6;&#x4E00;hash&#x7B97;&#x6CD5;&#x7B97;&#x51FA;&#x4E24;&#x8005;&#x7684;hash&#x503C;&#xFF0C;&#x5C06;&#x8FD9;&#x4E24;&#x4E2A;hash&#x5B58;&#x5165;&#x7ED3;&#x6784;&#x4F53;&#xFF0C;&#x5E76;&#x4E14;&#x6392;&#x5E8F;&#xFF0C;&#x7528;&#x4E8C;&#x5206;&#x67E5;&#x627E;&#x7B2C;&#x4E00;&#x4E2A;hash&#x503C;&#xFF0C;&#x5E76;&#x6BD4;&#x8F83;&#x7B2C;&#x4E8C;&#x4E2A;hash&#x503C;&#xFF0C;&#x82E5;&#x7B26;&#x5408;&#x5219;&#x76F8;&#x540C;</strong>  <strong>&#x53E6;&#x5916;&#x672C;&#x4EBA;&#x60F3;&#x5230;&#x4E00;&#x4E2A;&#x8C8C;&#x4F3C;&#x8FD8;&#x53EF;&#x4EE5;&#x7684;&#x505A;&#x6CD5;&#xFF0C;&#x76EE;&#x524D;&#x90FD;AC&#x4E86;&#x6240;&#x505A;&#x7684;&#x6240;&#x6709;Hash&#x9898;&#x76EE;</strong> <strong>&#x505A;&#x6CD5;&#xFF1A;&#x7528;&#x4E24;&#x79CD;&#x622A;&#x7136;&#x4E0D;&#x540C;&#x7684;hash&#x7B97;&#x6CD5;&#xFF0C;hash1&#x7B97;&#x51FA;&#x53D6;&#x6A21;&#x538B;&#x7F29;&#x540E;&#x7684;&#x503C;&#xFF0C;&#x800C;hash2&#x7B97;&#x51FA;BKDRhash&#x7B97;&#x6CD5;&#xFF0C;&#x5176;&#x4E2D;P&#xFF08;&#x8F83;&#x5927;&#x8D28;&#x6570;&#xFF09;&#x4E3A;10^9+7&#xFF0C;&#x7B97;&#x51FA;&#x5B57;&#x7B26;&#x4E32;&#x5B8C;&#x6574;&#x7684;hash2&#x503C;&#xFF0C;&#x628A;hash1&#x5F53;&#x4F5C;&#x5730;&#x5740;&#xFF0C;hash2&#x5F53;&#x4F5C;&#x6570;&#x636E;&#xFF1A;HashTable[hash1]=hash2;</strong> <strong>&#x5F53;&#x7136;&#x6709;&#x51B2;&#x7A81;&#x65F6;&#x5148;&#x6BD4;&#x8F83;hash2&#x503C;&#x662F;&#x5426;&#x76F8;&#x540C;&#xFF0C;&#x4E0D;&#x76F8;&#x540C;&#x5219;&#x7EE7;&#x7EED;&#x63A2;&#x67E5;&#x76F4;&#x5230;&#x6240;&#x5728;&#x5730;&#x5740;&#x6570;&#x636E;&#x4E3A;&#x7A7A;&#xFF0C;hash2&#x76F8;&#x540C;&#x65F6;&#x5C31;&#x57FA;&#x672C;&#x53EF;&#x4EE5;&#x8BF4;&#x660E;&#x4E24;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x662F;&#x76F8;&#x7B49;&#x7684;&#x3002;&#x3002;&#x3002;&#x3002;</strong> <strong>&#x5EB7;&#x6258;&#x5C55;&#x5F00;</strong> <strong>&#x53D9;&#x8FF0;&#xFF1A;&#x6709;&#x4E00;&#x4E2A;&#x6570;&#x5B57;&#x5E8F;&#x5217;&#xFF0C;&#x6240;&#x6709;&#x6570;&#x90FD;&#x662F;[1,n]&#x7684;&#xFF0C;&#x4E14;&#x4EFB;&#x610F;&#x4E24;&#x8005;&#x4E92;&#x5F02;&#xFF0C;&#x6B64;&#x65F6;&#x6211;&#x4EEC;&#x7528;&#x4E00;&#x4E00;&#x5BF9;&#x5E94;&#x7684;&#x65B9;&#x5F0F;&#x5B58;&#x50A8;&#x8FD9;&#x4E9B;&#x6570;&#x636E;&#x5C31;&#x6709;n&#xFF01;&#x79CD;&#x53EF;&#x80FD;&#xFF0C;&#x5EB7;&#x6258;&#x7B97;&#x6CD5;&#x5BF9;&#x5904;&#x7406;&#x8FD9;&#x79CD;&#x5E8F;&#x5217;&#x63D0;&#x4F9B;&#x4E86;&#x5B8C;&#x7F8E;&#x7684;&#x89E3;&#x51B3;&#x65B9;&#x6CD5;&#x3002;&#x79F0;&#x4E3A;&#x5EB7;&#x6258;&#x5C55;&#x5F00;&#x3002;&#x6211;&#x4EEC;&#x628A;&#x8FD9;&#x4E2A;&#x6570;&#x5217;&#x770B;&#x4F5C;&#x5168;&#x6392;&#x5217;&#xFF0C;&#x6570;&#x5B57;&#x6240;&#x5BF9;hash&#x503C;&#x5C31;&#x4E3A;&#x5168;&#x6392;&#x5217;&#x7684;&#x5927;&#x5C0F;&#xFF08;&#x7B2C;&#x51E0;&#x5927;&#xFF09;&#x3002;</strong>  <strong>&#x516C;&#x5F0F;&#xFF1A;hash(key)=a[n]<em>(n-1)!+a[n-1]</em>(n-2)!+&#x2026;+a[2]<em>(2-1)!+a[1]</em>(1-1)!</strong> <strong>&#x5176;&#x4E2D;&#xFF0C;a[n]&#x6240;&#x5B58;&#x7684;&#x503C;&#x4E3A;&#x5728;&#x7B2C;n&#x4E2A;&#x6570;&#xFF08;&#x4ECE;&#x5C0F;&#x5230;&#x5927;&#x7684;&#x987A;&#x5E8F;&#xFF09;&#x4E4B;&#x524D;&#x6BD4;n&#x5C0F;&#x7684;&#x6570;&#x7684;&#x4E2A;&#x6570;</strong> <strong>Hash&#x503C;&#x5B8C;&#x5168;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x5FAA;&#x73AF;&#x5728;n&#x6B21;&#x5185;&#x7B97;&#x51FA;&#xFF0C;&#x4E14;&#x6570;&#x5217;&#x4E0E;hash&#x5B8C;&#x5168;&#x4E00;&#x4E00;&#x5BF9;&#x5E94;&#xFF0C;&#x53EF;&#x8C13;&#x5B8C;&#x7F8E;&#x7B97;&#x6CD5;&#x3002;</strong>  <strong>&#x5EB7;&#x6258;&#x9006;&#x5C55;&#x5F00;&#xFF1A;</strong> <strong>&#x7531;&#x4E8E;&#x5EB7;&#x6258;&#x5C55;&#x5F00;&#x7684;&#x4E00;&#x4E00;&#x5BF9;&#x5E94;&#x6027;&#xFF0C;&#x6211;&#x4EEC;&#x540C;&#x6837;&#x53EF;&#x4EE5;&#x7B97;&#x51FA;&#x539F;&#x6765;&#x7684;&#x5168;&#x6392;&#x5217;&#x3002;</strong> <strong>n&#x4E3A;&#x5EB7;&#x6258;&#x5C55;&#x5F00;&#x5F0F;&#xFF0C;k&#x4E3A;&#x603B;&#x9636;&#x4E58;</strong> <strong>&#x7B2C;&#x4E00;&#x4F4D;&#xFF1A;(n-1)/(k-1)&#x4F59;n&#x2019;</strong> <strong>&#x7B2C;&#x4E8C;&#x4F4D;&#xFF1A;n&#x2019;/(k-2)&#x4F59;n&#x2019;&#x2019;</strong> <strong>&#x4EE5;&#x6B64;&#x7C7B;&#x63A8;&#x3002;&#x3002;&#x3002;</strong>                   <strong>Poj1200</strong> <strong>&#x63CF;&#x8FF0;</strong> &#x8BB8;&#x591A;&#x4EBA;&#x559C;&#x6B22;&#x89E3;&#x51B3;&#x96BE;&#x9898;&#x3002;&#x4E00;&#x4E2A;&#x8FD9;&#x6837;&#x7684;&#x96BE;&#x9898;&#x662F;&#x5728;&#x4E00;&#x4E2A;&#x7ED9;&#x5B9A;&#x7684;&#x6587;&#x672C;&#x4E2D;&#x627E;&#x5230;&#x4E00;&#x4E2A;&#x9690;&#x85CF;&#x7684;&#x7D20;&#x6570;&#x3002;&#x8FD9;&#x4E2A;&#x6570;&#x5B57;&#x662F;&#x6240;&#x7ED9;&#x5B57;&#x7B26;&#x4E32;&#x4E2D;&#x4E0D;&#x540C;&#x5B50;&#x4E32;&#x7684;&#x4E2A;&#x6570;&#x3002;&#x5F53;&#x4F60;&#x5F88;&#x5FEB;&#x4F1A;&#x53D1;&#x73B0;&#xFF0C;&#x4F60;&#x771F;&#x7684;&#x9700;&#x8981;&#x4E00;&#x53F0;&#x8BA1;&#x7B97;&#x673A;&#x548C;&#x4E00;&#x4E2A;&#x5F88;&#x597D;&#x7684;&#x7B97;&#x6CD5;&#x6765;&#x89E3;&#x51B3;&#x8FD9;&#x6837;&#x7684;&#x96BE;&#x9898;&#x3002; &#x4F60;&#x7684;&#x4EFB;&#x52A1;&#x662F;&#x7F16;&#x5199;&#x4E00;&#x4E2A;&#x7A0B;&#x5E8F;&#xFF0C;&#x6587;&#x672C;&#x4E2D;&#x4E0D;&#x540C;&#x5B57;&#x7B26;&#x7684;&#x6570;&#x91CF;&#x4E0D;&#x8D85;&#x8FC7;NC&#xFF0C;&#x7ED9;&#x51FA;&#x8FD9;&#x6837;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x6C42;&#x957F;&#x5EA6;&#x4E3A;n&#x7684;&#x4E0D;&#x540C;&#x7684;&#x5B50;&#x4E32;&#x6709;&#x591A;&#x5C11;&#x4E2A;&#x3002; &#x4E3E;&#x4E00;&#x4E2A;&#x4F8B;&#x5B50;&#xFF0C;&#x5F53;n = 3&#xFF0C;NC = 4&#xFF0C;&#x5B57;&#x7B26;&#x4E32;&#x4E3A;&#x201C;daababac&#x201D;&#x3002;&#x53EF;&#x4EE5;&#x5728;&#x5B57;&#x7B26;&#x4E32;&#x4E2D;&#x5230;&#x5230;&#x7B26;&#x5408;&#x6761;&#x4EF6;&#x7684;&#x5B50;&#x4E32;&#x4E3A;&#xFF1A;&#x201D;daa&#x201D;;&#x201D;aab&#x201D;; &#x201C;aba&#x201D;; &#x201C;bab&#x201D;; &#x201C;bac&#x201D;&#x3002;&#x56E0;&#x6B64;&#xFF0C;&#x7B54;&#x6848;&#x5E94;&#x8BE5;&#x662F;5&#x3002; <strong>&#x8F93;&#x5165;&#xFF1A;</strong> &#x7B2C;&#x4E00;&#x884C;&#xFF1A;&#x4E24;&#x4E2A;&#x6570;&#xFF1A;n&#xFF0C;nc &#x7B2C;&#x4E8C;&#x884C;&#xFF1A;&#x8981;&#x641C;&#x7D22;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#xFF1B; &#x4F60;&#x53EF;&#x4EE5;&#x5047;&#x8BBE;&#xFF0C;&#x6700;&#x540E;&#x4F60;&#x6240;&#x641C;&#x7D22;&#x51FA;&#x6765;&#x7B26;&#x5408;&#x8981;&#x6C42;&#x7684;&#x5B50;&#x4E32;&#x4E2A;&#x6570;&#x4E0D;&#x5927;&#x4E8E;16000000&#xFF1B; <strong>&#x8F93;&#x51FA;</strong> &#x4E0D;&#x540C;&#x5B50;&#x4E32;&#x7684;&#x4E2A;&#x6570; <strong>&#x6837;&#x4F8B;&#x8F93;&#x5165;</strong> 3 4 daababac <strong>&#x6837;&#x4F8B;&#x8F93;&#x51FA;</strong> 5 <strong>&#x63D0;&#x793A;</strong> &#x8F93;&#x5165;&#x6570;&#x636E;&#x5DE8;&#x5927;&#xFF0C;&#x4E0D;&#x7528;cin <strong>&#x6570;&#x636E;&#x5DE8;&#x5927;&#xFF0C;seed&#x4E0D;&#x5B9C;&#x592A;&#x5927;&#xFF0C;&#x770B;&#x4E86;poj&#x9898;&#x89E3;&#xFF0C;&#x6709;&#x4E00;&#x4E2A;&#x5F88;&#x68D2;&#x7684;&#x65B9;&#x6CD5;&#xFF0C;seed&#x5C31;&#x662F;&#x5F53;&#x524D;&#x5B57;&#x7B26;&#x5728;&#x6574;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x51FA;&#x73B0;&#x8FC7;&#x7684;&#x4E2A;&#x6570;&#xFF0C;&#x521A;&#x597D;&#x53EF;&#x4EE5;&#x505A;&#x5230;&#x4E00;&#x4E00;&#x5BF9;&#x5E94;</strong></p>
 <pre><code>#include&lt;cstdio&gt;
 #include&lt;cstring&gt;
 #include&lt;algorithm&gt;
@@ -205,7 +256,7 @@ int main(){
     for(int i=0;i&lt;len-n+1;i++){
         sum=0;
         for(int j=i;j&lt;i+n;j++)
-            sum+=sum*nc+asc[str[j]];//该字符的个数作为seed 
+            sum+=sum*nc+asc[str[j]];//&#x8BE5;&#x5B57;&#x7B26;&#x7684;&#x4E2A;&#x6570;&#x4F5C;&#x4E3A;seed 
         if(!hashtable[sum])
             hashtable[sum]=1,ans++;
     }
@@ -213,8 +264,8 @@ int main(){
 
     return 0;
 }
-</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
-<p><strong>POJ2503-**</strong>Babelfish<strong> </strong>描述：<strong> 你刚从滑铁卢搬到一个大城市，但是你却不懂他们的语言，还好你有一本词典可以帮助你。   </strong>输入格式<strong> 输入包括高达10万词条，之后是一个空行，然后是长达10万个单词查询。每个字典条目是包含一个英文单词，后面跟一个空格和一个当地语言。没有当地语言在字典中出现超过一次。每行一个词，输入中的每个词至多10小写字母。 </strong>输出格式<strong> 输出翻译成英语的消息，每行一个单词。没有在字典中的外来词应该被译为“en”。 </strong>样例输入<strong> dog ogday cat atcay pig igpay froot ootfray loops oopslay atcay ittenkay oopslay </strong>样例输出<strong> cat eh loops </strong>这里读入就是个问题，我是这样的：先读入s1，在getchar()，如果get到空格就继续读s2<strong> </strong>否则就进行翻译步骤<strong> </strong>这里我使用的方式是双哈希，将字符串的第一个hash作为地址，第二个hash作为数据，线性探查相应单词就会省时省力**</p>
+</code></pre><p><a class="magnific-img" href="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="&#x70B9;&#x51FB;&#x5E76;&#x62D6;&#x62FD;&#x4EE5;&#x79FB;&#x52A8;" class="ui centered image"></a></p>
+<p><strong>POJ2503-**</strong>Babelfish<strong> </strong>&#x63CF;&#x8FF0;&#xFF1A;<strong> &#x4F60;&#x521A;&#x4ECE;&#x6ED1;&#x94C1;&#x5362;&#x642C;&#x5230;&#x4E00;&#x4E2A;&#x5927;&#x57CE;&#x5E02;&#xFF0C;&#x4F46;&#x662F;&#x4F60;&#x5374;&#x4E0D;&#x61C2;&#x4ED6;&#x4EEC;&#x7684;&#x8BED;&#x8A00;&#xFF0C;&#x8FD8;&#x597D;&#x4F60;&#x6709;&#x4E00;&#x672C;&#x8BCD;&#x5178;&#x53EF;&#x4EE5;&#x5E2E;&#x52A9;&#x4F60;&#x3002;   </strong>&#x8F93;&#x5165;&#x683C;&#x5F0F;<strong> &#x8F93;&#x5165;&#x5305;&#x62EC;&#x9AD8;&#x8FBE;10&#x4E07;&#x8BCD;&#x6761;&#xFF0C;&#x4E4B;&#x540E;&#x662F;&#x4E00;&#x4E2A;&#x7A7A;&#x884C;&#xFF0C;&#x7136;&#x540E;&#x662F;&#x957F;&#x8FBE;10&#x4E07;&#x4E2A;&#x5355;&#x8BCD;&#x67E5;&#x8BE2;&#x3002;&#x6BCF;&#x4E2A;&#x5B57;&#x5178;&#x6761;&#x76EE;&#x662F;&#x5305;&#x542B;&#x4E00;&#x4E2A;&#x82F1;&#x6587;&#x5355;&#x8BCD;&#xFF0C;&#x540E;&#x9762;&#x8DDF;&#x4E00;&#x4E2A;&#x7A7A;&#x683C;&#x548C;&#x4E00;&#x4E2A;&#x5F53;&#x5730;&#x8BED;&#x8A00;&#x3002;&#x6CA1;&#x6709;&#x5F53;&#x5730;&#x8BED;&#x8A00;&#x5728;&#x5B57;&#x5178;&#x4E2D;&#x51FA;&#x73B0;&#x8D85;&#x8FC7;&#x4E00;&#x6B21;&#x3002;&#x6BCF;&#x884C;&#x4E00;&#x4E2A;&#x8BCD;&#xFF0C;&#x8F93;&#x5165;&#x4E2D;&#x7684;&#x6BCF;&#x4E2A;&#x8BCD;&#x81F3;&#x591A;10&#x5C0F;&#x5199;&#x5B57;&#x6BCD;&#x3002; </strong>&#x8F93;&#x51FA;&#x683C;&#x5F0F;<strong> &#x8F93;&#x51FA;&#x7FFB;&#x8BD1;&#x6210;&#x82F1;&#x8BED;&#x7684;&#x6D88;&#x606F;&#xFF0C;&#x6BCF;&#x884C;&#x4E00;&#x4E2A;&#x5355;&#x8BCD;&#x3002;&#x6CA1;&#x6709;&#x5728;&#x5B57;&#x5178;&#x4E2D;&#x7684;&#x5916;&#x6765;&#x8BCD;&#x5E94;&#x8BE5;&#x88AB;&#x8BD1;&#x4E3A;&#x201C;en&#x201D;&#x3002; </strong>&#x6837;&#x4F8B;&#x8F93;&#x5165;<strong> dog ogday cat atcay pig igpay froot ootfray loops oopslay atcay ittenkay oopslay </strong>&#x6837;&#x4F8B;&#x8F93;&#x51FA;<strong> cat eh loops </strong>&#x8FD9;&#x91CC;&#x8BFB;&#x5165;&#x5C31;&#x662F;&#x4E2A;&#x95EE;&#x9898;&#xFF0C;&#x6211;&#x662F;&#x8FD9;&#x6837;&#x7684;&#xFF1A;&#x5148;&#x8BFB;&#x5165;s1&#xFF0C;&#x5728;getchar()&#xFF0C;&#x5982;&#x679C;get&#x5230;&#x7A7A;&#x683C;&#x5C31;&#x7EE7;&#x7EED;&#x8BFB;s2<strong> </strong>&#x5426;&#x5219;&#x5C31;&#x8FDB;&#x884C;&#x7FFB;&#x8BD1;&#x6B65;&#x9AA4;<strong> </strong>&#x8FD9;&#x91CC;&#x6211;&#x4F7F;&#x7528;&#x7684;&#x65B9;&#x5F0F;&#x662F;&#x53CC;&#x54C8;&#x5E0C;&#xFF0C;&#x5C06;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x7B2C;&#x4E00;&#x4E2A;hash&#x4F5C;&#x4E3A;&#x5730;&#x5740;&#xFF0C;&#x7B2C;&#x4E8C;&#x4E2A;hash&#x4F5C;&#x4E3A;&#x6570;&#x636E;&#xFF0C;&#x7EBF;&#x6027;&#x63A2;&#x67E5;&#x76F8;&#x5E94;&#x5355;&#x8BCD;&#x5C31;&#x4F1A;&#x7701;&#x65F6;&#x7701;&#x529B;**</p>
 <pre><code>#include&lt;cstdio&gt;
 #include&lt;cstring&gt;
 #include&lt;algorithm&gt;
@@ -268,14 +319,14 @@ int main(){
 
     return 0;
 }
-</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
-<p><strong>POJ1002- 487-3279</strong> <strong>描述：</strong> 企业喜欢用容易被记住的电话号码。让电话号码容易被记住的一个办法是将它写成一个容易记住的单词或者短语。例如，你需要给滑铁卢大学打电话时，可以拨打TUT-GLOP。有时，只将电话号码中部分数字拼写成单词。当你晚上回到酒店，可以通过拨打310-GINO来向Gino’s订一份pizza。让电话号码容易被记住的另一个办法是以一种好记的方式对号码的数字进行分组。通过拨打必胜客的“三个十”号码3-10-10-10，你可以从他们那里订pizza。 电话号码的标准格式是七位十进制数，并在第三、第四位数字之间有一个连接符。电话拨号盘提供了从字母到数字的映射，映射关系如下： A, B, 和C映射到 2 D, E, 和F映射到 3 G, H, 和I映射到 4 J, K, 和L映射到 5 M, N, 和O映射到 6 P, R, 和S映射到 7 T, U, 和V映射到 8 W, X, 和Y映射到 9 ITS-EASY 4873279 Q和Z没有映射到任何数字，连字符不需要拨号，可以任意添加和删除。 TUT-GLOP的标准格式是888-4567，310-GINO的标准格式是310-4466，3-10-10-10的标准格式是310-1010。 如果两个号码有相同的标准格式，那么他们就是等同的（相同的拨号） 你的公司正在为本地的公司编写一个电话号码薄。作为质量控制的一部分，你想要检查是否有两个和多个公司拥有相同的电话号码。   <strong>输入格式：</strong> 输入的格式是，第一行是一个正整数，指定电话号码薄中号码的数量（最多100000）。余下的每行是一个电话号码。每个电话号码由数字，大写字母（除了Q和Z）以及连接符组成。每个电话号码中只会刚好有7个数字或者字母。 <strong>输出格式：</strong> 对于每个出现重复的号码产生一行输出，输出是号码的标准格式紧跟一个空格然后是它的重复次数。如果存在多个重复的号码，则按照号码的字典升序输出。如果输入数据中没有重复的号码，输出一行： No duplicates. <strong>样例输入：</strong> 12 4873279 ITS-EASY 888-4567 3-10-10-10 888-GLOP TUT-GLOP 967-11-11 310-GINO F101010 888-1200 -4-8-7-3-2-7-9- 487-3279  <strong>样例输出：</strong></p>
+</code></pre><p><a class="magnific-img" href="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="&#x70B9;&#x51FB;&#x5E76;&#x62D6;&#x62FD;&#x4EE5;&#x79FB;&#x52A8;" class="ui centered image"></a></p>
+<p><strong>POJ1002- 487-3279</strong> <strong>&#x63CF;&#x8FF0;&#xFF1A;</strong> &#x4F01;&#x4E1A;&#x559C;&#x6B22;&#x7528;&#x5BB9;&#x6613;&#x88AB;&#x8BB0;&#x4F4F;&#x7684;&#x7535;&#x8BDD;&#x53F7;&#x7801;&#x3002;&#x8BA9;&#x7535;&#x8BDD;&#x53F7;&#x7801;&#x5BB9;&#x6613;&#x88AB;&#x8BB0;&#x4F4F;&#x7684;&#x4E00;&#x4E2A;&#x529E;&#x6CD5;&#x662F;&#x5C06;&#x5B83;&#x5199;&#x6210;&#x4E00;&#x4E2A;&#x5BB9;&#x6613;&#x8BB0;&#x4F4F;&#x7684;&#x5355;&#x8BCD;&#x6216;&#x8005;&#x77ED;&#x8BED;&#x3002;&#x4F8B;&#x5982;&#xFF0C;&#x4F60;&#x9700;&#x8981;&#x7ED9;&#x6ED1;&#x94C1;&#x5362;&#x5927;&#x5B66;&#x6253;&#x7535;&#x8BDD;&#x65F6;&#xFF0C;&#x53EF;&#x4EE5;&#x62E8;&#x6253;TUT-GLOP&#x3002;&#x6709;&#x65F6;&#xFF0C;&#x53EA;&#x5C06;&#x7535;&#x8BDD;&#x53F7;&#x7801;&#x4E2D;&#x90E8;&#x5206;&#x6570;&#x5B57;&#x62FC;&#x5199;&#x6210;&#x5355;&#x8BCD;&#x3002;&#x5F53;&#x4F60;&#x665A;&#x4E0A;&#x56DE;&#x5230;&#x9152;&#x5E97;&#xFF0C;&#x53EF;&#x4EE5;&#x901A;&#x8FC7;&#x62E8;&#x6253;310-GINO&#x6765;&#x5411;Gino&#x2019;s&#x8BA2;&#x4E00;&#x4EFD;pizza&#x3002;&#x8BA9;&#x7535;&#x8BDD;&#x53F7;&#x7801;&#x5BB9;&#x6613;&#x88AB;&#x8BB0;&#x4F4F;&#x7684;&#x53E6;&#x4E00;&#x4E2A;&#x529E;&#x6CD5;&#x662F;&#x4EE5;&#x4E00;&#x79CD;&#x597D;&#x8BB0;&#x7684;&#x65B9;&#x5F0F;&#x5BF9;&#x53F7;&#x7801;&#x7684;&#x6570;&#x5B57;&#x8FDB;&#x884C;&#x5206;&#x7EC4;&#x3002;&#x901A;&#x8FC7;&#x62E8;&#x6253;&#x5FC5;&#x80DC;&#x5BA2;&#x7684;&#x201C;&#x4E09;&#x4E2A;&#x5341;&#x201D;&#x53F7;&#x7801;3-10-10-10&#xFF0C;&#x4F60;&#x53EF;&#x4EE5;&#x4ECE;&#x4ED6;&#x4EEC;&#x90A3;&#x91CC;&#x8BA2;pizza&#x3002; &#x7535;&#x8BDD;&#x53F7;&#x7801;&#x7684;&#x6807;&#x51C6;&#x683C;&#x5F0F;&#x662F;&#x4E03;&#x4F4D;&#x5341;&#x8FDB;&#x5236;&#x6570;&#xFF0C;&#x5E76;&#x5728;&#x7B2C;&#x4E09;&#x3001;&#x7B2C;&#x56DB;&#x4F4D;&#x6570;&#x5B57;&#x4E4B;&#x95F4;&#x6709;&#x4E00;&#x4E2A;&#x8FDE;&#x63A5;&#x7B26;&#x3002;&#x7535;&#x8BDD;&#x62E8;&#x53F7;&#x76D8;&#x63D0;&#x4F9B;&#x4E86;&#x4ECE;&#x5B57;&#x6BCD;&#x5230;&#x6570;&#x5B57;&#x7684;&#x6620;&#x5C04;&#xFF0C;&#x6620;&#x5C04;&#x5173;&#x7CFB;&#x5982;&#x4E0B;&#xFF1A; A, B, &#x548C;C&#x6620;&#x5C04;&#x5230; 2 D, E, &#x548C;F&#x6620;&#x5C04;&#x5230; 3 G, H, &#x548C;I&#x6620;&#x5C04;&#x5230; 4 J, K, &#x548C;L&#x6620;&#x5C04;&#x5230; 5 M, N, &#x548C;O&#x6620;&#x5C04;&#x5230; 6 P, R, &#x548C;S&#x6620;&#x5C04;&#x5230; 7 T, U, &#x548C;V&#x6620;&#x5C04;&#x5230; 8 W, X, &#x548C;Y&#x6620;&#x5C04;&#x5230; 9 ITS-EASY 4873279 Q&#x548C;Z&#x6CA1;&#x6709;&#x6620;&#x5C04;&#x5230;&#x4EFB;&#x4F55;&#x6570;&#x5B57;&#xFF0C;&#x8FDE;&#x5B57;&#x7B26;&#x4E0D;&#x9700;&#x8981;&#x62E8;&#x53F7;&#xFF0C;&#x53EF;&#x4EE5;&#x4EFB;&#x610F;&#x6DFB;&#x52A0;&#x548C;&#x5220;&#x9664;&#x3002; TUT-GLOP&#x7684;&#x6807;&#x51C6;&#x683C;&#x5F0F;&#x662F;888-4567&#xFF0C;310-GINO&#x7684;&#x6807;&#x51C6;&#x683C;&#x5F0F;&#x662F;310-4466&#xFF0C;3-10-10-10&#x7684;&#x6807;&#x51C6;&#x683C;&#x5F0F;&#x662F;310-1010&#x3002; &#x5982;&#x679C;&#x4E24;&#x4E2A;&#x53F7;&#x7801;&#x6709;&#x76F8;&#x540C;&#x7684;&#x6807;&#x51C6;&#x683C;&#x5F0F;&#xFF0C;&#x90A3;&#x4E48;&#x4ED6;&#x4EEC;&#x5C31;&#x662F;&#x7B49;&#x540C;&#x7684;&#xFF08;&#x76F8;&#x540C;&#x7684;&#x62E8;&#x53F7;&#xFF09; &#x4F60;&#x7684;&#x516C;&#x53F8;&#x6B63;&#x5728;&#x4E3A;&#x672C;&#x5730;&#x7684;&#x516C;&#x53F8;&#x7F16;&#x5199;&#x4E00;&#x4E2A;&#x7535;&#x8BDD;&#x53F7;&#x7801;&#x8584;&#x3002;&#x4F5C;&#x4E3A;&#x8D28;&#x91CF;&#x63A7;&#x5236;&#x7684;&#x4E00;&#x90E8;&#x5206;&#xFF0C;&#x4F60;&#x60F3;&#x8981;&#x68C0;&#x67E5;&#x662F;&#x5426;&#x6709;&#x4E24;&#x4E2A;&#x548C;&#x591A;&#x4E2A;&#x516C;&#x53F8;&#x62E5;&#x6709;&#x76F8;&#x540C;&#x7684;&#x7535;&#x8BDD;&#x53F7;&#x7801;&#x3002;   <strong>&#x8F93;&#x5165;&#x683C;&#x5F0F;&#xFF1A;</strong> &#x8F93;&#x5165;&#x7684;&#x683C;&#x5F0F;&#x662F;&#xFF0C;&#x7B2C;&#x4E00;&#x884C;&#x662F;&#x4E00;&#x4E2A;&#x6B63;&#x6574;&#x6570;&#xFF0C;&#x6307;&#x5B9A;&#x7535;&#x8BDD;&#x53F7;&#x7801;&#x8584;&#x4E2D;&#x53F7;&#x7801;&#x7684;&#x6570;&#x91CF;&#xFF08;&#x6700;&#x591A;100000&#xFF09;&#x3002;&#x4F59;&#x4E0B;&#x7684;&#x6BCF;&#x884C;&#x662F;&#x4E00;&#x4E2A;&#x7535;&#x8BDD;&#x53F7;&#x7801;&#x3002;&#x6BCF;&#x4E2A;&#x7535;&#x8BDD;&#x53F7;&#x7801;&#x7531;&#x6570;&#x5B57;&#xFF0C;&#x5927;&#x5199;&#x5B57;&#x6BCD;&#xFF08;&#x9664;&#x4E86;Q&#x548C;Z&#xFF09;&#x4EE5;&#x53CA;&#x8FDE;&#x63A5;&#x7B26;&#x7EC4;&#x6210;&#x3002;&#x6BCF;&#x4E2A;&#x7535;&#x8BDD;&#x53F7;&#x7801;&#x4E2D;&#x53EA;&#x4F1A;&#x521A;&#x597D;&#x6709;7&#x4E2A;&#x6570;&#x5B57;&#x6216;&#x8005;&#x5B57;&#x6BCD;&#x3002; <strong>&#x8F93;&#x51FA;&#x683C;&#x5F0F;&#xFF1A;</strong> &#x5BF9;&#x4E8E;&#x6BCF;&#x4E2A;&#x51FA;&#x73B0;&#x91CD;&#x590D;&#x7684;&#x53F7;&#x7801;&#x4EA7;&#x751F;&#x4E00;&#x884C;&#x8F93;&#x51FA;&#xFF0C;&#x8F93;&#x51FA;&#x662F;&#x53F7;&#x7801;&#x7684;&#x6807;&#x51C6;&#x683C;&#x5F0F;&#x7D27;&#x8DDF;&#x4E00;&#x4E2A;&#x7A7A;&#x683C;&#x7136;&#x540E;&#x662F;&#x5B83;&#x7684;&#x91CD;&#x590D;&#x6B21;&#x6570;&#x3002;&#x5982;&#x679C;&#x5B58;&#x5728;&#x591A;&#x4E2A;&#x91CD;&#x590D;&#x7684;&#x53F7;&#x7801;&#xFF0C;&#x5219;&#x6309;&#x7167;&#x53F7;&#x7801;&#x7684;&#x5B57;&#x5178;&#x5347;&#x5E8F;&#x8F93;&#x51FA;&#x3002;&#x5982;&#x679C;&#x8F93;&#x5165;&#x6570;&#x636E;&#x4E2D;&#x6CA1;&#x6709;&#x91CD;&#x590D;&#x7684;&#x53F7;&#x7801;&#xFF0C;&#x8F93;&#x51FA;&#x4E00;&#x884C;&#xFF1A; No duplicates. <strong>&#x6837;&#x4F8B;&#x8F93;&#x5165;&#xFF1A;</strong> 12 4873279 ITS-EASY 888-4567 3-10-10-10 888-GLOP TUT-GLOP 967-11-11 310-GINO F101010 888-1200 -4-8-7-3-2-7-9- 487-3279  <strong>&#x6837;&#x4F8B;&#x8F93;&#x51FA;&#xFF1A;</strong></p>
 <pre><code>310-1010 2
 
 487-3279 4
 
 888-4567 3
-</code></pre><p><strong>个人认为这道题不用hash，直接开一个足够大的数组即可，只是在读入数据方面要小心</strong></p>
+</code></pre><p><strong>&#x4E2A;&#x4EBA;&#x8BA4;&#x4E3A;&#x8FD9;&#x9053;&#x9898;&#x4E0D;&#x7528;hash&#xFF0C;&#x76F4;&#x63A5;&#x5F00;&#x4E00;&#x4E2A;&#x8DB3;&#x591F;&#x5927;&#x7684;&#x6570;&#x7EC4;&#x5373;&#x53EF;&#xFF0C;&#x53EA;&#x662F;&#x5728;&#x8BFB;&#x5165;&#x6570;&#x636E;&#x65B9;&#x9762;&#x8981;&#x5C0F;&#x5FC3;</strong></p>
 <pre><code>#include&lt;cstdio&gt;
 #include&lt;cstring&gt;
 #include&lt;algorithm&gt;
@@ -340,8 +391,8 @@ int main(){
 
     return 0;
 }
-</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
-<p>FZOJ1639魔板 <strong>题目描述</strong> 在魔方风靡全球之后，小Y发明了它的简化版——魔板，如图1所示，魔板由8个同样大小的方块组成，每个方块的颜色均不相同，本题中分别用数字1~8表示，它们可能出现在魔板的任一位置。任一时刻魔板的状态可以用方块的颜色序列表示：从魔板的左上角开始，按顺时针方向依次写下各个颜色块的颜色代号，得到数字序列即可表示此时魔板的状态。例如，序列(1,2,3,4,5,6,7,8)表示如图1所示魔板的状态，这也是本题中魔板的初始状态。</p>
+</code></pre><p><a class="magnific-img" href="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="&#x70B9;&#x51FB;&#x5E76;&#x62D6;&#x62FD;&#x4EE5;&#x79FB;&#x52A8;" class="ui centered image"></a></p>
+<p>FZOJ1639&#x9B54;&#x677F; <strong>&#x9898;&#x76EE;&#x63CF;&#x8FF0;</strong> &#x5728;&#x9B54;&#x65B9;&#x98CE;&#x9761;&#x5168;&#x7403;&#x4E4B;&#x540E;&#xFF0C;&#x5C0F;Y&#x53D1;&#x660E;&#x4E86;&#x5B83;&#x7684;&#x7B80;&#x5316;&#x7248;&#x2014;&#x2014;&#x9B54;&#x677F;&#xFF0C;&#x5982;&#x56FE;1&#x6240;&#x793A;&#xFF0C;&#x9B54;&#x677F;&#x7531;8&#x4E2A;&#x540C;&#x6837;&#x5927;&#x5C0F;&#x7684;&#x65B9;&#x5757;&#x7EC4;&#x6210;&#xFF0C;&#x6BCF;&#x4E2A;&#x65B9;&#x5757;&#x7684;&#x989C;&#x8272;&#x5747;&#x4E0D;&#x76F8;&#x540C;&#xFF0C;&#x672C;&#x9898;&#x4E2D;&#x5206;&#x522B;&#x7528;&#x6570;&#x5B57;1~8&#x8868;&#x793A;&#xFF0C;&#x5B83;&#x4EEC;&#x53EF;&#x80FD;&#x51FA;&#x73B0;&#x5728;&#x9B54;&#x677F;&#x7684;&#x4EFB;&#x4E00;&#x4F4D;&#x7F6E;&#x3002;&#x4EFB;&#x4E00;&#x65F6;&#x523B;&#x9B54;&#x677F;&#x7684;&#x72B6;&#x6001;&#x53EF;&#x4EE5;&#x7528;&#x65B9;&#x5757;&#x7684;&#x989C;&#x8272;&#x5E8F;&#x5217;&#x8868;&#x793A;&#xFF1A;&#x4ECE;&#x9B54;&#x677F;&#x7684;&#x5DE6;&#x4E0A;&#x89D2;&#x5F00;&#x59CB;&#xFF0C;&#x6309;&#x987A;&#x65F6;&#x9488;&#x65B9;&#x5411;&#x4F9D;&#x6B21;&#x5199;&#x4E0B;&#x5404;&#x4E2A;&#x989C;&#x8272;&#x5757;&#x7684;&#x989C;&#x8272;&#x4EE3;&#x53F7;&#xFF0C;&#x5F97;&#x5230;&#x6570;&#x5B57;&#x5E8F;&#x5217;&#x5373;&#x53EF;&#x8868;&#x793A;&#x6B64;&#x65F6;&#x9B54;&#x677F;&#x7684;&#x72B6;&#x6001;&#x3002;&#x4F8B;&#x5982;&#xFF0C;&#x5E8F;&#x5217;(1,2,3,4,5,6,7,8)&#x8868;&#x793A;&#x5982;&#x56FE;1&#x6240;&#x793A;&#x9B54;&#x677F;&#x7684;&#x72B6;&#x6001;&#xFF0C;&#x8FD9;&#x4E5F;&#x662F;&#x672C;&#x9898;&#x4E2D;&#x9B54;&#x677F;&#x7684;&#x521D;&#x59CB;&#x72B6;&#x6001;&#x3002;</p>
 <p>1</p>
 <p>2</p>
 <p>3</p>
@@ -350,7 +401,7 @@ int main(){
 <p>7</p>
 <p>6</p>
 <p>5</p>
-<pre><code>**图 1 魔板的初始状态** 对于魔板，可以施加三种不同的操作，分别以A,B,C标识。具体操作方法如下： A:上下行互换。 B：每一行同时循环右移一格。 C：中间4个方块顺时针旋转一格。 应用这三种基本操作，可以由任一种状态达到任意另外一种状态。 **图 2 魔板的操作方法** 图2描述了上述3种操作的具体含义，图中方格外面的数字标识魔板的8个方块位置，方格内数字表示此次操作前该小方块所在位置，即：如果位置P对应的方格中数字为I，则表示此次操作前该方块在位置I。 任务一：请编一程序，对于输入的一个目标状态寻找一种操作的序列，使得从初始状态开始，经过此操作序列后使该魔板变为目标状态。 任务二：如果你的程序寻找到的操作序列在300步以内，会得到任务二的分数。 输入数据只有一行，内容是8个以一个空隔分隔的正整数，表示目标状态。输入样例对应的状态如图3所示。输出数据要求第一行输出你的程序寻找到的操作序列的步数L，随后L行是相应的操作序列，每行的行首输出一个字符，代表相应的操作。
+<pre><code>**&#x56FE; 1 &#x9B54;&#x677F;&#x7684;&#x521D;&#x59CB;&#x72B6;&#x6001;** &#x5BF9;&#x4E8E;&#x9B54;&#x677F;&#xFF0C;&#x53EF;&#x4EE5;&#x65BD;&#x52A0;&#x4E09;&#x79CD;&#x4E0D;&#x540C;&#x7684;&#x64CD;&#x4F5C;&#xFF0C;&#x5206;&#x522B;&#x4EE5;A,B,C&#x6807;&#x8BC6;&#x3002;&#x5177;&#x4F53;&#x64CD;&#x4F5C;&#x65B9;&#x6CD5;&#x5982;&#x4E0B;&#xFF1A; A:&#x4E0A;&#x4E0B;&#x884C;&#x4E92;&#x6362;&#x3002; B&#xFF1A;&#x6BCF;&#x4E00;&#x884C;&#x540C;&#x65F6;&#x5FAA;&#x73AF;&#x53F3;&#x79FB;&#x4E00;&#x683C;&#x3002; C&#xFF1A;&#x4E2D;&#x95F4;4&#x4E2A;&#x65B9;&#x5757;&#x987A;&#x65F6;&#x9488;&#x65CB;&#x8F6C;&#x4E00;&#x683C;&#x3002; &#x5E94;&#x7528;&#x8FD9;&#x4E09;&#x79CD;&#x57FA;&#x672C;&#x64CD;&#x4F5C;&#xFF0C;&#x53EF;&#x4EE5;&#x7531;&#x4EFB;&#x4E00;&#x79CD;&#x72B6;&#x6001;&#x8FBE;&#x5230;&#x4EFB;&#x610F;&#x53E6;&#x5916;&#x4E00;&#x79CD;&#x72B6;&#x6001;&#x3002; **&#x56FE; 2 &#x9B54;&#x677F;&#x7684;&#x64CD;&#x4F5C;&#x65B9;&#x6CD5;** &#x56FE;2&#x63CF;&#x8FF0;&#x4E86;&#x4E0A;&#x8FF0;3&#x79CD;&#x64CD;&#x4F5C;&#x7684;&#x5177;&#x4F53;&#x542B;&#x4E49;&#xFF0C;&#x56FE;&#x4E2D;&#x65B9;&#x683C;&#x5916;&#x9762;&#x7684;&#x6570;&#x5B57;&#x6807;&#x8BC6;&#x9B54;&#x677F;&#x7684;8&#x4E2A;&#x65B9;&#x5757;&#x4F4D;&#x7F6E;&#xFF0C;&#x65B9;&#x683C;&#x5185;&#x6570;&#x5B57;&#x8868;&#x793A;&#x6B64;&#x6B21;&#x64CD;&#x4F5C;&#x524D;&#x8BE5;&#x5C0F;&#x65B9;&#x5757;&#x6240;&#x5728;&#x4F4D;&#x7F6E;&#xFF0C;&#x5373;&#xFF1A;&#x5982;&#x679C;&#x4F4D;&#x7F6E;P&#x5BF9;&#x5E94;&#x7684;&#x65B9;&#x683C;&#x4E2D;&#x6570;&#x5B57;&#x4E3A;I&#xFF0C;&#x5219;&#x8868;&#x793A;&#x6B64;&#x6B21;&#x64CD;&#x4F5C;&#x524D;&#x8BE5;&#x65B9;&#x5757;&#x5728;&#x4F4D;&#x7F6E;I&#x3002; &#x4EFB;&#x52A1;&#x4E00;&#xFF1A;&#x8BF7;&#x7F16;&#x4E00;&#x7A0B;&#x5E8F;&#xFF0C;&#x5BF9;&#x4E8E;&#x8F93;&#x5165;&#x7684;&#x4E00;&#x4E2A;&#x76EE;&#x6807;&#x72B6;&#x6001;&#x5BFB;&#x627E;&#x4E00;&#x79CD;&#x64CD;&#x4F5C;&#x7684;&#x5E8F;&#x5217;&#xFF0C;&#x4F7F;&#x5F97;&#x4ECE;&#x521D;&#x59CB;&#x72B6;&#x6001;&#x5F00;&#x59CB;&#xFF0C;&#x7ECF;&#x8FC7;&#x6B64;&#x64CD;&#x4F5C;&#x5E8F;&#x5217;&#x540E;&#x4F7F;&#x8BE5;&#x9B54;&#x677F;&#x53D8;&#x4E3A;&#x76EE;&#x6807;&#x72B6;&#x6001;&#x3002; &#x4EFB;&#x52A1;&#x4E8C;&#xFF1A;&#x5982;&#x679C;&#x4F60;&#x7684;&#x7A0B;&#x5E8F;&#x5BFB;&#x627E;&#x5230;&#x7684;&#x64CD;&#x4F5C;&#x5E8F;&#x5217;&#x5728;300&#x6B65;&#x4EE5;&#x5185;&#xFF0C;&#x4F1A;&#x5F97;&#x5230;&#x4EFB;&#x52A1;&#x4E8C;&#x7684;&#x5206;&#x6570;&#x3002; &#x8F93;&#x5165;&#x6570;&#x636E;&#x53EA;&#x6709;&#x4E00;&#x884C;&#xFF0C;&#x5185;&#x5BB9;&#x662F;8&#x4E2A;&#x4EE5;&#x4E00;&#x4E2A;&#x7A7A;&#x9694;&#x5206;&#x9694;&#x7684;&#x6B63;&#x6574;&#x6570;&#xFF0C;&#x8868;&#x793A;&#x76EE;&#x6807;&#x72B6;&#x6001;&#x3002;&#x8F93;&#x5165;&#x6837;&#x4F8B;&#x5BF9;&#x5E94;&#x7684;&#x72B6;&#x6001;&#x5982;&#x56FE;3&#x6240;&#x793A;&#x3002;&#x8F93;&#x51FA;&#x6570;&#x636E;&#x8981;&#x6C42;&#x7B2C;&#x4E00;&#x884C;&#x8F93;&#x51FA;&#x4F60;&#x7684;&#x7A0B;&#x5E8F;&#x5BFB;&#x627E;&#x5230;&#x7684;&#x64CD;&#x4F5C;&#x5E8F;&#x5217;&#x7684;&#x6B65;&#x6570;L&#xFF0C;&#x968F;&#x540E;L&#x884C;&#x662F;&#x76F8;&#x5E94;&#x7684;&#x64CD;&#x4F5C;&#x5E8F;&#x5217;&#xFF0C;&#x6BCF;&#x884C;&#x7684;&#x884C;&#x9996;&#x8F93;&#x51FA;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#xFF0C;&#x4EE3;&#x8868;&#x76F8;&#x5E94;&#x7684;&#x64CD;&#x4F5C;&#x3002;
 </code></pre><p>2</p>
 <p>6</p>
 <p>8</p>
@@ -359,147 +410,110 @@ int main(){
 <p>3</p>
 <p>7</p>
 <p>5</p>
-<pre><code>**图 3 魔板的输入样例的状态** **输入** **输出** 第一行输出你的程序寻找到的操作序列的步数L，随后L行是相应的操作序列，每行的行首输出一个字符，代表相应的操作。 **样例输入** 2 6 8 4 5 7 3 1 **样例输出** 7 B C A B C C B  **学过康托展开，此题的算法就可以大大简化，正好，魔板是标准的全排列，用康托展开的方法算出hash值，并且在这个hash地址上存储相应的步数、是否被遍历等数据，十分方便。**
+<pre><code>**&#x56FE; 3 &#x9B54;&#x677F;&#x7684;&#x8F93;&#x5165;&#x6837;&#x4F8B;&#x7684;&#x72B6;&#x6001;** **&#x8F93;&#x5165;** **&#x8F93;&#x51FA;** &#x7B2C;&#x4E00;&#x884C;&#x8F93;&#x51FA;&#x4F60;&#x7684;&#x7A0B;&#x5E8F;&#x5BFB;&#x627E;&#x5230;&#x7684;&#x64CD;&#x4F5C;&#x5E8F;&#x5217;&#x7684;&#x6B65;&#x6570;L&#xFF0C;&#x968F;&#x540E;L&#x884C;&#x662F;&#x76F8;&#x5E94;&#x7684;&#x64CD;&#x4F5C;&#x5E8F;&#x5217;&#xFF0C;&#x6BCF;&#x884C;&#x7684;&#x884C;&#x9996;&#x8F93;&#x51FA;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#xFF0C;&#x4EE3;&#x8868;&#x76F8;&#x5E94;&#x7684;&#x64CD;&#x4F5C;&#x3002; **&#x6837;&#x4F8B;&#x8F93;&#x5165;** 2 6 8 4 5 7 3 1 **&#x6837;&#x4F8B;&#x8F93;&#x51FA;** 7 B C A B C C B  **&#x5B66;&#x8FC7;&#x5EB7;&#x6258;&#x5C55;&#x5F00;&#xFF0C;&#x6B64;&#x9898;&#x7684;&#x7B97;&#x6CD5;&#x5C31;&#x53EF;&#x4EE5;&#x5927;&#x5927;&#x7B80;&#x5316;&#xFF0C;&#x6B63;&#x597D;&#xFF0C;&#x9B54;&#x677F;&#x662F;&#x6807;&#x51C6;&#x7684;&#x5168;&#x6392;&#x5217;&#xFF0C;&#x7528;&#x5EB7;&#x6258;&#x5C55;&#x5F00;&#x7684;&#x65B9;&#x6CD5;&#x7B97;&#x51FA;hash&#x503C;&#xFF0C;&#x5E76;&#x4E14;&#x5728;&#x8FD9;&#x4E2A;hash&#x5730;&#x5740;&#x4E0A;&#x5B58;&#x50A8;&#x76F8;&#x5E94;&#x7684;&#x6B65;&#x6570;&#x3001;&#x662F;&#x5426;&#x88AB;&#x904D;&#x5386;&#x7B49;&#x6570;&#x636E;&#xFF0C;&#x5341;&#x5206;&#x65B9;&#x4FBF;&#x3002;**
 </code></pre>
-      
+                        
+                    </div>
+
+                    
+                    
+                    
+
+                    <div class="description post-description">
+    <span class="post-description-item">
+        <time datetime="2018-12-06T15:44:39.000Z" itemprop="datePublished">2018-12-06</time>
+
+    </span>
+    <span class="post-description-item">
+        
+    </span>
+</div>
+
+                </div>
+                
+                <div id="pagination" class="nav-web ui text container pagination">
+
+    <div class="ui stackable two column divided grid container">
+        <div class="row">
+            <div class="column nav-left">
+                
+
+                <a href="/2018/12/06/e5-8f-af-e5-b9-b6-e5-a0-86-e4-b9-8b-e5-b7-a6-e5-81-8f-e6-a0-91-e6-80-bb-e7-bb-93/" class="ui tiny button">
+
+                    <i class="angle left icon"></i>
+                    
+                    可并堆之左偏树总结
+                    
+
+                </a>
+
+                
+            </div>
+            <div class="column nav-right">
+                
+
+                <a href="/2018/12/06/e7-a6-bb-e6-95-a3hash-e4-bc-98-e5-8c-96-e6-80-bb-e7-bb-93/" class="ui tiny button">
+                    
+                    离散hash优化总结
+                    
+                    <i class="angle right icon"></i></a>
+                
+            </div>
+        </div>
     </div>
-    <footer class="article-footer">
-      <a data-url="http://mrh1s.top/2018/12/06/e5-ad-97-e7-ac-a6-e4-b8-b2hash-ef-bc-8c-e5-ba-b7-e6-89-98-e5-b1-95-e5-bc-80-e6-80-bb-e7-bb-93/" data-id="cjv80bexu003ua0etmyeg2rce" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2018/12/06/e5-8f-af-e5-b9-b6-e5-a0-86-e4-b9-8b-e5-b7-a6-e5-81-8f-e6-a0-91-e6-80-bb-e7-bb-93/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          可并堆之左偏树总结
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2018/12/06/e7-a6-bb-e6-95-a3hash-e4-bc-98-e5-8c-96-e6-80-bb-e7-bb-93/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">离散hash优化总结</div>
-    </a>
-  
-</nav>
 
-  
-</article>
+</div>
+                
+            </div>
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/c-c/">c/c++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/notes/">notes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/project/">project</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/">write up</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cgctf/">cgctf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cnss-recruit-201809/">cnss_recruit_201809</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/hgame-20190122/">hgame_20190122</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nationalCTF-20190421/">nationalCTF_20190421</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nctf-20181124/">nctf_20181124</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/牢骚/">牢骚</a></li></ul>
+            
+            <div class="three wide computer three wide tablet column">
+
+                <div class="ui sticky article-toc" id="article-toc">
+                    <!-- toc -->
+                    <ol class="ui ordered list"><li><a href="#字符串hash，康托展开总结"><span>字符串hash，康托展开总结</span></a></li></ol>
+                </div>
+
+            </div>
+            
+
+        </div>
     </div>
-  </div>
+</div>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Dynamic/">RE_Dynamic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+        <div class="ui vertical footer segment">
+    <div class="ui center aligned container">
+        <div class="ui inverted section divider"></div>
+        &copy; 2019 <a href="/">mrh929</a>,
+        Powered by <a href="https://github.com/henryhuang/hexo-theme-aloha" target="_blank">Aloha</a> and <a href="http://hexo.io/" target="_blank">Hexo</a>.
     </div>
-  </div>
+</div>
 
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/RE-Dynamic/" style="font-size: 10px;">RE_Dynamic</a> <a href="/tags/RE-Static/" style="font-size: 20px;">RE_Static</a>
     </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2019/05/03/Migration-Success/">Migration_Success!</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/28/bbvvmm/">bbvvmm</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/28/e5-8d-97-e4-ba-ac-e9-82-ae-e7-94-b5-e5-a4-a7-e5-ad-a6-re-wxyvm2/">南京邮电大学 RE-WxyVM2</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/13/e5-a3-b3-e7-9b-b8-e5-85-b3/">壳相关</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/22/shinyshot/">ShinyShot!</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 mrh929<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
 
 
 
-  </div>
+
+<!-- scripts list from theme config.yml -->
+
+<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+
+<script src="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch/3.18.1/algoliasearch.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch-helper-js/2.13.0/algoliasearch.helper.min.js"></script>
+
+<script src="/js/semantic-ui-algolia.js"></script>
+
+<script src="/js/aloha-events.js"></script>
+
+
+
 </body>
 </html>

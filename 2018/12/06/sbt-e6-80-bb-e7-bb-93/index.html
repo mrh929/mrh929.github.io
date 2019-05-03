@@ -1,241 +1,255 @@
-<!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  
 
-  
-  <title>SBT总结 | mrh929&#39;s home</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="SBT节点大小平衡树总结SBT是二叉查找树的优化。 与二叉平衡树AVL类似，我们定义一棵树：  这棵树的size为这棵树所有节点的个数 每棵子树的大小不小于其兄弟的子树大小  即s[right[t]]≥s[left[left[t]]],s[right[left[t]]] 且 s[left[t]]≥s[right[right[t]]], s[left[right[t]]] 如果插入结点后不满足SBT">
+
+<!DOCTYPE html>
+<html lang="cn">
+<head prefix="og: http://ogp.me/ns#"><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta name="description" content="Blog">
+    <title>SBT总结 | mrh929&#39;s home</title>
+
+    <!-- Open Graph -->
+    <meta name="description" content="SBT&amp;#x8282;&amp;#x70B9;&amp;#x5927;&amp;#x5C0F;&amp;#x5E73;&amp;#x8861;&amp;#x6811;&amp;#x603B;&amp;#x7ED3;SBT&amp;#x662F;&amp;#x4E8C;&amp;#x53C9;&amp;#x67E5;&amp;#x627E;&amp;#x6811;&amp;#x7684;&amp;#x4F18;&amp;#x5316;&amp;#x3002; &amp;#x4E0E;&amp;#x4E8C;&amp;#x53C9;&amp;#x5E73;&amp;#x8861;&amp;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SBT总结">
 <meta property="og:url" content="http://mrh1s.top/2018/12/06/sbt-e6-80-bb-e7-bb-93/index.html">
 <meta property="og:site_name" content="mrh929&#39;s home">
-<meta property="og:description" content="SBT节点大小平衡树总结SBT是二叉查找树的优化。 与二叉平衡树AVL类似，我们定义一棵树：  这棵树的size为这棵树所有节点的个数 每棵子树的大小不小于其兄弟的子树大小  即s[right[t]]≥s[left[left[t]]],s[right[left[t]]] 且 s[left[t]]≥s[right[right[t]]], s[left[right[t]]] 如果插入结点后不满足SBT">
+<meta property="og:description" content="SBT&amp;#x8282;&amp;#x70B9;&amp;#x5927;&amp;#x5C0F;&amp;#x5E73;&amp;#x8861;&amp;#x6811;&amp;#x603B;&amp;#x7ED3;SBT&amp;#x662F;&amp;#x4E8C;&amp;#x53C9;&amp;#x67E5;&amp;#x627E;&amp;#x6811;&amp;#x7684;&amp;#x4F18;&amp;#x5316;&amp;#x3002; &amp;#x4E0E;&amp;#x4E8C;&amp;#x53C9;&amp;#x5E73;&amp;#x8861;&amp;">
 <meta property="og:locale" content="cn">
 <meta property="og:updated_time" content="2019-05-03T06:19:59.674Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SBT总结">
-<meta name="twitter:description" content="SBT节点大小平衡树总结SBT是二叉查找树的优化。 与二叉平衡树AVL类似，我们定义一棵树：  这棵树的size为这棵树所有节点的个数 每棵子树的大小不小于其兄弟的子树大小  即s[right[t]]≥s[left[left[t]]],s[right[left[t]]] 且 s[left[t]]≥s[right[right[t]]], s[left[right[t]]] 如果插入结点后不满足SBT">
-  
-    <link rel="alternate" href="/atom.xml" title="mrh929&#39;s home" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
+<meta name="twitter:description" content="SBT&amp;#x8282;&amp;#x70B9;&amp;#x5927;&amp;#x5C0F;&amp;#x5E73;&amp;#x8861;&amp;#x6811;&amp;#x603B;&amp;#x7ED3;SBT&amp;#x662F;&amp;#x4E8C;&amp;#x53C9;&amp;#x67E5;&amp;#x627E;&amp;#x6811;&amp;#x7684;&amp;#x4F18;&amp;#x5316;&amp;#x3002; &amp;#x4E0E;&amp;#x4E8C;&amp;#x53C9;&amp;#x5E73;&amp;#x8861;&amp;">
+
+    <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Person",
+  "email": "mailto:",
+  "image": "",
+  "name": "mrh929",
+  "url": "http://mrh1s.top"
+}
+</script>
+    <script>
+    var algoliaEnabled = false;
+    
+</script>
+
+    
+
+    
+    
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    
+    
+    
+        <!-- stylesheets list from config.yml -->
+        
+        <link rel="stylesheet" href="/css/aloha.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/magnific-popup.js/1.1.0/magnific-popup.min.css">
+        
+    
+
 </head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">mrh929&#39;s home</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://mrh1s.top"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-sbt-e6-80-bb-e7-bb-93" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/12/06/sbt-e6-80-bb-e7-bb-93/" class="article-date">
-  <time datetime="2018-12-06T15:47:22.000Z" itemprop="datePublished">2018-12-06</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a>
-  </div>
+<body id="body" style="margin-bottom: 0;" class="pushable">
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      SBT总结
-    </h1>
-  
+    <div class="ui top fixed menu">
+        <a class="item" id="menu-icon"><i class="sidebar icon"></i></a>
+    </div>
 
-      </header>
+    <div id="menu-sidebar" class="ui left vertical sidebar menu">
+
+    <div id="sidebar-top">
+        <div class="content">
+            <h3>mrh929&#39;s home</h3>
+        </div>
+    </div>
+    <div class="ui container sidebar-card">
+    <div class="ui people shape content">
+        <div class="active side">
+            <div class="ui card">
+                <div class="image">
+                    <img class="ui medium bordered image" src="/images/avatar.jpg">
+                </div>
+                <div class="content">
+                    <a class="header">mrh929</a>
+                    
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                        
+                    </div>
+
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="SBT节点大小平衡树总结"><a href="#SBT节点大小平衡树总结" class="headerlink" title="SBT节点大小平衡树总结"></a>SBT节点大小平衡树总结</h1><p><strong>SBT是二叉查找树的优化。</strong> <strong>与二叉平衡树AVL类似，我们定义一棵树：</strong></p>
-<ol>
-<li><strong>这棵树的size为这棵树所有节点的个数</strong></li>
-<li><strong>每棵子树的大小不小于其兄弟的子树大小</strong></li>
+    
+
+    
+
+    
+    <a href="/index.html" class="item">
+        <i class="home icon"></i>
+        HOME
+    </a>
+
+    
+
+    
+</div>
+
+    <div class="pusher body-content">
+        <div id="content" class="ui main container">
+            <!--<div class="ui one column grid">-->
+                <!--<div class="column">-->
+                    <!--<div class="ui main container">-->
+                        <div id="post-sbt-e6-80-bb-e7-bb-93" class="ui main container article-type-post">
+
+    
+
+    <div class="ui divided grid">
+
+        <div class="two column row" id="article-content">
+
+            <div class="thirteen wide computer thirteen wide tablet sixteen wide mobile column">
+                
+
+<h1 class="ui header">
+    
+    SBT总结
+</h1>
+
+
+
+                <div class="article-inner">
+
+                    <div class="article-entry" itemprop="articleBody">
+                        
+                        <h1 id="SBT&#x8282;&#x70B9;&#x5927;&#x5C0F;&#x5E73;&#x8861;&#x6811;&#x603B;&#x7ED3;"><a href="#SBT&#x8282;&#x70B9;&#x5927;&#x5C0F;&#x5E73;&#x8861;&#x6811;&#x603B;&#x7ED3;" class="headerlink" title="SBT&#x8282;&#x70B9;&#x5927;&#x5C0F;&#x5E73;&#x8861;&#x6811;&#x603B;&#x7ED3;"></a>SBT&#x8282;&#x70B9;&#x5927;&#x5C0F;&#x5E73;&#x8861;&#x6811;&#x603B;&#x7ED3;</h1><p><strong>SBT&#x662F;&#x4E8C;&#x53C9;&#x67E5;&#x627E;&#x6811;&#x7684;&#x4F18;&#x5316;&#x3002;</strong> <strong>&#x4E0E;&#x4E8C;&#x53C9;&#x5E73;&#x8861;&#x6811;AVL&#x7C7B;&#x4F3C;&#xFF0C;&#x6211;&#x4EEC;&#x5B9A;&#x4E49;&#x4E00;&#x68F5;&#x6811;&#xFF1A;</strong></p>
+<ol class="ui list">
+<li><strong>&#x8FD9;&#x68F5;&#x6811;&#x7684;size&#x4E3A;&#x8FD9;&#x68F5;&#x6811;&#x6240;&#x6709;&#x8282;&#x70B9;&#x7684;&#x4E2A;&#x6570;</strong></li>
+<li><strong>&#x6BCF;&#x68F5;&#x5B50;&#x6811;&#x7684;&#x5927;&#x5C0F;&#x4E0D;&#x5C0F;&#x4E8E;&#x5176;&#x5144;&#x5F1F;&#x7684;&#x5B50;&#x6811;&#x5927;&#x5C0F;</strong></li>
 </ol>
-<p><strong>即s[right[t]]≥s[left[left[t]]],s[right[left[t]]] 且 s[left[t]]≥s[right[right[t]]], s[left[right[t]]]</strong> <strong>如果插入结点后不满足SBT性质，那么递归修复这棵树的性质，通过旋转达到目的。</strong>  <strong>voidRight_Rotate(int &amp;t){</strong> <strong>       int k=left[t];</strong> <strong>       left[t]=right[k];</strong> <strong>       right[k]=t;</strong> <strong>       s[k]=s[t];</strong> <strong>       s[t]=s[left[t]]+s[right[k]]+1;</strong> <strong>       t=k;</strong> <strong>       return;</strong> <strong>}</strong> <strong>voidLeft_Rotate(int &amp;t){</strong> <strong>       int k=right[t];</strong> <strong>       right[t]=left[k];</strong> <strong>       left[k]=t;</strong> <strong>       s[k]=s[t];</strong> <strong>       s[t]=s[left[k]]+s[right[t]]+1;</strong> <strong>       t=k;</strong> <strong>       return;</strong> <strong>}</strong> <strong>这里可以运用小技巧，在传入变量的时候传入指针，修改变量的同时也修改了原来根节点的值</strong>  <strong>怎么判断旋转的方式？用Maintain函数，形参为根节点与变量flag，false表示当前考虑的是左边的结点 true是右边的结点。其中我们应该判断四个子节点和根节点是否需要修复，但是“左右”，“右左”的情况被证明已经被根节点的修复操作所判断，又少了两个操作</strong> <strong>voidMaintain(int &amp;t,bool flag){</strong> <strong>       if(flag==false){</strong> <strong>              if(s[left[left[t]]]&gt;s[right[t]])</strong> <strong>                     Right_Rotate(t);</strong> <strong>              elseif(s[right[left[t]]]&gt;s[right[t]]){</strong> <strong>                     Left_Rotate(left[t]);</strong> <strong>                     Right_Rotate(t);</strong> <strong>}else return;//一定记住返回</strong> <strong>       }else{</strong> <strong>              if(s[right[right[t]]]&gt;s[left[t]])</strong> <strong>                     Left_Rotate(t);</strong> <strong>              else if(s[left[right[t]]]&gt;s[left[t]]){</strong> <strong>                     Right_Rotate(right[t]);</strong> <strong>                     Left_Rotate(t);</strong> <strong>}else return;//一定记住返回</strong> <strong>       }</strong> <strong>       Maintain(left[t],false);</strong> <strong>       Maintain(right[t],true);</strong> <strong>       Maintain(t,false);</strong> <strong>       Maintain(t,true);</strong> <strong>}</strong>  <strong>插入操作：插入元素后修复整棵树</strong> <strong>voidInsert(int &amp;t,int k){</strong> <strong>       if(t==0){//新结点</strong> <strong>              key[++cnt]=k;</strong> <strong>              s[cnt]=1;</strong> <strong>              t=cnt;</strong> <strong>              left[cnt]=right[cnt]=0;</strong> <strong>       }</strong> <strong>       else{</strong> <strong>              s[t]++;</strong> <strong>              if(k&lt;key[t]) Insert(left[t],k);</strong> <strong>              else Insert(right[t],k);</strong> <strong>              Maintain(t,k&gt;=key[t]);</strong> <strong>       }</strong> <strong>}</strong>  <strong>找前驱：</strong> <strong>intPred(int rt,int k){//找前驱</strong> <strong>       if(rt==0) return k;</strong> <strong>       if(k&lt;key[rt]) return Pred(left[rt],k);//如果仍然不是前驱，就继续往前找</strong> <strong>       else return Pred(right[rt],k);</strong> <strong>}</strong>  <strong>找后继：</strong> <strong>intSucc(int rt,int k){//找后继</strong> <strong>       if(rt==0) return k;</strong> <strong>       if(k&gt;key[rt]) returnSucc(right[rt],k);</strong> <strong>       else return Succ(left[rt],k)</strong> <strong>}</strong>  <strong>寻找第K小的数</strong> <strong>intselect(int &amp;x,int k)//求第k小数</strong> <strong>{</strong> <strong>   int r = tree[tree[x].left].size + 1;</strong> <strong>   if(r == k) return tree[x].key;</strong> <strong>   else if(r &lt; k) return select(tree[x].right,k - r);</strong> <strong>   else return select(tree[x].left,k);</strong> <strong>}</strong>   <strong>询问某元素在树中是第几大</strong> <strong>intrank(int &amp;x,int key)//求key排第几</strong> <strong>{</strong> <strong>   if(key &lt; tree[x].key)</strong> <strong>       return rank(tree[x].left,key);</strong> <strong>   else if(key &gt; tree[x].key)</strong> <strong>       return rank(tree[x].right,key) + tree[tree[x].left].size +1;</strong> <strong>   return tree[tree[x].left].size + 1;</strong> <strong>}</strong></p>
+<p><strong>&#x5373;s[right[t]]&#x2265;s[left[left[t]]],s[right[left[t]]] &#x4E14; s[left[t]]&#x2265;s[right[right[t]]], s[left[right[t]]]</strong> <strong>&#x5982;&#x679C;&#x63D2;&#x5165;&#x7ED3;&#x70B9;&#x540E;&#x4E0D;&#x6EE1;&#x8DB3;SBT&#x6027;&#x8D28;&#xFF0C;&#x90A3;&#x4E48;&#x9012;&#x5F52;&#x4FEE;&#x590D;&#x8FD9;&#x68F5;&#x6811;&#x7684;&#x6027;&#x8D28;&#xFF0C;&#x901A;&#x8FC7;&#x65CB;&#x8F6C;&#x8FBE;&#x5230;&#x76EE;&#x7684;&#x3002;</strong>  <strong>voidRight_Rotate(int &amp;t){</strong> <strong>       int k=left[t];</strong> <strong>       left[t]=right[k];</strong> <strong>       right[k]=t;</strong> <strong>       s[k]=s[t];</strong> <strong>       s[t]=s[left[t]]+s[right[k]]+1;</strong> <strong>       t=k;</strong> <strong>       return;</strong> <strong>}</strong> <strong>voidLeft_Rotate(int &amp;t){</strong> <strong>       int k=right[t];</strong> <strong>       right[t]=left[k];</strong> <strong>       left[k]=t;</strong> <strong>       s[k]=s[t];</strong> <strong>       s[t]=s[left[k]]+s[right[t]]+1;</strong> <strong>       t=k;</strong> <strong>       return;</strong> <strong>}</strong> <strong>&#x8FD9;&#x91CC;&#x53EF;&#x4EE5;&#x8FD0;&#x7528;&#x5C0F;&#x6280;&#x5DE7;&#xFF0C;&#x5728;&#x4F20;&#x5165;&#x53D8;&#x91CF;&#x7684;&#x65F6;&#x5019;&#x4F20;&#x5165;&#x6307;&#x9488;&#xFF0C;&#x4FEE;&#x6539;&#x53D8;&#x91CF;&#x7684;&#x540C;&#x65F6;&#x4E5F;&#x4FEE;&#x6539;&#x4E86;&#x539F;&#x6765;&#x6839;&#x8282;&#x70B9;&#x7684;&#x503C;</strong>  <strong>&#x600E;&#x4E48;&#x5224;&#x65AD;&#x65CB;&#x8F6C;&#x7684;&#x65B9;&#x5F0F;&#xFF1F;&#x7528;Maintain&#x51FD;&#x6570;&#xFF0C;&#x5F62;&#x53C2;&#x4E3A;&#x6839;&#x8282;&#x70B9;&#x4E0E;&#x53D8;&#x91CF;flag&#xFF0C;false&#x8868;&#x793A;&#x5F53;&#x524D;&#x8003;&#x8651;&#x7684;&#x662F;&#x5DE6;&#x8FB9;&#x7684;&#x7ED3;&#x70B9; true&#x662F;&#x53F3;&#x8FB9;&#x7684;&#x7ED3;&#x70B9;&#x3002;&#x5176;&#x4E2D;&#x6211;&#x4EEC;&#x5E94;&#x8BE5;&#x5224;&#x65AD;&#x56DB;&#x4E2A;&#x5B50;&#x8282;&#x70B9;&#x548C;&#x6839;&#x8282;&#x70B9;&#x662F;&#x5426;&#x9700;&#x8981;&#x4FEE;&#x590D;&#xFF0C;&#x4F46;&#x662F;&#x201C;&#x5DE6;&#x53F3;&#x201D;&#xFF0C;&#x201C;&#x53F3;&#x5DE6;&#x201D;&#x7684;&#x60C5;&#x51B5;&#x88AB;&#x8BC1;&#x660E;&#x5DF2;&#x7ECF;&#x88AB;&#x6839;&#x8282;&#x70B9;&#x7684;&#x4FEE;&#x590D;&#x64CD;&#x4F5C;&#x6240;&#x5224;&#x65AD;&#xFF0C;&#x53C8;&#x5C11;&#x4E86;&#x4E24;&#x4E2A;&#x64CD;&#x4F5C;</strong> <strong>voidMaintain(int &amp;t,bool flag){</strong> <strong>       if(flag==false){</strong> <strong>              if(s[left[left[t]]]&gt;s[right[t]])</strong> <strong>                     Right_Rotate(t);</strong> <strong>              elseif(s[right[left[t]]]&gt;s[right[t]]){</strong> <strong>                     Left_Rotate(left[t]);</strong> <strong>                     Right_Rotate(t);</strong> <strong>}else return;//&#x4E00;&#x5B9A;&#x8BB0;&#x4F4F;&#x8FD4;&#x56DE;</strong> <strong>       }else{</strong> <strong>              if(s[right[right[t]]]&gt;s[left[t]])</strong> <strong>                     Left_Rotate(t);</strong> <strong>              else if(s[left[right[t]]]&gt;s[left[t]]){</strong> <strong>                     Right_Rotate(right[t]);</strong> <strong>                     Left_Rotate(t);</strong> <strong>}else return;//&#x4E00;&#x5B9A;&#x8BB0;&#x4F4F;&#x8FD4;&#x56DE;</strong> <strong>       }</strong> <strong>       Maintain(left[t],false);</strong> <strong>       Maintain(right[t],true);</strong> <strong>       Maintain(t,false);</strong> <strong>       Maintain(t,true);</strong> <strong>}</strong>  <strong>&#x63D2;&#x5165;&#x64CD;&#x4F5C;&#xFF1A;&#x63D2;&#x5165;&#x5143;&#x7D20;&#x540E;&#x4FEE;&#x590D;&#x6574;&#x68F5;&#x6811;</strong> <strong>voidInsert(int &amp;t,int k){</strong> <strong>       if(t==0){//&#x65B0;&#x7ED3;&#x70B9;</strong> <strong>              key[++cnt]=k;</strong> <strong>              s[cnt]=1;</strong> <strong>              t=cnt;</strong> <strong>              left[cnt]=right[cnt]=0;</strong> <strong>       }</strong> <strong>       else{</strong> <strong>              s[t]++;</strong> <strong>              if(k&lt;key[t]) Insert(left[t],k);</strong> <strong>              else Insert(right[t],k);</strong> <strong>              Maintain(t,k&gt;=key[t]);</strong> <strong>       }</strong> <strong>}</strong>  <strong>&#x627E;&#x524D;&#x9A71;&#xFF1A;</strong> <strong>intPred(int rt,int k){//&#x627E;&#x524D;&#x9A71;</strong> <strong>       if(rt==0) return k;</strong> <strong>       if(k&lt;key[rt]) return Pred(left[rt],k);//&#x5982;&#x679C;&#x4ECD;&#x7136;&#x4E0D;&#x662F;&#x524D;&#x9A71;&#xFF0C;&#x5C31;&#x7EE7;&#x7EED;&#x5F80;&#x524D;&#x627E;</strong> <strong>       else return Pred(right[rt],k);</strong> <strong>}</strong>  <strong>&#x627E;&#x540E;&#x7EE7;&#xFF1A;</strong> <strong>intSucc(int rt,int k){//&#x627E;&#x540E;&#x7EE7;</strong> <strong>       if(rt==0) return k;</strong> <strong>       if(k&gt;key[rt]) returnSucc(right[rt],k);</strong> <strong>       else return Succ(left[rt],k)</strong> <strong>}</strong>  <strong>&#x5BFB;&#x627E;&#x7B2C;K&#x5C0F;&#x7684;&#x6570;</strong> <strong>intselect(int &amp;x,int k)//&#x6C42;&#x7B2C;k&#x5C0F;&#x6570;</strong> <strong>{</strong> <strong>   int r = tree[tree[x].left].size + 1;</strong> <strong>   if(r == k) return tree[x].key;</strong> <strong>   else if(r &lt; k) return select(tree[x].right,k - r);</strong> <strong>   else return select(tree[x].left,k);</strong> <strong>}</strong>   <strong>&#x8BE2;&#x95EE;&#x67D0;&#x5143;&#x7D20;&#x5728;&#x6811;&#x4E2D;&#x662F;&#x7B2C;&#x51E0;&#x5927;</strong> <strong>intrank(int &amp;x,int key)//&#x6C42;key&#x6392;&#x7B2C;&#x51E0;</strong> <strong>{</strong> <strong>   if(key &lt; tree[x].key)</strong> <strong>       return rank(tree[x].left,key);</strong> <strong>   else if(key &gt; tree[x].key)</strong> <strong>       return rank(tree[x].right,key) + tree[tree[x].left].size +1;</strong> <strong>   return tree[tree[x].left].size + 1;</strong> <strong>}</strong></p>
 
-      
+                        
+                    </div>
+
+                    
+                    
+                    
+
+                    <div class="description post-description">
+    <span class="post-description-item">
+        <time datetime="2018-12-06T15:47:22.000Z" itemprop="datePublished">2018-12-06</time>
+
+    </span>
+    <span class="post-description-item">
+        
+    </span>
+</div>
+
+                </div>
+                
+                <div id="pagination" class="nav-web ui text container pagination">
+
+    <div class="ui stackable two column divided grid container">
+        <div class="row">
+            <div class="column nav-left">
+                
+
+                <a href="/2018/12/06/e8-bf-81-e7-a7-bb-e5-ae-8c-e6-88-90-ef-bc-81/" class="ui tiny button">
+
+                    <i class="angle left icon"></i>
+                    
+                    迁移完成！
+                    
+
+                </a>
+
+                
+            </div>
+            <div class="column nav-right">
+                
+
+                <a href="/2018/12/06/avl-e6-a0-91-e6-80-bb-e7-bb-93/" class="ui tiny button">
+                    
+                    AVL树总结
+                    
+                    <i class="angle right icon"></i></a>
+                
+            </div>
+        </div>
     </div>
-    <footer class="article-footer">
-      <a data-url="http://mrh1s.top/2018/12/06/sbt-e6-80-bb-e7-bb-93/" data-id="cjv80bewp0019a0et4jyrqrzd" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2018/12/06/e8-bf-81-e7-a7-bb-e5-ae-8c-e6-88-90-ef-bc-81/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          迁移完成！
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2018/12/06/avl-e6-a0-91-e6-80-bb-e7-bb-93/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">AVL树总结</div>
-    </a>
-  
-</nav>
 
-  
-</article>
+</div>
+                
+            </div>
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/c-c/">c/c++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/notes/">notes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/project/">project</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/">write up</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cgctf/">cgctf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cnss-recruit-201809/">cnss_recruit_201809</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/hgame-20190122/">hgame_20190122</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nationalCTF-20190421/">nationalCTF_20190421</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nctf-20181124/">nctf_20181124</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/牢骚/">牢骚</a></li></ul>
+            
+            <div class="three wide computer three wide tablet column">
+
+                <div class="ui sticky article-toc" id="article-toc">
+                    <!-- toc -->
+                    <ol class="ui ordered list"><li><a href="#SBT节点大小平衡树总结"><span>SBT节点大小平衡树总结</span></a></li></ol>
+                </div>
+
+            </div>
+            
+
+        </div>
     </div>
-  </div>
+</div>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Dynamic/">RE_Dynamic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+        <div class="ui vertical footer segment">
+    <div class="ui center aligned container">
+        <div class="ui inverted section divider"></div>
+        &copy; 2019 <a href="/">mrh929</a>,
+        Powered by <a href="https://github.com/henryhuang/hexo-theme-aloha" target="_blank">Aloha</a> and <a href="http://hexo.io/" target="_blank">Hexo</a>.
     </div>
-  </div>
+</div>
 
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/RE-Dynamic/" style="font-size: 10px;">RE_Dynamic</a> <a href="/tags/RE-Static/" style="font-size: 20px;">RE_Static</a>
     </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2019/05/03/Migration-Success/">Migration_Success!</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/28/bbvvmm/">bbvvmm</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/28/e5-8d-97-e4-ba-ac-e9-82-ae-e7-94-b5-e5-a4-a7-e5-ad-a6-re-wxyvm2/">南京邮电大学 RE-WxyVM2</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/13/e5-a3-b3-e7-9b-b8-e5-85-b3/">壳相关</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/22/shinyshot/">ShinyShot!</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 mrh929<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
 
 
 
-  </div>
+
+<!-- scripts list from theme config.yml -->
+
+<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+
+<script src="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch/3.18.1/algoliasearch.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch-helper-js/2.13.0/algoliasearch.helper.min.js"></script>
+
+<script src="/js/semantic-ui-algolia.js"></script>
+
+<script src="/js/aloha-events.js"></script>
+
+
+
 </body>
 </html>

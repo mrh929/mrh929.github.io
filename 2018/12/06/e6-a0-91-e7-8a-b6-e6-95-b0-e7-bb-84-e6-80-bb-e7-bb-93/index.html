@@ -1,18 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  
 
-  
-  <title>树状数组总结 | mrh929&#39;s home</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="树状数组总结树状数组是一个类似于线段树的树状结构，它通过存储一定区间内的元素来达到快速插入、快速求和的效果。并且可以节省时间，节省空间，减少代码量，可谓是非常优秀的一个树形结构 方格中数字代表对应数组的第几个元素,下排是a数组,其上方的是e数组,最下的二进制则是对应编号的二进制表示. 可以观察到，树状数组把一个数组内的元素进行了一定的二分，并存储某些元素的和，使树的深度达到了logn，这样不论是对">
+
+<!DOCTYPE html>
+<html lang="cn">
+<head prefix="og: http://ogp.me/ns#"><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta name="description" content="Blog">
+    <title>树状数组总结 | mrh929&#39;s home</title>
+
+    <!-- Open Graph -->
+    <meta name="description" content="&amp;#x6811;&amp;#x72B6;&amp;#x6570;&amp;#x7EC4;&amp;#x603B;&amp;#x7ED3;&amp;#x6811;&amp;#x72B6;&amp;#x6570;&amp;#x7EC4;&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x7C7B;&amp;#x4F3C;&amp;#x4E8E;&amp;#x7EBF;&amp;#x6BB5;&amp;#x6811;&amp;#x7684;&amp;#x6811;&amp;#x72B6;&amp;#x7ED3;&amp;#x6784;&amp;#xFF0C;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="树状数组总结">
 <meta property="og:url" content="http://mrh1s.top/2018/12/06/e6-a0-91-e7-8a-b6-e6-95-b0-e7-bb-84-e6-80-bb-e7-bb-93/index.html">
 <meta property="og:site_name" content="mrh929&#39;s home">
-<meta property="og:description" content="树状数组总结树状数组是一个类似于线段树的树状结构，它通过存储一定区间内的元素来达到快速插入、快速求和的效果。并且可以节省时间，节省空间，减少代码量，可谓是非常优秀的一个树形结构 方格中数字代表对应数组的第几个元素,下排是a数组,其上方的是e数组,最下的二进制则是对应编号的二进制表示. 可以观察到，树状数组把一个数组内的元素进行了一定的二分，并存储某些元素的和，使树的深度达到了logn，这样不论是对">
+<meta property="og:description" content="&amp;#x6811;&amp;#x72B6;&amp;#x6570;&amp;#x7EC4;&amp;#x603B;&amp;#x7ED3;&amp;#x6811;&amp;#x72B6;&amp;#x6570;&amp;#x7EC4;&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x7C7B;&amp;#x4F3C;&amp;#x4E8E;&amp;#x7EBF;&amp;#x6BB5;&amp;#x6811;&amp;#x7684;&amp;#x6811;&amp;#x72B6;&amp;#x7ED3;&amp;#x6784;&amp;#xFF0C;">
 <meta property="og:locale" content="cn">
 <meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
 <meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
@@ -25,83 +27,132 @@
 <meta property="og:updated_time" content="2019-05-03T06:19:59.674Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="树状数组总结">
-<meta name="twitter:description" content="树状数组总结树状数组是一个类似于线段树的树状结构，它通过存储一定区间内的元素来达到快速插入、快速求和的效果。并且可以节省时间，节省空间，减少代码量，可谓是非常优秀的一个树形结构 方格中数字代表对应数组的第几个元素,下排是a数组,其上方的是e数组,最下的二进制则是对应编号的二进制表示. 可以观察到，树状数组把一个数组内的元素进行了一定的二分，并存储某些元素的和，使树的深度达到了logn，这样不论是对">
+<meta name="twitter:description" content="&amp;#x6811;&amp;#x72B6;&amp;#x6570;&amp;#x7EC4;&amp;#x603B;&amp;#x7ED3;&amp;#x6811;&amp;#x72B6;&amp;#x6570;&amp;#x7EC4;&amp;#x662F;&amp;#x4E00;&amp;#x4E2A;&amp;#x7C7B;&amp;#x4F3C;&amp;#x4E8E;&amp;#x7EBF;&amp;#x6BB5;&amp;#x6811;&amp;#x7684;&amp;#x6811;&amp;#x72B6;&amp;#x7ED3;&amp;#x6784;&amp;#xFF0C;">
 <meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
-  
-    <link rel="alternate" href="/atom.xml" title="mrh929&#39;s home" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
+
+    <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Person",
+  "email": "mailto:",
+  "image": "",
+  "name": "mrh929",
+  "url": "http://mrh1s.top"
+}
+</script>
+    <script>
+    var algoliaEnabled = false;
+    
+</script>
+
+    
+
+    
+    
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    
+    
+    
+        <!-- stylesheets list from config.yml -->
+        
+        <link rel="stylesheet" href="/css/aloha.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/magnific-popup.js/1.1.0/magnific-popup.min.css">
+        
+    
+
 </head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">mrh929&#39;s home</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://mrh1s.top"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-e6-a0-91-e7-8a-b6-e6-95-b0-e7-bb-84-e6-80-bb-e7-bb-93" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/12/06/e6-a0-91-e7-8a-b6-e6-95-b0-e7-bb-84-e6-80-bb-e7-bb-93/" class="article-date">
-  <time datetime="2018-12-06T15:46:34.000Z" itemprop="datePublished">2018-12-06</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a>
-  </div>
+<body id="body" style="margin-bottom: 0;" class="pushable">
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      树状数组总结
-    </h1>
-  
+    <div class="ui top fixed menu">
+        <a class="item" id="menu-icon"><i class="sidebar icon"></i></a>
+    </div>
 
-      </header>
+    <div id="menu-sidebar" class="ui left vertical sidebar menu">
+
+    <div id="sidebar-top">
+        <div class="content">
+            <h3>mrh929&#39;s home</h3>
+        </div>
+    </div>
+    <div class="ui container sidebar-card">
+    <div class="ui people shape content">
+        <div class="active side">
+            <div class="ui card">
+                <div class="image">
+                    <img class="ui medium bordered image" src="/images/avatar.jpg">
+                </div>
+                <div class="content">
+                    <a class="header">mrh929</a>
+                    
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                        
+                    </div>
+
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="树状数组总结"><a href="#树状数组总结" class="headerlink" title="树状数组总结"></a>树状数组总结</h1><p><strong>树状数组是一个类似于线段树的树状结构，它通过存储一定区间内的元素来达到快速插入、快速求和的效果。并且可以节省时间，节省空间，减少代码量，可谓是非常优秀的一个树形结构</strong> <strong>方格中数字代表对应数组的第几个元素,下排是a数组,其上方的是e数组,最下的二进制则是对应编号的二进制表示.</strong> <strong>可以观察到，树状数组把一个数组内的元素进行了一定的二分，并存储某些元素的和，使树的深度达到了logn，这样不论是对于查找还是插入都进行了极大的优化</strong> <strong>      每个数所指向的元素个数为1+它的二进制末尾0的个数我们把二进制中最后一个一出现的位置叫做lowbit，每个元素指向的下一个元素为x+lowbit(x)，现在要修改整棵树就比较容易了。</strong> </p>
-<ol>
-<li><p><strong>累加操作</strong></p>
+    
+
+    
+
+    
+    <a href="/index.html" class="item">
+        <i class="home icon"></i>
+        HOME
+    </a>
+
+    
+
+    
+</div>
+
+    <div class="pusher body-content">
+        <div id="content" class="ui main container">
+            <!--<div class="ui one column grid">-->
+                <!--<div class="column">-->
+                    <!--<div class="ui main container">-->
+                        <div id="post-e6-a0-91-e7-8a-b6-e6-95-b0-e7-bb-84-e6-80-bb-e7-bb-93" class="ui main container article-type-post">
+
+    
+
+    <div class="ui divided grid">
+
+        <div class="two column row" id="article-content">
+
+            <div class="thirteen wide computer thirteen wide tablet sixteen wide mobile column">
+                
+
+<h1 class="ui header">
+    
+    树状数组总结
+</h1>
+
+
+
+                <div class="article-inner">
+
+                    <div class="article-entry" itemprop="articleBody">
+                        
+                        <h1 id="&#x6811;&#x72B6;&#x6570;&#x7EC4;&#x603B;&#x7ED3;"><a href="#&#x6811;&#x72B6;&#x6570;&#x7EC4;&#x603B;&#x7ED3;" class="headerlink" title="&#x6811;&#x72B6;&#x6570;&#x7EC4;&#x603B;&#x7ED3;"></a>&#x6811;&#x72B6;&#x6570;&#x7EC4;&#x603B;&#x7ED3;</h1><p><strong>&#x6811;&#x72B6;&#x6570;&#x7EC4;&#x662F;&#x4E00;&#x4E2A;&#x7C7B;&#x4F3C;&#x4E8E;&#x7EBF;&#x6BB5;&#x6811;&#x7684;&#x6811;&#x72B6;&#x7ED3;&#x6784;&#xFF0C;&#x5B83;&#x901A;&#x8FC7;&#x5B58;&#x50A8;&#x4E00;&#x5B9A;&#x533A;&#x95F4;&#x5185;&#x7684;&#x5143;&#x7D20;&#x6765;&#x8FBE;&#x5230;&#x5FEB;&#x901F;&#x63D2;&#x5165;&#x3001;&#x5FEB;&#x901F;&#x6C42;&#x548C;&#x7684;&#x6548;&#x679C;&#x3002;&#x5E76;&#x4E14;&#x53EF;&#x4EE5;&#x8282;&#x7701;&#x65F6;&#x95F4;&#xFF0C;&#x8282;&#x7701;&#x7A7A;&#x95F4;&#xFF0C;&#x51CF;&#x5C11;&#x4EE3;&#x7801;&#x91CF;&#xFF0C;&#x53EF;&#x8C13;&#x662F;&#x975E;&#x5E38;&#x4F18;&#x79C0;&#x7684;&#x4E00;&#x4E2A;&#x6811;&#x5F62;&#x7ED3;&#x6784;</strong> <strong>&#x65B9;&#x683C;&#x4E2D;&#x6570;&#x5B57;&#x4EE3;&#x8868;&#x5BF9;&#x5E94;&#x6570;&#x7EC4;&#x7684;&#x7B2C;&#x51E0;&#x4E2A;&#x5143;&#x7D20;,&#x4E0B;&#x6392;&#x662F;a&#x6570;&#x7EC4;,&#x5176;&#x4E0A;&#x65B9;&#x7684;&#x662F;e&#x6570;&#x7EC4;,&#x6700;&#x4E0B;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x5219;&#x662F;&#x5BF9;&#x5E94;&#x7F16;&#x53F7;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x8868;&#x793A;.</strong> <strong>&#x53EF;&#x4EE5;&#x89C2;&#x5BDF;&#x5230;&#xFF0C;&#x6811;&#x72B6;&#x6570;&#x7EC4;&#x628A;&#x4E00;&#x4E2A;&#x6570;&#x7EC4;&#x5185;&#x7684;&#x5143;&#x7D20;&#x8FDB;&#x884C;&#x4E86;&#x4E00;&#x5B9A;&#x7684;&#x4E8C;&#x5206;&#xFF0C;&#x5E76;&#x5B58;&#x50A8;&#x67D0;&#x4E9B;&#x5143;&#x7D20;&#x7684;&#x548C;&#xFF0C;&#x4F7F;&#x6811;&#x7684;&#x6DF1;&#x5EA6;&#x8FBE;&#x5230;&#x4E86;logn&#xFF0C;&#x8FD9;&#x6837;&#x4E0D;&#x8BBA;&#x662F;&#x5BF9;&#x4E8E;&#x67E5;&#x627E;&#x8FD8;&#x662F;&#x63D2;&#x5165;&#x90FD;&#x8FDB;&#x884C;&#x4E86;&#x6781;&#x5927;&#x7684;&#x4F18;&#x5316;</strong> <strong>      &#x6BCF;&#x4E2A;&#x6570;&#x6240;&#x6307;&#x5411;&#x7684;&#x5143;&#x7D20;&#x4E2A;&#x6570;&#x4E3A;1+&#x5B83;&#x7684;&#x4E8C;&#x8FDB;&#x5236;&#x672B;&#x5C3E;0&#x7684;&#x4E2A;&#x6570;&#x6211;&#x4EEC;&#x628A;&#x4E8C;&#x8FDB;&#x5236;&#x4E2D;&#x6700;&#x540E;&#x4E00;&#x4E2A;&#x4E00;&#x51FA;&#x73B0;&#x7684;&#x4F4D;&#x7F6E;&#x53EB;&#x505A;lowbit&#xFF0C;&#x6BCF;&#x4E2A;&#x5143;&#x7D20;&#x6307;&#x5411;&#x7684;&#x4E0B;&#x4E00;&#x4E2A;&#x5143;&#x7D20;&#x4E3A;x+lowbit(x)&#xFF0C;&#x73B0;&#x5728;&#x8981;&#x4FEE;&#x6539;&#x6574;&#x68F5;&#x6811;&#x5C31;&#x6BD4;&#x8F83;&#x5BB9;&#x6613;&#x4E86;&#x3002;</strong> </p>
+<ol class="ui list">
+<li><p><strong>&#x7D2F;&#x52A0;&#x64CD;&#x4F5C;</strong></p>
 <p>void add(int x,int t)</p>
 <p> {</p>
 <pre><code>while(x&lt;=n){
@@ -114,9 +165,9 @@
 </code></pre><p> }</p>
 </li>
 </ol>
-<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
-<ol>
-<li><p><strong>求和操作</strong></p>
+<p><a class="magnific-img" href="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="&#x70B9;&#x51FB;&#x5E76;&#x62D6;&#x62FD;&#x4EE5;&#x79FB;&#x52A8;" class="ui centered image"></a></p>
+<ol class="ui list">
+<li><p><strong>&#x6C42;&#x548C;&#x64CD;&#x4F5C;</strong></p>
 <pre><code>int sum(int x)
 
  {
@@ -138,13 +189,13 @@
  }
 </code></pre></li>
 </ol>
-<pre><code>![](data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== &quot;点击并拖拽以移动&quot;)
-</code></pre><p><strong>其中，求和操作求的是1~x个元素之和，要求a~b个元素之和，只需：</strong> <strong>Ans=sum(b)-sum(a-1);</strong> <strong>其中运用了两次查询，对于查询单个元素，还可以优化为一次：</strong> <strong>借助data[x]=e[x]-(query(x-1)-query(LCA(x,x-1)))</strong></p>
+<pre><code>![](data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw== &quot;&#x70B9;&#x51FB;&#x5E76;&#x62D6;&#x62FD;&#x4EE5;&#x79FB;&#x52A8;&quot;)
+</code></pre><p><strong>&#x5176;&#x4E2D;&#xFF0C;&#x6C42;&#x548C;&#x64CD;&#x4F5C;&#x6C42;&#x7684;&#x662F;1~x&#x4E2A;&#x5143;&#x7D20;&#x4E4B;&#x548C;&#xFF0C;&#x8981;&#x6C42;a~b&#x4E2A;&#x5143;&#x7D20;&#x4E4B;&#x548C;&#xFF0C;&#x53EA;&#x9700;&#xFF1A;</strong> <strong>Ans=sum(b)-sum(a-1);</strong> <strong>&#x5176;&#x4E2D;&#x8FD0;&#x7528;&#x4E86;&#x4E24;&#x6B21;&#x67E5;&#x8BE2;&#xFF0C;&#x5BF9;&#x4E8E;&#x67E5;&#x8BE2;&#x5355;&#x4E2A;&#x5143;&#x7D20;&#xFF0C;&#x8FD8;&#x53EF;&#x4EE5;&#x4F18;&#x5316;&#x4E3A;&#x4E00;&#x6B21;&#xFF1A;</strong> <strong>&#x501F;&#x52A9;data[x]=e[x]-(query(x-1)-query(LCA(x,x-1)))</strong></p>
 <pre><code>int sum(x){
 
        int ans=e[x];
 
-       int lca=x-lowbit(x);//求最近公共祖先 
+       int lca=x-lowbit(x);//&#x6C42;&#x6700;&#x8FD1;&#x516C;&#x5171;&#x7956;&#x5148; 
 
        x--;
 
@@ -157,20 +208,20 @@
        }
 
 }
-</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
-<p>  <strong>拓展操作：</strong></p>
-<ol>
-<li><strong>区间修改、点查询</strong></li>
+</code></pre><p><a class="magnific-img" href="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="&#x70B9;&#x51FB;&#x5E76;&#x62D6;&#x62FD;&#x4EE5;&#x79FB;&#x52A8;" class="ui centered image"></a></p>
+<p>  <strong>&#x62D3;&#x5C55;&#x64CD;&#x4F5C;&#xFF1A;</strong></p>
+<ol class="ui list">
+<li><strong>&#x533A;&#x95F4;&#x4FEE;&#x6539;&#x3001;&#x70B9;&#x67E5;&#x8BE2;</strong></li>
 </ol>
-<p><strong>令e[i]为i元素与i-1元素的差值</strong> <strong>那么区间[i,j]修改：</strong> <strong>e[i]+=d; e[j+1]-=d;</strong>  <strong>单个点的求值：data[i]=e[1]+e[2]+…+e[i];</strong> </p>
-<ol>
-<li><strong>找第k小的元素</strong></li>
+<p><strong>&#x4EE4;e[i]&#x4E3A;i&#x5143;&#x7D20;&#x4E0E;i-1&#x5143;&#x7D20;&#x7684;&#x5DEE;&#x503C;</strong> <strong>&#x90A3;&#x4E48;&#x533A;&#x95F4;[i,j]&#x4FEE;&#x6539;&#xFF1A;</strong> <strong>e[i]+=d; e[j+1]-=d;</strong>  <strong>&#x5355;&#x4E2A;&#x70B9;&#x7684;&#x6C42;&#x503C;&#xFF1A;data[i]=e[1]+e[2]+&#x2026;+e[i];</strong> </p>
+<ol class="ui list">
+<li><strong>&#x627E;&#x7B2C;k&#x5C0F;&#x7684;&#x5143;&#x7D20;</strong></li>
 </ol>
-<p><strong>e[i]数组存取i出现的次数（有时数据太大可以离散优化）</strong>  <strong>问题可以转化为求区间和为k所对应的下标</strong> <strong>区间和为递增区间，用二分查找</strong>  <strong>如4 6 5 5 2 2 3 1，每个数作为下标，add一次</strong> <strong>然后sum(i)求出的就是当前1~i区间的数字个数，并且数字有序，二分即可</strong>  </p>
-<ol>
-<li><strong>向高维拓展</strong></li>
+<p><strong>e[i]&#x6570;&#x7EC4;&#x5B58;&#x53D6;i&#x51FA;&#x73B0;&#x7684;&#x6B21;&#x6570;&#xFF08;&#x6709;&#x65F6;&#x6570;&#x636E;&#x592A;&#x5927;&#x53EF;&#x4EE5;&#x79BB;&#x6563;&#x4F18;&#x5316;&#xFF09;</strong>  <strong>&#x95EE;&#x9898;&#x53EF;&#x4EE5;&#x8F6C;&#x5316;&#x4E3A;&#x6C42;&#x533A;&#x95F4;&#x548C;&#x4E3A;k&#x6240;&#x5BF9;&#x5E94;&#x7684;&#x4E0B;&#x6807;</strong> <strong>&#x533A;&#x95F4;&#x548C;&#x4E3A;&#x9012;&#x589E;&#x533A;&#x95F4;&#xFF0C;&#x7528;&#x4E8C;&#x5206;&#x67E5;&#x627E;</strong>  <strong>&#x5982;4 6 5 5 2 2 3 1&#xFF0C;&#x6BCF;&#x4E2A;&#x6570;&#x4F5C;&#x4E3A;&#x4E0B;&#x6807;&#xFF0C;add&#x4E00;&#x6B21;</strong> <strong>&#x7136;&#x540E;sum(i)&#x6C42;&#x51FA;&#x7684;&#x5C31;&#x662F;&#x5F53;&#x524D;1~i&#x533A;&#x95F4;&#x7684;&#x6570;&#x5B57;&#x4E2A;&#x6570;&#xFF0C;&#x5E76;&#x4E14;&#x6570;&#x5B57;&#x6709;&#x5E8F;&#xFF0C;&#x4E8C;&#x5206;&#x5373;&#x53EF;</strong>  </p>
+<ol class="ui list">
+<li><strong>&#x5411;&#x9AD8;&#x7EF4;&#x62D3;&#x5C55;</strong></li>
 </ol>
-<p><strong>树状数组与线段树相比，还是比较方便向高维拓展的，只需加一重循环即可</strong></p>
+<p><strong>&#x6811;&#x72B6;&#x6570;&#x7EC4;&#x4E0E;&#x7EBF;&#x6BB5;&#x6811;&#x76F8;&#x6BD4;&#xFF0C;&#x8FD8;&#x662F;&#x6BD4;&#x8F83;&#x65B9;&#x4FBF;&#x5411;&#x9AD8;&#x7EF4;&#x62D3;&#x5C55;&#x7684;&#xFF0C;&#x53EA;&#x9700;&#x52A0;&#x4E00;&#x91CD;&#x5FAA;&#x73AF;&#x5373;&#x53EF;</strong></p>
 <pre><code>void Change(int x,int y,int data){
 
        While(x&lt;=n){
@@ -190,8 +241,8 @@
        }
 
 }
-</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
-<p><strong>树状数组</strong> Ultra-QuickSort <strong>题目（poj 2299）</strong> 请分析，对于一串数列，各个数字不相同，至少要交换多少次才能使该数列有序（从小到大）？ <strong>输入：</strong> 输入包含多组测试样例，每组测试样例都是先输入一个整数n&lt;500000——序列的长度，以下n行每行包括一个整数 0 ≤ a[i]≤ 999,999,999,已输入的n为0作为输入的终止条件。 <strong>输出：</strong> 对于每一组样例，输出一个整数，表示至少要交换的次数。 <strong>输入样例：</strong> 5 9 1 0 5 4 3 1 2 3 0 <strong>输出样例：</strong> 6 0 <strong>很标准的一道题，先将所有元素取出排序，去重，作为离散优化二分的依据</strong> <strong>依次从第一位开始向树状数组对应位置加值，add(find(x),1)，并且同时算出当前比该元素大的值有多少，更新答案</strong></p>
+</code></pre><p><a class="magnific-img" href="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="&#x70B9;&#x51FB;&#x5E76;&#x62D6;&#x62FD;&#x4EE5;&#x79FB;&#x52A8;" class="ui centered image"></a></p>
+<p><strong>&#x6811;&#x72B6;&#x6570;&#x7EC4;</strong> Ultra-QuickSort <strong>&#x9898;&#x76EE;&#xFF08;poj 2299&#xFF09;</strong> &#x8BF7;&#x5206;&#x6790;&#xFF0C;&#x5BF9;&#x4E8E;&#x4E00;&#x4E32;&#x6570;&#x5217;&#xFF0C;&#x5404;&#x4E2A;&#x6570;&#x5B57;&#x4E0D;&#x76F8;&#x540C;&#xFF0C;&#x81F3;&#x5C11;&#x8981;&#x4EA4;&#x6362;&#x591A;&#x5C11;&#x6B21;&#x624D;&#x80FD;&#x4F7F;&#x8BE5;&#x6570;&#x5217;&#x6709;&#x5E8F;&#xFF08;&#x4ECE;&#x5C0F;&#x5230;&#x5927;&#xFF09;&#xFF1F; <strong>&#x8F93;&#x5165;&#xFF1A;</strong> &#x8F93;&#x5165;&#x5305;&#x542B;&#x591A;&#x7EC4;&#x6D4B;&#x8BD5;&#x6837;&#x4F8B;&#xFF0C;&#x6BCF;&#x7EC4;&#x6D4B;&#x8BD5;&#x6837;&#x4F8B;&#x90FD;&#x662F;&#x5148;&#x8F93;&#x5165;&#x4E00;&#x4E2A;&#x6574;&#x6570;n&lt;500000&#x2014;&#x2014;&#x5E8F;&#x5217;&#x7684;&#x957F;&#x5EA6;&#xFF0C;&#x4EE5;&#x4E0B;n&#x884C;&#x6BCF;&#x884C;&#x5305;&#x62EC;&#x4E00;&#x4E2A;&#x6574;&#x6570; 0 &#x2264; a[i]&#x2264; 999,999,999,&#x5DF2;&#x8F93;&#x5165;&#x7684;n&#x4E3A;0&#x4F5C;&#x4E3A;&#x8F93;&#x5165;&#x7684;&#x7EC8;&#x6B62;&#x6761;&#x4EF6;&#x3002; <strong>&#x8F93;&#x51FA;&#xFF1A;</strong> &#x5BF9;&#x4E8E;&#x6BCF;&#x4E00;&#x7EC4;&#x6837;&#x4F8B;&#xFF0C;&#x8F93;&#x51FA;&#x4E00;&#x4E2A;&#x6574;&#x6570;&#xFF0C;&#x8868;&#x793A;&#x81F3;&#x5C11;&#x8981;&#x4EA4;&#x6362;&#x7684;&#x6B21;&#x6570;&#x3002; <strong>&#x8F93;&#x5165;&#x6837;&#x4F8B;&#xFF1A;</strong> 5 9 1 0 5 4 3 1 2 3 0 <strong>&#x8F93;&#x51FA;&#x6837;&#x4F8B;&#xFF1A;</strong> 6 0 <strong>&#x5F88;&#x6807;&#x51C6;&#x7684;&#x4E00;&#x9053;&#x9898;&#xFF0C;&#x5148;&#x5C06;&#x6240;&#x6709;&#x5143;&#x7D20;&#x53D6;&#x51FA;&#x6392;&#x5E8F;&#xFF0C;&#x53BB;&#x91CD;&#xFF0C;&#x4F5C;&#x4E3A;&#x79BB;&#x6563;&#x4F18;&#x5316;&#x4E8C;&#x5206;&#x7684;&#x4F9D;&#x636E;</strong> <strong>&#x4F9D;&#x6B21;&#x4ECE;&#x7B2C;&#x4E00;&#x4F4D;&#x5F00;&#x59CB;&#x5411;&#x6811;&#x72B6;&#x6570;&#x7EC4;&#x5BF9;&#x5E94;&#x4F4D;&#x7F6E;&#x52A0;&#x503C;&#xFF0C;add(find(x),1)&#xFF0C;&#x5E76;&#x4E14;&#x540C;&#x65F6;&#x7B97;&#x51FA;&#x5F53;&#x524D;&#x6BD4;&#x8BE5;&#x5143;&#x7D20;&#x5927;&#x7684;&#x503C;&#x6709;&#x591A;&#x5C11;&#xFF0C;&#x66F4;&#x65B0;&#x7B54;&#x6848;</strong></p>
 <pre><code>#include&lt;cstdio&gt;
 #include&lt;cstring&gt;
 #include&lt;algorithm&gt;
@@ -234,16 +285,16 @@ int main(){
         sort(t+1,t+n+1);
         m=unique(t+1,t+n)-t;
         for(int i=1;i&lt;=n;i++){
-            int f=Find(1,m,data[i]);//找离散优化对应元素 
-            ans+=sum(n)-sum(f);//每次看比此数大的数有几个 
-            add(f,1);//将此数加入 
+            int f=Find(1,m,data[i]);//&#x627E;&#x79BB;&#x6563;&#x4F18;&#x5316;&#x5BF9;&#x5E94;&#x5143;&#x7D20; 
+            ans+=sum(n)-sum(f);//&#x6BCF;&#x6B21;&#x770B;&#x6BD4;&#x6B64;&#x6570;&#x5927;&#x7684;&#x6570;&#x6709;&#x51E0;&#x4E2A; 
+            add(f,1);//&#x5C06;&#x6B64;&#x6570;&#x52A0;&#x5165; 
         }
         printf(&quot;%lld\n&quot;,ans);
     }
     return 0;
 }
-</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
-<p><strong>Poj3928 Ping Pong</strong> 题意： n（3 &lt; = 20000）乒乓球运动员住在一个西大街（考虑街道作为一个线段）。每个球员都有一个独特的技能等级。为了提高他们的技能等级，他们经常互相竞争。如果两个球员想参加比赛，他们必须选择其他乒乓球运动员的裁判，并在裁判的房子举行比赛。因为某些原因，参赛者不能选择一个技能等级较高或低于他们两个级别的裁判。参赛者必须走到裁判的房子，因为他们是懒惰的，他们想使他们的总步行距离不超过他们的房子之间的距离。当然，所有的球员都住在不同的房子，他们的房子的位置都是不同的。如果裁判或任何两名选手是不同的，我们称之为两个不同的游戏。现在的问题是：有多少不同的游戏可以在这个乒乓街举行？ 输入 The first lineof the input contains an integer T(1&lt;=T&lt;=20), indicating the number oftest cases, followed by T lines each of which describes a test case. 输入的第一行包含一个整数t（1 &lt; =T &lt; = 20），表示测试用例的数量，然后是T行，其中每一个描述了一个测试用例。 Every testcase consists of N + 1 integers. The first integer is N, the number of players.Then N distinct integers a1, a2 … aN follow, indicating the skill rank ofeach player, in the order of west to east. (1 &lt;= ai &lt;= 100000, i = 1 …N). 每一个测试用例都是由n个1个整数组成的。第一个整数是n，玩家的数量。然后，n个不同的整数A1、A2…一个跟随，指示每个玩家的技能等级，在西到东的顺序。（1 &lt; = 100000，I = 1…n）。 Output 输出 For each testcase, output a single line contains an integer, the total number of differentgames. 对于每一个测试用例，输出一个单行包含一个整数，不同游戏的总数。 <strong>先把所有选手的能力值排序，然后加入能力值最低的选手，然后枚举所有可能成为裁判的选手，同时计算出这个裁判的左边和右边比裁判能力值大和小的值，ans+=(lmin*rmax+lmax*rmin);</strong> </p>
+</code></pre><p><a class="magnific-img" href="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="&#x70B9;&#x51FB;&#x5E76;&#x62D6;&#x62FD;&#x4EE5;&#x79FB;&#x52A8;" class="ui centered image"></a></p>
+<p><strong>Poj3928 Ping Pong</strong> &#x9898;&#x610F;&#xFF1A; n&#xFF08;3 &lt; = 20000&#xFF09;&#x4E52;&#x4E53;&#x7403;&#x8FD0;&#x52A8;&#x5458;&#x4F4F;&#x5728;&#x4E00;&#x4E2A;&#x897F;&#x5927;&#x8857;&#xFF08;&#x8003;&#x8651;&#x8857;&#x9053;&#x4F5C;&#x4E3A;&#x4E00;&#x4E2A;&#x7EBF;&#x6BB5;&#xFF09;&#x3002;&#x6BCF;&#x4E2A;&#x7403;&#x5458;&#x90FD;&#x6709;&#x4E00;&#x4E2A;&#x72EC;&#x7279;&#x7684;&#x6280;&#x80FD;&#x7B49;&#x7EA7;&#x3002;&#x4E3A;&#x4E86;&#x63D0;&#x9AD8;&#x4ED6;&#x4EEC;&#x7684;&#x6280;&#x80FD;&#x7B49;&#x7EA7;&#xFF0C;&#x4ED6;&#x4EEC;&#x7ECF;&#x5E38;&#x4E92;&#x76F8;&#x7ADE;&#x4E89;&#x3002;&#x5982;&#x679C;&#x4E24;&#x4E2A;&#x7403;&#x5458;&#x60F3;&#x53C2;&#x52A0;&#x6BD4;&#x8D5B;&#xFF0C;&#x4ED6;&#x4EEC;&#x5FC5;&#x987B;&#x9009;&#x62E9;&#x5176;&#x4ED6;&#x4E52;&#x4E53;&#x7403;&#x8FD0;&#x52A8;&#x5458;&#x7684;&#x88C1;&#x5224;&#xFF0C;&#x5E76;&#x5728;&#x88C1;&#x5224;&#x7684;&#x623F;&#x5B50;&#x4E3E;&#x884C;&#x6BD4;&#x8D5B;&#x3002;&#x56E0;&#x4E3A;&#x67D0;&#x4E9B;&#x539F;&#x56E0;&#xFF0C;&#x53C2;&#x8D5B;&#x8005;&#x4E0D;&#x80FD;&#x9009;&#x62E9;&#x4E00;&#x4E2A;&#x6280;&#x80FD;&#x7B49;&#x7EA7;&#x8F83;&#x9AD8;&#x6216;&#x4F4E;&#x4E8E;&#x4ED6;&#x4EEC;&#x4E24;&#x4E2A;&#x7EA7;&#x522B;&#x7684;&#x88C1;&#x5224;&#x3002;&#x53C2;&#x8D5B;&#x8005;&#x5FC5;&#x987B;&#x8D70;&#x5230;&#x88C1;&#x5224;&#x7684;&#x623F;&#x5B50;&#xFF0C;&#x56E0;&#x4E3A;&#x4ED6;&#x4EEC;&#x662F;&#x61D2;&#x60F0;&#x7684;&#xFF0C;&#x4ED6;&#x4EEC;&#x60F3;&#x4F7F;&#x4ED6;&#x4EEC;&#x7684;&#x603B;&#x6B65;&#x884C;&#x8DDD;&#x79BB;&#x4E0D;&#x8D85;&#x8FC7;&#x4ED6;&#x4EEC;&#x7684;&#x623F;&#x5B50;&#x4E4B;&#x95F4;&#x7684;&#x8DDD;&#x79BB;&#x3002;&#x5F53;&#x7136;&#xFF0C;&#x6240;&#x6709;&#x7684;&#x7403;&#x5458;&#x90FD;&#x4F4F;&#x5728;&#x4E0D;&#x540C;&#x7684;&#x623F;&#x5B50;&#xFF0C;&#x4ED6;&#x4EEC;&#x7684;&#x623F;&#x5B50;&#x7684;&#x4F4D;&#x7F6E;&#x90FD;&#x662F;&#x4E0D;&#x540C;&#x7684;&#x3002;&#x5982;&#x679C;&#x88C1;&#x5224;&#x6216;&#x4EFB;&#x4F55;&#x4E24;&#x540D;&#x9009;&#x624B;&#x662F;&#x4E0D;&#x540C;&#x7684;&#xFF0C;&#x6211;&#x4EEC;&#x79F0;&#x4E4B;&#x4E3A;&#x4E24;&#x4E2A;&#x4E0D;&#x540C;&#x7684;&#x6E38;&#x620F;&#x3002;&#x73B0;&#x5728;&#x7684;&#x95EE;&#x9898;&#x662F;&#xFF1A;&#x6709;&#x591A;&#x5C11;&#x4E0D;&#x540C;&#x7684;&#x6E38;&#x620F;&#x53EF;&#x4EE5;&#x5728;&#x8FD9;&#x4E2A;&#x4E52;&#x4E53;&#x8857;&#x4E3E;&#x884C;&#xFF1F; &#x8F93;&#x5165; The first lineof the input contains an integer T(1&lt;=T&lt;=20), indicating the number oftest cases, followed by T lines each of which describes a test case. &#x8F93;&#x5165;&#x7684;&#x7B2C;&#x4E00;&#x884C;&#x5305;&#x542B;&#x4E00;&#x4E2A;&#x6574;&#x6570;t&#xFF08;1 &lt; =T &lt; = 20&#xFF09;&#xFF0C;&#x8868;&#x793A;&#x6D4B;&#x8BD5;&#x7528;&#x4F8B;&#x7684;&#x6570;&#x91CF;&#xFF0C;&#x7136;&#x540E;&#x662F;T&#x884C;&#xFF0C;&#x5176;&#x4E2D;&#x6BCF;&#x4E00;&#x4E2A;&#x63CF;&#x8FF0;&#x4E86;&#x4E00;&#x4E2A;&#x6D4B;&#x8BD5;&#x7528;&#x4F8B;&#x3002; Every testcase consists of N + 1 integers. The first integer is N, the number of players.Then N distinct integers a1, a2 &#x2026; aN follow, indicating the skill rank ofeach player, in the order of west to east. (1 &lt;= ai &lt;= 100000, i = 1 &#x2026;N). &#x6BCF;&#x4E00;&#x4E2A;&#x6D4B;&#x8BD5;&#x7528;&#x4F8B;&#x90FD;&#x662F;&#x7531;n&#x4E2A;1&#x4E2A;&#x6574;&#x6570;&#x7EC4;&#x6210;&#x7684;&#x3002;&#x7B2C;&#x4E00;&#x4E2A;&#x6574;&#x6570;&#x662F;n&#xFF0C;&#x73A9;&#x5BB6;&#x7684;&#x6570;&#x91CF;&#x3002;&#x7136;&#x540E;&#xFF0C;n&#x4E2A;&#x4E0D;&#x540C;&#x7684;&#x6574;&#x6570;A1&#x3001;A2&#x2026;&#x4E00;&#x4E2A;&#x8DDF;&#x968F;&#xFF0C;&#x6307;&#x793A;&#x6BCF;&#x4E2A;&#x73A9;&#x5BB6;&#x7684;&#x6280;&#x80FD;&#x7B49;&#x7EA7;&#xFF0C;&#x5728;&#x897F;&#x5230;&#x4E1C;&#x7684;&#x987A;&#x5E8F;&#x3002;&#xFF08;1 &lt; = 100000&#xFF0C;I = 1&#x2026;n&#xFF09;&#x3002; Output &#x8F93;&#x51FA; For each testcase, output a single line contains an integer, the total number of differentgames. &#x5BF9;&#x4E8E;&#x6BCF;&#x4E00;&#x4E2A;&#x6D4B;&#x8BD5;&#x7528;&#x4F8B;&#xFF0C;&#x8F93;&#x51FA;&#x4E00;&#x4E2A;&#x5355;&#x884C;&#x5305;&#x542B;&#x4E00;&#x4E2A;&#x6574;&#x6570;&#xFF0C;&#x4E0D;&#x540C;&#x6E38;&#x620F;&#x7684;&#x603B;&#x6570;&#x3002; <strong>&#x5148;&#x628A;&#x6240;&#x6709;&#x9009;&#x624B;&#x7684;&#x80FD;&#x529B;&#x503C;&#x6392;&#x5E8F;&#xFF0C;&#x7136;&#x540E;&#x52A0;&#x5165;&#x80FD;&#x529B;&#x503C;&#x6700;&#x4F4E;&#x7684;&#x9009;&#x624B;&#xFF0C;&#x7136;&#x540E;&#x679A;&#x4E3E;&#x6240;&#x6709;&#x53EF;&#x80FD;&#x6210;&#x4E3A;&#x88C1;&#x5224;&#x7684;&#x9009;&#x624B;&#xFF0C;&#x540C;&#x65F6;&#x8BA1;&#x7B97;&#x51FA;&#x8FD9;&#x4E2A;&#x88C1;&#x5224;&#x7684;&#x5DE6;&#x8FB9;&#x548C;&#x53F3;&#x8FB9;&#x6BD4;&#x88C1;&#x5224;&#x80FD;&#x529B;&#x503C;&#x5927;&#x548C;&#x5C0F;&#x7684;&#x503C;&#xFF0C;ans+=(lmin*rmax+lmax*rmin);</strong> </p>
 <pre><code>#include&lt;cstdio&gt;
 #include&lt;cstring&gt;
 #include&lt;algorithm&gt;
@@ -280,10 +331,10 @@ int main(){
         memset(e,0,sizeof(e));
         for(int i=1;i&lt;=n;i++){
             scanf(&quot;%d&quot;,&amp;peo[i].data);
-            peo[i].id=i;//位置 
+            peo[i].id=i;//&#x4F4D;&#x7F6E; 
         }
-        sort(peo+1,peo+1+n,cmp);//按能力排序 
-        add(peo[1].id,1);//实力最小的选手 
+        sort(peo+1,peo+1+n,cmp);//&#x6309;&#x80FD;&#x529B;&#x6392;&#x5E8F; 
+        add(peo[1].id,1);//&#x5B9E;&#x529B;&#x6700;&#x5C0F;&#x7684;&#x9009;&#x624B; 
         for(int i=2;i&lt;=n-1;i++){
             lmin=sum(peo[i].id-1);
             lmax=peo[i].id-lmin-1;
@@ -298,8 +349,8 @@ int main(){
 
     return 0;
 }
-</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
-<p> Stars <strong>题目（POJ 2352）</strong> 天文学家常常检查星星地图，星星都有它的x,y坐标，星星的等级的是由下边星星数量和星星右边的星星数量决定。 例如,看看上面的星图。星星5的等级为3 (由星星1、2和4决定的)。星星2的等级为1（由星星1决定的）。在这张地图上0级的星星有一颗，1级的星星有两颗，2级的星星有一颗，3级的星星有一颗， 你要编写一个程序,计算每个等级的星星的数量。 <strong>输入：</strong> 第一行为星星的数量N（(1&lt;=N&lt;=15000) 接下来N行，每行为星星的x,y坐标，用空格来分开(0&lt;=X,Y&lt;=32000)，每一个点上只有一个星星，按Y的升序给出坐标，如果Y相同，则按照X的升序给出。 <strong>输出：</strong> 输出应该包含N行,每行一个数字。第一行0级星星的数量,第二行1级星星的数量等等,最后一行包含n – 1星星的数量。 <strong>输入样例：</strong> 5 1 1 5 1 7 1 3 3 5 5 <strong>输出样例：</strong> 1 2 1 1 0  <strong>乍一看像一道二位树状数组题，其实是一维的，因为数据本来就是按y的大小排序，添加每个点x之前先计算sum(x)，这就是星星的等级，加入答案，继续直到循环结束</strong></p>
+</code></pre><p><a class="magnific-img" href="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="&#x70B9;&#x51FB;&#x5E76;&#x62D6;&#x62FD;&#x4EE5;&#x79FB;&#x52A8;" class="ui centered image"></a></p>
+<p> Stars <strong>&#x9898;&#x76EE;&#xFF08;POJ 2352&#xFF09;</strong> &#x5929;&#x6587;&#x5B66;&#x5BB6;&#x5E38;&#x5E38;&#x68C0;&#x67E5;&#x661F;&#x661F;&#x5730;&#x56FE;&#xFF0C;&#x661F;&#x661F;&#x90FD;&#x6709;&#x5B83;&#x7684;x,y&#x5750;&#x6807;&#xFF0C;&#x661F;&#x661F;&#x7684;&#x7B49;&#x7EA7;&#x7684;&#x662F;&#x7531;&#x4E0B;&#x8FB9;&#x661F;&#x661F;&#x6570;&#x91CF;&#x548C;&#x661F;&#x661F;&#x53F3;&#x8FB9;&#x7684;&#x661F;&#x661F;&#x6570;&#x91CF;&#x51B3;&#x5B9A;&#x3002; &#x4F8B;&#x5982;,&#x770B;&#x770B;&#x4E0A;&#x9762;&#x7684;&#x661F;&#x56FE;&#x3002;&#x661F;&#x661F;5&#x7684;&#x7B49;&#x7EA7;&#x4E3A;3 (&#x7531;&#x661F;&#x661F;1&#x3001;2&#x548C;4&#x51B3;&#x5B9A;&#x7684;)&#x3002;&#x661F;&#x661F;2&#x7684;&#x7B49;&#x7EA7;&#x4E3A;1&#xFF08;&#x7531;&#x661F;&#x661F;1&#x51B3;&#x5B9A;&#x7684;&#xFF09;&#x3002;&#x5728;&#x8FD9;&#x5F20;&#x5730;&#x56FE;&#x4E0A;0&#x7EA7;&#x7684;&#x661F;&#x661F;&#x6709;&#x4E00;&#x9897;&#xFF0C;1&#x7EA7;&#x7684;&#x661F;&#x661F;&#x6709;&#x4E24;&#x9897;&#xFF0C;2&#x7EA7;&#x7684;&#x661F;&#x661F;&#x6709;&#x4E00;&#x9897;&#xFF0C;3&#x7EA7;&#x7684;&#x661F;&#x661F;&#x6709;&#x4E00;&#x9897;&#xFF0C; &#x4F60;&#x8981;&#x7F16;&#x5199;&#x4E00;&#x4E2A;&#x7A0B;&#x5E8F;,&#x8BA1;&#x7B97;&#x6BCF;&#x4E2A;&#x7B49;&#x7EA7;&#x7684;&#x661F;&#x661F;&#x7684;&#x6570;&#x91CF;&#x3002; <strong>&#x8F93;&#x5165;&#xFF1A;</strong> &#x7B2C;&#x4E00;&#x884C;&#x4E3A;&#x661F;&#x661F;&#x7684;&#x6570;&#x91CF;N&#xFF08;(1&lt;=N&lt;=15000) &#x63A5;&#x4E0B;&#x6765;N&#x884C;&#xFF0C;&#x6BCF;&#x884C;&#x4E3A;&#x661F;&#x661F;&#x7684;x,y&#x5750;&#x6807;&#xFF0C;&#x7528;&#x7A7A;&#x683C;&#x6765;&#x5206;&#x5F00;(0&lt;=X,Y&lt;=32000)&#xFF0C;&#x6BCF;&#x4E00;&#x4E2A;&#x70B9;&#x4E0A;&#x53EA;&#x6709;&#x4E00;&#x4E2A;&#x661F;&#x661F;&#xFF0C;&#x6309;Y&#x7684;&#x5347;&#x5E8F;&#x7ED9;&#x51FA;&#x5750;&#x6807;&#xFF0C;&#x5982;&#x679C;Y&#x76F8;&#x540C;&#xFF0C;&#x5219;&#x6309;&#x7167;X&#x7684;&#x5347;&#x5E8F;&#x7ED9;&#x51FA;&#x3002; <strong>&#x8F93;&#x51FA;&#xFF1A;</strong> &#x8F93;&#x51FA;&#x5E94;&#x8BE5;&#x5305;&#x542B;N&#x884C;,&#x6BCF;&#x884C;&#x4E00;&#x4E2A;&#x6570;&#x5B57;&#x3002;&#x7B2C;&#x4E00;&#x884C;0&#x7EA7;&#x661F;&#x661F;&#x7684;&#x6570;&#x91CF;,&#x7B2C;&#x4E8C;&#x884C;1&#x7EA7;&#x661F;&#x661F;&#x7684;&#x6570;&#x91CF;&#x7B49;&#x7B49;,&#x6700;&#x540E;&#x4E00;&#x884C;&#x5305;&#x542B;n &#x2013; 1&#x661F;&#x661F;&#x7684;&#x6570;&#x91CF;&#x3002; <strong>&#x8F93;&#x5165;&#x6837;&#x4F8B;&#xFF1A;</strong> 5 1 1 5 1 7 1 3 3 5 5 <strong>&#x8F93;&#x51FA;&#x6837;&#x4F8B;&#xFF1A;</strong> 1 2 1 1 0  <strong>&#x4E4D;&#x4E00;&#x770B;&#x50CF;&#x4E00;&#x9053;&#x4E8C;&#x4F4D;&#x6811;&#x72B6;&#x6570;&#x7EC4;&#x9898;&#xFF0C;&#x5176;&#x5B9E;&#x662F;&#x4E00;&#x7EF4;&#x7684;&#xFF0C;&#x56E0;&#x4E3A;&#x6570;&#x636E;&#x672C;&#x6765;&#x5C31;&#x662F;&#x6309;y&#x7684;&#x5927;&#x5C0F;&#x6392;&#x5E8F;&#xFF0C;&#x6DFB;&#x52A0;&#x6BCF;&#x4E2A;&#x70B9;x&#x4E4B;&#x524D;&#x5148;&#x8BA1;&#x7B97;sum(x)&#xFF0C;&#x8FD9;&#x5C31;&#x662F;&#x661F;&#x661F;&#x7684;&#x7B49;&#x7EA7;&#xFF0C;&#x52A0;&#x5165;&#x7B54;&#x6848;&#xFF0C;&#x7EE7;&#x7EED;&#x76F4;&#x5230;&#x5FAA;&#x73AF;&#x7ED3;&#x675F;</strong></p>
 <pre><code>#include&lt;cstdio&gt;
 #include&lt;cstring&gt;
 #include&lt;algorithm&gt;
@@ -338,15 +389,15 @@ int main(){
 
     return 0;
 }
-</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
-<p><strong>Hdu 4031 attack</strong> <strong>问题描述</strong> 今年是911的十周年，基地组织又想攻击美国了，美国有建设了一堵墙来保护自己，而基地组织有一个超级武器，每秒钟可以攻击连续的墙。而美国还有能量护盾来保护墙，每个能量护盾覆盖在一个单位长度的墙上，能抵挡攻击，但是每个能量护盾防御了一次攻击都需要T秒时间冷却下来，冷却期间，它不能抵挡攻击，比如该单位初盾牌抵挡了第k次攻击，那么它不能抵挡第k+1~(k+t-1)次攻击，过后，他们自动继续防御。 在战争中，知己知彼是非常重要的，因此指挥官想知道墙的某一部分被成功攻击了多少次，成功攻击就意味着盾牌没有防御到 <strong>输入</strong> 第一行T(&lt;=20)，表示测试数据组数 每组测试数据第一行：N,Q,T，分别表示墙的长度，Q次攻击或询问，T秒的冷却时间 接下来Q行，格式有两种： Attack si ti 攻击 si 到 ti 的墙. 1 ≤ si ≤ ti ≤ N Query p 询问p位置的墙：1 ≤ p ≤ N 1 ≤ N, Q ≤ 20000 1 ≤ t ≤ 50 <strong>输出</strong> 每组数据第一行： Case i: 接下来是所有询问的答案，每个询问答案一行 <strong>样例输入</strong> 2 3 7 2 Attack 1 2 Query 2 Attack 2 3 Query 2 Attack 1 3 Query 1 Query 3 9 7 3 Attack 5 5 Attack 4 6 Attack 3 7 Attack 2 8 Attack 1 9 Query 5 Query 3 <strong>样例输出</strong> Case 1: 0 1 0 1 Case 2: 3 2 <strong>暂时没A，先放这里吧~</strong> <strong>Poj 2985 The k-th Largest Group</strong> <strong>题意</strong> 有N只猫，M个操作。操作种类如下： 0 a b：把a b猫所在的组合并 1 k： 第K大的组的大小是多少。 <strong>求第k大的数</strong></p>
+</code></pre><p><a class="magnific-img" href="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="&#x70B9;&#x51FB;&#x5E76;&#x62D6;&#x62FD;&#x4EE5;&#x79FB;&#x52A8;" class="ui centered image"></a></p>
+<p><strong>Hdu 4031 attack</strong> <strong>&#x95EE;&#x9898;&#x63CF;&#x8FF0;</strong> &#x4ECA;&#x5E74;&#x662F;911&#x7684;&#x5341;&#x5468;&#x5E74;&#xFF0C;&#x57FA;&#x5730;&#x7EC4;&#x7EC7;&#x53C8;&#x60F3;&#x653B;&#x51FB;&#x7F8E;&#x56FD;&#x4E86;&#xFF0C;&#x7F8E;&#x56FD;&#x6709;&#x5EFA;&#x8BBE;&#x4E86;&#x4E00;&#x5835;&#x5899;&#x6765;&#x4FDD;&#x62A4;&#x81EA;&#x5DF1;&#xFF0C;&#x800C;&#x57FA;&#x5730;&#x7EC4;&#x7EC7;&#x6709;&#x4E00;&#x4E2A;&#x8D85;&#x7EA7;&#x6B66;&#x5668;&#xFF0C;&#x6BCF;&#x79D2;&#x949F;&#x53EF;&#x4EE5;&#x653B;&#x51FB;&#x8FDE;&#x7EED;&#x7684;&#x5899;&#x3002;&#x800C;&#x7F8E;&#x56FD;&#x8FD8;&#x6709;&#x80FD;&#x91CF;&#x62A4;&#x76FE;&#x6765;&#x4FDD;&#x62A4;&#x5899;&#xFF0C;&#x6BCF;&#x4E2A;&#x80FD;&#x91CF;&#x62A4;&#x76FE;&#x8986;&#x76D6;&#x5728;&#x4E00;&#x4E2A;&#x5355;&#x4F4D;&#x957F;&#x5EA6;&#x7684;&#x5899;&#x4E0A;&#xFF0C;&#x80FD;&#x62B5;&#x6321;&#x653B;&#x51FB;&#xFF0C;&#x4F46;&#x662F;&#x6BCF;&#x4E2A;&#x80FD;&#x91CF;&#x62A4;&#x76FE;&#x9632;&#x5FA1;&#x4E86;&#x4E00;&#x6B21;&#x653B;&#x51FB;&#x90FD;&#x9700;&#x8981;T&#x79D2;&#x65F6;&#x95F4;&#x51B7;&#x5374;&#x4E0B;&#x6765;&#xFF0C;&#x51B7;&#x5374;&#x671F;&#x95F4;&#xFF0C;&#x5B83;&#x4E0D;&#x80FD;&#x62B5;&#x6321;&#x653B;&#x51FB;&#xFF0C;&#x6BD4;&#x5982;&#x8BE5;&#x5355;&#x4F4D;&#x521D;&#x76FE;&#x724C;&#x62B5;&#x6321;&#x4E86;&#x7B2C;k&#x6B21;&#x653B;&#x51FB;&#xFF0C;&#x90A3;&#x4E48;&#x5B83;&#x4E0D;&#x80FD;&#x62B5;&#x6321;&#x7B2C;k+1~(k+t-1)&#x6B21;&#x653B;&#x51FB;&#xFF0C;&#x8FC7;&#x540E;&#xFF0C;&#x4ED6;&#x4EEC;&#x81EA;&#x52A8;&#x7EE7;&#x7EED;&#x9632;&#x5FA1;&#x3002; &#x5728;&#x6218;&#x4E89;&#x4E2D;&#xFF0C;&#x77E5;&#x5DF1;&#x77E5;&#x5F7C;&#x662F;&#x975E;&#x5E38;&#x91CD;&#x8981;&#x7684;&#xFF0C;&#x56E0;&#x6B64;&#x6307;&#x6325;&#x5B98;&#x60F3;&#x77E5;&#x9053;&#x5899;&#x7684;&#x67D0;&#x4E00;&#x90E8;&#x5206;&#x88AB;&#x6210;&#x529F;&#x653B;&#x51FB;&#x4E86;&#x591A;&#x5C11;&#x6B21;&#xFF0C;&#x6210;&#x529F;&#x653B;&#x51FB;&#x5C31;&#x610F;&#x5473;&#x7740;&#x76FE;&#x724C;&#x6CA1;&#x6709;&#x9632;&#x5FA1;&#x5230; <strong>&#x8F93;&#x5165;</strong> &#x7B2C;&#x4E00;&#x884C;T(&lt;=20)&#xFF0C;&#x8868;&#x793A;&#x6D4B;&#x8BD5;&#x6570;&#x636E;&#x7EC4;&#x6570; &#x6BCF;&#x7EC4;&#x6D4B;&#x8BD5;&#x6570;&#x636E;&#x7B2C;&#x4E00;&#x884C;&#xFF1A;N,Q,T&#xFF0C;&#x5206;&#x522B;&#x8868;&#x793A;&#x5899;&#x7684;&#x957F;&#x5EA6;&#xFF0C;Q&#x6B21;&#x653B;&#x51FB;&#x6216;&#x8BE2;&#x95EE;&#xFF0C;T&#x79D2;&#x7684;&#x51B7;&#x5374;&#x65F6;&#x95F4; &#x63A5;&#x4E0B;&#x6765;Q&#x884C;&#xFF0C;&#x683C;&#x5F0F;&#x6709;&#x4E24;&#x79CD;&#xFF1A; Attack si ti &#x653B;&#x51FB; si &#x5230; ti &#x7684;&#x5899;. 1 &#x2264; si &#x2264; ti &#x2264; N Query p &#x8BE2;&#x95EE;p&#x4F4D;&#x7F6E;&#x7684;&#x5899;&#xFF1A;1 &#x2264; p &#x2264; N 1 &#x2264; N, Q &#x2264; 20000 1 &#x2264; t &#x2264; 50 <strong>&#x8F93;&#x51FA;</strong> &#x6BCF;&#x7EC4;&#x6570;&#x636E;&#x7B2C;&#x4E00;&#x884C;&#xFF1A; Case i: &#x63A5;&#x4E0B;&#x6765;&#x662F;&#x6240;&#x6709;&#x8BE2;&#x95EE;&#x7684;&#x7B54;&#x6848;&#xFF0C;&#x6BCF;&#x4E2A;&#x8BE2;&#x95EE;&#x7B54;&#x6848;&#x4E00;&#x884C; <strong>&#x6837;&#x4F8B;&#x8F93;&#x5165;</strong> 2 3 7 2 Attack 1 2 Query 2 Attack 2 3 Query 2 Attack 1 3 Query 1 Query 3 9 7 3 Attack 5 5 Attack 4 6 Attack 3 7 Attack 2 8 Attack 1 9 Query 5 Query 3 <strong>&#x6837;&#x4F8B;&#x8F93;&#x51FA;</strong> Case 1: 0 1 0 1 Case 2: 3 2 <strong>&#x6682;&#x65F6;&#x6CA1;A&#xFF0C;&#x5148;&#x653E;&#x8FD9;&#x91CC;&#x5427;~</strong> <strong>Poj 2985 The k-th Largest Group</strong> <strong>&#x9898;&#x610F;</strong> &#x6709;N&#x53EA;&#x732B;&#xFF0C;M&#x4E2A;&#x64CD;&#x4F5C;&#x3002;&#x64CD;&#x4F5C;&#x79CD;&#x7C7B;&#x5982;&#x4E0B;&#xFF1A; 0 a b&#xFF1A;&#x628A;a b&#x732B;&#x6240;&#x5728;&#x7684;&#x7EC4;&#x5408;&#x5E76; 1 k&#xFF1A; &#x7B2C;K&#x5927;&#x7684;&#x7EC4;&#x7684;&#x5927;&#x5C0F;&#x662F;&#x591A;&#x5C11;&#x3002; <strong>&#x6C42;&#x7B2C;k&#x5927;&#x7684;&#x6570;</strong></p>
 <pre><code>#include&lt;cstdio&gt;
 #include&lt;cstring&gt;
 #include&lt;algorithm&gt;
 using namespace std;
 const int MAX=200020;
 int father[MAX],e[MAX];
-int cnt[MAX];//存储有i只猫的集合数 
+int cnt[MAX];//&#x5B58;&#x50A8;&#x6709;i&#x53EA;&#x732B;&#x7684;&#x96C6;&#x5408;&#x6570; 
 int n,m,op,a,b,num;
 int lowbit(int x){
     return -x&amp;x;
@@ -361,32 +412,32 @@ int Getfather(int p){
     return father[p];
 }
 int Get_kth(int k){
-    int ans,tot;//二分找第k小 
+    int ans,tot;//&#x4E8C;&#x5206;&#x627E;&#x7B2C;k&#x5C0F; 
     ans=tot=0;
     for(int i=20;i&gt;=0;i--){
-        ans+=1&lt;&lt;i;//尝试 
-        if(ans&gt;=MAX||tot+e[ans]&gt;=k)//看这次尝试是否超过范围 
-            ans-=1&lt;&lt;i;//复原 
-        else tot+=e[ans];//记录 
+        ans+=1&lt;&lt;i;//&#x5C1D;&#x8BD5; 
+        if(ans&gt;=MAX||tot+e[ans]&gt;=k)//&#x770B;&#x8FD9;&#x6B21;&#x5C1D;&#x8BD5;&#x662F;&#x5426;&#x8D85;&#x8FC7;&#x8303;&#x56F4; 
+            ans-=1&lt;&lt;i;//&#x590D;&#x539F; 
+        else tot+=e[ans];//&#x8BB0;&#x5F55; 
     }
     return ans+1;
 }
 int main(){
     scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
     for(int i=1;i&lt;=n;i++){
-        father[i]=i;//并查集初始化 
-        cnt[i]=1;//表示组内有i只猫的组数，开始只有一组 
-    }num=n;//num个集合 
+        father[i]=i;//&#x5E76;&#x67E5;&#x96C6;&#x521D;&#x59CB;&#x5316; 
+        cnt[i]=1;//&#x8868;&#x793A;&#x7EC4;&#x5185;&#x6709;i&#x53EA;&#x732B;&#x7684;&#x7EC4;&#x6570;&#xFF0C;&#x5F00;&#x59CB;&#x53EA;&#x6709;&#x4E00;&#x7EC4; 
+    }num=n;//num&#x4E2A;&#x96C6;&#x5408; 
     add(1,n);
     for(int i=1;i&lt;=m;i++){
         scanf(&quot;%d&quot;,&amp;op);
         if(op){
-            scanf(&quot;%d&quot;,&amp;a);//第k大就是第num - k + 1小的
+            scanf(&quot;%d&quot;,&amp;a);//&#x7B2C;k&#x5927;&#x5C31;&#x662F;&#x7B2C;num - k + 1&#x5C0F;&#x7684;
             printf(&quot;%d\n&quot;,Get_kth(num-a+1));
         }else{
             scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
-            a=Getfather(a); b=Getfather(b);//取父亲 
-            if(a==b) continue;//本来属于一个集合 
+            a=Getfather(a); b=Getfather(b);//&#x53D6;&#x7236;&#x4EB2; 
+            if(a==b) continue;//&#x672C;&#x6765;&#x5C5E;&#x4E8E;&#x4E00;&#x4E2A;&#x96C6;&#x5408; 
             add(cnt[a],-1); add(cnt[b],-1);
             add(cnt[a]+cnt[b],1);
             cnt[b]=cnt[a]+cnt[b];
@@ -396,8 +447,8 @@ int main(){
     }
     return 0;
 }
-</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
-<p><strong>Poj 1195 Mobile phones</strong> <strong>题意：</strong> 给你一个矩阵（初始化为0）和一些操作： 1 x y a表示在arr[x][y]加上a 2 l b rt 表示求左上角为(l,b),右下角为(r,t)的矩阵的和。 <strong>高维树状数组即可</strong></p>
+</code></pre><p><a class="magnific-img" href="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="&#x70B9;&#x51FB;&#x5E76;&#x62D6;&#x62FD;&#x4EE5;&#x79FB;&#x52A8;" class="ui centered image"></a></p>
+<p><strong>Poj 1195 Mobile phones</strong> <strong>&#x9898;&#x610F;&#xFF1A;</strong> &#x7ED9;&#x4F60;&#x4E00;&#x4E2A;&#x77E9;&#x9635;&#xFF08;&#x521D;&#x59CB;&#x5316;&#x4E3A;0&#xFF09;&#x548C;&#x4E00;&#x4E9B;&#x64CD;&#x4F5C;&#xFF1A; 1 x y a&#x8868;&#x793A;&#x5728;arr[x][y]&#x52A0;&#x4E0A;a 2 l b rt &#x8868;&#x793A;&#x6C42;&#x5DE6;&#x4E0A;&#x89D2;&#x4E3A;(l,b),&#x53F3;&#x4E0B;&#x89D2;&#x4E3A;(r,t)&#x7684;&#x77E9;&#x9635;&#x7684;&#x548C;&#x3002; <strong>&#x9AD8;&#x7EF4;&#x6811;&#x72B6;&#x6570;&#x7EC4;&#x5373;&#x53EF;</strong></p>
 <pre><code>#include&lt;cstdio&gt;
 #include&lt;cstring&gt;
 #include&lt;algorithm&gt;
@@ -447,147 +498,110 @@ int main(){
 
     return 0;
 }
-</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+</code></pre><p><a class="magnific-img" href="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="&#x70B9;&#x51FB;&#x5E76;&#x62D6;&#x62FD;&#x4EE5;&#x79FB;&#x52A8;" class="ui centered image"></a></p>
 
-      
+                        
+                    </div>
+
+                    
+                    
+                    
+
+                    <div class="description post-description">
+    <span class="post-description-item">
+        <time datetime="2018-12-06T15:46:34.000Z" itemprop="datePublished">2018-12-06</time>
+
+    </span>
+    <span class="post-description-item">
+        
+    </span>
+</div>
+
+                </div>
+                
+                <div id="pagination" class="nav-web ui text container pagination">
+
+    <div class="ui stackable two column divided grid container">
+        <div class="row">
+            <div class="column nav-left">
+                
+
+                <a href="/2018/12/06/avl-e6-a0-91-e6-80-bb-e7-bb-93/" class="ui tiny button">
+
+                    <i class="angle left icon"></i>
+                    
+                    AVL树总结
+                    
+
+                </a>
+
+                
+            </div>
+            <div class="column nav-right">
+                
+
+                <a href="/2018/12/06/e7-ba-bf-e6-ae-b5-e6-a0-91-e6-80-bb-e7-bb-93/" class="ui tiny button">
+                    
+                    线段树总结
+                    
+                    <i class="angle right icon"></i></a>
+                
+            </div>
+        </div>
     </div>
-    <footer class="article-footer">
-      <a data-url="http://mrh1s.top/2018/12/06/e6-a0-91-e7-8a-b6-e6-95-b0-e7-bb-84-e6-80-bb-e7-bb-93/" data-id="cjv80bexx003xa0et6fql81fj" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2018/12/06/avl-e6-a0-91-e6-80-bb-e7-bb-93/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          AVL树总结
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2018/12/06/e7-ba-bf-e6-ae-b5-e6-a0-91-e6-80-bb-e7-bb-93/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">线段树总结</div>
-    </a>
-  
-</nav>
 
-  
-</article>
+</div>
+                
+            </div>
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/c-c/">c/c++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/notes/">notes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/project/">project</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/">write up</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cgctf/">cgctf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cnss-recruit-201809/">cnss_recruit_201809</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/hgame-20190122/">hgame_20190122</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nationalCTF-20190421/">nationalCTF_20190421</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nctf-20181124/">nctf_20181124</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/牢骚/">牢骚</a></li></ul>
+            
+            <div class="three wide computer three wide tablet column">
+
+                <div class="ui sticky article-toc" id="article-toc">
+                    <!-- toc -->
+                    <ol class="ui ordered list"><li><a href="#树状数组总结"><span>树状数组总结</span></a></li></ol>
+                </div>
+
+            </div>
+            
+
+        </div>
     </div>
-  </div>
+</div>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Dynamic/">RE_Dynamic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+        <div class="ui vertical footer segment">
+    <div class="ui center aligned container">
+        <div class="ui inverted section divider"></div>
+        &copy; 2019 <a href="/">mrh929</a>,
+        Powered by <a href="https://github.com/henryhuang/hexo-theme-aloha" target="_blank">Aloha</a> and <a href="http://hexo.io/" target="_blank">Hexo</a>.
     </div>
-  </div>
+</div>
 
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/RE-Dynamic/" style="font-size: 10px;">RE_Dynamic</a> <a href="/tags/RE-Static/" style="font-size: 20px;">RE_Static</a>
     </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2019/05/03/Migration-Success/">Migration_Success!</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/28/bbvvmm/">bbvvmm</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/28/e5-8d-97-e4-ba-ac-e9-82-ae-e7-94-b5-e5-a4-a7-e5-ad-a6-re-wxyvm2/">南京邮电大学 RE-WxyVM2</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/13/e5-a3-b3-e7-9b-b8-e5-85-b3/">壳相关</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/22/shinyshot/">ShinyShot!</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 mrh929<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
 
 
 
-  </div>
+
+<!-- scripts list from theme config.yml -->
+
+<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+
+<script src="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch/3.18.1/algoliasearch.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch-helper-js/2.13.0/algoliasearch.helper.min.js"></script>
+
+<script src="/js/semantic-ui-algolia.js"></script>
+
+<script src="/js/aloha-events.js"></script>
+
+
+
 </body>
 </html>

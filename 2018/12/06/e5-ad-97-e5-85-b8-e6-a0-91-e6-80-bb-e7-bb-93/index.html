@@ -1,18 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  
 
-  
-  <title>字典树总结 | mrh929&#39;s home</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="字典树总结在实际生活中，图书馆、书店都会遇到一种麻烦，就是不知道如何储存所有的书名，因为藏书实在是太多了。这种情形非常常见。 由此单词查找树便出现了：Trie树，是一种树形结构，是一种哈希树的变种，它通过储存大部分字符串的前缀来达到不仅是存储空间而且是查找效率的优化。 字典树的操作大致分为三种：插入字符串、查找字符串、删除字符串。  首先我们要构造一棵树。根节点编号设置为1。这个结点没有实际意义，">
+
+<!DOCTYPE html>
+<html lang="cn">
+<head prefix="og: http://ogp.me/ns#"><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta name="description" content="Blog">
+    <title>字典树总结 | mrh929&#39;s home</title>
+
+    <!-- Open Graph -->
+    <meta name="description" content="&amp;#x5B57;&amp;#x5178;&amp;#x6811;&amp;#x603B;&amp;#x7ED3;&amp;#x5728;&amp;#x5B9E;&amp;#x9645;&amp;#x751F;&amp;#x6D3B;&amp;#x4E2D;&amp;#xFF0C;&amp;#x56FE;&amp;#x4E66;&amp;#x9986;&amp;#x3001;&amp;#x4E66;&amp;#x5E97;&amp;#x90FD;&amp;#x4F1A;&amp;#x9047;&amp;#x5230;&amp;#x4E00;&amp;#x79CD;&amp;#x9EBB;">
 <meta property="og:type" content="article">
 <meta property="og:title" content="字典树总结">
 <meta property="og:url" content="http://mrh1s.top/2018/12/06/e5-ad-97-e5-85-b8-e6-a0-91-e6-80-bb-e7-bb-93/index.html">
 <meta property="og:site_name" content="mrh929&#39;s home">
-<meta property="og:description" content="字典树总结在实际生活中，图书馆、书店都会遇到一种麻烦，就是不知道如何储存所有的书名，因为藏书实在是太多了。这种情形非常常见。 由此单词查找树便出现了：Trie树，是一种树形结构，是一种哈希树的变种，它通过储存大部分字符串的前缀来达到不仅是存储空间而且是查找效率的优化。 字典树的操作大致分为三种：插入字符串、查找字符串、删除字符串。  首先我们要构造一棵树。根节点编号设置为1。这个结点没有实际意义，">
+<meta property="og:description" content="&amp;#x5B57;&amp;#x5178;&amp;#x6811;&amp;#x603B;&amp;#x7ED3;&amp;#x5728;&amp;#x5B9E;&amp;#x9645;&amp;#x751F;&amp;#x6D3B;&amp;#x4E2D;&amp;#xFF0C;&amp;#x56FE;&amp;#x4E66;&amp;#x9986;&amp;#x3001;&amp;#x4E66;&amp;#x5E97;&amp;#x90FD;&amp;#x4F1A;&amp;#x9047;&amp;#x5230;&amp;#x4E00;&amp;#x79CD;&amp;#x9EBB;">
 <meta property="og:locale" content="cn">
 <meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
 <meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
@@ -20,106 +22,155 @@
 <meta property="og:updated_time" content="2019-05-03T06:19:59.674Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="字典树总结">
-<meta name="twitter:description" content="字典树总结在实际生活中，图书馆、书店都会遇到一种麻烦，就是不知道如何储存所有的书名，因为藏书实在是太多了。这种情形非常常见。 由此单词查找树便出现了：Trie树，是一种树形结构，是一种哈希树的变种，它通过储存大部分字符串的前缀来达到不仅是存储空间而且是查找效率的优化。 字典树的操作大致分为三种：插入字符串、查找字符串、删除字符串。  首先我们要构造一棵树。根节点编号设置为1。这个结点没有实际意义，">
+<meta name="twitter:description" content="&amp;#x5B57;&amp;#x5178;&amp;#x6811;&amp;#x603B;&amp;#x7ED3;&amp;#x5728;&amp;#x5B9E;&amp;#x9645;&amp;#x751F;&amp;#x6D3B;&amp;#x4E2D;&amp;#xFF0C;&amp;#x56FE;&amp;#x4E66;&amp;#x9986;&amp;#x3001;&amp;#x4E66;&amp;#x5E97;&amp;#x90FD;&amp;#x4F1A;&amp;#x9047;&amp;#x5230;&amp;#x4E00;&amp;#x79CD;&amp;#x9EBB;">
 <meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
-  
-    <link rel="alternate" href="/atom.xml" title="mrh929&#39;s home" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
+
+    <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Person",
+  "email": "mailto:",
+  "image": "",
+  "name": "mrh929",
+  "url": "http://mrh1s.top"
+}
+</script>
+    <script>
+    var algoliaEnabled = false;
+    
+</script>
+
+    
+
+    
+    
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    
+    
+    
+        <!-- stylesheets list from config.yml -->
+        
+        <link rel="stylesheet" href="/css/aloha.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/magnific-popup.js/1.1.0/magnific-popup.min.css">
+        
+    
+
 </head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">mrh929&#39;s home</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://mrh1s.top"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-e5-ad-97-e5-85-b8-e6-a0-91-e6-80-bb-e7-bb-93" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/12/06/e5-ad-97-e5-85-b8-e6-a0-91-e6-80-bb-e7-bb-93/" class="article-date">
-  <time datetime="2018-12-06T15:45:45.000Z" itemprop="datePublished">2018-12-06</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a>
-  </div>
+<body id="body" style="margin-bottom: 0;" class="pushable">
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      字典树总结
-    </h1>
-  
+    <div class="ui top fixed menu">
+        <a class="item" id="menu-icon"><i class="sidebar icon"></i></a>
+    </div>
 
-      </header>
+    <div id="menu-sidebar" class="ui left vertical sidebar menu">
+
+    <div id="sidebar-top">
+        <div class="content">
+            <h3>mrh929&#39;s home</h3>
+        </div>
+    </div>
+    <div class="ui container sidebar-card">
+    <div class="ui people shape content">
+        <div class="active side">
+            <div class="ui card">
+                <div class="image">
+                    <img class="ui medium bordered image" src="/images/avatar.jpg">
+                </div>
+                <div class="content">
+                    <a class="header">mrh929</a>
+                    
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                        
+                    </div>
+
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="字典树总结"><a href="#字典树总结" class="headerlink" title="字典树总结"></a>字典树总结</h1><p><strong>在实际生活中，图书馆、书店都会遇到一种麻烦，就是不知道如何储存所有的书名，因为藏书实在是太多了。这种情形非常常见。</strong> <strong>由此单词查找树便出现了：Trie树，是一种树形结构，是一种哈希树的变种，它通过储存大部分字符串的前缀来达到不仅是存储空间而且是查找效率的优化。</strong> <strong>字典树的操作大致分为三种：插入字符串、查找字符串、删除字符串。</strong>  <strong>首先我们要构造一棵树。根节点编号设置为1。这个结点没有实际意义，只作为查找的起点。</strong> <strong>注意：虽然有些结点存在，但有可能并不是由这个结点所对应的字符串所生成的。打个比方：我添加了“memset”字符串，m-&gt;e结点已经生成，但我查找“me”时，这个字符串是否存在呢？</strong> <strong>因此，我们还需要开一个exist数组，用于记录一个字符串的结尾，遍历到这个结点，而且此结点exist，才能说明这个字符串存在。</strong> </p>
-<ol>
-<li><strong>插入字符串</strong></li>
+    
+
+    
+
+    
+    <a href="/index.html" class="item">
+        <i class="home icon"></i>
+        HOME
+    </a>
+
+    
+
+    
+</div>
+
+    <div class="pusher body-content">
+        <div id="content" class="ui main container">
+            <!--<div class="ui one column grid">-->
+                <!--<div class="column">-->
+                    <!--<div class="ui main container">-->
+                        <div id="post-e5-ad-97-e5-85-b8-e6-a0-91-e6-80-bb-e7-bb-93" class="ui main container article-type-post">
+
+    
+
+    <div class="ui divided grid">
+
+        <div class="two column row" id="article-content">
+
+            <div class="thirteen wide computer thirteen wide tablet sixteen wide mobile column">
+                
+
+<h1 class="ui header">
+    
+    字典树总结
+</h1>
+
+
+
+                <div class="article-inner">
+
+                    <div class="article-entry" itemprop="articleBody">
+                        
+                        <h1 id="&#x5B57;&#x5178;&#x6811;&#x603B;&#x7ED3;"><a href="#&#x5B57;&#x5178;&#x6811;&#x603B;&#x7ED3;" class="headerlink" title="&#x5B57;&#x5178;&#x6811;&#x603B;&#x7ED3;"></a>&#x5B57;&#x5178;&#x6811;&#x603B;&#x7ED3;</h1><p><strong>&#x5728;&#x5B9E;&#x9645;&#x751F;&#x6D3B;&#x4E2D;&#xFF0C;&#x56FE;&#x4E66;&#x9986;&#x3001;&#x4E66;&#x5E97;&#x90FD;&#x4F1A;&#x9047;&#x5230;&#x4E00;&#x79CD;&#x9EBB;&#x70E6;&#xFF0C;&#x5C31;&#x662F;&#x4E0D;&#x77E5;&#x9053;&#x5982;&#x4F55;&#x50A8;&#x5B58;&#x6240;&#x6709;&#x7684;&#x4E66;&#x540D;&#xFF0C;&#x56E0;&#x4E3A;&#x85CF;&#x4E66;&#x5B9E;&#x5728;&#x662F;&#x592A;&#x591A;&#x4E86;&#x3002;&#x8FD9;&#x79CD;&#x60C5;&#x5F62;&#x975E;&#x5E38;&#x5E38;&#x89C1;&#x3002;</strong> <strong>&#x7531;&#x6B64;&#x5355;&#x8BCD;&#x67E5;&#x627E;&#x6811;&#x4FBF;&#x51FA;&#x73B0;&#x4E86;&#xFF1A;Trie&#x6811;&#xFF0C;&#x662F;&#x4E00;&#x79CD;&#x6811;&#x5F62;&#x7ED3;&#x6784;&#xFF0C;&#x662F;&#x4E00;&#x79CD;&#x54C8;&#x5E0C;&#x6811;&#x7684;&#x53D8;&#x79CD;&#xFF0C;&#x5B83;&#x901A;&#x8FC7;&#x50A8;&#x5B58;&#x5927;&#x90E8;&#x5206;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x524D;&#x7F00;&#x6765;&#x8FBE;&#x5230;&#x4E0D;&#x4EC5;&#x662F;&#x5B58;&#x50A8;&#x7A7A;&#x95F4;&#x800C;&#x4E14;&#x662F;&#x67E5;&#x627E;&#x6548;&#x7387;&#x7684;&#x4F18;&#x5316;&#x3002;</strong> <strong>&#x5B57;&#x5178;&#x6811;&#x7684;&#x64CD;&#x4F5C;&#x5927;&#x81F4;&#x5206;&#x4E3A;&#x4E09;&#x79CD;&#xFF1A;&#x63D2;&#x5165;&#x5B57;&#x7B26;&#x4E32;&#x3001;&#x67E5;&#x627E;&#x5B57;&#x7B26;&#x4E32;&#x3001;&#x5220;&#x9664;&#x5B57;&#x7B26;&#x4E32;&#x3002;</strong>  <strong>&#x9996;&#x5148;&#x6211;&#x4EEC;&#x8981;&#x6784;&#x9020;&#x4E00;&#x68F5;&#x6811;&#x3002;&#x6839;&#x8282;&#x70B9;&#x7F16;&#x53F7;&#x8BBE;&#x7F6E;&#x4E3A;1&#x3002;&#x8FD9;&#x4E2A;&#x7ED3;&#x70B9;&#x6CA1;&#x6709;&#x5B9E;&#x9645;&#x610F;&#x4E49;&#xFF0C;&#x53EA;&#x4F5C;&#x4E3A;&#x67E5;&#x627E;&#x7684;&#x8D77;&#x70B9;&#x3002;</strong> <strong>&#x6CE8;&#x610F;&#xFF1A;&#x867D;&#x7136;&#x6709;&#x4E9B;&#x7ED3;&#x70B9;&#x5B58;&#x5728;&#xFF0C;&#x4F46;&#x6709;&#x53EF;&#x80FD;&#x5E76;&#x4E0D;&#x662F;&#x7531;&#x8FD9;&#x4E2A;&#x7ED3;&#x70B9;&#x6240;&#x5BF9;&#x5E94;&#x7684;&#x5B57;&#x7B26;&#x4E32;&#x6240;&#x751F;&#x6210;&#x7684;&#x3002;&#x6253;&#x4E2A;&#x6BD4;&#x65B9;&#xFF1A;&#x6211;&#x6DFB;&#x52A0;&#x4E86;&#x201C;memset&#x201D;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;m-&gt;e&#x7ED3;&#x70B9;&#x5DF2;&#x7ECF;&#x751F;&#x6210;&#xFF0C;&#x4F46;&#x6211;&#x67E5;&#x627E;&#x201C;me&#x201D;&#x65F6;&#xFF0C;&#x8FD9;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x662F;&#x5426;&#x5B58;&#x5728;&#x5462;&#xFF1F;</strong> <strong>&#x56E0;&#x6B64;&#xFF0C;&#x6211;&#x4EEC;&#x8FD8;&#x9700;&#x8981;&#x5F00;&#x4E00;&#x4E2A;exist&#x6570;&#x7EC4;&#xFF0C;&#x7528;&#x4E8E;&#x8BB0;&#x5F55;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x7ED3;&#x5C3E;&#xFF0C;&#x904D;&#x5386;&#x5230;&#x8FD9;&#x4E2A;&#x7ED3;&#x70B9;&#xFF0C;&#x800C;&#x4E14;&#x6B64;&#x7ED3;&#x70B9;exist&#xFF0C;&#x624D;&#x80FD;&#x8BF4;&#x660E;&#x8FD9;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#x5B58;&#x5728;&#x3002;</strong> </p>
+<ol class="ui list">
+<li><strong>&#x63D2;&#x5165;&#x5B57;&#x7B26;&#x4E32;</strong></li>
 </ol>
-<p><strong>基本思路是一个个字符进行比对，如果有相应的结点，就直接进入，直到找不到下一个结点时，再在这个结点上生枝。这个操作会同时用到查找的相关操作，所以可以和查找操作结合起来。注意：字符串插入成功后要把结尾的结点exist标为1。</strong> </p>
-<ol>
-<li><strong>查找字符串</strong></li>
+<p><strong>&#x57FA;&#x672C;&#x601D;&#x8DEF;&#x662F;&#x4E00;&#x4E2A;&#x4E2A;&#x5B57;&#x7B26;&#x8FDB;&#x884C;&#x6BD4;&#x5BF9;&#xFF0C;&#x5982;&#x679C;&#x6709;&#x76F8;&#x5E94;&#x7684;&#x7ED3;&#x70B9;&#xFF0C;&#x5C31;&#x76F4;&#x63A5;&#x8FDB;&#x5165;&#xFF0C;&#x76F4;&#x5230;&#x627E;&#x4E0D;&#x5230;&#x4E0B;&#x4E00;&#x4E2A;&#x7ED3;&#x70B9;&#x65F6;&#xFF0C;&#x518D;&#x5728;&#x8FD9;&#x4E2A;&#x7ED3;&#x70B9;&#x4E0A;&#x751F;&#x679D;&#x3002;&#x8FD9;&#x4E2A;&#x64CD;&#x4F5C;&#x4F1A;&#x540C;&#x65F6;&#x7528;&#x5230;&#x67E5;&#x627E;&#x7684;&#x76F8;&#x5173;&#x64CD;&#x4F5C;&#xFF0C;&#x6240;&#x4EE5;&#x53EF;&#x4EE5;&#x548C;&#x67E5;&#x627E;&#x64CD;&#x4F5C;&#x7ED3;&#x5408;&#x8D77;&#x6765;&#x3002;&#x6CE8;&#x610F;&#xFF1A;&#x5B57;&#x7B26;&#x4E32;&#x63D2;&#x5165;&#x6210;&#x529F;&#x540E;&#x8981;&#x628A;&#x7ED3;&#x5C3E;&#x7684;&#x7ED3;&#x70B9;exist&#x6807;&#x4E3A;1&#x3002;</strong> </p>
+<ol class="ui list">
+<li><strong>&#x67E5;&#x627E;&#x5B57;&#x7B26;&#x4E32;</strong></li>
 </ol>
-<p><strong>鉴于插入操作也要用到这步，我们可以把函数的返回值设置为：如果找到字符串就返回0，否则返回最后一次匹配到的结点位置。</strong> </p>
-<ol>
-<li><strong>删除字符串</strong></li>
+<p><strong>&#x9274;&#x4E8E;&#x63D2;&#x5165;&#x64CD;&#x4F5C;&#x4E5F;&#x8981;&#x7528;&#x5230;&#x8FD9;&#x6B65;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x628A;&#x51FD;&#x6570;&#x7684;&#x8FD4;&#x56DE;&#x503C;&#x8BBE;&#x7F6E;&#x4E3A;&#xFF1A;&#x5982;&#x679C;&#x627E;&#x5230;&#x5B57;&#x7B26;&#x4E32;&#x5C31;&#x8FD4;&#x56DE;0&#xFF0C;&#x5426;&#x5219;&#x8FD4;&#x56DE;&#x6700;&#x540E;&#x4E00;&#x6B21;&#x5339;&#x914D;&#x5230;&#x7684;&#x7ED3;&#x70B9;&#x4F4D;&#x7F6E;&#x3002;</strong> </p>
+<ol class="ui list">
+<li><strong>&#x5220;&#x9664;&#x5B57;&#x7B26;&#x4E32;</strong></li>
 </ol>
-<p><strong>将本结点删除，并不代表它的树枝也要被剪掉，所以直接查找字符串末尾的结点位置，exist标记为0即可。</strong>  <strong>另外：生成的结点可以被压缩，比如某些经常出现的词缀可以被压缩成一个结点，这样的编程复杂度的确不小，但是可以节省不少的空间。</strong></p>
-<h2 id="1635-图书管理"><a href="#1635-图书管理" class="headerlink" title="1635: 图书管理"></a>1635: 图书管理</h2><p>时间限制: 1 Sec  内存限制: 64 MB</p>
-<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>图书管理是一件十分繁杂的工作，图书馆每天都会有许多新书缴入，为了更方便管理图书（以便于帮助想要结束的客人快速查找是否有他们所需要的书），我们需要设计一个图书朝着系统，该系统需要支持两种操作： 1）add(s)，表示新加入一本书名为s的图书； 2）find（s)，表示查询是否存在一本书名为s的图书；</p>
-<h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>第一行包括一个正整数n（n≤10000），表示操作数。 以下n行，每行所给出两个操作中的一种，指令格式为： add s find s 在书名s与指令间有一个空格，保证书名长度都不超过200，可以加上读入数据是准确无误的。</p>
-<h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><p>对于每个find指令，对应输出一行yes或no，表示该书是否存在。注意：开始时图书馆没有一本书，另外书名区分大小写。</p>
-<h2 id="样例输入"><a href="#样例输入" class="headerlink" title="样例输入"></a>样例输入</h2><pre><code>4
+<p><strong>&#x5C06;&#x672C;&#x7ED3;&#x70B9;&#x5220;&#x9664;&#xFF0C;&#x5E76;&#x4E0D;&#x4EE3;&#x8868;&#x5B83;&#x7684;&#x6811;&#x679D;&#x4E5F;&#x8981;&#x88AB;&#x526A;&#x6389;&#xFF0C;&#x6240;&#x4EE5;&#x76F4;&#x63A5;&#x67E5;&#x627E;&#x5B57;&#x7B26;&#x4E32;&#x672B;&#x5C3E;&#x7684;&#x7ED3;&#x70B9;&#x4F4D;&#x7F6E;&#xFF0C;exist&#x6807;&#x8BB0;&#x4E3A;0&#x5373;&#x53EF;&#x3002;</strong>  <strong>&#x53E6;&#x5916;&#xFF1A;&#x751F;&#x6210;&#x7684;&#x7ED3;&#x70B9;&#x53EF;&#x4EE5;&#x88AB;&#x538B;&#x7F29;&#xFF0C;&#x6BD4;&#x5982;&#x67D0;&#x4E9B;&#x7ECF;&#x5E38;&#x51FA;&#x73B0;&#x7684;&#x8BCD;&#x7F00;&#x53EF;&#x4EE5;&#x88AB;&#x538B;&#x7F29;&#x6210;&#x4E00;&#x4E2A;&#x7ED3;&#x70B9;&#xFF0C;&#x8FD9;&#x6837;&#x7684;&#x7F16;&#x7A0B;&#x590D;&#x6742;&#x5EA6;&#x7684;&#x786E;&#x4E0D;&#x5C0F;&#xFF0C;&#x4F46;&#x662F;&#x53EF;&#x4EE5;&#x8282;&#x7701;&#x4E0D;&#x5C11;&#x7684;&#x7A7A;&#x95F4;&#x3002;</strong></p>
+<h2 id="1635-&#x56FE;&#x4E66;&#x7BA1;&#x7406;"><a href="#1635-&#x56FE;&#x4E66;&#x7BA1;&#x7406;" class="headerlink" title="1635: &#x56FE;&#x4E66;&#x7BA1;&#x7406;"></a>1635: &#x56FE;&#x4E66;&#x7BA1;&#x7406;</h2><p>&#x65F6;&#x95F4;&#x9650;&#x5236;: 1 Sec  &#x5185;&#x5B58;&#x9650;&#x5236;: 64 MB</p>
+<h2 id="&#x9898;&#x76EE;&#x63CF;&#x8FF0;"><a href="#&#x9898;&#x76EE;&#x63CF;&#x8FF0;" class="headerlink" title="&#x9898;&#x76EE;&#x63CF;&#x8FF0;"></a>&#x9898;&#x76EE;&#x63CF;&#x8FF0;</h2><p>&#x56FE;&#x4E66;&#x7BA1;&#x7406;&#x662F;&#x4E00;&#x4EF6;&#x5341;&#x5206;&#x7E41;&#x6742;&#x7684;&#x5DE5;&#x4F5C;&#xFF0C;&#x56FE;&#x4E66;&#x9986;&#x6BCF;&#x5929;&#x90FD;&#x4F1A;&#x6709;&#x8BB8;&#x591A;&#x65B0;&#x4E66;&#x7F34;&#x5165;&#xFF0C;&#x4E3A;&#x4E86;&#x66F4;&#x65B9;&#x4FBF;&#x7BA1;&#x7406;&#x56FE;&#x4E66;&#xFF08;&#x4EE5;&#x4FBF;&#x4E8E;&#x5E2E;&#x52A9;&#x60F3;&#x8981;&#x7ED3;&#x675F;&#x7684;&#x5BA2;&#x4EBA;&#x5FEB;&#x901F;&#x67E5;&#x627E;&#x662F;&#x5426;&#x6709;&#x4ED6;&#x4EEC;&#x6240;&#x9700;&#x8981;&#x7684;&#x4E66;&#xFF09;&#xFF0C;&#x6211;&#x4EEC;&#x9700;&#x8981;&#x8BBE;&#x8BA1;&#x4E00;&#x4E2A;&#x56FE;&#x4E66;&#x671D;&#x7740;&#x7CFB;&#x7EDF;&#xFF0C;&#x8BE5;&#x7CFB;&#x7EDF;&#x9700;&#x8981;&#x652F;&#x6301;&#x4E24;&#x79CD;&#x64CD;&#x4F5C;&#xFF1A; 1&#xFF09;add(s)&#xFF0C;&#x8868;&#x793A;&#x65B0;&#x52A0;&#x5165;&#x4E00;&#x672C;&#x4E66;&#x540D;&#x4E3A;s&#x7684;&#x56FE;&#x4E66;&#xFF1B; 2&#xFF09;find&#xFF08;s)&#xFF0C;&#x8868;&#x793A;&#x67E5;&#x8BE2;&#x662F;&#x5426;&#x5B58;&#x5728;&#x4E00;&#x672C;&#x4E66;&#x540D;&#x4E3A;s&#x7684;&#x56FE;&#x4E66;&#xFF1B;</p>
+<h2 id="&#x8F93;&#x5165;"><a href="#&#x8F93;&#x5165;" class="headerlink" title="&#x8F93;&#x5165;"></a>&#x8F93;&#x5165;</h2><p>&#x7B2C;&#x4E00;&#x884C;&#x5305;&#x62EC;&#x4E00;&#x4E2A;&#x6B63;&#x6574;&#x6570;n&#xFF08;n&#x2264;10000&#xFF09;&#xFF0C;&#x8868;&#x793A;&#x64CD;&#x4F5C;&#x6570;&#x3002; &#x4EE5;&#x4E0B;n&#x884C;&#xFF0C;&#x6BCF;&#x884C;&#x6240;&#x7ED9;&#x51FA;&#x4E24;&#x4E2A;&#x64CD;&#x4F5C;&#x4E2D;&#x7684;&#x4E00;&#x79CD;&#xFF0C;&#x6307;&#x4EE4;&#x683C;&#x5F0F;&#x4E3A;&#xFF1A; add s find s &#x5728;&#x4E66;&#x540D;s&#x4E0E;&#x6307;&#x4EE4;&#x95F4;&#x6709;&#x4E00;&#x4E2A;&#x7A7A;&#x683C;&#xFF0C;&#x4FDD;&#x8BC1;&#x4E66;&#x540D;&#x957F;&#x5EA6;&#x90FD;&#x4E0D;&#x8D85;&#x8FC7;200&#xFF0C;&#x53EF;&#x4EE5;&#x52A0;&#x4E0A;&#x8BFB;&#x5165;&#x6570;&#x636E;&#x662F;&#x51C6;&#x786E;&#x65E0;&#x8BEF;&#x7684;&#x3002;</p>
+<h2 id="&#x8F93;&#x51FA;"><a href="#&#x8F93;&#x51FA;" class="headerlink" title="&#x8F93;&#x51FA;"></a>&#x8F93;&#x51FA;</h2><p>&#x5BF9;&#x4E8E;&#x6BCF;&#x4E2A;find&#x6307;&#x4EE4;&#xFF0C;&#x5BF9;&#x5E94;&#x8F93;&#x51FA;&#x4E00;&#x884C;yes&#x6216;no&#xFF0C;&#x8868;&#x793A;&#x8BE5;&#x4E66;&#x662F;&#x5426;&#x5B58;&#x5728;&#x3002;&#x6CE8;&#x610F;&#xFF1A;&#x5F00;&#x59CB;&#x65F6;&#x56FE;&#x4E66;&#x9986;&#x6CA1;&#x6709;&#x4E00;&#x672C;&#x4E66;&#xFF0C;&#x53E6;&#x5916;&#x4E66;&#x540D;&#x533A;&#x5206;&#x5927;&#x5C0F;&#x5199;&#x3002;</p>
+<h2 id="&#x6837;&#x4F8B;&#x8F93;&#x5165;"><a href="#&#x6837;&#x4F8B;&#x8F93;&#x5165;" class="headerlink" title="&#x6837;&#x4F8B;&#x8F93;&#x5165;"></a>&#x6837;&#x4F8B;&#x8F93;&#x5165;</h2><pre><code>4
 add Inside C#
 find Effective Java
 add Effective Java
 find Effective Java
-</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
-<h2 id="样例输出"><a href="#样例输出" class="headerlink" title="样例输出"></a>样例输出</h2><pre><code>no
+</code></pre><p><a class="magnific-img" href="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="&#x70B9;&#x51FB;&#x5E76;&#x62D6;&#x62FD;&#x4EE5;&#x79FB;&#x52A8;" class="ui centered image"></a></p>
+<h2 id="&#x6837;&#x4F8B;&#x8F93;&#x51FA;"><a href="#&#x6837;&#x4F8B;&#x8F93;&#x51FA;" class="headerlink" title="&#x6837;&#x4F8B;&#x8F93;&#x51FA;"></a>&#x6837;&#x4F8B;&#x8F93;&#x51FA;</h2><pre><code>no
 yes
-</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+</code></pre><p><a class="magnific-img" href="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="&#x70B9;&#x51FB;&#x5E76;&#x62D6;&#x62FD;&#x4EE5;&#x79FB;&#x52A8;" class="ui centered image"></a></p>
 <pre><code>#include&lt;cstdio&gt;
 #include&lt;cstring&gt;
 #include&lt;algorithm&gt;
@@ -134,7 +185,7 @@ void addarc(int a,int b){
 }
 
 int u,len;
-int Find(int len){//如果查找到就返回0 未找到时返回第一位未匹配的位置 
+int Find(int len){//&#x5982;&#x679C;&#x67E5;&#x627E;&#x5230;&#x5C31;&#x8FD4;&#x56DE;0 &#x672A;&#x627E;&#x5230;&#x65F6;&#x8FD4;&#x56DE;&#x7B2C;&#x4E00;&#x4F4D;&#x672A;&#x5339;&#x914D;&#x7684;&#x4F4D;&#x7F6E; 
     int v,nextpoi;
     u=1;
     for(int i=1;i&lt;=len;i++){
@@ -147,14 +198,14 @@ int Find(int len){//如果查找到就返回0 未找到时返回第一位未匹�
             }
         }
         if(nextpoi!=-1) u=nextpoi;
-        else return i;//在i位置时匹配错误 
+        else return i;//&#x5728;i&#x4F4D;&#x7F6E;&#x65F6;&#x5339;&#x914D;&#x9519;&#x8BEF; 
     }
-    if(!exist[u]) return len+1;//虽然有结点，但是没有存数据 
-    return 0;//成功找到字符串 
+    if(!exist[u]) return len+1;//&#x867D;&#x7136;&#x6709;&#x7ED3;&#x70B9;&#xFF0C;&#x4F46;&#x662F;&#x6CA1;&#x6709;&#x5B58;&#x6570;&#x636E; 
+    return 0;//&#x6210;&#x529F;&#x627E;&#x5230;&#x5B57;&#x7B26;&#x4E32; 
 } 
 
-void Insert(int t){//从字符串的t位置开始插入 
-    if(t==len+1){//有结点，但是没有数据 
+void Insert(int t){//&#x4ECE;&#x5B57;&#x7B26;&#x4E32;&#x7684;t&#x4F4D;&#x7F6E;&#x5F00;&#x59CB;&#x63D2;&#x5165; 
+    if(t==len+1){//&#x6709;&#x7ED3;&#x70B9;&#xFF0C;&#x4F46;&#x662F;&#x6CA1;&#x6709;&#x6570;&#x636E; 
         exist[u]=1;
         return; 
     }
@@ -163,14 +214,14 @@ void Insert(int t){//从字符串的t位置开始插入
         data[pnum]=str[i];
         u=pnum; 
     }
-    exist[u]=1;//标记当前字符串的结尾 
+    exist[u]=1;//&#x6807;&#x8BB0;&#x5F53;&#x524D;&#x5B57;&#x7B26;&#x4E32;&#x7684;&#x7ED3;&#x5C3E; 
 }
 
 int main(){
 //    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
     int n,t,maxx=-1;
     scanf(&quot;%d&quot;,&amp;n);
-    for(int i=1;i&lt;=n;i++){//将字符串插入字典树 
+    for(int i=1;i&lt;=n;i++){//&#x5C06;&#x5B57;&#x7B26;&#x4E32;&#x63D2;&#x5165;&#x5B57;&#x5178;&#x6811; 
         scanf(&quot;%s&quot;,kind); getchar();
         gets(str+1);
         len=strlen(str+1);
@@ -186,147 +237,110 @@ int main(){
 
     return 0;
 }
-</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+</code></pre><p><a class="magnific-img" href="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="&#x70B9;&#x51FB;&#x5E76;&#x62D6;&#x62FD;&#x4EE5;&#x79FB;&#x52A8;" class="ui centered image"></a></p>
 
-      
+                        
+                    </div>
+
+                    
+                    
+                    
+
+                    <div class="description post-description">
+    <span class="post-description-item">
+        <time datetime="2018-12-06T15:45:45.000Z" itemprop="datePublished">2018-12-06</time>
+
+    </span>
+    <span class="post-description-item">
+        
+    </span>
+</div>
+
+                </div>
+                
+                <div id="pagination" class="nav-web ui text container pagination">
+
+    <div class="ui stackable two column divided grid container">
+        <div class="row">
+            <div class="column nav-left">
+                
+
+                <a href="/2018/12/06/e7-ba-bf-e6-ae-b5-e6-a0-91-e6-80-bb-e7-bb-93/" class="ui tiny button">
+
+                    <i class="angle left icon"></i>
+                    
+                    线段树总结
+                    
+
+                </a>
+
+                
+            </div>
+            <div class="column nav-right">
+                
+
+                <a href="/2018/12/06/e6-a0-91-e5-bd-a2-e5-8a-a8-e6-80-81-e8-a7-84-e5-88-92-e6-80-bb-e7-bb-93/" class="ui tiny button">
+                    
+                    树形动态规划总结
+                    
+                    <i class="angle right icon"></i></a>
+                
+            </div>
+        </div>
     </div>
-    <footer class="article-footer">
-      <a data-url="http://mrh1s.top/2018/12/06/e5-ad-97-e5-85-b8-e6-a0-91-e6-80-bb-e7-bb-93/" data-id="cjv80bewg000pa0ettwkz12z4" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2018/12/06/e7-ba-bf-e6-ae-b5-e6-a0-91-e6-80-bb-e7-bb-93/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          线段树总结
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2018/12/06/e6-a0-91-e5-bd-a2-e5-8a-a8-e6-80-81-e8-a7-84-e5-88-92-e6-80-bb-e7-bb-93/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">树形动态规划总结</div>
-    </a>
-  
-</nav>
 
-  
-</article>
+</div>
+                
+            </div>
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/c-c/">c/c++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/notes/">notes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/project/">project</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/">write up</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cgctf/">cgctf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cnss-recruit-201809/">cnss_recruit_201809</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/hgame-20190122/">hgame_20190122</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nationalCTF-20190421/">nationalCTF_20190421</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nctf-20181124/">nctf_20181124</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/牢骚/">牢骚</a></li></ul>
+            
+            <div class="three wide computer three wide tablet column">
+
+                <div class="ui sticky article-toc" id="article-toc">
+                    <!-- toc -->
+                    <ol class="ui ordered list"><li><a href="#字典树总结"><span>字典树总结</span></a><ol><li><a href="#1635-图书管理"><span>1635: 图书管理</span></a></li><li><a href="#题目描述"><span>题目描述</span></a></li><li><a href="#输入"><span>输入</span></a></li><li><a href="#输出"><span>输出</span></a></li><li><a href="#样例输入"><span>样例输入</span></a></li><li><a href="#样例输出"><span>样例输出</span></a></li></ol></li></ol>
+                </div>
+
+            </div>
+            
+
+        </div>
     </div>
-  </div>
+</div>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Dynamic/">RE_Dynamic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+        <div class="ui vertical footer segment">
+    <div class="ui center aligned container">
+        <div class="ui inverted section divider"></div>
+        &copy; 2019 <a href="/">mrh929</a>,
+        Powered by <a href="https://github.com/henryhuang/hexo-theme-aloha" target="_blank">Aloha</a> and <a href="http://hexo.io/" target="_blank">Hexo</a>.
     </div>
-  </div>
+</div>
 
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/RE-Dynamic/" style="font-size: 10px;">RE_Dynamic</a> <a href="/tags/RE-Static/" style="font-size: 20px;">RE_Static</a>
     </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2019/05/03/Migration-Success/">Migration_Success!</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/28/bbvvmm/">bbvvmm</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/28/e5-8d-97-e4-ba-ac-e9-82-ae-e7-94-b5-e5-a4-a7-e5-ad-a6-re-wxyvm2/">南京邮电大学 RE-WxyVM2</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/13/e5-a3-b3-e7-9b-b8-e5-85-b3/">壳相关</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/22/shinyshot/">ShinyShot!</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 mrh929<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
 
 
 
-  </div>
+
+<!-- scripts list from theme config.yml -->
+
+<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+
+<script src="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch/3.18.1/algoliasearch.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch-helper-js/2.13.0/algoliasearch.helper.min.js"></script>
+
+<script src="/js/semantic-ui-algolia.js"></script>
+
+<script src="/js/aloha-events.js"></script>
+
+
+
 </body>
 </html>

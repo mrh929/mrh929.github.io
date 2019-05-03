@@ -1,18 +1,20 @@
-<!DOCTYPE html>
-<html>
-<head><meta name="generator" content="Hexo 3.8.0">
-  <meta charset="utf-8">
-  
 
-  
-  <title>逆波兰表达式题解 | mrh929&#39;s home</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1696:逆波兰表达式  总时间限制: 1000ms 内存限制: 65536kB 描述 逆波兰表达式是一种把运算符前置的算术表达式，例如普通的表达式2 + 3的逆波兰表示法为+ 2 3。逆波兰表达式的优点是运算符之间不必有优先级关系，也不必用括号改变运算次序，例如(2 + 3)  4的逆波兰表示法为 + 2 3 4。本题求解逆波兰表达式的值，其中运算符包括+ -  /四个。 输入 输入为一行，其中">
+
+<!DOCTYPE html>
+<html lang="cn">
+<head prefix="og: http://ogp.me/ns#"><meta name="generator" content="Hexo 3.8.0">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+    <meta name="description" content="Blog">
+    <title>逆波兰表达式题解 | mrh929&#39;s home</title>
+
+    <!-- Open Graph -->
+    <meta name="description" content="1696:&amp;#x9006;&amp;#x6CE2;&amp;#x5170;&amp;#x8868;&amp;#x8FBE;&amp;#x5F0F;  &amp;#x603B;&amp;#x65F6;&amp;#x95F4;&amp;#x9650;&amp;#x5236;: 1000ms &amp;#x5185;&amp;#x5B58;&amp;#x9650;&amp;#x5236;: 65536kB &amp;#x63CF;&amp;#x8FF0; &amp;#x9006;&amp;#x6CE2;&amp;#x5170;&amp;#x8868;&amp;#x8F">
 <meta property="og:type" content="article">
 <meta property="og:title" content="逆波兰表达式题解">
 <meta property="og:url" content="http://mrh1s.top/2018/12/06/e9-80-86-e6-b3-a2-e5-85-b0-e8-a1-a8-e8-be-be-e5-bc-8f-e9-a2-98-e8-a7-a3/index.html">
 <meta property="og:site_name" content="mrh929&#39;s home">
-<meta property="og:description" content="1696:逆波兰表达式  总时间限制: 1000ms 内存限制: 65536kB 描述 逆波兰表达式是一种把运算符前置的算术表达式，例如普通的表达式2 + 3的逆波兰表示法为+ 2 3。逆波兰表达式的优点是运算符之间不必有优先级关系，也不必用括号改变运算次序，例如(2 + 3)  4的逆波兰表示法为 + 2 3 4。本题求解逆波兰表达式的值，其中运算符包括+ -  /四个。 输入 输入为一行，其中">
+<meta property="og:description" content="1696:&amp;#x9006;&amp;#x6CE2;&amp;#x5170;&amp;#x8868;&amp;#x8FBE;&amp;#x5F0F;  &amp;#x603B;&amp;#x65F6;&amp;#x95F4;&amp;#x9650;&amp;#x5236;: 1000ms &amp;#x5185;&amp;#x5B58;&amp;#x9650;&amp;#x5236;: 65536kB &amp;#x63CF;&amp;#x8FF0; &amp;#x9006;&amp;#x6CE2;&amp;#x5170;&amp;#x8868;&amp;#x8F">
 <meta property="og:locale" content="cn">
 <meta property="og:image" content="http://img.blog.csdn.net/20160124153009539?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
 <meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
@@ -20,81 +22,130 @@
 <meta property="og:updated_time" content="2019-05-03T06:19:59.674Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="逆波兰表达式题解">
-<meta name="twitter:description" content="1696:逆波兰表达式  总时间限制: 1000ms 内存限制: 65536kB 描述 逆波兰表达式是一种把运算符前置的算术表达式，例如普通的表达式2 + 3的逆波兰表示法为+ 2 3。逆波兰表达式的优点是运算符之间不必有优先级关系，也不必用括号改变运算次序，例如(2 + 3)  4的逆波兰表示法为 + 2 3 4。本题求解逆波兰表达式的值，其中运算符包括+ -  /四个。 输入 输入为一行，其中">
+<meta name="twitter:description" content="1696:&amp;#x9006;&amp;#x6CE2;&amp;#x5170;&amp;#x8868;&amp;#x8FBE;&amp;#x5F0F;  &amp;#x603B;&amp;#x65F6;&amp;#x95F4;&amp;#x9650;&amp;#x5236;: 1000ms &amp;#x5185;&amp;#x5B58;&amp;#x9650;&amp;#x5236;: 65536kB &amp;#x63CF;&amp;#x8FF0; &amp;#x9006;&amp;#x6CE2;&amp;#x5170;&amp;#x8868;&amp;#x8F">
 <meta name="twitter:image" content="http://img.blog.csdn.net/20160124153009539?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center">
-  
-    <link rel="alternate" href="/atom.xml" title="mrh929&#39;s home" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
+
+    <script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "Person",
+  "email": "mailto:",
+  "image": "",
+  "name": "mrh929",
+  "url": "http://mrh1s.top"
+}
+</script>
+    <script>
+    var algoliaEnabled = false;
+    
+</script>
+
+    
+
+    
+    
+        <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+    
+    
+    
+        <!-- stylesheets list from config.yml -->
+        
+        <link rel="stylesheet" href="/css/aloha.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.css">
+        
+        <link rel="stylesheet" href="//cdn.bootcss.com/magnific-popup.js/1.1.0/magnific-popup.min.css">
+        
+    
+
 </head>
-</html>
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">mrh929&#39;s home</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://mrh1s.top"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-e9-80-86-e6-b3-a2-e5-85-b0-e8-a1-a8-e8-be-be-e5-bc-8f-e9-a2-98-e8-a7-a3" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/12/06/e9-80-86-e6-b3-a2-e5-85-b0-e8-a1-a8-e8-be-be-e5-bc-8f-e9-a2-98-e8-a7-a3/" class="article-date">
-  <time datetime="2018-12-06T15:38:07.000Z" itemprop="datePublished">2018-12-06</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a>
-  </div>
+<body id="body" style="margin-bottom: 0;" class="pushable">
 
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      逆波兰表达式题解
-    </h1>
-  
+    <div class="ui top fixed menu">
+        <a class="item" id="menu-icon"><i class="sidebar icon"></i></a>
+    </div>
 
-      </header>
+    <div id="menu-sidebar" class="ui left vertical sidebar menu">
+
+    <div id="sidebar-top">
+        <div class="content">
+            <h3>mrh929&#39;s home</h3>
+        </div>
+    </div>
+    <div class="ui container sidebar-card">
+    <div class="ui people shape content">
+        <div class="active side">
+            <div class="ui card">
+                <div class="image">
+                    <img class="ui medium bordered image" src="/images/avatar.jpg">
+                </div>
+                <div class="content">
+                    <a class="header">mrh929</a>
+                    
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                        
+                    </div>
+
+                </div>
+                <div class="extra content">
+                    <div class="ui list">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
     
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="1696-逆波兰表达式"><a href="#1696-逆波兰表达式" class="headerlink" title="1696:逆波兰表达式"></a>1696:逆波兰表达式</h2><p>  总时间限制: 1000ms 内存限制: 65536kB 描述 逆波兰表达式是一种把运算符前置的算术表达式，例如普通的表达式2 + 3的逆波兰表示法为+ 2 3。逆波兰表达式的优点是运算符之间不必有优先级关系，也不必用括号改变运算次序，例如(2 + 3) <em> 4的逆波兰表示法为</em> + 2 3 4。本题求解逆波兰表达式的值，其中运算符包括+ - <em> /四个。 输入 输入为一行，其中运算符和运算数之间都用空格分隔，运算数是浮点数。 输出 输出为一行，表达式的值。 可直接用printf(“%f\n”, v)输出表达式的值v。 样例输入 </em> + 11.0 12.0 + 24.0 35.0 样例输出 1357.000000 提示 可使用atof(str)把字符串转换为一个double类型的浮点数。atof定义在math.h中。 此题可使用函数递归调用的方法求解。 来源 计算概论05     <strong>题解：看到逆波兰表达式，首先我们要详细了解逆波兰表达式的用法。通过观察，我们可以大致明白一个逆波兰表达式是由</strong> <strong>表达式=符号(+,-,*,/)  + 数字1（或子表达式） +   数字2（或子表达式）</strong> <strong>组成的，每个子表达式只需要两个参数的输入，所以参数的读入可以在运算时进行，以避免不知道读入数据的个数。PS：我做题时用while(getchar()!=‘ ’) scanf(“%d”,a) 做直接超时！（因为数据已经输入完成，而程序还在等待输入）</strong>  <strong>既然我们有了表达式到子表达式的过程，那么这其实是一个递归的过程，可以写一个递归的函数来处理问题。结束条件无需定义，因为每个子表达式只需两个参数，输入两个参数自动结束。</strong> <strong>      读入一个字符串，判断它是否为数字，如果为数字便直接以双精度形式return atof(a)，数字的判断以a[0]是否属于数字为准；如果是一个符号，就继续调用自身，获取两个参数，运算后返回。return f(x) 运算(+,-,*,/) f(x)，用switch语句判断符号。</strong> <strong>      大致过程如下：</strong> <img src="http://img.blog.csdn.net/20160124153009539?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动">​</p>
+    
+
+    
+
+    
+    <a href="/index.html" class="item">
+        <i class="home icon"></i>
+        HOME
+    </a>
+
+    
+
+    
+</div>
+
+    <div class="pusher body-content">
+        <div id="content" class="ui main container">
+            <!--<div class="ui one column grid">-->
+                <!--<div class="column">-->
+                    <!--<div class="ui main container">-->
+                        <div id="post-e9-80-86-e6-b3-a2-e5-85-b0-e8-a1-a8-e8-be-be-e5-bc-8f-e9-a2-98-e8-a7-a3" class="ui main container article-type-post">
+
+    
+
+    <div class="ui divided grid">
+
+        <div class="two column row" id="article-content">
+
+            <div class="thirteen wide computer thirteen wide tablet sixteen wide mobile column">
+                
+
+<h1 class="ui header">
+    
+    逆波兰表达式题解
+</h1>
+
+
+
+                <div class="article-inner">
+
+                    <div class="article-entry" itemprop="articleBody">
+                        
+                        <h2 id="1696-&#x9006;&#x6CE2;&#x5170;&#x8868;&#x8FBE;&#x5F0F;"><a href="#1696-&#x9006;&#x6CE2;&#x5170;&#x8868;&#x8FBE;&#x5F0F;" class="headerlink" title="1696:&#x9006;&#x6CE2;&#x5170;&#x8868;&#x8FBE;&#x5F0F;"></a>1696:&#x9006;&#x6CE2;&#x5170;&#x8868;&#x8FBE;&#x5F0F;</h2><p>  &#x603B;&#x65F6;&#x95F4;&#x9650;&#x5236;: 1000ms &#x5185;&#x5B58;&#x9650;&#x5236;: 65536kB &#x63CF;&#x8FF0; &#x9006;&#x6CE2;&#x5170;&#x8868;&#x8FBE;&#x5F0F;&#x662F;&#x4E00;&#x79CD;&#x628A;&#x8FD0;&#x7B97;&#x7B26;&#x524D;&#x7F6E;&#x7684;&#x7B97;&#x672F;&#x8868;&#x8FBE;&#x5F0F;&#xFF0C;&#x4F8B;&#x5982;&#x666E;&#x901A;&#x7684;&#x8868;&#x8FBE;&#x5F0F;2 + 3&#x7684;&#x9006;&#x6CE2;&#x5170;&#x8868;&#x793A;&#x6CD5;&#x4E3A;+ 2 3&#x3002;&#x9006;&#x6CE2;&#x5170;&#x8868;&#x8FBE;&#x5F0F;&#x7684;&#x4F18;&#x70B9;&#x662F;&#x8FD0;&#x7B97;&#x7B26;&#x4E4B;&#x95F4;&#x4E0D;&#x5FC5;&#x6709;&#x4F18;&#x5148;&#x7EA7;&#x5173;&#x7CFB;&#xFF0C;&#x4E5F;&#x4E0D;&#x5FC5;&#x7528;&#x62EC;&#x53F7;&#x6539;&#x53D8;&#x8FD0;&#x7B97;&#x6B21;&#x5E8F;&#xFF0C;&#x4F8B;&#x5982;(2 + 3) <em> 4&#x7684;&#x9006;&#x6CE2;&#x5170;&#x8868;&#x793A;&#x6CD5;&#x4E3A;</em> + 2 3 4&#x3002;&#x672C;&#x9898;&#x6C42;&#x89E3;&#x9006;&#x6CE2;&#x5170;&#x8868;&#x8FBE;&#x5F0F;&#x7684;&#x503C;&#xFF0C;&#x5176;&#x4E2D;&#x8FD0;&#x7B97;&#x7B26;&#x5305;&#x62EC;+ - <em> /&#x56DB;&#x4E2A;&#x3002; &#x8F93;&#x5165; &#x8F93;&#x5165;&#x4E3A;&#x4E00;&#x884C;&#xFF0C;&#x5176;&#x4E2D;&#x8FD0;&#x7B97;&#x7B26;&#x548C;&#x8FD0;&#x7B97;&#x6570;&#x4E4B;&#x95F4;&#x90FD;&#x7528;&#x7A7A;&#x683C;&#x5206;&#x9694;&#xFF0C;&#x8FD0;&#x7B97;&#x6570;&#x662F;&#x6D6E;&#x70B9;&#x6570;&#x3002; &#x8F93;&#x51FA; &#x8F93;&#x51FA;&#x4E3A;&#x4E00;&#x884C;&#xFF0C;&#x8868;&#x8FBE;&#x5F0F;&#x7684;&#x503C;&#x3002; &#x53EF;&#x76F4;&#x63A5;&#x7528;printf(&#x201C;%f\n&#x201D;, v)&#x8F93;&#x51FA;&#x8868;&#x8FBE;&#x5F0F;&#x7684;&#x503C;v&#x3002; &#x6837;&#x4F8B;&#x8F93;&#x5165; </em> + 11.0 12.0 + 24.0 35.0 &#x6837;&#x4F8B;&#x8F93;&#x51FA; 1357.000000 &#x63D0;&#x793A; &#x53EF;&#x4F7F;&#x7528;atof(str)&#x628A;&#x5B57;&#x7B26;&#x4E32;&#x8F6C;&#x6362;&#x4E3A;&#x4E00;&#x4E2A;double&#x7C7B;&#x578B;&#x7684;&#x6D6E;&#x70B9;&#x6570;&#x3002;atof&#x5B9A;&#x4E49;&#x5728;math.h&#x4E2D;&#x3002; &#x6B64;&#x9898;&#x53EF;&#x4F7F;&#x7528;&#x51FD;&#x6570;&#x9012;&#x5F52;&#x8C03;&#x7528;&#x7684;&#x65B9;&#x6CD5;&#x6C42;&#x89E3;&#x3002; &#x6765;&#x6E90; &#x8BA1;&#x7B97;&#x6982;&#x8BBA;05     <strong>&#x9898;&#x89E3;&#xFF1A;&#x770B;&#x5230;&#x9006;&#x6CE2;&#x5170;&#x8868;&#x8FBE;&#x5F0F;&#xFF0C;&#x9996;&#x5148;&#x6211;&#x4EEC;&#x8981;&#x8BE6;&#x7EC6;&#x4E86;&#x89E3;&#x9006;&#x6CE2;&#x5170;&#x8868;&#x8FBE;&#x5F0F;&#x7684;&#x7528;&#x6CD5;&#x3002;&#x901A;&#x8FC7;&#x89C2;&#x5BDF;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x5927;&#x81F4;&#x660E;&#x767D;&#x4E00;&#x4E2A;&#x9006;&#x6CE2;&#x5170;&#x8868;&#x8FBE;&#x5F0F;&#x662F;&#x7531;</strong> <strong>&#x8868;&#x8FBE;&#x5F0F;=&#x7B26;&#x53F7;(+,-,*,/)  + &#x6570;&#x5B57;1&#xFF08;&#x6216;&#x5B50;&#x8868;&#x8FBE;&#x5F0F;&#xFF09; +   &#x6570;&#x5B57;2&#xFF08;&#x6216;&#x5B50;&#x8868;&#x8FBE;&#x5F0F;&#xFF09;</strong> <strong>&#x7EC4;&#x6210;&#x7684;&#xFF0C;&#x6BCF;&#x4E2A;&#x5B50;&#x8868;&#x8FBE;&#x5F0F;&#x53EA;&#x9700;&#x8981;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#x7684;&#x8F93;&#x5165;&#xFF0C;&#x6240;&#x4EE5;&#x53C2;&#x6570;&#x7684;&#x8BFB;&#x5165;&#x53EF;&#x4EE5;&#x5728;&#x8FD0;&#x7B97;&#x65F6;&#x8FDB;&#x884C;&#xFF0C;&#x4EE5;&#x907F;&#x514D;&#x4E0D;&#x77E5;&#x9053;&#x8BFB;&#x5165;&#x6570;&#x636E;&#x7684;&#x4E2A;&#x6570;&#x3002;PS&#xFF1A;&#x6211;&#x505A;&#x9898;&#x65F6;&#x7528;while(getchar()!=&#x2018; &#x2019;) scanf(&#x201C;%d&#x201D;,a) &#x505A;&#x76F4;&#x63A5;&#x8D85;&#x65F6;&#xFF01;&#xFF08;&#x56E0;&#x4E3A;&#x6570;&#x636E;&#x5DF2;&#x7ECF;&#x8F93;&#x5165;&#x5B8C;&#x6210;&#xFF0C;&#x800C;&#x7A0B;&#x5E8F;&#x8FD8;&#x5728;&#x7B49;&#x5F85;&#x8F93;&#x5165;&#xFF09;</strong>  <strong>&#x65E2;&#x7136;&#x6211;&#x4EEC;&#x6709;&#x4E86;&#x8868;&#x8FBE;&#x5F0F;&#x5230;&#x5B50;&#x8868;&#x8FBE;&#x5F0F;&#x7684;&#x8FC7;&#x7A0B;&#xFF0C;&#x90A3;&#x4E48;&#x8FD9;&#x5176;&#x5B9E;&#x662F;&#x4E00;&#x4E2A;&#x9012;&#x5F52;&#x7684;&#x8FC7;&#x7A0B;&#xFF0C;&#x53EF;&#x4EE5;&#x5199;&#x4E00;&#x4E2A;&#x9012;&#x5F52;&#x7684;&#x51FD;&#x6570;&#x6765;&#x5904;&#x7406;&#x95EE;&#x9898;&#x3002;&#x7ED3;&#x675F;&#x6761;&#x4EF6;&#x65E0;&#x9700;&#x5B9A;&#x4E49;&#xFF0C;&#x56E0;&#x4E3A;&#x6BCF;&#x4E2A;&#x5B50;&#x8868;&#x8FBE;&#x5F0F;&#x53EA;&#x9700;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x8F93;&#x5165;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#x81EA;&#x52A8;&#x7ED3;&#x675F;&#x3002;</strong> <strong>      &#x8BFB;&#x5165;&#x4E00;&#x4E2A;&#x5B57;&#x7B26;&#x4E32;&#xFF0C;&#x5224;&#x65AD;&#x5B83;&#x662F;&#x5426;&#x4E3A;&#x6570;&#x5B57;&#xFF0C;&#x5982;&#x679C;&#x4E3A;&#x6570;&#x5B57;&#x4FBF;&#x76F4;&#x63A5;&#x4EE5;&#x53CC;&#x7CBE;&#x5EA6;&#x5F62;&#x5F0F;return atof(a)&#xFF0C;&#x6570;&#x5B57;&#x7684;&#x5224;&#x65AD;&#x4EE5;a[0]&#x662F;&#x5426;&#x5C5E;&#x4E8E;&#x6570;&#x5B57;&#x4E3A;&#x51C6;&#xFF1B;&#x5982;&#x679C;&#x662F;&#x4E00;&#x4E2A;&#x7B26;&#x53F7;&#xFF0C;&#x5C31;&#x7EE7;&#x7EED;&#x8C03;&#x7528;&#x81EA;&#x8EAB;&#xFF0C;&#x83B7;&#x53D6;&#x4E24;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x8FD0;&#x7B97;&#x540E;&#x8FD4;&#x56DE;&#x3002;return f(x) &#x8FD0;&#x7B97;(+,-,*,/) f(x)&#xFF0C;&#x7528;switch&#x8BED;&#x53E5;&#x5224;&#x65AD;&#x7B26;&#x53F7;&#x3002;</strong> <strong>      &#x5927;&#x81F4;&#x8FC7;&#x7A0B;&#x5982;&#x4E0B;&#xFF1A;</strong> <a class="magnific-img" href="http://img.blog.csdn.net/20160124153009539?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center"><img src="http://img.blog.csdn.net/20160124153009539?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt class="ui centered image"></a><a class="magnific-img" href="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="&#x70B9;&#x51FB;&#x5E76;&#x62D6;&#x62FD;&#x4EE5;&#x79FB;&#x52A8;" class="ui centered image"></a>&#x200B;</p>
 <pre><code>#include&lt;stdio.h&gt;
 #include&lt;stdlib.h&gt;
 #include&lt;string.h&gt;
@@ -124,147 +175,110 @@ int main()
 {
     printf(&quot;%f&quot;,work());
 }
-</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+</code></pre><p><a class="magnific-img" href="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw=="><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="&#x70B9;&#x51FB;&#x5E76;&#x62D6;&#x62FD;&#x4EE5;&#x79FB;&#x52A8;" class="ui centered image"></a></p>
 
-      
+                        
+                    </div>
+
+                    
+                    
+                    
+
+                    <div class="description post-description">
+    <span class="post-description-item">
+        <time datetime="2018-12-06T15:38:07.000Z" itemprop="datePublished">2018-12-06</time>
+
+    </span>
+    <span class="post-description-item">
+        
+    </span>
+</div>
+
+                </div>
+                
+                <div id="pagination" class="nav-web ui text container pagination">
+
+    <div class="ui stackable two column divided grid container">
+        <div class="row">
+            <div class="column nav-left">
+                
+
+                <a href="/2018/12/06/2-e7-9a-84-e5-b9-82-e6-ac-a1-e6-96-b9-e8-a1-a8-e7-a4-ba-e9-a2-98-e8-a7-a3/" class="ui tiny button">
+
+                    <i class="angle left icon"></i>
+                    
+                    2的幂次方表示题解
+                    
+
+                </a>
+
+                
+            </div>
+            <div class="column nav-right">
+                
+
+                <a href="/2018/12/06/vigenere-e5-af-86-e7-a0-81-e9-a2-98-e8-a7-a3/" class="ui tiny button">
+                    
+                    Vigenère密码题解
+                    
+                    <i class="angle right icon"></i></a>
+                
+            </div>
+        </div>
     </div>
-    <footer class="article-footer">
-      <a data-url="http://mrh1s.top/2018/12/06/e9-80-86-e6-b3-a2-e5-85-b0-e8-a1-a8-e8-be-be-e5-bc-8f-e9-a2-98-e8-a7-a3/" data-id="cjv80bewm0012a0etcm4acx2a" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2018/12/06/2-e7-9a-84-e5-b9-82-e6-ac-a1-e6-96-b9-e8-a1-a8-e7-a4-ba-e9-a2-98-e8-a7-a3/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          2的幂次方表示题解
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2018/12/06/vigenere-e5-af-86-e7-a0-81-e9-a2-98-e8-a7-a3/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Vigenère密码题解</div>
-    </a>
-  
-</nav>
 
-  
-</article>
+</div>
+                
+            </div>
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Categories</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/c-c/">c/c++</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/notes/">notes</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/project/">project</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/">write up</a><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cgctf/">cgctf</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/cnss-recruit-201809/">cnss_recruit_201809</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/hgame-20190122/">hgame_20190122</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nationalCTF-20190421/">nationalCTF_20190421</a></li><li class="category-list-item"><a class="category-list-link" href="/categories/write-up/nctf-20181124/">nctf_20181124</a></li></ul></li><li class="category-list-item"><a class="category-list-link" href="/categories/牢骚/">牢骚</a></li></ul>
+            
+            <div class="three wide computer three wide tablet column">
+
+                <div class="ui sticky article-toc" id="article-toc">
+                    <!-- toc -->
+                    <ol class="ui ordered list"><li><a href="#1696-逆波兰表达式"><span>1696:逆波兰表达式</span></a></li></ol>
+                </div>
+
+            </div>
+            
+
+        </div>
     </div>
-  </div>
+</div>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Dynamic/">RE_Dynamic</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        </div>
+        <div class="ui vertical footer segment">
+    <div class="ui center aligned container">
+        <div class="ui inverted section divider"></div>
+        &copy; 2019 <a href="/">mrh929</a>,
+        Powered by <a href="https://github.com/henryhuang/hexo-theme-aloha" target="_blank">Aloha</a> and <a href="http://hexo.io/" target="_blank">Hexo</a>.
     </div>
-  </div>
+</div>
 
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
-    <div class="widget tagcloud">
-      <a href="/tags/RE-Dynamic/" style="font-size: 10px;">RE_Dynamic</a> <a href="/tags/RE-Static/" style="font-size: 20px;">RE_Static</a>
     </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
-    </div>
-  </div>
-
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2019/05/03/Migration-Success/">Migration_Success!</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/28/bbvvmm/">bbvvmm</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/28/e5-8d-97-e4-ba-ac-e9-82-ae-e7-94-b5-e5-a4-a7-e5-ad-a6-re-wxyvm2/">南京邮电大学 RE-WxyVM2</a>
-          </li>
-        
-          <li>
-            <a href="/2019/04/13/e5-a3-b3-e7-9b-b8-e5-85-b3/">壳相关</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/22/shinyshot/">ShinyShot!</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
-      </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2019 mrh929<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
-    
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
 
 
 
-  </div>
+
+<!-- scripts list from theme config.yml -->
+
+<script src="//cdn.bootcss.com/jquery/3.1.0/jquery.min.js"></script>
+
+<script src="//cdn.bootcss.com/semantic-ui/2.2.4/semantic.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch/3.18.1/algoliasearch.min.js"></script>
+
+<script src="//cdn.bootcss.com/algoliasearch-helper-js/2.13.0/algoliasearch.helper.min.js"></script>
+
+<script src="/js/semantic-ui-algolia.js"></script>
+
+<script src="/js/aloha-events.js"></script>
+
+
+
 </body>
 </html>
