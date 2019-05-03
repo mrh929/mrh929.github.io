@@ -65,6 +65,91 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-avl-e6-a0-91-e6-80-bb-e7-bb-93" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/06/avl-e6-a0-91-e6-80-bb-e7-bb-93/" class="article-date">
+  <time datetime="2018-12-06T15:46:59.000Z" itemprop="datePublished">2018-12-06</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/06/avl-e6-a0-91-e6-80-bb-e7-bb-93/">AVL树总结</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="AVL树总结"><a href="#AVL树总结" class="headerlink" title="AVL树总结"></a>AVL树总结</h1><p><strong>AVL树是二叉查找树的一种优化，能将链状的二叉查找树几乎平均地储存下来，从而减少搜索使用的时间。</strong>  <strong>AVL树是空树，或满足以下定义的树：</strong> <strong>1、左右子树都是AVL树；（递归定义）</strong> <strong>2、左右子树高度之差不超过1；</strong>  <strong>定义平衡因子：</strong> <strong>左子树高度-右子树高度，当平衡因子大于等于2时，我们就称这棵树不平衡，需要通过旋转让它重新平衡。</strong>  <strong>获取节点高度：</strong> <strong>       int h(int rt){</strong> <strong>       if(rt==0) return -1;//这里return-1的原因后面阐释</strong> <strong>       return no[rt].height;</strong> <strong>}</strong>  <strong>单旋转</strong> <strong>“左左”当根节点的左子树的左儿子与根节点的右儿子不平衡时</strong> <strong>我们通过单旋转使平衡树符合该树的性质</strong></p>
+<pre><code>int SingeRotateWithLeft(int x){
+    int y;
+    y=no[x].left;
+    no[x].left=no[y].right;
+    no[y].right=x;
+    no[y].height=max(h(no[y].left),h(no[y].right))+1;
+    no[x].height=max(h(no[x].left),h(no[x].right))+1;
+    return y;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p><strong>“右右”方法类似，与左左对称</strong>  <strong>双旋转</strong> <strong>“左右”当根节点的左子树的右儿子与根节点的右儿子不平衡时</strong> <strong>旋转两次即可使这棵树平衡</strong></p>
+<pre><code>int doubleRotateWithLeft(int x){
+
+    no[x].left=SingleRotateWithRight(no[x].left);
+    return SingleRotateWithLeft(x);
+
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p><strong>“右左”同理。</strong>  <strong>插入操作：先正常插入指定结点，再判断原树是否平衡，不平衡要根据具体情况旋转使原树平衡</strong></p>
+<pre><code>int insert(int k,int rt){
+    if(rt==0)
+        rt=newNode(k);
+    else if( k&lt; no[rt].key ){
+        no[rt].left=insert(k,no[rt].left);
+        if( h(no[rt].left)-h(no[rt].right) )==2 )
+            if(k&lt;no[ no[rt].left ] .key ) rt=SingleRotateWithLeft(rt);
+            else rt= DoubleRotateWithLeft(rt)
+    }else if( k &gt; no[rt].key){
+        no[rt].right=insert(k,no[rt].right);
+        if( h(no[rt].right)-h(no[rt].left) )==2 )
+            if(k &gt; no[ no[rt].right ] .key ) rt=SingleRotateWithRight(rt);
+            else rt= DoubleRotateWithRight(rt)
+    }
+    no[rt].height = max ( h( no[rt].left ), h( no[rt].right ) ) +1;
+    return rt;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<pre><code>int newNode(int k){
+    no[cnt].height=no[cnt].left=no[cnt].right=0;
+    no[cnt].key=k;
+    return cnt++;
+}
+</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p><strong> AVL树过于复杂，但却是其他二叉搜索树变形特别是旋转的基础，删除操作实在过于复杂，本人无法理解。。。建议大家使用懒惰标记吧，不在真正意义上删除结点。</strong> <strong>说这么多 大家还是转战SBT吧QAQ</strong></p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://mrh1s.top/2018/12/06/avl-e6-a0-91-e6-80-bb-e7-bb-93/" data-id="cjv7zxxru000cboet2newxatb" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-e6-a0-91-e7-8a-b6-e6-95-b0-e7-bb-84-e6-80-bb-e7-bb-93" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/12/06/e6-a0-91-e7-8a-b6-e6-95-b0-e7-bb-84-e6-80-bb-e7-bb-93/" class="article-date">
@@ -444,7 +529,7 @@ int main(){
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://mrh1s.top/2018/12/06/e6-a0-91-e7-8a-b6-e6-95-b0-e7-bb-84-e6-80-bb-e7-bb-93/" data-id="cjv7wmcaz003yx0etj5h2swy1" class="article-share-link">Share</a>
+      <a data-url="http://mrh1s.top/2018/12/06/e6-a0-91-e7-8a-b6-e6-95-b0-e7-bb-84-e6-80-bb-e7-bb-93/" data-id="cjv7zxxtl003uboetzj9oh9z7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -773,7 +858,7 @@ int main(){
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://mrh1s.top/2018/12/06/e7-ba-bf-e6-ae-b5-e6-a0-91-e6-80-bb-e7-bb-93/" data-id="cjv7wmcb10040x0etm5zs8bll" class="article-share-link">Share</a>
+      <a data-url="http://mrh1s.top/2018/12/06/e7-ba-bf-e6-ae-b5-e6-a0-91-e6-80-bb-e7-bb-93/" data-id="cjv7zxxto003yboetk4vkj3k5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -906,7 +991,7 @@ int main(){
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://mrh1s.top/2018/12/06/e5-ad-97-e5-85-b8-e6-a0-91-e6-80-bb-e7-bb-93/" data-id="cjv7wmc95000lx0ett7v0mgmg" class="article-share-link">Share</a>
+      <a data-url="http://mrh1s.top/2018/12/06/e5-ad-97-e5-85-b8-e6-a0-91-e6-80-bb-e7-bb-93/" data-id="cjv7zxxs3000qboet4dgnwok4" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1143,7 +1228,7 @@ int main(){
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://mrh1s.top/2018/12/06/e6-a0-91-e5-bd-a2-e5-8a-a8-e6-80-81-e8-a7-84-e5-88-92-e6-80-bb-e7-bb-93/" data-id="cjv7wmcaw003wx0etpp33j7qp" class="article-share-link">Share</a>
+      <a data-url="http://mrh1s.top/2018/12/06/e6-a0-91-e5-bd-a2-e5-8a-a8-e6-80-81-e8-a7-84-e5-88-92-e6-80-bb-e7-bb-93/" data-id="cjv7zxxtl003vboet2ubjdka1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1300,7 +1385,7 @@ int main(){
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://mrh1s.top/2018/12/06/e5-8f-af-e5-b9-b6-e5-a0-86-e4-b9-8b-e5-b7-a6-e5-81-8f-e6-a0-91-e6-80-bb-e7-bb-93/" data-id="cjv7wmc92000gx0etcu0ghed6" class="article-share-link">Share</a>
+      <a data-url="http://mrh1s.top/2018/12/06/e5-8f-af-e5-b9-b6-e5-a0-86-e4-b9-8b-e5-b7-a6-e5-81-8f-e6-a0-91-e6-80-bb-e7-bb-93/" data-id="cjv7zxxrx000gboet63gddfbx" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1606,7 +1691,7 @@ int main(){
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://mrh1s.top/2018/12/06/e5-ad-97-e7-ac-a6-e4-b8-b2hash-ef-bc-8c-e5-ba-b7-e6-89-98-e5-b1-95-e5-bc-80-e6-80-bb-e7-bb-93/" data-id="cjv7wmcau003vx0ety5x5ggfq" class="article-share-link">Share</a>
+      <a data-url="http://mrh1s.top/2018/12/06/e5-ad-97-e7-ac-a6-e4-b8-b2hash-ef-bc-8c-e5-ba-b7-e6-89-98-e5-b1-95-e5-bc-80-e6-80-bb-e7-bb-93/" data-id="cjv7zxxtj003tboety8vanv4u" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1877,7 +1962,7 @@ int main(){
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://mrh1s.top/2018/12/06/e7-a6-bb-e6-95-a3hash-e4-bc-98-e5-8c-96-e6-80-bb-e7-bb-93/" data-id="cjv7wmcax003xx0etur291wjt" class="article-share-link">Share</a>
+      <a data-url="http://mrh1s.top/2018/12/06/e7-a6-bb-e6-95-a3hash-e4-bc-98-e5-8c-96-e6-80-bb-e7-bb-93/" data-id="cjv7zxxtm003wboet5o5yl5xy" class="article-share-link">Share</a>
       
       
     </footer>
@@ -2180,7 +2265,7 @@ int main()
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://mrh1s.top/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e6-97-a0-e5-90-91-e5-9b-be-e5-89-b2-e8-be-b9-e5-89-b2-e7-82-b9-e3-80-81-e6-9c-80-e8-bf-91-e5-85-ac-e5-85-b1-e7-a5-96-e5-85-88-e7-9a-84-e6-80-bb-e7-bb-93/" data-id="cjv7wmcb30044x0etlff0d71d" class="article-share-link">Share</a>
+      <a data-url="http://mrh1s.top/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e6-97-a0-e5-90-91-e5-9b-be-e5-89-b2-e8-be-b9-e5-89-b2-e7-82-b9-e3-80-81-e6-9c-80-e8-bf-91-e5-85-ac-e5-85-b1-e7-a5-96-e5-85-88-e7-9a-84-e6-80-bb-e7-bb-93/" data-id="cjv7zxxtp0040boet59ok7ho7" class="article-share-link">Share</a>
       
       
     </footer>
@@ -2374,435 +2459,7 @@ int main()
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://mrh1s.top/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e5-bc-ba-e8-bf-9e-e9-80-9a-e5-88-86-e9-87-8f-e6-80-bb-e7-bb-93/" data-id="cjv7wmc9h001ax0ets6n22vnv" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-e6-8b-93-e6-89-91-e6-8e-92-e5-ba-8f-e4-bb-a5-e5-8f-8a-e5-85-b3-e9-94-ae-e8-b7-af-e5-be-84-e6-80-bb-e7-bb-93" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/12/06/e6-8b-93-e6-89-91-e6-8e-92-e5-ba-8f-e4-bb-a5-e5-8f-8a-e5-85-b3-e9-94-ae-e8-b7-af-e5-be-84-e6-80-bb-e7-bb-93/" class="article-date">
-  <time datetime="2018-12-06T15:42:05.000Z" itemprop="datePublished">2018-12-06</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/12/06/e6-8b-93-e6-89-91-e6-8e-92-e5-ba-8f-e4-bb-a5-e5-8f-8a-e5-85-b3-e9-94-ae-e8-b7-af-e5-be-84-e6-80-bb-e7-bb-93/">拓扑排序以及关键路径总结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>  拓扑排序以及关键路径的总结 <strong>拓扑排序：首先纠正一个读音问题：拓扑(tuopu)话说我好几次都读成(tabu) (tuobu)好吗！</strong> <strong>      拓扑排序是针对AOV图（即有向无边图，且图中不允许环的存在）的一种排序算法，它用于将一个AOV图按照顺序排成线性序列</strong> <strong>       基本操作如下：</strong> <strong>1.记录每个节点的入度</strong> <strong>2.每次找到入度为零的点入栈，并将与之相连的节点入度减一</strong> <strong>3.重复2的动作，直到栈为空</strong> <strong>4.判断当前操作进行的次数，少于n次则有环，否则输出拓扑序列</strong> 家谱树 【问题描述】 有个人的家族很大，辈分关系很混乱，请你帮整理一下这种关系。 给出每个人的孩子的信息。 输出一个序列，使得每个人的后辈都比那个人后列出。 【输入格式】 第1行一个整数N（1&lt;=N&lt;=100），表示家族的人数。 接下来N行，第I行描述第I个人的儿子。 每行最后是0表示描述完毕。 【输出格式】 输出一个序列，使得每个人的后辈都比那个人后列出。 如果有多解输出任意一解。 【输入样例】 5 0 4 5 1 0 1 0 5 3 0 3 0 【输出样例】 2 4 5 3 1</p>
-<pre><code>#include&lt;cstdio&gt;
-#include&lt;cstring&gt;
-#include&lt;algorithm&gt;
-using namespace std;
-const int MAX=10000;
-int first[MAX],nxt[MAX],go[MAX],arcnum=1;
-int rd[MAX],stack[MAX],top;
-void addarc(int a,int b){
-    nxt[arcnum]=first[a];
-    first[a]=arcnum;
-    go[arcnum++]=b;
-}
-
-int main()
-{
-//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
-    int n,m;
-    scanf(&quot;%d&quot;,&amp;n);
-    for(int i=1;i&lt;=n;i++)
-        while(scanf(&quot;%d&quot;,&amp;m)!=EOF &amp;&amp;m!=0)
-            addarc(i,m),rd[m]++;
-    for(int i=1;i&lt;=n;i++)
-        if(rd[i]==0)
-            stack[++top]=i;
-    do{
-        int now=stack[top--];
-        printf(&quot;%d &quot;,now);
-        for(int p=first[now];p!=0;p=nxt[p]){
-            rd[go[p]]--;
-            if(rd[go[p]]==0)
-                stack[++top]=go[p];
-        }
-    }while(top!=0);
-
-
-    return 0;
-}
-</code></pre><p><strong>该题是明显的拓扑排序题，按照标准格式写程序即可</strong>  <strong>奖金</strong> （<a href="http://fzoj.xndxfz.com/JudgeOnline/problem.php?id=1624）" target="_blank" rel="noopener">http://fzoj.xndxfz.com/JudgeOnline/problem.php?id=1624）</a> <strong>描述</strong> 由于无敌的凡凡在2005年世界英俊帅气男总决选中胜出，Yali Company总经理Mr.Z心情好，决定给每位员工发奖金。公司决定以每个人本年在公司的贡献为标准来计算他们得到奖金的多少。于是Mr.Z下令召开m方会谈。每位参加会谈的代表提出了自己的意见：“我认为员工a的奖金应该比b高！”Mr.Z决定要找出一种奖金方案，满足各位代表的意见，且同时使得总奖金数最少。每位员工奖金最少为100元。 <strong>输入</strong> 第一行两个整数n,m，表示员工总数和代表数；以下m行，每行2个整数a,b，表示某个代表认为第a号员工奖金应该比第b号员工高。 输出 若无法找到合理方案，则输出“Poor Xed”；否则输出一个数表示最少总奖金。 <strong>样例输入</strong> 2 1 1 2 <strong>样例输出</strong> 201 <strong>提示</strong> 80％的数据满足n&lt;=1000，m&lt;=2000；100％的数据满足n&lt;=10000，m&lt;=20000。 <strong>此题比上一题多加入了点的权值</strong> <strong>也就是计算拓扑序列中权值和最小是多少</strong> <strong>标准做法：使用拓扑排序，在去掉某个点后，遍历它的相连节点时，计算该点的权值，是在(val[v],val[u]+1),其中u为起点，v为中点，中取最大值，开始我的理解出现的偏差，不能在那个点入度为0的时候才计算那个点的权值，因为那个点要满足的条件是比它之前的所有点权值都要小</strong></p>
-<pre><code>#include&lt;cstdio&gt;
-#include&lt;cstring&gt;
-#include&lt;algorithm&gt;
-using namespace std;
-const int MAX=300000;
-int first[MAX],nxt[MAX],go[MAX],arcnum=1,rd[MAX];
-int stack[MAX],val[MAX],top;
-void addarc(int a,int b){
-    nxt[arcnum]=first[a];
-    first[a]=arcnum;
-    go[arcnum++]=b;
-}
-int main()
-{
-//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
-    int n,m,a,b,k=0,tot=0;
-    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
-    for(int i=1;i&lt;=m;i++){
-        scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
-        addarc(b,a);//b比a工资低 
-        rd[a]++;//入度+1 
-    }
-    for(int i=1;i&lt;=n;i++)
-        if(rd[i]==0)//将入度为0的点入栈 
-            stack[++top]=i;
-    while(top!=0){
-        int now=stack[top--];//当前点 
-        k++; tot+=100+val[now]; 
-        for(int p=first[now];p!=0;p=nxt[p]){
-            val[go[p]]=max(val[go[p]],val[now]+1);//不应当在入度为0时才更新val[]，而应当每次都更新，取最大值 
-            if(--rd[go[p]]==0)
-                stack[++top]=go[p];
-            }
-    }
-
-    if(k==n) printf(&quot;%d&quot;,tot);
-    else printf(&quot;Poor Xed&quot;);
-
-
-    return 0;
-
-}
-</code></pre><p><strong>fzoj1621:烦人的幻灯片</strong> <strong>题目描述</strong> 李教授于今天下午做一个非常重要的演讲。不幸的是他不是一个非常爱整洁的人，他把自己做演讲要用的幻灯片随便堆放在一起。因此，演讲之前他不得不去整理这些幻灯片。做为一个讲求效率的学者，他希望尽可能简单地完成它。情况是这样，教授这次演讲一共要用n张幻灯片（n&lt;=26），这n张幻灯片按照演讲要使用的顺序已经用数字1，2，…，n在上面编上了号。因为幻灯片是透明的，所以我们不能一下子看清每一个数字所对应的幻灯片。 现在我们用大写字母A，B，C，。。。再次把幻灯片依次编号。你的任务是编写一个程序，把幻灯片的数字编号和字母编号对应起来，显然这种对应应该是唯一的；若出现多种对应的情况或是某些数字编号和字母对应不起来，我们就称对应是无法实现的。 <strong>输入</strong> 第一行：只有一个数n，表示有n张幻灯片。 接下来的n行：包括4个整数Xmin，Xmax，Ymin，Ymax（整数之间用空格分开），为幻灯片的坐标（该区域为幻灯片），这n张幻灯片按其在输入文件中出现的顺序从前到后依次编号为A，B，C，…再接下来的n行依次为n个数字编号的坐标X，Y，显然在幻灯片之外是不会有数字的。 <strong>输出</strong> 若是对应可以实现，你的输出应该包括n行，每一行为一个字母和一个数字，中间以一个空格隔开，并且各行以字母的升序排列，注意输出的字母要大写并且顶格；反之，若是对应无法实现，在第一行顶格输出None即可。行首行末无多余空格。 <strong>样例输入</strong> 4 6 22 10 20 4 18 6 16 8 20 2 18 10 24 4 8 9 15 19 17 11 7 21 11 <strong>样例输出</strong> A 4 B 1 C 2 D 3 <strong>这道题并不完全是拓扑排序题，但却用到了拓扑排序的思想</strong> <strong>读懂题意是关键，本题意思是每个数字都对应了一个或多个幻灯片，然后要求从中找出数字与幻灯片的一一对应关系</strong> <strong>节点个数很少，直接用邻接矩阵存储</strong> <strong>由于是数字对应幻灯片，所以我选择存储每个数字的出度，当某个数字出度为1时，寻找它所对应的幻灯片，记录，并且将与该幻灯片连接的其余数字全部断绝联系，出度也减1</strong> <strong>这样，n次之后就可以得到完整的一一对应关系</strong> </p>
-<pre><code>#include&lt;cstdio&gt;
-#include&lt;cstring&gt;
-#include&lt;algorithm&gt;
-using namespace std;
-const int MAX=1000;
-int X1[MAX],X2[MAX],Y1[MAX],Y2[MAX],map[MAX][MAX],cd[MAX],ans[MAX];
-int stack[MAX],top;
-
-bool IsInside(int x,int y,int t){//第t张输入的幻灯片
-    return x&gt;X1[t]&amp;&amp;x&lt;X2[t]&amp;&amp;y&gt;Y1[t]&amp;&amp;y&lt;Y2[t];
-} 
-int main()
-{
-//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
-    int n,x,y,k=0;
-    scanf(&quot;%d&quot;,&amp;n);
-    for(int i=1;i&lt;=n;i++)
-        scanf(&quot;%d%d%d%d&quot;,&amp;X1[i],&amp;X2[i],&amp;Y1[i],&amp;Y2[i]);
-    for(int i=1;i&lt;=n;i++){
-        scanf(&quot;%d%d&quot;,&amp;x,&amp;y);
-        for(int j=1;j&lt;=n;j++)
-            if(IsInside(x,y,j))
-                map[i][j]=1,cd[i]++;//第i个数字在j-&apos;A&apos;+1的幻灯片中 
-    }
-
-    for(int i=1;i&lt;=n;i++)
-        if(cd[i]==1)
-            stack[++top]=i;
-    do{
-        int u=stack[top--];
-        k++;
-        for(int v=1;v&lt;=n;v++)    
-            if(map[u][v]==1){//如果u到v有路径 则u属于v 
-                ans[v]=u;
-                for(int i=1;i&lt;=n;i++)
-                if(map[i][v]==1){
-                    map[i][v]=0; cd[i]--;
-                    if(cd[i]==1)
-                        stack[++top]=i;
-                }
-                break;
-            }
-
-    }while(top!=0);
-    if(k!=n) printf(&quot;None&quot;);
-    else
-        for(int i=1;i&lt;=n;i++)
-            printf(&quot;%c %d\n&quot;,&apos;A&apos;+i-1,ans[i]);
-
-    return 0;
-}
-</code></pre><p>  <strong>关键路径：</strong> <strong>建立在一种新图上：AOV图（用点表示时间，边表示活动，边的权值表示活动持续的时间的一种图）</strong> <strong>四个重要的量</strong></p>
-<ol>
-<li><strong>事件最早发生时间ve[]</strong></li>
-<li><strong>事件最晚发生时间vl[]</strong></li>
-<li><strong>活动最早开始时间e[]</strong></li>
-<li><strong>活动最晚开始时间l[]</strong></li>
-</ol>
-<p><strong>各个量的求法及求解顺序：</strong></p>
-<ol>
-<li><strong>Ve，以Ve[1]=0开始，所有起点u终点v都按照ve[v]=max(ve[v],ve[u]+dis[u][v])的方法进行计算，并且记录下拓扑序列</strong></li>
-<li><strong>Vl，顺序：逆拓扑序列，以Vl[n]=Ve[n]开始，（因为终点是关键事件，所以最早和最晚开始时间相等）起点u终点v都按照vl[v]=min(vl[v],vl[u]-dis[u][v])的方法求解（此处注意，程序开头必须memset）</strong></li>
-<li><strong>e，事件的最早发生时间就等于活动的最早开始时间</strong></li>
-<li><strong>l，对于起点x终点y之间的活动i，l[i]=vl[y]-dis[x][y]</strong></li>
-</ol>
-<p><strong>如果e[i]==l[i]则说它是关键活动</strong> <strong>结束。</strong>  <strong>Question：活动的最早最晚开始时间和事件的最早最晚发生时间有什么关系，它们各自属于实际问题中的那一个量？（我只会求，但并不能完全明白它们的差别或者用途）</strong> <strong>前面奖金一题所用的方法是不是关键路径中的求事件最早发生时间？</strong> </p>
-<h2 id="关键路径计算"><a href="#关键路径计算" class="headerlink" title="关键路径计算"></a>关键路径计算</h2><p>（<a href="http://fz.openjudge.cn/graph/015/）" target="_blank" rel="noopener">http://fz.openjudge.cn/graph/015/）</a> <strong>描述</strong> 给出一个AOE图，请输出其关键路径； <strong>输入</strong> 第一行：n，m（n,m&lt;=100分别表示节点个数与边的条数） 接下来m行，第i+1行，表示第i条边，每行三个数：ai,bi,ci，表示存在一条ai指向bi权值为ci的边。 注意：起点为结点1，终点为结点n <strong>输出</strong> 将关键路径的边的编号从小到大输出 <strong>样例输入</strong> 9 11 1 2 6 1 3 4 1 4 5 2 5 1 3 5 1 4 6 2 5 7 9 5 8 7 6 8 4 7 9 2 8 9 4 <strong>样例输出</strong> 1 4 7 8 10 11 <strong>标准问题，注意在输出之前要排序</strong></p>
-<pre><code>#include&lt;cstdio&gt;
-#include&lt;cstring&gt;
-#include&lt;algorithm&gt;
-using namespace std;
-const int MAX=1000;
-int first[MAX],go[MAX],nxt[MAX],dis[MAX][MAX],arcnum=1;
-int stack[MAX],top,ve[MAX],vl[MAX],e[MAX],l[MAX],rd[MAX];
-int order[MAX],ans[MAX],sum;
-void addarc(int a,int b,int c){
-    nxt[arcnum]=first[a];
-    first[a]=arcnum;
-    go[arcnum++]=b;
-    dis[a][b]=c;
-}
-int main(){
-//    freopen(&quot;in.txt&quot;,&quot;r&quot;,stdin);
-    int n,m,a,b,c,k=0;
-    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
-    memset(vl,127,sizeof(vl));
-    for(int i=1;i&lt;=m;i++){
-        scanf(&quot;%d%d%d&quot;,&amp;a,&amp;b,&amp;c);
-        addarc(a,b,c);
-        rd[b]++;
-    }
-    for(int i=1;i&lt;=n;i++)
-        if(rd[i]==0)
-            stack[++top]=i;//入栈 
-    do{//第一次，求事件最早发生时间 
-        int u=stack[top--],v; k++;
-        order[k]=u;//记录顺序 
-        for(int p=first[u];p!=0;p=nxt[p]){
-            v=go[p]; rd[v]--;
-            ve[v]=max(ve[v],ve[u]+dis[u][v]);
-            if(rd[v]==0)
-                stack[++top]=v;
-        }
-    }while(top!=0);
-
-    vl[n]=ve[n];//中点的事件最晚发生时间等于最早发生时间 
-    for(int i=n-1;i&gt;=1;i--){
-        int u=order[i],v;
-        for(int p=first[u];p!=0;p=nxt[p]){
-            v=go[p];
-            vl[u]=min(vl[u],vl[v]-dis[u][v]);
-        }
-    }
-
-    for(int i=1;i&lt;=n-1;i++){//计算活动的最早发生时间和最晚发生时间 
-        int u=order[i],v;
-        for(int p=first[u];p!=0;p=nxt[p]){
-            v=go[p];
-            e[p]=ve[u];//活动最早发生时间等于起始点的最早发生时间 
-            l[p]=vl[v]-dis[u][v];//活动最晚发生时间等于终点最晚发生时间减去活动的长度 
-            if(e[p]==l[p]) ans[++sum]=p;
-        }
-    }
-
-    sort(ans+1,ans+1+sum);
-    for(int i=1;i&lt;=sum;i++)
-        printf(&quot;%d\n&quot;,ans[i]);
-    return 0;
-}
-</code></pre><h1 id="HDU4109-Instrction-Arrangement"><a href="#HDU4109-Instrction-Arrangement" class="headerlink" title="HDU4109 Instrction Arrangement"></a>HDU4109 Instrction Arrangement</h1><p><a href="http://acm.hdu.edu.cn/showproblem.php?pid=4109" target="_blank" rel="noopener">http://acm.hdu.edu.cn/showproblem.php?pid=4109</a> <strong>Problem Description</strong> 阿狸这个学期学了计算机组织结构课程。他知道了指令之间可能有依存关系，像WAR（write after read，读之后写），WAW，RAW。如果两个指令之间的时间小于安全时间，它就会导致危险，从而引起错误的结果。所以我们需要设计特殊的回路去消除危险。然而，解决这个问题最简单的方法是添加等待时间（或者由其它的操作填充），如果没有其它的操作填充就意味着需要浪费时间去保证两个指令之间的时间不小于安全时间。 两个指令之间的时间的定义就是它们起始时间差。 现在我们有很多指令，并且我们知道依存关系和指令之间的安全事件。我们也有非常强大的无限核的CPU。所以你可以在同一时间想跑多少指令就跑多少指令。这个CPU可以只消耗1ns就完成任何指令。 你的工作就是重新安排这些指令顺序所以CPU就可以用最短时间完成所有的指令。 <strong>Input</strong> 输入包括几个测试案例 头两行有两个整数N,M（N&lt;=1000,M&lt;=1000），其中N表示N条指令和M表示M个依存关系 接下来的M行，每行包括3个整数X,Y,Z，意思是X和Y之间的安全时间是Z，而且Y必须在X之后运行。这些指令从0到N-1标号。 <strong>Output</strong> 打印一个整数，CPU运行的最短时间 <strong>Sample Input</strong> 5 2 1 2 1 3 4 1 <strong>Sample Output</strong> 2 <strong>HINT</strong> 在第1ns中，指令0，1和3被执行了。 在第2ns中，指令2,和4被执行了 所以答案是2 <strong>也是求事件最早发生时间（这些指令什么时候最早全部执行完）的题</strong> <strong>注意：</strong></p>
-<ol>
-<li><strong>memset！！！！！！！</strong></li>
-<li><p><strong>指令由0到n-1编号，注意转换</strong></p>
-<p>#include<cstdio><br>#include<cstring><br>#include<algorithm><br>using namespace std;<br>const int MAX=1020;<br>int first[MAX],nxt[10200],go[10200],arcnum;<br>int dis[MAX][MAX],rd[MAX],val[MAX],stack[10200],top;<br>void addarc(int a,int b,int c){</algorithm></cstring></cstdio></p>
-<pre><code>nxt[arcnum]=first[a];
-first[a]=arcnum;
-go[arcnum++]=b;
-dis[a][b]=c;
-</code></pre><p>}</p>
-<p>int main()<br>{<br>//    freopen(“in.txt”,”r”,stdin);</p>
-<pre><code>int n,m,x,y,z,maxx;
-while(scanf(&quot;%d%d&quot;,&amp;n,&amp;m)!=EOF){
-    memset(dis,0,sizeof(dis));
-    memset(rd,0,sizeof(rd));
-    memset(val,0,sizeof(val));
-    memset(first,0,sizeof(first));
-    maxx=-1; arcnum=1;
-    for(int i=1;i&lt;=n;i++)
-        val[i]=1;
-    for(int i=1;i&lt;=m;i++){
-        scanf(&quot;%d%d%d&quot;,&amp;x,&amp;y,&amp;z);
-        addarc(++x,++y,z);
-        rd[y]++;
-    }
-    for(int i=1;i&lt;=n;i++)    
-        if(rd[i]==0)
-            stack[++top]=i;
-    do{
-        int u=stack[top--],v;
-        for(int p=first[u];p!=0;p=nxt[p]){
-            v=go[p];
-            val[v]=max(val[v],val[u]+dis[u][v]);
-            maxx=max(val[v],maxx);
-            if(--rd[v]==0)
-                stack[++top]=v;
-        }
-
-    }while(top!=0);
-    printf(&quot;%d\n&quot;,maxx);
-}
-return 0;
-</code></pre><p>}</p>
-<p><strong>Poj3687 Labeling Balls</strong> <strong>escription</strong> Windy有N个不同重量的求，现在他打算给他们贴上1到N的标签： 没有两个相同的球 这些标签要符合规则例如“标签a球轻于标签b球” 你能帮他解决这个问题吗？ <strong>Input</strong> 第一行是数据个数.每组数据第一行是两个整数： N (1 ≤ N ≤ 200)和 M (0 ≤ M ≤ 40,000).接下来M行，每行两个整数a和 b表示 标签a球轻于标签b球. (1 ≤ a, b ≤ N) 每组数据后有一个空行 <strong>Output</strong> 每组测试数据输出一行，按照小球的1~N，小球的重量输出，如果有多组解： you should output the one with the smallest weight for label 1, then with the smallest weight for label 2, then with the smallest weight for label 3 and so on…如果无解，输出-1。 <strong>Sample Input</strong> 5 4 0 4 1 1 1 4 2 1 2 2 1 4 1 2 1 4 1 3 2 <strong>Sample Output</strong> 1 2 3 4 -1 -1 2 1 3 4 1 3 2 4 <strong>这道题至今未通过。初步思路是建立小顶堆和拓扑排序，以便在几个球重量相等时输出编号最小的。</strong> <strong>但是问题来了，在我操作入度为0的节点时，可能会又有新的节点加入堆，从而导致我整个答案完全不对。</strong></p>
-<p>#include<cstdio><br>#include<cstring><br>#include<algorithm><br>using namespace std;<br>int first[300],nxt[40200],go[40200],arcnum;<br>int rd[300],stack[40200],ans[300],heap[10000],len;<br>void addarc(int a,int b){</algorithm></cstring></cstdio></p>
-<pre><code>nxt[arcnum]=first[a];
-first[a]=arcnum;
-go[arcnum++]=b;
-</code></pre><p>}</p>
-<p>bool cmp(int a,int b){</p>
-<pre><code>return a&lt;b;
-</code></pre><p>}</p>
-<p>int Get(){</p>
-<pre><code>int t=heap[1],now=1,next;
-heap[1]=heap[len--];
-while(now*2&lt;=len){
-    next=now*2;
-    if(next&lt;len&amp;&amp;cmp(heap[next+1],heap[next])) next++;
-    if(cmp(heap[now],heap[next])) break;
-    swap(heap[now],heap[next]);
-    now=next;
-}
-return t;
-</code></pre><p>}</p>
-<p>void Put(int p){</p>
-<pre><code>int now=++len,next;
-heap[len]=p;
-while(now&gt;1){
-    next=now&gt;&gt;1;
-    if(!cmp(heap[now],heap[next])) break;
-    swap(heap[now],heap[next]);    
-    now=next;
-}
-</code></pre><p>}</p>
-<p>int main()<br>{</p>
-<pre><code>int t,n,m,a,b,k;
-scanf(&quot;%d&quot;,&amp;t);
-while(t--){
-    arcnum=1; k=0; len=0;
-    memset(first,0,sizeof(first));
-    memset(rd,0,sizeof(rd));
-    memset(ans,0,sizeof(ans));
-    scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
-    for(int i=1;i&lt;=m;i++){
-        scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
-        addarc(a,b);
-        rd[b]++;
-    }
-    for(int i=1;i&lt;=n;i++)
-        if(rd[i]==0)
-            Put(i);
-    do{
-        int u=Get(),v;
-        ans[u]=++k;
-        for(int p=first[u];p!=0;p=nxt[p]){
-            v=go[p];
-            if(--rd[v]==0)
-                Put(v);
-        }
-    }while(len&gt;0);
-    if(k!=n) printf(&quot;-1\n&quot;);
-    else{
-        for(int i=1;i&lt;=n;i++)
-            printf(&quot;%d &quot;,ans[i]);
-        printf(&quot;\n&quot;);
-    }
-}
-
-return 0;
-</code></pre><p>}</p>
-</li>
-</ol>
-<p><strong>又想到把拓扑排序后的点记录下来，来个快排，但是有的球没有限制条件，强行把权设为0又会错。</strong></p>
-<pre><code>#include&lt;cstdio&gt;
-#include&lt;cstring&gt;
-#include&lt;algorithm&gt;
-using namespace std;
-int first[300],nxt[40200],go[40200],arcnum;
-int rd[300],stack[40200],top;
-struct node{
-    int val,id;
-}ans[300];
-
-void addarc(int a,int b){
-    nxt[arcnum]=first[a];
-    first[a]=arcnum;
-    go[arcnum++]=b;
-}
-
-bool cmp(node a,node b){
-    if(a.val!=b.val)
-        return a.val&lt;b.val;
-    return a.id&lt;b.id;
-}
-
-int main()
-{
-    int t,n,m,a,b,k;
-    scanf(&quot;%d&quot;,&amp;t);
-    while(t--){
-        arcnum=1; k=0; top=0;
-        memset(first,0,sizeof(first));
-        memset(rd,0,sizeof(rd));
-        memset(ans,0,sizeof(ans));
-        scanf(&quot;%d%d&quot;,&amp;n,&amp;m);
-        for(int i=1;i&lt;=n;i++)
-            ans[i].id=i,ans[i].val=0;
-        for(int i=1;i&lt;=m;i++){
-            scanf(&quot;%d%d&quot;,&amp;a,&amp;b);
-            addarc(a,b);
-            rd[b]++;
-        }
-        for(int i=1;i&lt;=n;i++)
-            if(rd[i]==0)
-                stack[++top]=i;
-        do{
-            int u=stack[top--],v;
-            k++;
-            for(int p=first[u];p!=0;p=nxt[p]){
-                v=go[p];
-                ans[v].val=max(ans[v].val,ans[u].val+1);
-                if(--rd[v]==0)
-                    stack[++top]=v;
-            }
-        }while(top!=0);
-        if(k!=n) printf(&quot;-1\n&quot;);
-        else{
-            sort(ans+1,ans+1+n,cmp);
-            for(int i=1;i&lt;=n;i++)
-                printf(&quot;%d &quot;,ans[i].id);
-            printf(&quot;\n&quot;);
-        }
-    }
-
-    return 0;
-}
-</code></pre><p><strong>据说建立大顶堆就可以解决问题？？？？</strong></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://mrh1s.top/2018/12/06/e6-8b-93-e6-89-91-e6-8e-92-e5-ba-8f-e4-bb-a5-e5-8f-8a-e5-85-b3-e9-94-ae-e8-b7-af-e5-be-84-e6-80-bb-e7-bb-93/" data-id="cjv7wmcba0049x0etgcx3tadx" class="article-share-link">Share</a>
+      <a data-url="http://mrh1s.top/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e5-bc-ba-e8-bf-9e-e9-80-9a-e5-88-86-e9-87-8f-e6-80-bb-e7-bb-93/" data-id="cjv7zxxsc001cboetop269i50" class="article-share-link">Share</a>
       
       
     </footer>
@@ -2856,7 +2513,7 @@ int main()
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
     </div>
   </div>
 
@@ -2867,6 +2524,10 @@ int main()
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/05/03/Migration-Success/">Migration_Success!</a>
+          </li>
         
           <li>
             <a href="/2019/04/28/bbvvmm/">bbvvmm</a>
@@ -2882,10 +2543,6 @@ int main()
         
           <li>
             <a href="/2019/03/22/shinyshot/">ShinyShot!</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/21/happyvm/">HappyVM</a>
           </li>
         
       </ul>

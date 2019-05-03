@@ -65,6 +65,58 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-wakarimasu" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2019/02/15/wakarimasu/" class="article-date">
+  <time datetime="2019-02-15T08:31:00.000Z" itemprop="datePublished">2019-02-15</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/write-up/">write up</a>►<a class="article-category-link" href="/categories/write-up/hgame-20190122/">hgame_20190122</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/15/wakarimasu/">wakarimasu</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><a href="/uploads/wakarimasu.7z">wakarimasu</a> 本质是解两个矩阵，一个是乘法矩阵求逆，另外一个仅仅是矩阵的加减 由于矩阵求逆的时候存在小数精度问题，故用计算机算出来的值不会精确到整数，但是一旦你看到那个结果就一定会知道你算对了 算矩阵的网站： <a href="https://zh.numberempire.com/matrixcalculator.php" target="_blank" rel="noopener">https://zh.numberempire.com/matrixcalculator.php</a> <a href="https://zh.numberempire.com/matrixbinarycalculator.php" target="_blank" rel="noopener">https://zh.numberempire.com/matrixbinarycalculator.php</a> A = 8 1 7 1 1 0 4 8 1 2 3 9 3 8 6 6 4 8 3 5 7 8 8 7 0 9 0 2 3 4 2 3 2 5 4 0 B = 122 207 140 149 142 168 95 201 122 145 136 167 112 192 127 137 134 147 95 207 110 134 133 173 136 212 160 162 152 179 121 193 126 126 119 147 c = 16 8 8 14 6 11 5 23 5 10 12 23 14 23 19 7 8 10 4 13 22 17 11 22 6 14 2 11 18 9 5 8 8 10 16 13 X1 * B = A X2 + B = C X1=AB^-1 = 5.999951 5.999888 6.000136 5.999828 5.999879 7.000097 2.999953 4.999902 7.000126 5.999842 5.999886 6.000086 5.999953 4.999893 4.000127 5.99984 6.99989 7.000089 2.999956 6.999908 5.000125 5.999846 6.999877 5.000089 6.999948 5.999879 7.000144 6.999816 4.999875 7.000104 6.999956 5.999896 6.000123 2.999842 5.999887 7.000091 x2 = C - B = 8 7 1 13 5 11 1 15 4 8 9 14 11 15 13 1 4 2 1 8 15 9 3 15 6 5 2 9 15 5 3 5 6 5 12 13 再将X1与X2结合（X1为高四位，X2为低四位）</p>
+<pre><code>#include&lt;cstdio&gt;
+int a[]={6,6,6,6,6,7,3,5,7,6,6,6,6,5,4,6,7,7,3,7,5,6,7,5,7,6,7,7,5,7,7,6,6,3,6,7};
+int b[]={8,7,1,13,5,11,1,15,4,8,9,14,11,15,13,1,4,2,1,8,15,9,3,15,6,5,2,9,15,5,3,5,6,5,12,13};
+
+int main(){
+    for(int i = 0; i &lt;= 35; i++)
+        printf(&quot;%c&quot;, (a[i]&lt;&lt;4) + b[i]);
+
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://mrh1s.top/2019/02/15/wakarimasu/" data-id="cjv7zxxsl001vboethk8cl6eb" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/RE-Static/">RE_Static</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-fat16-e6-96-87-e4-bb-b6-e7-b3-bb-e7-bb-9f" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2019/02/04/fat16-e6-96-87-e4-bb-b6-e7-b3-bb-e7-bb-9f/" class="article-date">
@@ -156,7 +208,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://mrh1s.top/2019/02/04/fat16-e6-96-87-e4-bb-b6-e7-b3-bb-e7-bb-9f/" data-id="cjv7wmcbi004bx0etzuduz0rc" class="article-share-link">Share</a>
+      <a data-url="http://mrh1s.top/2019/02/04/fat16-e6-96-87-e4-bb-b6-e7-b3-bb-e7-bb-9f/" data-id="cjv7zxxu70049boetb1tlnyr4" class="article-share-link">Share</a>
       
       
     </footer>
@@ -202,7 +254,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://mrh1s.top/2019/01/09/e6-8e-92-e5-ba-8f-e7-ae-97-e6-b3-95-e7-9a-84-e4-b8-80-e7-82-b9-e5-b0-8f-e5-bf-83-e5-be-97/" data-id="cjv7wmc9n001mx0etoh7cxnw0" class="article-share-link">Share</a>
+      <a data-url="http://mrh1s.top/2019/01/09/e6-8e-92-e5-ba-8f-e7-ae-97-e6-b3-95-e7-9a-84-e4-b8-80-e7-82-b9-e5-b0-8f-e5-bf-83-e5-be-97/" data-id="cjv7zxxsj001qboet58e2f0zp" class="article-share-link">Share</a>
       
       
     </footer>
@@ -250,7 +302,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://mrh1s.top/2019/01/03/e7-bd-91-e5-ae-89-e8-af-be-e7-ad-94-e8-be-a9-e6-af-94-e7-89-b9-e5-b8-81-e4-b8-8e-e5-8c-ba-e5-9d-97-e9-93-be/" data-id="cjv7wmc9m001kx0et9w0u6zpo" class="article-share-link">Share</a>
+      <a data-url="http://mrh1s.top/2019/01/03/e7-bd-91-e5-ae-89-e8-af-be-e7-ad-94-e8-be-a9-e6-af-94-e7-89-b9-e5-b8-81-e4-b8-8e-e5-8c-ba-e5-9d-97-e9-93-be/" data-id="cjv7zxxsi001oboet3mg57xrb" class="article-share-link">Share</a>
       
       
     </footer>
@@ -314,7 +366,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://mrh1s.top/2018/12/31/e8-ae-b0-e7-ac-ac-e4-b8-80-e6-ac-a1-e7-94-b5-e8-84-91-e7-bb-84-e8-a3-85-ef-bc-88-e4-ba-8c-ef-bc-89/" data-id="cjv7wmc9n001ox0etaiyfia2z" class="article-share-link">Share</a>
+      <a data-url="http://mrh1s.top/2018/12/31/e8-ae-b0-e7-ac-ac-e4-b8-80-e6-ac-a1-e7-94-b5-e8-84-91-e7-bb-84-e8-a3-85-ef-bc-88-e4-ba-8c-ef-bc-89/" data-id="cjv7zxxsh001lboetu6pgy231" class="article-share-link">Share</a>
       
       
     </footer>
@@ -398,7 +450,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://mrh1s.top/2018/12/30/e8-ae-b0-e7-ac-ac-e4-b8-80-e6-ac-a1-e7-94-b5-e8-84-91-e7-bb-84-e8-a3-85-ef-bc-88-e4-b8-80-ef-bc-89/" data-id="cjv7wmc9l001hx0etbj7x4zcm" class="article-share-link">Share</a>
+      <a data-url="http://mrh1s.top/2018/12/30/e8-ae-b0-e7-ac-ac-e4-b8-80-e6-ac-a1-e7-94-b5-e8-84-91-e7-bb-84-e8-a3-85-ef-bc-88-e4-b8-80-ef-bc-89/" data-id="cjv7zxxsg001jboet0ykwpjv1" class="article-share-link">Share</a>
       
       
     </footer>
@@ -799,7 +851,7 @@ do{
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://mrh1s.top/2018/12/20/e5-95-86-e5-93-81-e7-ae-a1-e7-90-86-e7-b3-bb-e7-bb-9f/" data-id="cjv7wmcb20042x0eteds5y2pk" class="article-share-link">Share</a>
+      <a data-url="http://mrh1s.top/2018/12/20/e5-95-86-e5-93-81-e7-ae-a1-e7-90-86-e7-b3-bb-e7-bb-9f/" data-id="cjv7zxxtq0042boetos5d61j2" class="article-share-link">Share</a>
       
       
     </footer>
@@ -840,7 +892,7 @@ do{
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://mrh1s.top/2018/12/13/e7-bd-91-e7-bb-9c-e5-ae-89-e5-85-a8-e8-af-be-e7-ac-94-e8-ae-b0-of-shijie-zhou-2/" data-id="cjv7wmc9j001fx0ete7cekims" class="article-share-link">Share</a>
+      <a data-url="http://mrh1s.top/2018/12/13/e7-bd-91-e7-bb-9c-e5-ae-89-e5-85-a8-e8-af-be-e7-ac-94-e8-ae-b0-of-shijie-zhou-2/" data-id="cjv7zxxse001gboetl8m76ocz" class="article-share-link">Share</a>
       
       
     </footer>
@@ -881,7 +933,7 @@ do{
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://mrh1s.top/2018/12/06/e8-bf-81-e7-a7-bb-e5-ae-8c-e6-88-90-ef-bc-81/" data-id="cjv7wmc9f0015x0etvbr34ake" class="article-share-link">Share</a>
+      <a data-url="http://mrh1s.top/2018/12/06/e8-bf-81-e7-a7-bb-e5-ae-8c-e6-88-90-ef-bc-81/" data-id="cjv7zxxs5000uboet0kjdtyqk" class="article-share-link">Share</a>
       
       
     </footer>
@@ -927,92 +979,7 @@ do{
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://mrh1s.top/2018/12/06/sbt-e6-80-bb-e7-bb-93/" data-id="cjv7wmc9g0017x0et869fr9kw" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-avl-e6-a0-91-e6-80-bb-e7-bb-93" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/12/06/avl-e6-a0-91-e6-80-bb-e7-bb-93/" class="article-date">
-  <time datetime="2018-12-06T15:46:59.000Z" itemprop="datePublished">2018-12-06</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/c-plus-plus-2016/">c_plus_plus_2016</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/12/06/avl-e6-a0-91-e6-80-bb-e7-bb-93/">AVL树总结</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="AVL树总结"><a href="#AVL树总结" class="headerlink" title="AVL树总结"></a>AVL树总结</h1><p><strong>AVL树是二叉查找树的一种优化，能将链状的二叉查找树几乎平均地储存下来，从而减少搜索使用的时间。</strong>  <strong>AVL树是空树，或满足以下定义的树：</strong> <strong>1、左右子树都是AVL树；（递归定义）</strong> <strong>2、左右子树高度之差不超过1；</strong>  <strong>定义平衡因子：</strong> <strong>左子树高度-右子树高度，当平衡因子大于等于2时，我们就称这棵树不平衡，需要通过旋转让它重新平衡。</strong>  <strong>获取节点高度：</strong> <strong>       int h(int rt){</strong> <strong>       if(rt==0) return -1;//这里return-1的原因后面阐释</strong> <strong>       return no[rt].height;</strong> <strong>}</strong>  <strong>单旋转</strong> <strong>“左左”当根节点的左子树的左儿子与根节点的右儿子不平衡时</strong> <strong>我们通过单旋转使平衡树符合该树的性质</strong></p>
-<pre><code>int SingeRotateWithLeft(int x){
-    int y;
-    y=no[x].left;
-    no[x].left=no[y].right;
-    no[y].right=x;
-    no[y].height=max(h(no[y].left),h(no[y].right))+1;
-    no[x].height=max(h(no[x].left),h(no[x].right))+1;
-    return y;
-}
-</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
-<p><strong>“右右”方法类似，与左左对称</strong>  <strong>双旋转</strong> <strong>“左右”当根节点的左子树的右儿子与根节点的右儿子不平衡时</strong> <strong>旋转两次即可使这棵树平衡</strong></p>
-<pre><code>int doubleRotateWithLeft(int x){
-
-    no[x].left=SingleRotateWithRight(no[x].left);
-    return SingleRotateWithLeft(x);
-
-}
-</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
-<p><strong>“右左”同理。</strong>  <strong>插入操作：先正常插入指定结点，再判断原树是否平衡，不平衡要根据具体情况旋转使原树平衡</strong></p>
-<pre><code>int insert(int k,int rt){
-    if(rt==0)
-        rt=newNode(k);
-    else if( k&lt; no[rt].key ){
-        no[rt].left=insert(k,no[rt].left);
-        if( h(no[rt].left)-h(no[rt].right) )==2 )
-            if(k&lt;no[ no[rt].left ] .key ) rt=SingleRotateWithLeft(rt);
-            else rt= DoubleRotateWithLeft(rt)
-    }else if( k &gt; no[rt].key){
-        no[rt].right=insert(k,no[rt].right);
-        if( h(no[rt].right)-h(no[rt].left) )==2 )
-            if(k &gt; no[ no[rt].right ] .key ) rt=SingleRotateWithRight(rt);
-            else rt= DoubleRotateWithRight(rt)
-    }
-    no[rt].height = max ( h( no[rt].left ), h( no[rt].right ) ) +1;
-    return rt;
-}
-</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
-<pre><code>int newNode(int k){
-    no[cnt].height=no[cnt].left=no[cnt].right=0;
-    no[cnt].key=k;
-    return cnt++;
-}
-</code></pre><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
-<p><strong> AVL树过于复杂，但却是其他二叉搜索树变形特别是旋转的基础，删除操作实在过于复杂，本人无法理解。。。建议大家使用懒惰标记吧，不在真正意义上删除结点。</strong> <strong>说这么多 大家还是转战SBT吧QAQ</strong></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://mrh1s.top/2018/12/06/avl-e6-a0-91-e6-80-bb-e7-bb-93/" data-id="cjv7wmc91000ex0etxefi2iu9" class="article-share-link">Share</a>
+      <a data-url="http://mrh1s.top/2018/12/06/sbt-e6-80-bb-e7-bb-93/" data-id="cjv7zxxsb0019boeti77ivxa5" class="article-share-link">Share</a>
       
       
     </footer>
@@ -1066,7 +1033,7 @@ do{
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/05/">May 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/04/">April 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/03/">March 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/02/">February 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2019/01/">January 2019</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/10/">October 2018</a></li></ul>
     </div>
   </div>
 
@@ -1077,6 +1044,10 @@ do{
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2019/05/03/Migration-Success/">Migration_Success!</a>
+          </li>
         
           <li>
             <a href="/2019/04/28/bbvvmm/">bbvvmm</a>
@@ -1092,10 +1063,6 @@ do{
         
           <li>
             <a href="/2019/03/22/shinyshot/">ShinyShot!</a>
-          </li>
-        
-          <li>
-            <a href="/2019/03/21/happyvm/">HappyVM</a>
           </li>
         
       </ul>
