@@ -380,7 +380,7 @@
 这棵树的size为这棵树所有节点的个数
 每棵子树的大小不小于其兄弟的子树大小
 
-即s[right[t]]≥s[left[left[t]]],s[right[left[t]]] 且 s[left[t]]≥s[right[right[t]]], s[left[right[t]]] 如果插入结点后不满足SBT性质，那么递归修复这棵树的性质，通过旋转达到目的。  voidRight_Rotate(int &amp;t){        int k=left[t];        left[t]=rig...
+即s[right[t]]≥s[left[left[t]]],s[right[left[t]]] 且 s[left[t]]≥s[right[right[t]]], s[left[r...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -407,9 +407,7 @@
 1、左右子树都是AVL树；（递归定义） 
 2、左右子树高度之差不超过1；  
 定义平衡因子： 左子树高度-右子树高度，当平衡因子大于等于2时，我们就称这棵树不平衡，需要通过旋转让它重新平衡。
-  获取节点高度：
-        int h(int rt){        if(rt==0) return -1;//这里return-1的原因后面阐释        return no[rt].height; }  
-单旋转 “左左”当根节点...
+  获取节...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -432,7 +430,7 @@
                 <span>树状数组总结</span>
         </a>
         <div class="abstract-content">
-            树状数组总结树状数组是一个类似于线段树的树状结构，它通过存储一定区间内的元素来达到快速插入、快速求和的效果。并且可以节省时间，节省空间，减少代码量，可谓是非常优秀的一个树形结构 方格中数字代表对应数组的第几个元素,下排是a数组,其上方的是e数组,最下的二进制则是对应编号的二进制表示. 可以观察到，树状数组把一个数组内的元素进行了一定的二分，并存储某些元素的和，使树的深度达到了logn，这样不论是对于查找还是插入都进行了极大的优化       每个数所指向的元素个数为1+它的二进制末尾0的个数我们把二进制中最后一个一出现的位置叫做lowbit，每个元素指向的下一个元素为x+lowbit(x...
+            树状数组总结树状数组是一个类似于线段树的树状结构，它通过存储一定区间内的元素来达到快速插入、快速求和的效果。并且可以节省时间，节省空间，减少代码量，可谓是非常优秀的一个树形结构 方格中数字代表对应数组的第几个元素,下排是a数组,其上方的是e数组,最下的二进制则是对应编号的二进制表示. 可以观察到，树状数组把一个数组内的元素进行了一定的二分，并存储某些元...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -459,7 +457,7 @@
 
 修改一个数（加或减）
 求l到r的所有元素的和
-对于通常的题目，用一个sum[i]数组记录1~i的和，即可将任何的区间和在O(1)的时间之内求出。然而对于操作一，显然就显得很耗时间，至少会花费O(n)，由此可以看出这样的做法是有一定缺陷的，由此线段树便产生了。  线段树是一种二叉搜索树，与区间树相似，它将一个区间划分成一些单元区间，每个单元区间对应线段树中的一个叶结点。 我们从1~n的区间开始，依次往下二分加入更小的区间，直到区间长度为1  如图，这里的左闭右开区间类似于闭区间，表...
+对于通常的题目，用一个sum[i]数组记录1~i的和，即可将任何的区间和在O(1)的时间之内求出。然而对于操作一，显然就显得很耗时间，至少会花费O(n)，由此可以看出这样的做法是有一定缺陷的，由此线...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -482,7 +480,7 @@
                 <span>字典树总结</span>
         </a>
         <div class="abstract-content">
-            字典树总结在实际生活中，图书馆、书店都会遇到一种麻烦，就是不知道如何储存所有的书名，因为藏书实在是太多了。这种情形非常常见。 由此单词查找树便出现了：Trie树，是一种树形结构，是一种哈希树的变种，它通过储存大部分字符串的前缀来达到不仅是存储空间而且是查找效率的优化。 字典树的操作大致分为三种：插入字符串、查找字符串、删除字符串。  首先我们要构造一棵树。根节点编号设置为1。这个结点没有实际意义，只作为查找的起点。 注意：虽然有些结点存在，但有可能并不是由这个结点所对应的字符串所生成的。打个比方：我添加了“memset”字符串，m-&gt;e结点已经生成，但我查找“me”时，这个字符串是...
+            字典树总结在实际生活中，图书馆、书店都会遇到一种麻烦，就是不知道如何储存所有的书名，因为藏书实在是太多了。这种情形非常常见。 由此单词查找树便出现了：Trie树，是一种树形结构，是一种哈希树的变种，它通过储存大部分字符串的前缀来达到不仅是存储空间而且是查找效率的优化。 字典树的操作大致分为三种：插入字符串、查找字符串、删除字符串。  首先我们要构造一棵...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -508,10 +506,7 @@
             树形动规总结树型动规的基本方式同普通的线性动态规划，但遍历的顺序是由高深度向低深度直至根节点，通常一个树型动规包括了状态、阶段、决策、状态转移方程，找到每个题目对应的动归要素，是一个题目的难点所在。
 
 状态：程序求解到每个程度所储存的信息，通常我们需要在一开始找到适合题目的状态并进行定义。Tips：找状态可以通过确定变量，权衡变量的范围来寻找。
-阶段：就是求解动态规划的顺序，每次求解的状态都必须运用之前已经求解过的作为辅助。
-决策：选择最优解的过程，通常是求最大值，最小值等。
-状态转移方程：思考出决策后，用状态转移方程将其表达出来。
-关于求解顺序：由于树形动归的特殊性（几乎都是无向边），...
+阶段：...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -540,13 +535,7 @@
 距离：结点一直向右，直到外结点所经历的步数，每个结点距离等于右儿子的距离+1。
 左偏树的父亲结点的优先级高于儿子结点
 父亲结点的左子节点的距离大于等于右子节点的距离
-合并操作： 大体流程：递归操作，将b结点与a结点的右孩子合并，同时会将b结点的左右孩子合并……以此类推，然后根据实际情况维护左孩子与右孩子的位置顺序  伪代码：
-
-
-
-merge(a,b)//a与b都是小顶堆
-{
-If(a==null) r...
+...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -574,31 +563,7 @@ Hash函数
 数据1
 数据2
 数据3
-数据4
-数据1得分
-数据2得分
-数据3得分
-数据4得分
-平均分
-BKDRHash
-2
-0
-4774
-481
-96.55
-100
-90.95
-82.05
-92.64
-APHash
-2
-3
-4754
-493
-96.55
-88.46
-100
-51.2...
+数据...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -621,9 +586,7 @@ APHash
                 <span>离散hash优化总结</span>
         </a>
         <div class="abstract-content">
-            离散优化总结离散优化是一种常见的高效数据结构，它通过建立数据与存储结构（数组）之间（不一定）一一对应的映射关系来达到对复杂数据的优化。 离散优化最重要的一点是建立映射，对于特殊的线段、点而言，这些映射可以是对一个区间的映射，即将某段线或者某块区域映射到数组里面去，从而在计算时降低时间复杂度。 Hash优化：是对于字符串和数字的一种优化方式。它通过将数据映射到数组内的某个元素从而达到节省空间的效果。 根据hash算法的不同，可能会引起数据的碰撞，即hash(key1)==hash(key2)，会使得数据存储出现错误。有两个方法可以解决：
-
-拉链法，将hash所对密码指向链表头，每次查找元素...
+            离散优化总结离散优化是一种常见的高效数据结构，它通过建立数据与存储结构（数组）之间（不一定）一一对应的映射关系来达到对复杂数据的优化。 离散优化最重要的一点是建立映射，对于特殊的线段、点而言，这些映射可以是对一个区间的映射，即将某段线或者某块区域映射到数组里面去，从而在计算时降低时间复杂度。 Hash优化：是对于字符串和数字的一种优化方式。它通过将数据...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -729,6 +692,12 @@ APHash
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1721,22 +1690,22 @@ APHash
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-89-93-e5-8d-b0-e6-9c-88-e5-8e-86-e9-a2-98-e8-a7-a3/">打印月历题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-b1-82-e6-9c-80-e5-a4-a7-e7-bd-91-e7-bb-9c-e6-b5-81-ef-bc-88-e6-9c-80-e5-b0-8f-e5-89-b2-ef-bc-89-e6-80-bb-e7-bb-93/">求最大网络流（最小割）总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e5-8f-af-e5-b9-b6-e5-a0-86-e4-b9-8b-e5-b7-a6-e5-81-8f-e6-a0-91-e6-80-bb-e7-bb-93/">可并堆之左偏树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e5-a4-a7-e6-95-b4-e6-95-b0-e4-b9-98-e6-b3-95-e9-a2-98-e8-a7-a3/">大整数乘法题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e8-9e-ba-e6-97-8b-e7-9f-a9-e9-98-b5-e9-a2-98-e8-a7-a3/">螺旋矩阵题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e8-bf-81-e7-a7-bb-e5-ae-8c-e6-88-90-ef-bc-81/">迁移完成！</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e7-a6-bb-e6-95-a3hash-e4-bc-98-e5-8c-96-e6-80-bb-e7-bb-93/">离散hash优化总结</a>
         </li>
     
     
@@ -1751,12 +1720,22 @@ APHash
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e9-93-ba-e5-9c-b0-e6-af-af-e9-a2-98-e8-a7-a3/">铺地毯题解</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/2-e7-9a-84-e5-b9-82-e6-ac-a1-e6-96-b9-e8-a1-a8-e7-a4-ba-e9-a2-98-e8-a7-a3/">2的幂次方表示题解</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/sbt-e6-80-bb-e7-bb-93/">SBT总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e5-bc-ba-e8-bf-9e-e9-80-9a-e5-88-86-e9-87-8f-e6-80-bb-e7-bb-93/">Tarjan算法求强连通分量总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e6-97-a0-e5-90-91-e5-9b-be-e5-89-b2-e8-be-b9-e5-89-b2-e7-82-b9-e3-80-81-e6-9c-80-e8-bf-91-e5-85-ac-e5-85-b1-e7-a5-96-e5-85-88-e7-9a-84-e6-80-bb-e7-bb-93/">Tarjan算法求无向图割边割点、最近公共祖先的总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e9-93-ba-e5-9c-b0-e6-af-af-e9-a2-98-e8-a7-a3/">铺地毯题解</a>
         </li>
     
     
@@ -1771,37 +1750,17 @@ APHash
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/2-e7-9a-84-e5-b9-82-e6-ac-a1-e6-96-b9-e8-a1-a8-e7-a4-ba-e9-a2-98-e8-a7-a3/">2的幂次方表示题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-89-93-e5-8d-b0-e6-9c-88-e5-8e-86-e9-a2-98-e8-a7-a3/">打印月历题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e6-97-a0-e5-90-91-e5-9b-be-e5-89-b2-e8-be-b9-e5-89-b2-e7-82-b9-e3-80-81-e6-9c-80-e8-bf-91-e5-85-ac-e5-85-b1-e7-a5-96-e5-85-88-e7-9a-84-e6-80-bb-e7-bb-93/">Tarjan算法求无向图割边割点、最近公共祖先的总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e5-8f-af-e5-b9-b6-e5-a0-86-e4-b9-8b-e5-b7-a6-e5-81-8f-e6-a0-91-e6-80-bb-e7-bb-93/">可并堆之左偏树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e7-ba-bf-e6-ae-b5-e6-a0-91-e6-80-bb-e7-bb-93/">线段树总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-8b-93-e6-89-91-e6-8e-92-e5-ba-8f-e4-bb-a5-e5-8f-8a-e5-85-b3-e9-94-ae-e8-b7-af-e5-be-84-e6-80-bb-e7-bb-93/">拓扑排序以及关键路径总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e8-bf-81-e7-a7-bb-e5-ae-8c-e6-88-90-ef-bc-81/">迁移完成！</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-b1-82-e6-9c-80-e5-a4-a7-e7-bd-91-e7-bb-9c-e6-b5-81-ef-bc-88-e6-9c-80-e5-b0-8f-e5-89-b2-ef-bc-89-e6-80-bb-e7-bb-93/">求最大网络流（最小割）总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e8-9e-ba-e6-97-8b-e7-9f-a9-e9-98-b5-e9-a2-98-e8-a7-a3/">螺旋矩阵题解</a>
         </li>
     
     
@@ -1821,12 +1780,12 @@ APHash
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-9d-a5-e4-b8-80-e6-ac-a1-e8-bf-81-e7-a7-bb-e5-b7-a5-e4-bd-9c-e5-90-a7/">来一次迁移工作吧</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e7-a6-bb-e6-95-a3hash-e4-bc-98-e5-8c-96-e6-80-bb-e7-bb-93/">离散hash优化总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e5-bc-ba-e8-bf-9e-e9-80-9a-e5-88-86-e9-87-8f-e6-80-bb-e7-bb-93/">Tarjan算法求强连通分量总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/sbt-e6-80-bb-e7-bb-93/">SBT总结</a>
         </li>
     
     
@@ -1841,17 +1800,27 @@ APHash
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-9d-a5-e4-b8-80-e6-ac-a1-e8-bf-81-e7-a7-bb-e5-b7-a5-e4-bd-9c-e5-90-a7/">来一次迁移工作吧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-8b-93-e6-89-91-e6-8e-92-e5-ba-8f-e4-bb-a5-e5-8f-8a-e5-85-b3-e9-94-ae-e8-b7-af-e5-be-84-e6-80-bb-e7-bb-93/">拓扑排序以及关键路径总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e7-bd-91-e7-bb-9c-e5-ae-89-e5-85-a8-e8-af-be-e7-ac-94-e8-ae-b0-of-shijie-zhou/">网络安全课笔记 of Shijie Zhou #1</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/2018/12/01/our-16bits-wars/">Our 16bits wars</a>
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/2018/12/01/some-boxes/">Some Boxes</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/2018/12/01/some-boxes/">Some Boxes</a>
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/2018/12/01/our-16bits-wars/">Our 16bits wars</a>
         </li>
     
     
@@ -1879,9 +1848,9 @@ APHash
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="RE_Dynamic"><span class="iconfont-archer">&#xe606;</span>RE_Dynamic</span>
-    
         <span class="sidebar-tag-name" data-tags="RE_Static"><span class="iconfont-archer">&#xe606;</span>RE_Static</span>
+    
+        <span class="sidebar-tag-name" data-tags="RE_Dynamic"><span class="iconfont-archer">&#xe606;</span>RE_Dynamic</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -1922,9 +1891,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
     
-        <span class="sidebar-category-name" data-categories="cnss_recruit_201809"><span class="iconfont-archer">&#xe60a;</span>write-up/cnss-recruit-201809</span>
-    
         <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
+    
+        <span class="sidebar-category-name" data-categories="cnss_recruit_201809"><span class="iconfont-archer">&#xe60a;</span>write-up/cnss-recruit-201809</span>
     
         <span class="sidebar-category-name" data-categories="notes"><span class="iconfont-archer">&#xe60a;</span>notes</span>
     

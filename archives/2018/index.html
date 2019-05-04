@@ -356,11 +356,7 @@
 
 第一步是在其他电脑上下载老毛桃装机软件，制作U盘镜像 第二步将U盘插入电脑，设置U盘引导启动 便会进入PE维护系统 首先新硬盘是没有分区的，我们打开disk genious
   
-选择自己的硬盘 点击快速分区，填入相关设置，一般固态硬盘分一个区就好了，机械硬盘可以多分几个区，方便分类存放文件 第三步安装Win10，老毛桃自带win10镜像下载入口，直接点击下载即可，安装至固态硬盘。
-  
-等待五分钟之后，系统安装成功，准备重启！ （这里我卡了几个小时，系统安装成功但是重启之后看不到引导，让我一脸懵逼）
-  
-最终找到原因：华硕主板需要开...
+选择自己的硬盘 点击快速分区，填入相关设置，一般固态硬盘分一个区就好了，机械硬盘可以多分几个区，方便分类存放文件 第三步安...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -388,7 +384,7 @@
 
 
 
-其中除开1065 大概就是3900的样子。不过我双十一去买U的时候U+主板降价到了1800（加上某些原因，跟卖家吵了一架然后退掉了，买了同学的二手U+华硕primeM360-K，1400元） 三星PM961听说售后不太好，正好双十一的时候int...
+其中...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -415,13 +411,7 @@
 大一上C语言期末作业 动态链表真的好烦啊 这次主要纠正了自己的一个错误思想 一个链表的链表头是一个指针，而不是一个结点 所以，每次操作一个链表的时候，要传入指针的指针 才能达到修改第一个结点的目的 GoodList *Head; //这是指向链表头的指针 Change(&amp;Head); //传入指针的指针
 
 实验报告
-#include &lt;stdlib.h&gt;
-#include &lt;stdio.h&gt;
-#include &lt;string.h&gt;
-#include &lt;ctype.h&gt;
-#include &lt;stdbool.h&gt;
-
-#de...
+#include &lt;...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -444,7 +434,7 @@
                 <span>网络安全课笔记 of Shijie Zhou #2</span>
         </a>
         <div class="abstract-content">
-            密码学的应用安全多方计算： ​ y=f( x1 , x2 , … , xn) 在不告诉其他人自己的输入内容的情况下计算出结果的方法 ​ 目前无解，难题 ​ 但有特例：两方安全计算问题 ​ 百万富翁难题，n1，n2如何在双方不知道对方数值的情况下比较这两个数的大小关系 ​ 解决方法：1.基于RSA的方案 2.可信第三方（P2P对等网络/BlockChain） 密钥交换： 基础：数学难题（安全性基于假设，没有严格的数学证明，归约的思想） DH密钥交换 ​ y=(g^x)mod n 很容易， 但反函数很困难（离散对数问题） k=g^(x+y) ​ 但容易遭受中间人攻击 安全协议： 语法、语义、...
+            密码学的应用安全多方计算： ​ y=f( x1 , x2 , … , xn) 在不告诉其他人自己的输入内容的情况下计算出结果的方法 ​ 目前无解，难题 ​ 但有特例：两方安全计算问题 ​ 百万富翁难题，n1，n2如何在双方不知道对方数值的情况下比较这两个数的大小关系 ​ 解决方法：1.基于RSA的方案 2.可信第三方（P2P对等网络/BlockChai...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -496,7 +486,7 @@
 这棵树的size为这棵树所有节点的个数
 每棵子树的大小不小于其兄弟的子树大小
 
-即s[right[t]]≥s[left[left[t]]],s[right[left[t]]] 且 s[left[t]]≥s[right[right[t]]], s[left[right[t]]] 如果插入结点后不满足SBT性质，那么递归修复这棵树的性质，通过旋转达到目的。  voidRight_Rotate(int &amp;t){        int k=left[t];        left[t]=rig...
+即s[right[t]]≥s[left[left[t]]],s[right[left[t]]] 且 s[left[t]]≥s[right[right[t]]], s[left[r...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -523,9 +513,7 @@
 1、左右子树都是AVL树；（递归定义） 
 2、左右子树高度之差不超过1；  
 定义平衡因子： 左子树高度-右子树高度，当平衡因子大于等于2时，我们就称这棵树不平衡，需要通过旋转让它重新平衡。
-  获取节点高度：
-        int h(int rt){        if(rt==0) return -1;//这里return-1的原因后面阐释        return no[rt].height; }  
-单旋转 “左左”当根节点...
+  获取节...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -548,7 +536,7 @@
                 <span>树状数组总结</span>
         </a>
         <div class="abstract-content">
-            树状数组总结树状数组是一个类似于线段树的树状结构，它通过存储一定区间内的元素来达到快速插入、快速求和的效果。并且可以节省时间，节省空间，减少代码量，可谓是非常优秀的一个树形结构 方格中数字代表对应数组的第几个元素,下排是a数组,其上方的是e数组,最下的二进制则是对应编号的二进制表示. 可以观察到，树状数组把一个数组内的元素进行了一定的二分，并存储某些元素的和，使树的深度达到了logn，这样不论是对于查找还是插入都进行了极大的优化       每个数所指向的元素个数为1+它的二进制末尾0的个数我们把二进制中最后一个一出现的位置叫做lowbit，每个元素指向的下一个元素为x+lowbit(x...
+            树状数组总结树状数组是一个类似于线段树的树状结构，它通过存储一定区间内的元素来达到快速插入、快速求和的效果。并且可以节省时间，节省空间，减少代码量，可谓是非常优秀的一个树形结构 方格中数字代表对应数组的第几个元素,下排是a数组,其上方的是e数组,最下的二进制则是对应编号的二进制表示. 可以观察到，树状数组把一个数组内的元素进行了一定的二分，并存储某些元...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -575,7 +563,7 @@
 
 修改一个数（加或减）
 求l到r的所有元素的和
-对于通常的题目，用一个sum[i]数组记录1~i的和，即可将任何的区间和在O(1)的时间之内求出。然而对于操作一，显然就显得很耗时间，至少会花费O(n)，由此可以看出这样的做法是有一定缺陷的，由此线段树便产生了。  线段树是一种二叉搜索树，与区间树相似，它将一个区间划分成一些单元区间，每个单元区间对应线段树中的一个叶结点。 我们从1~n的区间开始，依次往下二分加入更小的区间，直到区间长度为1  如图，这里的左闭右开区间类似于闭区间，表...
+对于通常的题目，用一个sum[i]数组记录1~i的和，即可将任何的区间和在O(1)的时间之内求出。然而对于操作一，显然就显得很耗时间，至少会花费O(n)，由此可以看出这样的做法是有一定缺陷的，由此线...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -598,7 +586,7 @@
                 <span>字典树总结</span>
         </a>
         <div class="abstract-content">
-            字典树总结在实际生活中，图书馆、书店都会遇到一种麻烦，就是不知道如何储存所有的书名，因为藏书实在是太多了。这种情形非常常见。 由此单词查找树便出现了：Trie树，是一种树形结构，是一种哈希树的变种，它通过储存大部分字符串的前缀来达到不仅是存储空间而且是查找效率的优化。 字典树的操作大致分为三种：插入字符串、查找字符串、删除字符串。  首先我们要构造一棵树。根节点编号设置为1。这个结点没有实际意义，只作为查找的起点。 注意：虽然有些结点存在，但有可能并不是由这个结点所对应的字符串所生成的。打个比方：我添加了“memset”字符串，m-&gt;e结点已经生成，但我查找“me”时，这个字符串是...
+            字典树总结在实际生活中，图书馆、书店都会遇到一种麻烦，就是不知道如何储存所有的书名，因为藏书实在是太多了。这种情形非常常见。 由此单词查找树便出现了：Trie树，是一种树形结构，是一种哈希树的变种，它通过储存大部分字符串的前缀来达到不仅是存储空间而且是查找效率的优化。 字典树的操作大致分为三种：插入字符串、查找字符串、删除字符串。  首先我们要构造一棵...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -704,6 +692,12 @@
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1696,22 +1690,22 @@
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-89-93-e5-8d-b0-e6-9c-88-e5-8e-86-e9-a2-98-e8-a7-a3/">打印月历题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-b1-82-e6-9c-80-e5-a4-a7-e7-bd-91-e7-bb-9c-e6-b5-81-ef-bc-88-e6-9c-80-e5-b0-8f-e5-89-b2-ef-bc-89-e6-80-bb-e7-bb-93/">求最大网络流（最小割）总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e5-8f-af-e5-b9-b6-e5-a0-86-e4-b9-8b-e5-b7-a6-e5-81-8f-e6-a0-91-e6-80-bb-e7-bb-93/">可并堆之左偏树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e5-a4-a7-e6-95-b4-e6-95-b0-e4-b9-98-e6-b3-95-e9-a2-98-e8-a7-a3/">大整数乘法题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e8-9e-ba-e6-97-8b-e7-9f-a9-e9-98-b5-e9-a2-98-e8-a7-a3/">螺旋矩阵题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e8-bf-81-e7-a7-bb-e5-ae-8c-e6-88-90-ef-bc-81/">迁移完成！</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e7-a6-bb-e6-95-a3hash-e4-bc-98-e5-8c-96-e6-80-bb-e7-bb-93/">离散hash优化总结</a>
         </li>
     
     
@@ -1726,12 +1720,22 @@
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e9-93-ba-e5-9c-b0-e6-af-af-e9-a2-98-e8-a7-a3/">铺地毯题解</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/2-e7-9a-84-e5-b9-82-e6-ac-a1-e6-96-b9-e8-a1-a8-e7-a4-ba-e9-a2-98-e8-a7-a3/">2的幂次方表示题解</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/sbt-e6-80-bb-e7-bb-93/">SBT总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e5-bc-ba-e8-bf-9e-e9-80-9a-e5-88-86-e9-87-8f-e6-80-bb-e7-bb-93/">Tarjan算法求强连通分量总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e6-97-a0-e5-90-91-e5-9b-be-e5-89-b2-e8-be-b9-e5-89-b2-e7-82-b9-e3-80-81-e6-9c-80-e8-bf-91-e5-85-ac-e5-85-b1-e7-a5-96-e5-85-88-e7-9a-84-e6-80-bb-e7-bb-93/">Tarjan算法求无向图割边割点、最近公共祖先的总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e9-93-ba-e5-9c-b0-e6-af-af-e9-a2-98-e8-a7-a3/">铺地毯题解</a>
         </li>
     
     
@@ -1746,37 +1750,17 @@
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/2-e7-9a-84-e5-b9-82-e6-ac-a1-e6-96-b9-e8-a1-a8-e7-a4-ba-e9-a2-98-e8-a7-a3/">2的幂次方表示题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-89-93-e5-8d-b0-e6-9c-88-e5-8e-86-e9-a2-98-e8-a7-a3/">打印月历题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e6-97-a0-e5-90-91-e5-9b-be-e5-89-b2-e8-be-b9-e5-89-b2-e7-82-b9-e3-80-81-e6-9c-80-e8-bf-91-e5-85-ac-e5-85-b1-e7-a5-96-e5-85-88-e7-9a-84-e6-80-bb-e7-bb-93/">Tarjan算法求无向图割边割点、最近公共祖先的总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e5-8f-af-e5-b9-b6-e5-a0-86-e4-b9-8b-e5-b7-a6-e5-81-8f-e6-a0-91-e6-80-bb-e7-bb-93/">可并堆之左偏树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e7-ba-bf-e6-ae-b5-e6-a0-91-e6-80-bb-e7-bb-93/">线段树总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-8b-93-e6-89-91-e6-8e-92-e5-ba-8f-e4-bb-a5-e5-8f-8a-e5-85-b3-e9-94-ae-e8-b7-af-e5-be-84-e6-80-bb-e7-bb-93/">拓扑排序以及关键路径总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e8-bf-81-e7-a7-bb-e5-ae-8c-e6-88-90-ef-bc-81/">迁移完成！</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-b1-82-e6-9c-80-e5-a4-a7-e7-bd-91-e7-bb-9c-e6-b5-81-ef-bc-88-e6-9c-80-e5-b0-8f-e5-89-b2-ef-bc-89-e6-80-bb-e7-bb-93/">求最大网络流（最小割）总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e8-9e-ba-e6-97-8b-e7-9f-a9-e9-98-b5-e9-a2-98-e8-a7-a3/">螺旋矩阵题解</a>
         </li>
     
     
@@ -1796,12 +1780,12 @@
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-9d-a5-e4-b8-80-e6-ac-a1-e8-bf-81-e7-a7-bb-e5-b7-a5-e4-bd-9c-e5-90-a7/">来一次迁移工作吧</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e7-a6-bb-e6-95-a3hash-e4-bc-98-e5-8c-96-e6-80-bb-e7-bb-93/">离散hash优化总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e5-bc-ba-e8-bf-9e-e9-80-9a-e5-88-86-e9-87-8f-e6-80-bb-e7-bb-93/">Tarjan算法求强连通分量总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/sbt-e6-80-bb-e7-bb-93/">SBT总结</a>
         </li>
     
     
@@ -1816,17 +1800,27 @@
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-9d-a5-e4-b8-80-e6-ac-a1-e8-bf-81-e7-a7-bb-e5-b7-a5-e4-bd-9c-e5-90-a7/">来一次迁移工作吧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-8b-93-e6-89-91-e6-8e-92-e5-ba-8f-e4-bb-a5-e5-8f-8a-e5-85-b3-e9-94-ae-e8-b7-af-e5-be-84-e6-80-bb-e7-bb-93/">拓扑排序以及关键路径总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e7-bd-91-e7-bb-9c-e5-ae-89-e5-85-a8-e8-af-be-e7-ac-94-e8-ae-b0-of-shijie-zhou/">网络安全课笔记 of Shijie Zhou #1</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/2018/12/01/our-16bits-wars/">Our 16bits wars</a>
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/2018/12/01/some-boxes/">Some Boxes</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/2018/12/01/some-boxes/">Some Boxes</a>
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/2018/12/01/our-16bits-wars/">Our 16bits wars</a>
         </li>
     
     
@@ -1854,9 +1848,9 @@
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="RE_Dynamic"><span class="iconfont-archer">&#xe606;</span>RE_Dynamic</span>
-    
         <span class="sidebar-tag-name" data-tags="RE_Static"><span class="iconfont-archer">&#xe606;</span>RE_Static</span>
+    
+        <span class="sidebar-tag-name" data-tags="RE_Dynamic"><span class="iconfont-archer">&#xe606;</span>RE_Dynamic</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -1897,9 +1891,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
     
-        <span class="sidebar-category-name" data-categories="cnss_recruit_201809"><span class="iconfont-archer">&#xe60a;</span>write-up/cnss-recruit-201809</span>
-    
         <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
+    
+        <span class="sidebar-category-name" data-categories="cnss_recruit_201809"><span class="iconfont-archer">&#xe60a;</span>write-up/cnss-recruit-201809</span>
     
         <span class="sidebar-category-name" data-categories="notes"><span class="iconfont-archer">&#xe60a;</span>notes</span>
     

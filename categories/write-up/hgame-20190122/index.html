@@ -363,8 +363,7 @@
 
 程序在我们输入了一个数字之后
 执行了
-1*((_BYTE *)TopLevelExceptionFilter + (cout &gt;&gt; 3)) ^= 1 &lt;&lt; (cout &amp; 7);
-这个指令，TopLevelExceptionFilter的意义暂时不明白，大概就是一个指向某个...
+1*((_BYTE *)To...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -399,7 +398,7 @@
 
 首先逆向虚拟机的操作数，操作数无非几个操作：压栈，出栈，寄存器与内存之间的读写，寄存器与寄存器之间的赋值
 使用如下代码配合ida python获得所有操作数：
-12345678910111213141516addr = 0x400D40cnt = 0x78-0x40+1i = addrprint "********my calc********"print "********my calc********"print "********my calc********"print "********my calc*****...
+12345678910111213141516addr = 0x400D40cnt = 0x78-0x40+1i = addr...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -429,7 +428,7 @@
         </a>
         <div class="abstract-content">
             maze 迷宫题，用正确的方式走出迷宫即可，wsad分别控制上下左右
-12345678910111213141516171819202122aaa = """11111111111111111111111111111111111111111111111111111111111111111111...............111111111111111...............111    111111111111.1111111111111.111111111111111.1111111111111.111111111111111.1111111111111.11111111111...
+12345678910111213141516171819202122aaa = """11111111111111111111111111111111111111111111111111111111111111111111...............111111111111111...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -459,7 +458,7 @@
         </a>
         <div class="abstract-content">
             secend 很简单的一道题，python入门 使用如下网站进行反编译： https://tool.lu/pyc/ 得到
-123456789101112131415161718192021222324252627print "Welcome to Processor's Python Classroom Part 2!\n"print "Now let's start the origin of Python!\n"print 'Plz Input Your Flag:\n'enc = raw_input()len = len(enc)enc1 = []enc2 = ''aaa = 'i...
+123456789101112131415161718192021222324252627print "Welcome to Processor's Python Classroom Part 2!\n"print "Now let...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -491,8 +490,7 @@
             xor  题目本身难度不大，就是异或即可，但是这个地方IDA有点问题，本来程序定义了一个数组，但是IDA里面的显示为一个变量，通过计算偏移值可以算出它是数组，这个地方以后要多加注意。
 #include&lt;cstdio&gt;
 char a[50]=&quot;hgame{Y0u_mayb3_need_th1s_0ne!!!!!}&quot;;
-int b[50]={0,0,0,0,0,0,1,0,7,0,92,18,38,11,93,43,11,23,0,23,43,69,6,86,44,54,67,0,66,85,126,72,85,30};
-​​    int main(){​ ...
+in...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -521,7 +519,7 @@ int b[50]={0,0,0,0,0,0,1,0,7,0,92,18,38,11,93,43,11,23,0,23,43,69,6,86,44,54,67,
                 <span>wakarimasu</span>
         </a>
         <div class="abstract-content">
-            wakarimasu 本质是解两个矩阵，一个是乘法矩阵求逆，另外一个仅仅是矩阵的加减 由于矩阵求逆的时候存在小数精度问题，故用计算机算出来的值不会精确到整数，但是一旦你看到那个结果就一定会知道你算对了 算矩阵的网站： https://zh.numberempire.com/matrixcalculator.php https://zh.numberempire.com/matrixbinarycalculator.php A = 8 1 7 1 1 0 4 8 1 2 3 9 3 8 6 6 4 8 3 5 7 8 8 7 0 9 0 2 3 4 2 3 2 5 4 0 B = 122 ...
+            wakarimasu 本质是解两个矩阵，一个是乘法矩阵求逆，另外一个仅仅是矩阵的加减 由于矩阵求逆的时候存在小数精度问题，故用计算机算出来的值不会精确到整数，但是一旦你看到那个结果就一定会知道你算对了 算矩阵的网站： https://zh.numberempire.com/matrixcalculator.php https://zh.numberem...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -629,6 +627,12 @@ int b[50]={0,0,0,0,0,0,1,0,7,0,92,18,38,11,93,43,11,23,0,23,43,69,6,86,44,54,67,
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1621,22 +1625,22 @@ int b[50]={0,0,0,0,0,0,1,0,7,0,92,18,38,11,93,43,11,23,0,23,43,69,6,86,44,54,67,
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-89-93-e5-8d-b0-e6-9c-88-e5-8e-86-e9-a2-98-e8-a7-a3/">打印月历题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-b1-82-e6-9c-80-e5-a4-a7-e7-bd-91-e7-bb-9c-e6-b5-81-ef-bc-88-e6-9c-80-e5-b0-8f-e5-89-b2-ef-bc-89-e6-80-bb-e7-bb-93/">求最大网络流（最小割）总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e5-8f-af-e5-b9-b6-e5-a0-86-e4-b9-8b-e5-b7-a6-e5-81-8f-e6-a0-91-e6-80-bb-e7-bb-93/">可并堆之左偏树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e5-a4-a7-e6-95-b4-e6-95-b0-e4-b9-98-e6-b3-95-e9-a2-98-e8-a7-a3/">大整数乘法题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e8-9e-ba-e6-97-8b-e7-9f-a9-e9-98-b5-e9-a2-98-e8-a7-a3/">螺旋矩阵题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e8-bf-81-e7-a7-bb-e5-ae-8c-e6-88-90-ef-bc-81/">迁移完成！</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e7-a6-bb-e6-95-a3hash-e4-bc-98-e5-8c-96-e6-80-bb-e7-bb-93/">离散hash优化总结</a>
         </li>
     
     
@@ -1651,12 +1655,22 @@ int b[50]={0,0,0,0,0,0,1,0,7,0,92,18,38,11,93,43,11,23,0,23,43,69,6,86,44,54,67,
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e9-93-ba-e5-9c-b0-e6-af-af-e9-a2-98-e8-a7-a3/">铺地毯题解</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/2-e7-9a-84-e5-b9-82-e6-ac-a1-e6-96-b9-e8-a1-a8-e7-a4-ba-e9-a2-98-e8-a7-a3/">2的幂次方表示题解</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/sbt-e6-80-bb-e7-bb-93/">SBT总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e5-bc-ba-e8-bf-9e-e9-80-9a-e5-88-86-e9-87-8f-e6-80-bb-e7-bb-93/">Tarjan算法求强连通分量总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e6-97-a0-e5-90-91-e5-9b-be-e5-89-b2-e8-be-b9-e5-89-b2-e7-82-b9-e3-80-81-e6-9c-80-e8-bf-91-e5-85-ac-e5-85-b1-e7-a5-96-e5-85-88-e7-9a-84-e6-80-bb-e7-bb-93/">Tarjan算法求无向图割边割点、最近公共祖先的总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e9-93-ba-e5-9c-b0-e6-af-af-e9-a2-98-e8-a7-a3/">铺地毯题解</a>
         </li>
     
     
@@ -1671,37 +1685,17 @@ int b[50]={0,0,0,0,0,0,1,0,7,0,92,18,38,11,93,43,11,23,0,23,43,69,6,86,44,54,67,
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/2-e7-9a-84-e5-b9-82-e6-ac-a1-e6-96-b9-e8-a1-a8-e7-a4-ba-e9-a2-98-e8-a7-a3/">2的幂次方表示题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-89-93-e5-8d-b0-e6-9c-88-e5-8e-86-e9-a2-98-e8-a7-a3/">打印月历题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e6-97-a0-e5-90-91-e5-9b-be-e5-89-b2-e8-be-b9-e5-89-b2-e7-82-b9-e3-80-81-e6-9c-80-e8-bf-91-e5-85-ac-e5-85-b1-e7-a5-96-e5-85-88-e7-9a-84-e6-80-bb-e7-bb-93/">Tarjan算法求无向图割边割点、最近公共祖先的总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e5-8f-af-e5-b9-b6-e5-a0-86-e4-b9-8b-e5-b7-a6-e5-81-8f-e6-a0-91-e6-80-bb-e7-bb-93/">可并堆之左偏树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e7-ba-bf-e6-ae-b5-e6-a0-91-e6-80-bb-e7-bb-93/">线段树总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-8b-93-e6-89-91-e6-8e-92-e5-ba-8f-e4-bb-a5-e5-8f-8a-e5-85-b3-e9-94-ae-e8-b7-af-e5-be-84-e6-80-bb-e7-bb-93/">拓扑排序以及关键路径总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e8-bf-81-e7-a7-bb-e5-ae-8c-e6-88-90-ef-bc-81/">迁移完成！</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-b1-82-e6-9c-80-e5-a4-a7-e7-bd-91-e7-bb-9c-e6-b5-81-ef-bc-88-e6-9c-80-e5-b0-8f-e5-89-b2-ef-bc-89-e6-80-bb-e7-bb-93/">求最大网络流（最小割）总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e8-9e-ba-e6-97-8b-e7-9f-a9-e9-98-b5-e9-a2-98-e8-a7-a3/">螺旋矩阵题解</a>
         </li>
     
     
@@ -1721,12 +1715,12 @@ int b[50]={0,0,0,0,0,0,1,0,7,0,92,18,38,11,93,43,11,23,0,23,43,69,6,86,44,54,67,
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-9d-a5-e4-b8-80-e6-ac-a1-e8-bf-81-e7-a7-bb-e5-b7-a5-e4-bd-9c-e5-90-a7/">来一次迁移工作吧</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e7-a6-bb-e6-95-a3hash-e4-bc-98-e5-8c-96-e6-80-bb-e7-bb-93/">离散hash优化总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/tarjan-e7-ae-97-e6-b3-95-e6-b1-82-e5-bc-ba-e8-bf-9e-e9-80-9a-e5-88-86-e9-87-8f-e6-80-bb-e7-bb-93/">Tarjan算法求强连通分量总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/sbt-e6-80-bb-e7-bb-93/">SBT总结</a>
         </li>
     
     
@@ -1741,17 +1735,27 @@ int b[50]={0,0,0,0,0,0,1,0,7,0,92,18,38,11,93,43,11,23,0,23,43,69,6,86,44,54,67,
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-9d-a5-e4-b8-80-e6-ac-a1-e8-bf-81-e7-a7-bb-e5-b7-a5-e4-bd-9c-e5-90-a7/">来一次迁移工作吧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e6-8b-93-e6-89-91-e6-8e-92-e5-ba-8f-e4-bb-a5-e5-8f-8a-e5-85-b3-e9-94-ae-e8-b7-af-e5-be-84-e6-80-bb-e7-bb-93/">拓扑排序以及关键路径总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/2018/12/06/e7-bd-91-e7-bb-9c-e5-ae-89-e5-85-a8-e8-af-be-e7-ac-94-e8-ae-b0-of-shijie-zhou/">网络安全课笔记 of Shijie Zhou #1</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/2018/12/01/our-16bits-wars/">Our 16bits wars</a>
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/2018/12/01/some-boxes/">Some Boxes</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/2018/12/01/some-boxes/">Some Boxes</a>
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/2018/12/01/our-16bits-wars/">Our 16bits wars</a>
         </li>
     
     
@@ -1779,9 +1783,9 @@ int b[50]={0,0,0,0,0,0,1,0,7,0,92,18,38,11,93,43,11,23,0,23,43,69,6,86,44,54,67,
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="RE_Dynamic"><span class="iconfont-archer">&#xe606;</span>RE_Dynamic</span>
-    
         <span class="sidebar-tag-name" data-tags="RE_Static"><span class="iconfont-archer">&#xe606;</span>RE_Static</span>
+    
+        <span class="sidebar-tag-name" data-tags="RE_Dynamic"><span class="iconfont-archer">&#xe606;</span>RE_Dynamic</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -1822,9 +1826,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
     
-        <span class="sidebar-category-name" data-categories="cnss_recruit_201809"><span class="iconfont-archer">&#xe60a;</span>write-up/cnss-recruit-201809</span>
-    
         <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
+    
+        <span class="sidebar-category-name" data-categories="cnss_recruit_201809"><span class="iconfont-archer">&#xe60a;</span>write-up/cnss-recruit-201809</span>
     
         <span class="sidebar-category-name" data-categories="notes"><span class="iconfont-archer">&#xe60a;</span>notes</span>
     
