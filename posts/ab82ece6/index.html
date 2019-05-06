@@ -272,7 +272,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">514</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">521</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -401,7 +401,35 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p><a href="/uploads/utf-8-ShinyShot.7z">utf-8’ ‘ShinyShot!</a></p><blockquote><p>这个程序主要是利用了smc（动态代码修改技术）</p></blockquote><blockquote><p>首先我们向程序里面输入一个数，然后这个程序利用这个数去修改了一些程序的代码</p></blockquote><blockquote><p>然后输入一个字符串，将字符串base64加密后得到的密文与程序尾所保存的字符串进行比较，如果相同，则flag正确</p></blockquote><p>程序在我们输入了一个数字之后</p><p>执行了</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*((_BYTE *)TopLevelExceptionFilter + (<span class="built_in">cout</span> &gt;&gt; <span class="number">3</span>)) ^= <span class="number">1</span> &lt;&lt; (<span class="built_in">cout</span> &amp; <span class="number">7</span>);</span><br></pre></td></tr></table></figure><p>这个指令，TopLevelExceptionFilter的意义暂时不明白，大概就是一个指向某个内存的指针，简记为T, 值为0x401000</p><p>程序把*(p + (cout &gt;&gt; 3)) 处的数据异或了一个1 &lt;&lt; (cout &amp; 7)</p><p>其实1 &lt;&lt; (cout &amp; 7)就是将1左移了几位</p><p>我们看到后面的</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">.text:004018DE EB 15             jmp     short loc_4018F5</span><br><span class="line">.text:004018E0                   ; ---------------------------------------------------------------------------</span><br><span class="line">.text:004018E0</span><br><span class="line">.text:004018E0                   loc_4018E0:                   ; CODE XREF: sub_4017AA+126↑j</span><br><span class="line">.text:004018E0 E8 A7 FE FF FF    call    sub_40178C</span><br><span class="line">.text:004018E5                   ; ---------------------------------------------------------------------------</span><br><span class="line">.text:004018E5</span><br><span class="line">.text:004018E5                   loc_4018E5:</span><br><span class="line">.text:004018E5 8D 85 40 FF FF FF lea     eax, [ebp-0C0h]</span><br><span class="line">.text:004018EB 89 44 24 04       mov     [esp+414h+var_410], eax ; char *</span><br><span class="line">.text:004018EF 8D 45 A4          lea     eax, [ebp+Buf]</span><br><span class="line">.text:004018F2 89 04 24          mov     [esp+414h+var_414], eax ; char *</span><br><span class="line">.text:004018F5</span><br><span class="line">.text:004018F5                   loc_4018F5:                   ; CODE XREF: sub_4017AA+134↑j</span><br><span class="line">.text:004018F5 E8 00 FC FF FF    call    sub_4014FA</span><br></pre></td></tr></table></figure><p>0x 004018DE jmp 15 的意义是，除开jmp 15，往后数0x15个字节，将程序运行指针设置到此处。</p><p>而sub_4014FA是一个需要两个参数的函数，没有参数的传入，函数一定不会有正确答案。</p><p>所以我们应当将 jmp 15改为jmp到传入参数的位置</p><p>经过计算jmp 5 即可，现在我们的工作是要把0x004018DF处的15修改为5</p><p>0x15 = ‭00010101‬</p><p>0x5 = 00000101</p><p>也就是把第五位的1抹掉就行了，之前那个不明意义的内存修改就是这个用处了。</p><p>num = (0x8df&lt;&lt;3) + 0x4 = 18172</p><p>后面是一个base64加密，但闲鱼本人并不是密码学选手，太菜了，所以暂时跳过。。</p><p>最后将改版的base64加密后的字符串与程序内的进行比较，得到flag</p>
+        <p><a href="/uploads/utf-8-ShinyShot.7z">utf-8’ ‘ShinyShot!</a></p>
+<blockquote>
+<p>这个程序主要是利用了smc（动态代码修改技术）</p>
+</blockquote>
+<blockquote>
+<p>首先我们向程序里面输入一个数，然后这个程序利用这个数去修改了一些程序的代码</p>
+</blockquote>
+<blockquote>
+<p>然后输入一个字符串，将字符串base64加密后得到的密文与程序尾所保存的字符串进行比较，如果相同，则flag正确</p>
+</blockquote>
+<p>程序在我们输入了一个数字之后</p>
+<p>执行了</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">*((_BYTE *)TopLevelExceptionFilter + (<span class="built_in">cout</span> &gt;&gt; <span class="number">3</span>)) ^= <span class="number">1</span> &lt;&lt; (<span class="built_in">cout</span> &amp; <span class="number">7</span>);</span><br></pre></td></tr></table></figure>
+<p>这个指令，TopLevelExceptionFilter的意义暂时不明白，大概就是一个指向某个内存的指针，简记为T, 值为0x401000</p>
+<p>程序把*(p + (cout &gt;&gt; 3)) 处的数据异或了一个1 &lt;&lt; (cout &amp; 7)</p>
+<p>其实1 &lt;&lt; (cout &amp; 7)就是将1左移了几位</p>
+<p>我们看到后面的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">.text:004018DE EB 15             jmp     short loc_4018F5</span><br><span class="line">.text:004018E0                   ; ---------------------------------------------------------------------------</span><br><span class="line">.text:004018E0</span><br><span class="line">.text:004018E0                   loc_4018E0:                   ; CODE XREF: sub_4017AA+126↑j</span><br><span class="line">.text:004018E0 E8 A7 FE FF FF    call    sub_40178C</span><br><span class="line">.text:004018E5                   ; ---------------------------------------------------------------------------</span><br><span class="line">.text:004018E5</span><br><span class="line">.text:004018E5                   loc_4018E5:</span><br><span class="line">.text:004018E5 8D 85 40 FF FF FF lea     eax, [ebp-0C0h]</span><br><span class="line">.text:004018EB 89 44 24 04       mov     [esp+414h+var_410], eax ; char *</span><br><span class="line">.text:004018EF 8D 45 A4          lea     eax, [ebp+Buf]</span><br><span class="line">.text:004018F2 89 04 24          mov     [esp+414h+var_414], eax ; char *</span><br><span class="line">.text:004018F5</span><br><span class="line">.text:004018F5                   loc_4018F5:                   ; CODE XREF: sub_4017AA+134↑j</span><br><span class="line">.text:004018F5 E8 00 FC FF FF    call    sub_4014FA</span><br></pre></td></tr></table></figure>
+<p>0x 004018DE  jmp 15 的意义是，除开jmp 15，往后数0x15个字节，将程序运行指针设置到此处。</p>
+<p>而sub_4014FA是一个需要两个参数的函数，没有参数的传入，函数一定不会有正确答案。</p>
+<p>所以我们应当将 jmp 15改为jmp到传入参数的位置</p>
+<p>经过计算jmp 5 即可，现在我们的工作是要把0x004018DF处的15修改为5</p>
+<p>0x15 = ‭00010101‬</p>
+<p>0x5   =  00000101</p>
+<p>也就是把第五位的1抹掉就行了，之前那个不明意义的内存修改就是这个用处了。</p>
+<p>num = (0x8df&lt;&lt;3) + 0x4 = 18172</p>
+<p>后面是一个base64加密，但闲鱼本人并不是密码学选手，太菜了，所以暂时跳过。。</p>
+<p>最后将改版的base64加密后的字符串与程序内的进行比较，得到flag</p>
+
     </article>
     <!-- license  -->
     
@@ -1424,20 +1452,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 50
@@ -1560,12 +1574,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e073dc73/">字典树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/80036358/">大整数乘法题解</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
         </li>
     
     
@@ -1585,16 +1609,6 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/852a3205/">线段树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
         </li>
     
@@ -1605,17 +1619,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/3598786/">逆波兰表达式题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
         </li>
     
     
@@ -1625,27 +1629,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/17525de2/">AVL树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/852a3205/">线段树总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/6c3f6e84/">字符串hash，康托展开总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
         </li>
     
     
@@ -1655,22 +1654,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/17525de2/">AVL树总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e073dc73/">字典树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
         </li>
     
     
@@ -1680,17 +1679,32 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/6c3f6e84/">字符串hash，康托展开总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/76551050/">网络安全课笔记 of Shijie Zhou #1</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/eb65a69a/">Our 16bits wars</a>
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/6dada2a6/">Some Boxes</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/6dada2a6/">Some Boxes</a>
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/eb65a69a/">Our 16bits wars</a>
         </li>
     
     
@@ -1759,17 +1773,17 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="write up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
     
-        <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
+        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
     
         <span class="sidebar-category-name" data-categories="cnss_recruit_201809"><span class="iconfont-archer">&#xe60a;</span>write-up/cnss-recruit-201809</span>
     
-        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
+        <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
     
         <span class="sidebar-category-name" data-categories="notes"><span class="iconfont-archer">&#xe60a;</span>notes</span>
     
-        <span class="sidebar-category-name" data-categories="project"><span class="iconfont-archer">&#xe60a;</span>project</span>
-    
         <span class="sidebar-category-name" data-categories="c/c++"><span class="iconfont-archer">&#xe60a;</span>c-c</span>
+    
+        <span class="sidebar-category-name" data-categories="project"><span class="iconfont-archer">&#xe60a;</span>project</span>
     
         <span class="sidebar-category-name" data-categories="hgame_20190122"><span class="iconfont-archer">&#xe60a;</span>write-up/hgame-20190122</span>
     

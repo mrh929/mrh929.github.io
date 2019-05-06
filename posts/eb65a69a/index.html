@@ -272,7 +272,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">154</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">155</span>阅读时长: <span class="post-count reading-time">1 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -401,7 +401,10 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p><a href="/uploads/our-16bit-wars.7z">download here</a></p><p>下载一个dos_box 跑一跑，发现是输入flag之后对flag进行操作，之后比较和加密的字符串是否相等 对于每一位字符p ((p&gt;&gt;3)^(p&lt;&lt;5))^0xff 与 数据表中的值相等 然后暴力枚举，爆破。</p><p>（这是char变量所以注意&amp;0xff，不然数据溢出）</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">table=[<span class="number">0xC9</span>, <span class="number">0x68</span>, <span class="number">0x8A</span>, <span class="number">0xC8</span>, <span class="number">0x6F</span>, <span class="number">0x07</span>, <span class="number">0x6</span>, <span class="number">0xF</span>, <span class="number">0x7</span>, <span class="number">0xC6</span>, <span class="number">0xEB</span>,<span class="number">0x86</span>,<span class="number">0x6E</span>,<span class="number">0x6E</span>, <span class="number">0x66</span>, <span class="number">0xAD</span>, <span class="number">0x4C</span>, <span class="number">0x8D</span>, <span class="number">0xAC</span>, <span class="number">0xEB</span>, <span class="number">0x26</span>,<span class="number">0x6E</span>, <span class="number">0xEB</span>, <span class="number">0xCC</span>, <span class="number">0xAE</span>, <span class="number">0xCD</span>, <span class="number">0x8C</span>, <span class="number">0x86</span>, <span class="number">0xAD</span>, <span class="number">0x66</span>, <span class="number">0xCD</span>,<span class="number">0x8E</span>, <span class="number">0x86</span>, <span class="number">0x8D</span>, <span class="number">0xAF</span>]</span><br><span class="line">ans=<span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0x23</span>):</span><br><span class="line">    <span class="keyword">for</span> p <span class="keyword">in</span> range(<span class="number">32</span>,<span class="number">127</span>):</span><br><span class="line">        <span class="keyword">if</span> ((p&gt;&gt;<span class="number">3</span>)^(p&lt;&lt;<span class="number">5</span>))&amp;<span class="number">0xff</span>==table[i]:</span><br><span class="line">            ans+=chr(p)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">print(ans)</span><br></pre></td></tr></table></figure>
+        <p><a href="/uploads/our-16bit-wars.7z">download here</a> </p>
+<p>下载一个dos_box 跑一跑，发现是输入flag之后对flag进行操作，之后比较和加密的字符串是否相等 对于每一位字符p ((p&gt;&gt;3)^(p&lt;&lt;5))^0xff 与 数据表中的值相等 然后暴力枚举，爆破。</p>
+<p>（这是char变量所以注意&amp;0xff，不然数据溢出）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">table=[<span class="number">0xC9</span>, <span class="number">0x68</span>, <span class="number">0x8A</span>, <span class="number">0xC8</span>, <span class="number">0x6F</span>, <span class="number">0x07</span>, <span class="number">0x6</span>, <span class="number">0xF</span>, <span class="number">0x7</span>, <span class="number">0xC6</span>, <span class="number">0xEB</span>,<span class="number">0x86</span>,<span class="number">0x6E</span>,<span class="number">0x6E</span>, <span class="number">0x66</span>, <span class="number">0xAD</span>, <span class="number">0x4C</span>, <span class="number">0x8D</span>, <span class="number">0xAC</span>, <span class="number">0xEB</span>, <span class="number">0x26</span>,<span class="number">0x6E</span>, <span class="number">0xEB</span>, <span class="number">0xCC</span>, <span class="number">0xAE</span>, <span class="number">0xCD</span>, <span class="number">0x8C</span>, <span class="number">0x86</span>, <span class="number">0xAD</span>, <span class="number">0x66</span>, <span class="number">0xCD</span>,<span class="number">0x8E</span>, <span class="number">0x86</span>, <span class="number">0x8D</span>, <span class="number">0xAF</span>]</span><br><span class="line">ans=<span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">0x23</span>):</span><br><span class="line">    <span class="keyword">for</span> p <span class="keyword">in</span> range(<span class="number">32</span>,<span class="number">127</span>):</span><br><span class="line">        <span class="keyword">if</span> ((p&gt;&gt;<span class="number">3</span>)^(p&lt;&lt;<span class="number">5</span>))&amp;<span class="number">0xff</span>==table[i]:</span><br><span class="line">            ans+=chr(p)</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">print(ans)</span><br></pre></td></tr></table></figure>
     </article>
     <!-- license  -->
     
@@ -1424,20 +1427,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 50
@@ -1560,12 +1549,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e073dc73/">字典树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/80036358/">大整数乘法题解</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
         </li>
     
     
@@ -1585,16 +1584,6 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/852a3205/">线段树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
         </li>
     
@@ -1605,17 +1594,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/3598786/">逆波兰表达式题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
         </li>
     
     
@@ -1625,27 +1604,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/17525de2/">AVL树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/852a3205/">线段树总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/6c3f6e84/">字符串hash，康托展开总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
         </li>
     
     
@@ -1655,22 +1629,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/17525de2/">AVL树总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e073dc73/">字典树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
         </li>
     
     
@@ -1680,17 +1654,32 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/6c3f6e84/">字符串hash，康托展开总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/76551050/">网络安全课笔记 of Shijie Zhou #1</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/eb65a69a/">Our 16bits wars</a>
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/6dada2a6/">Some Boxes</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/6dada2a6/">Some Boxes</a>
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/eb65a69a/">Our 16bits wars</a>
         </li>
     
     
@@ -1759,17 +1748,17 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="write up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
     
-        <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
+        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
     
         <span class="sidebar-category-name" data-categories="cnss_recruit_201809"><span class="iconfont-archer">&#xe60a;</span>write-up/cnss-recruit-201809</span>
     
-        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
+        <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
     
         <span class="sidebar-category-name" data-categories="notes"><span class="iconfont-archer">&#xe60a;</span>notes</span>
     
-        <span class="sidebar-category-name" data-categories="project"><span class="iconfont-archer">&#xe60a;</span>project</span>
-    
         <span class="sidebar-category-name" data-categories="c/c++"><span class="iconfont-archer">&#xe60a;</span>c-c</span>
+    
+        <span class="sidebar-category-name" data-categories="project"><span class="iconfont-archer">&#xe60a;</span>project</span>
     
         <span class="sidebar-category-name" data-categories="hgame_20190122"><span class="iconfont-archer">&#xe60a;</span>write-up/hgame-20190122</span>
     

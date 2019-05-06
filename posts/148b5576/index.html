@@ -395,7 +395,56 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>螺旋矩阵</p><p>(matrix.cpp)</p><p>【问题描述】</p><p>一个n行n列的螺旋矩阵可由如下方法生成：</p><p>从矩阵的左上角（第1行第1列）出发，初始时向右移动；如果前方是未曾经过的格子， 则继续前进，否则右转；重复上述操作直至经过矩阵中所有格子。根据经过顺序，在格子中依次填入1, 2, 3, … , n2，便构成了一个螺旋矩阵。</p><p>下图是一个n = 4 时的螺旋矩阵。</p><p>现给出矩阵大小n以及i和j，请你求出该矩阵中第i行第j列的数是多少。</p><p>【输入】</p><p>输入文件名为matrix.in。</p><p>输入共一行，包含三个整数n，i，j，每两个整数之间用一个空格隔开，分别表示矩阵大小、待求的数所在的行号和列号。</p><p>【输出】</p><p>输出文件名为matrix.out。</p><p>输出共一行，包含一个整数，表示相应矩阵中第i行第j列的数。</p><p>【输入输出样例】</p><p>matrix.in</p><p>matrix.out</p><p>4 2 3</p><p>14</p><p>【数据说明】</p><p>对于50%的数据，1 ≤ n ≤ 100;</p><p>对于100%的数据，1 ≤ n ≤ 30,000，1 ≤ i ≤ n，1 ≤ j ≤ n</p><p>首先看到这个题目 能想到的是数字由内而外的螺旋矩阵，就可以从内圈开始逐步模拟推出各个方框的数字，最后得出结果。</p><p>这样就可以得到规律：以左上角为坐标原点，向下为y轴正半轴，向右为x轴正半轴。</p><p>当n为偶数时，起点在(n/2+1,(n+1)/2)处。</p><p>当n为奇数时，起点在((n+1)/2, (n+1)/2)处。</p><p>那么就令int x,y为相应的数作为起点坐标，旋转规律如下：</p><p>数字递减的方向由 右 上 左 下的顺序进行旋转，每次改变方向，该点便沿此方向平移k次，然后再旋转，平移k（k=1）次，然后旋转，此时平移k+1次，以此类推，方向每改变两次，k=k+1。</p><p>运用int dir来储存方向 dir/4=1,2,3,4为每次平移的方向。</p><p>建立循环 for(int p=n;p&gt;=1;p–)</p><p>将矩阵枚举出来后，就可以输出相应点的值了。</p><p>但是本题n&lt;=30000 那么数组就要开9*10^8，既浪费空间也浪费时间，而且无法开出，所以这种方法在本题只适用前50%的数据。</p><p>那么怎么在不开数组、尽量不计算无关点的值就得出目标值呢？</p><p>通过观察，发现矩阵是由n/2层构成，每层格数相差2格，对顶角上的点的值变化也有规律，如果我们找到了目标点所在的层数，就能通过较少的平移求出答案，而不是浪费资源。</p><p>至于层数的寻找，在i,j∈n/2时是容易的，</p><p>i,j中的最小值即为层数，层数ceng=i&gt;j?j:i。</p><p>如果目标在其他位置，可通过对称的方式用相同的方法求出层数。</p><p>当i&gt;n/2 i’=1+(n-i) j同理。</p><p>接下来可求到此层左上角的点的值：</p><p>int p=1</p><p>for(int m=1;m&lt;=ceng;m++)</p><p>P+=4*(n-1);</p><p>运用刚才的平移法则，可求到相应的点。</p><p>再优化：</p><p>当j&gt;x且i=y时p(目标)=p+(j-x) ，平移判断</p><p>当i&gt;y且j=x时p(目标)=p+(i-y) ，平移 判断</p><p>当x&gt;j且i=y时p(目标)=p+(x-j) ，平移 判断</p><p>当y&gt;i且j=x时p(目标)=p+(y-i) 判断</p><p>这样就可以AC了</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	freopen(<span class="string">"matrix.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">	freopen(<span class="string">"matrix.out"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line">	<span class="keyword">int</span> n,i,j;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d %d %d"</span>,&amp;n,&amp;i,&amp;j);</span><br><span class="line">	<span class="keyword">int</span> x=j,y=i;</span><br><span class="line">	<span class="keyword">int</span> a=n/<span class="number">2</span>;</span><br><span class="line">	<span class="keyword">if</span>(n%<span class="number">2</span>==<span class="number">0</span>)<span class="comment">//判断该数属于第几行 </span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(x&gt;a)</span><br><span class="line">			x=<span class="number">1</span>+(n-x);</span><br><span class="line">		<span class="keyword">if</span>(y&gt;a)</span><br><span class="line">			y=<span class="number">1</span>+(n-y);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(x&gt;a+<span class="number">1</span>)</span><br><span class="line">			x=<span class="number">1</span>+(n-x);</span><br><span class="line">		<span class="keyword">if</span>(y&gt;a+<span class="number">1</span>)</span><br><span class="line">			y=<span class="number">1</span>+(n-y);	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">int</span> ceng=x&lt;y?x:y;</span><br><span class="line">	x=<span class="number">1</span>;y=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">int</span> p=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> m=<span class="number">1</span>;m&lt;ceng;m++)</span><br><span class="line">	&#123;</span><br><span class="line">		p+=<span class="number">4</span>*(n<span class="number">-1</span>);</span><br><span class="line">		n-=<span class="number">2</span>;</span><br><span class="line">		x++;</span><br><span class="line">		y++;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>(y==i)</span><br><span class="line">	&#123;</span><br><span class="line">		p+=j-x;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d"</span>,p);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	p+=n<span class="number">-1</span>;</span><br><span class="line">	x+=n<span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">if</span>(x==j)</span><br><span class="line">	&#123;</span><br><span class="line">		p+=i-y;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d"</span>,p);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	p+=n<span class="number">-1</span>;</span><br><span class="line">	y+=n<span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">if</span>(y==i)</span><br><span class="line">	&#123;</span><br><span class="line">		p+=x-j;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d"</span>,p);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	p+=n<span class="number">-1</span>;</span><br><span class="line">	x-=n<span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">if</span>(x==j)</span><br><span class="line">	&#123;</span><br><span class="line">		p+=y-i;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d"</span>,p);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <p>螺旋矩阵</p>
+<p>(matrix.cpp)</p>
+<p>【问题描述】</p>
+<p>一个n行n列的螺旋矩阵可由如下方法生成：</p>
+<p>从矩阵的左上角（第1行第1列）出发，初始时向右移动；如果前方是未曾经过的格子， 则继续前进，否则右转；重复上述操作直至经过矩阵中所有格子。根据经过顺序，在格子中依次填入1, 2, 3, … , n2，便构成了一个螺旋矩阵。</p>
+<p>下图是一个n = 4 时的螺旋矩阵。 </p>
+<p>现给出矩阵大小n以及i和j，请你求出该矩阵中第i行第j列的数是多少。</p>
+<p>【输入】</p>
+<p>输入文件名为matrix.in。</p>
+<p>输入共一行，包含三个整数n，i，j，每两个整数之间用一个空格隔开，分别表示矩阵大小、待求的数所在的行号和列号。</p>
+<p>【输出】</p>
+<p>输出文件名为matrix.out。</p>
+<p>输出共一行，包含一个整数，表示相应矩阵中第i行第j列的数。</p>
+<p>【输入输出样例】</p>
+<p>matrix.in</p>
+<p>matrix.out</p>
+<p>4 2 3</p>
+<p>14</p>
+<p>【数据说明】</p>
+<p>对于50%的数据，1 ≤ n ≤ 100;</p>
+<p>对于100%的数据，1 ≤ n ≤ 30,000，1 ≤ i ≤ n，1 ≤ j ≤ n</p>
+<p>首先看到这个题目 能想到的是数字由内而外的螺旋矩阵，就可以从内圈开始逐步模拟推出各个方框的数字，最后得出结果。</p>
+<p>这样就可以得到规律：以左上角为坐标原点，向下为y轴正半轴，向右为x轴正半轴。</p>
+<p>当n为偶数时，起点在(n/2+1,(n+1)/2)处。</p>
+<p>当n为奇数时，起点在((n+1)/2, (n+1)/2)处。</p>
+<p>那么就令int x,y为相应的数作为起点坐标，旋转规律如下：</p>
+<p>数字递减的方向由 右 上 左 下的顺序进行旋转，每次改变方向，该点便沿此方向平移k次，然后再旋转，平移k（k=1）次，然后旋转，此时平移k+1次，以此类推，方向每改变两次，k=k+1。</p>
+<p>运用int dir来储存方向 dir/4=1,2,3,4为每次平移的方向。</p>
+<p>建立循环 for(int p=n;p&gt;=1;p–)</p>
+<p>将矩阵枚举出来后，就可以输出相应点的值了。</p>
+<p>但是本题n&lt;=30000 那么数组就要开9*10^8，既浪费空间也浪费时间，而且无法开出，所以这种方法在本题只适用前50%的数据。</p>
+<p>那么怎么在不开数组、尽量不计算无关点的值就得出目标值呢？</p>
+<p>通过观察，发现矩阵是由n/2层构成，每层格数相差2格，对顶角上的点的值变化也有规律，如果我们找到了目标点所在的层数，就能通过较少的平移求出答案，而不是浪费资源。</p>
+<p>至于层数的寻找，在i,j∈n/2时是容易的，</p>
+<p>i,j中的最小值即为层数，层数ceng=i&gt;j?j:i。</p>
+<p>如果目标在其他位置，可通过对称的方式用相同的方法求出层数。</p>
+<p>当i&gt;n/2       i’=1+(n-i)  j同理。</p>
+<p>接下来可求到此层左上角的点的值：</p>
+<p>int p=1</p>
+<p>for(int m=1;m&lt;=ceng;m++)</p>
+<p>P+=4*(n-1);</p>
+<p>运用刚才的平移法则，可求到相应的点。</p>
+<p>再优化：</p>
+<p>当j&gt;x且i=y时p(目标)=p+(j-x) ，平移判断</p>
+<p>当i&gt;y且j=x时p(目标)=p+(i-y)  ，平移 判断</p>
+<p>当x&gt;j且i=y时p(目标)=p+(x-j) ，平移  判断</p>
+<p>当y&gt;i且j=x时p(目标)=p+(y-i)  判断</p>
+<p>这样就可以AC了</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	freopen(<span class="string">"matrix.in"</span>,<span class="string">"r"</span>,<span class="built_in">stdin</span>);</span><br><span class="line">	freopen(<span class="string">"matrix.out"</span>,<span class="string">"w"</span>,<span class="built_in">stdout</span>);</span><br><span class="line">	<span class="keyword">int</span> n,i,j;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d %d %d"</span>,&amp;n,&amp;i,&amp;j);</span><br><span class="line">	<span class="keyword">int</span> x=j,y=i;</span><br><span class="line">	<span class="keyword">int</span> a=n/<span class="number">2</span>;</span><br><span class="line">	<span class="keyword">if</span>(n%<span class="number">2</span>==<span class="number">0</span>)<span class="comment">//判断该数属于第几行 </span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(x&gt;a)</span><br><span class="line">			x=<span class="number">1</span>+(n-x);</span><br><span class="line">		<span class="keyword">if</span>(y&gt;a)</span><br><span class="line">			y=<span class="number">1</span>+(n-y);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">if</span>(x&gt;a+<span class="number">1</span>)</span><br><span class="line">			x=<span class="number">1</span>+(n-x);</span><br><span class="line">		<span class="keyword">if</span>(y&gt;a+<span class="number">1</span>)</span><br><span class="line">			y=<span class="number">1</span>+(n-y);	</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">int</span> ceng=x&lt;y?x:y;</span><br><span class="line">	x=<span class="number">1</span>;y=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">int</span> p=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> m=<span class="number">1</span>;m&lt;ceng;m++)</span><br><span class="line">	&#123;</span><br><span class="line">		p+=<span class="number">4</span>*(n<span class="number">-1</span>);</span><br><span class="line">		n-=<span class="number">2</span>;</span><br><span class="line">		x++;</span><br><span class="line">		y++;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>(y==i)</span><br><span class="line">	&#123;</span><br><span class="line">		p+=j-x;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d"</span>,p);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	p+=n<span class="number">-1</span>;</span><br><span class="line">	x+=n<span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">if</span>(x==j)</span><br><span class="line">	&#123;</span><br><span class="line">		p+=i-y;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d"</span>,p);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	p+=n<span class="number">-1</span>;</span><br><span class="line">	y+=n<span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">if</span>(y==i)</span><br><span class="line">	&#123;</span><br><span class="line">		p+=x-j;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d"</span>,p);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	p+=n<span class="number">-1</span>;</span><br><span class="line">	x-=n<span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">if</span>(x==j)</span><br><span class="line">	&#123;</span><br><span class="line">		p+=y-i;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d"</span>,p);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
     </article>
     <!-- license  -->
     
@@ -1418,20 +1467,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 50
@@ -1554,12 +1589,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e073dc73/">字典树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/80036358/">大整数乘法题解</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
         </li>
     
     
@@ -1579,16 +1624,6 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/852a3205/">线段树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
         </li>
     
@@ -1599,17 +1634,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/3598786/">逆波兰表达式题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
         </li>
     
     
@@ -1619,27 +1644,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/17525de2/">AVL树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/852a3205/">线段树总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/6c3f6e84/">字符串hash，康托展开总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
         </li>
     
     
@@ -1649,22 +1669,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/17525de2/">AVL树总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e073dc73/">字典树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
         </li>
     
     
@@ -1674,17 +1694,32 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/6c3f6e84/">字符串hash，康托展开总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/76551050/">网络安全课笔记 of Shijie Zhou #1</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/eb65a69a/">Our 16bits wars</a>
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/6dada2a6/">Some Boxes</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/6dada2a6/">Some Boxes</a>
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/eb65a69a/">Our 16bits wars</a>
         </li>
     
     
@@ -1753,17 +1788,17 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="write up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
     
-        <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
+        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
     
         <span class="sidebar-category-name" data-categories="cnss_recruit_201809"><span class="iconfont-archer">&#xe60a;</span>write-up/cnss-recruit-201809</span>
     
-        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
+        <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
     
         <span class="sidebar-category-name" data-categories="notes"><span class="iconfont-archer">&#xe60a;</span>notes</span>
     
-        <span class="sidebar-category-name" data-categories="project"><span class="iconfont-archer">&#xe60a;</span>project</span>
-    
         <span class="sidebar-category-name" data-categories="c/c++"><span class="iconfont-archer">&#xe60a;</span>c-c</span>
+    
+        <span class="sidebar-category-name" data-categories="project"><span class="iconfont-archer">&#xe60a;</span>project</span>
     
         <span class="sidebar-category-name" data-categories="hgame_20190122"><span class="iconfont-archer">&#xe60a;</span>write-up/hgame-20190122</span>
     

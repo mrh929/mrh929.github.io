@@ -403,7 +403,18 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>商用软件 <a href="https://share.weiyun.com/5pI5Fzc" target="_blank" rel="noopener"><code>Vector Magic (点我下载)</code></a> 可以将位图矢量化。</p><h2 id="要求"><a href="#要求" class="headerlink" title="要求"></a><strong>要求</strong></h2><ul><li>破除Trial版本的广告窗口与使用限制，让程序表现与购买版本完全一致。(获得基础分值)</li><li>在上一条的基础上，将程序标题改为 <code>Vector Magic Edition</code>，主界面 More Options-&gt;About Vector Magic Desktop Edition 窗口最底部显示 <code>Registered to</code> 。(获得150%基础分值)</li></ul><h2 id="破解过程"><a href="#破解过程" class="headerlink" title="破解过程"></a>破解过程</h2><p>​ 最开始的思路是把注册(activate)的过程patch掉，搞了很久玄学出不来结果，连注册成功对话框都出了，软件还是注册不成功。</p><p>​ 后发现About中有关于是否注册的字符串提示，故搜索，发现其每次会调用一个验证函数A，patch掉即可，如此一来保存功能便可以使用了。</p><p>​ 然而程序左上角仍然存在一个trial version 的窗口，这是整个破解过程中卡我最久的地方。我曾去调试了整个窗口生成的全过程，发现并没有任何判断函数参与，特别是我patch的那个验证函数A。</p><p>​ 没想到验证函数A里面还嵌套了一个验证函数B（哭 。生成广告的过程与A无关而与B有关，然而我在查看A时并没有发现该判断。这是因为<strong>ida F5把test al,al 指令识别为了某一个函数的参数</strong>，从而我没有发现if条件语句，每每想到这里我就是一阵唏嘘。tm的以后再也不用ida去调长代码了！ （真香</p><p>​ 关于更改标题，搜索字符串即可。心得：如果修改后的字符串比原来长，<strong>可以找一块空白的内存将字符串贴上去，并且改汇编代码使其指向新地址。</strong></p><h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>动态调试就是<strong>玄学</strong>，靠运气。以后做题前最好吸吸欧气^ ^</p>
+        <p>商用软件 <a href="https://share.weiyun.com/5pI5Fzc" target="_blank" rel="noopener"><code>Vector Magic (点我下载)</code></a> 可以将位图矢量化。</p>
+<h2 id="要求"><a href="#要求" class="headerlink" title="要求"></a><strong>要求</strong></h2><ul>
+<li>破除Trial版本的广告窗口与使用限制，让程序表现与购买版本完全一致。(获得基础分值)</li>
+<li>在上一条的基础上，将程序标题改为 <code>Vector Magic Edition</code>，主界面 More Options-&gt;About Vector Magic Desktop Edition 窗口最底部显示 <code>Registered to</code>  。(获得150%基础分值)</li>
+</ul>
+<h2 id="破解过程"><a href="#破解过程" class="headerlink" title="破解过程"></a>破解过程</h2><p>​    最开始的思路是把注册(activate)的过程patch掉，搞了很久玄学出不来结果，连注册成功对话框都出了，软件还是注册不成功。</p>
+<p>​    后发现About中有关于是否注册的字符串提示，故搜索，发现其每次会调用一个验证函数A，patch掉即可，如此一来保存功能便可以使用了。</p>
+<p>​    然而程序左上角仍然存在一个trial version 的窗口，这是整个破解过程中卡我最久的地方。我曾去调试了整个窗口生成的全过程，发现并没有任何判断函数参与，特别是我patch的那个验证函数A。 </p>
+<p>​    没想到验证函数A里面还嵌套了一个验证函数B（哭 。生成广告的过程与A无关而与B有关，然而我在查看A时并没有发现该判断。这是因为<strong>ida F5把test al,al 指令识别为了某一个函数的参数</strong>，从而我没有发现if条件语句，每每想到这里我就是一阵唏嘘。tm的以后再也不用ida去调长代码了！ （真香 </p>
+<p>​    关于更改标题，搜索字符串即可。心得：如果修改后的字符串比原来长，<strong>可以找一块空白的内存将字符串贴上去，并且改汇编代码使其指向新地址。</strong></p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>动态调试就是<strong>玄学</strong>，靠运气。以后做题前最好吸吸欧气^ ^</p>
+
     </article>
     <!-- license  -->
     
@@ -1426,20 +1437,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 50
@@ -1562,12 +1559,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e073dc73/">字典树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/80036358/">大整数乘法题解</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
         </li>
     
     
@@ -1587,16 +1594,6 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/852a3205/">线段树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
         </li>
     
@@ -1607,17 +1604,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/3598786/">逆波兰表达式题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
         </li>
     
     
@@ -1627,27 +1614,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/17525de2/">AVL树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/852a3205/">线段树总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/6c3f6e84/">字符串hash，康托展开总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
         </li>
     
     
@@ -1657,22 +1639,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/17525de2/">AVL树总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e073dc73/">字典树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
         </li>
     
     
@@ -1682,17 +1664,32 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/6c3f6e84/">字符串hash，康托展开总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/76551050/">网络安全课笔记 of Shijie Zhou #1</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/eb65a69a/">Our 16bits wars</a>
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/6dada2a6/">Some Boxes</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/6dada2a6/">Some Boxes</a>
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/eb65a69a/">Our 16bits wars</a>
         </li>
     
     
@@ -1761,17 +1758,17 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="write up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
     
-        <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
+        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
     
         <span class="sidebar-category-name" data-categories="cnss_recruit_201809"><span class="iconfont-archer">&#xe60a;</span>write-up/cnss-recruit-201809</span>
     
-        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
+        <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
     
         <span class="sidebar-category-name" data-categories="notes"><span class="iconfont-archer">&#xe60a;</span>notes</span>
     
-        <span class="sidebar-category-name" data-categories="project"><span class="iconfont-archer">&#xe60a;</span>project</span>
-    
         <span class="sidebar-category-name" data-categories="c/c++"><span class="iconfont-archer">&#xe60a;</span>c-c</span>
+    
+        <span class="sidebar-category-name" data-categories="project"><span class="iconfont-archer">&#xe60a;</span>project</span>
     
         <span class="sidebar-category-name" data-categories="hgame_20190122"><span class="iconfont-archer">&#xe60a;</span>write-up/hgame-20190122</span>
     

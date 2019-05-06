@@ -395,7 +395,56 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p></p><h2>14:铺地毯</h2><br>总时间限制:<p></p><p>1000ms</p><p>内存限制:</p><p>65536kB</p><p>描述</p><p>为了准备一个独特的颁奖典礼，组织者在会场的一片矩形区域（可看做是平面直角坐标系的第一象限）铺上一些矩形地毯。一共有n张地毯，编号从1到n。现在将这些地毯按照编号从小到大的顺序平行于坐标轴先后铺设，后铺的地毯覆盖在前面已经铺好的地毯之上。地毯铺设完成后，组织者想知道覆盖地面某个点的最上面的那张地毯的编号。注意：在矩形地毯边界和四个顶点上的点也算被地毯覆盖。</p><p>输入输出样例1说明：如下图，1号地毯用实线表示，2号地毯用虚线表示，3号用双实线表示，覆盖点（2，2）的最上面一张地毯是3号地毯。</p><p>输入输出样例2说明：如下图，1号地毯用实线表示，2号地毯用虚线表示，3号用双实线表示，覆盖点（4，5）的最上面一张地毯是3号地毯。</p><p>输入</p><p>输入共n+2行。<br>第一行，一个整数n，表示总共有n张地毯。<br>接下来的n行中，第i+1行表示编号i的地毯的信息，包含四个正整数a，b，g，k，每两个整数之间用一个空格隔开，分别表示铺设地毯的左下角的坐标（a，b）以及地毯在x轴和y轴方向的长度。<br>第n+2行包含两个正整数x和y，表示所求的地面的点的坐标（x，y）。</p><p>对于30%的数据，有n≤2；<br>对于50%的数据，0≤a, b, g, k≤100；<br>对于100%的数据，有0≤n≤10,000，0≤a, b, g, k≤100,000。</p><p>输出</p><p>输出共1行，一个整数，表示所求的地毯的编号；若此处没有被地毯覆盖则输出-1。</p><p>样例输入</p><p>样例 #1：</p><p>3</p><p>1 0 2 3</p><p>0 2 3 3</p><p>2 1 3 3</p><p>2 2</p><p>样例 #2：</p><p>3</p><p>1 0 2 3</p><p>0 2 3 3</p><p>2 1 3 3</p><p>4 5</p><p>样例输出</p><p>样例 #1：</p><p>3</p><p>样例 #2：</p><p>-1</p><p>来源</p><p>NOIP2011复赛 提高组 第一题</p><p>题解</p><p>根据习惯性思维，看到这道题我们通常会建一个二维数组，用二维数组的每个元素来表示各个点的地毯覆盖情况。这样的方法可行，但是效率较低，不适合数据过大的运算，本题n&lt;=10000。</p><p>仔细审题，我们发现题目所需要的仅仅是一个点的地毯覆盖情况，所以撒大网的方式并不是最优的算法。</p><p>于是就考虑对于目标点单独进行操作，题目给出了毯子左下角的坐标，也给出了毯子的长宽，通过这两组数据我们就可以求到毯子的四个角所在的坐标，然后判断该点是否存在于此范围中，然后进行操作就可以了。</p><p>先建立一个二维数组，第一个下标表示毯子的次序，第二个下标分别用1,2,3,4来表示该毯子的左下角坐标a，b 和 长宽g，k</p><p>int a[20020][4];</p><p>int log=-1</p><p>读入相应数据与目标点后，开始操作</p><p>循环判断目标点是否在相应毯子中，如果是则将负责记录的变量更新</p><p>for(int i=1;i&lt;=n;i++)</p><p>if(x&lt;=a[i][1]+a[i][3]&amp;&amp;x&gt;=a[i][1]&amp;&amp;y&lt;=a[i][2]+a[i][4]&amp;&amp;y&gt;=a[i][2])</p><p>log=i;</p><p>如果无一个毯子符合条件，则log=-1</p><p>输出，AC！</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="keyword">int</span> a[<span class="number">10001</span>][<span class="number">5</span>];</span><br><span class="line">	<span class="keyword">int</span> x,y;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d %d %d %d"</span>,&amp;a[i][<span class="number">1</span>],&amp;a[i][<span class="number">2</span>],&amp;a[i][<span class="number">3</span>],&amp;a[i][<span class="number">4</span>]);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d %d"</span>,&amp;x,&amp;y);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">int</span> <span class="built_in">log</span>=<span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">		<span class="keyword">if</span>(x&lt;=a[i][<span class="number">1</span>]+a[i][<span class="number">3</span>]&amp;&amp;x&gt;=a[i][<span class="number">1</span>]&amp;&amp;y&lt;=a[i][<span class="number">2</span>]+a[i][<span class="number">4</span>]&amp;&amp;y&gt;=a[i][<span class="number">2</span>])</span><br><span class="line">			<span class="built_in">log</span>=i;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d"</span>,<span class="built_in">log</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+        <p></p><h2>14:铺地毯</h2><br>总时间限制:<p></p>
+<p>1000ms</p>
+<p>内存限制:</p>
+<p>65536kB</p>
+<p>描述</p>
+<p>为了准备一个独特的颁奖典礼，组织者在会场的一片矩形区域（可看做是平面直角坐标系的第一象限）铺上一些矩形地毯。一共有n张地毯，编号从1到n。现在将这些地毯按照编号从小到大的顺序平行于坐标轴先后铺设，后铺的地毯覆盖在前面已经铺好的地毯之上。地毯铺设完成后，组织者想知道覆盖地面某个点的最上面的那张地毯的编号。注意：在矩形地毯边界和四个顶点上的点也算被地毯覆盖。</p>
+<p>输入输出样例1说明：如下图，1号地毯用实线表示，2号地毯用虚线表示，3号用双实线表示，覆盖点（2，2）的最上面一张地毯是3号地毯。</p>
+<p>输入输出样例2说明：如下图，1号地毯用实线表示，2号地毯用虚线表示，3号用双实线表示，覆盖点（4，5）的最上面一张地毯是3号地毯。</p>
+<p>输入</p>
+<p>输入共n+2行。<br>第一行，一个整数n，表示总共有n张地毯。<br>接下来的n行中，第i+1行表示编号i的地毯的信息，包含四个正整数a，b，g，k，每两个整数之间用一个空格隔开，分别表示铺设地毯的左下角的坐标（a，b）以及地毯在x轴和y轴方向的长度。<br>第n+2行包含两个正整数x和y，表示所求的地面的点的坐标（x，y）。</p>
+<p>对于30%的数据，有n≤2；<br>对于50%的数据，0≤a, b, g, k≤100；<br>对于100%的数据，有0≤n≤10,000，0≤a, b, g, k≤100,000。</p>
+<p>输出</p>
+<p>输出共1行，一个整数，表示所求的地毯的编号；若此处没有被地毯覆盖则输出-1。</p>
+<p>样例输入</p>
+<p>样例 #1：</p>
+<p>3</p>
+<p>1 0 2 3</p>
+<p>0 2 3 3</p>
+<p>2 1 3 3</p>
+<p>2 2</p>
+<p>样例 #2：</p>
+<p>3</p>
+<p>1 0 2 3</p>
+<p>0 2 3 3</p>
+<p>2 1 3 3</p>
+<p>4 5</p>
+<p>样例输出</p>
+<p>样例 #1：</p>
+<p>3</p>
+<p>样例 #2：</p>
+<p>-1</p>
+<p>来源</p>
+<p>NOIP2011复赛 提高组 第一题</p>
+<p>题解</p>
+<p>根据习惯性思维，看到这道题我们通常会建一个二维数组，用二维数组的每个元素来表示各个点的地毯覆盖情况。这样的方法可行，但是效率较低，不适合数据过大的运算，本题n&lt;=10000。</p>
+<p>仔细审题，我们发现题目所需要的仅仅是一个点的地毯覆盖情况，所以撒大网的方式并不是最优的算法。</p>
+<p>于是就考虑对于目标点单独进行操作，题目给出了毯子左下角的坐标，也给出了毯子的长宽，通过这两组数据我们就可以求到毯子的四个角所在的坐标，然后判断该点是否存在于此范围中，然后进行操作就可以了。</p>
+<p>先建立一个二维数组，第一个下标表示毯子的次序，第二个下标分别用1,2,3,4来表示该毯子的左下角坐标a，b 和 长宽g，k</p>
+<p>int a[20020][4];</p>
+<p>int log=-1</p>
+<p>读入相应数据与目标点后，开始操作</p>
+<p>循环判断目标点是否在相应毯子中，如果是则将负责记录的变量更新</p>
+<p>for(int i=1;i&lt;=n;i++)</p>
+<p>if(x&lt;=a[i][1]+a[i][3]&amp;&amp;x&gt;=a[i][1]&amp;&amp;y&lt;=a[i][2]+a[i][4]&amp;&amp;y&gt;=a[i][2])</p>
+<p>log=i;</p>
+<p>如果无一个毯子符合条件，则log=-1</p>
+<p>输出，AC！</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="keyword">int</span> a[<span class="number">10001</span>][<span class="number">5</span>];</span><br><span class="line">	<span class="keyword">int</span> x,y;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d %d %d %d"</span>,&amp;a[i][<span class="number">1</span>],&amp;a[i][<span class="number">2</span>],&amp;a[i][<span class="number">3</span>],&amp;a[i][<span class="number">4</span>]);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d %d"</span>,&amp;x,&amp;y);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">int</span> <span class="built_in">log</span>=<span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">		<span class="keyword">if</span>(x&lt;=a[i][<span class="number">1</span>]+a[i][<span class="number">3</span>]&amp;&amp;x&gt;=a[i][<span class="number">1</span>]&amp;&amp;y&lt;=a[i][<span class="number">2</span>]+a[i][<span class="number">4</span>]&amp;&amp;y&gt;=a[i][<span class="number">2</span>])</span><br><span class="line">			<span class="built_in">log</span>=i;</span><br><span class="line">	</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d"</span>,<span class="built_in">log</span>);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+
     </article>
     <!-- license  -->
     
@@ -1418,20 +1467,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 50
@@ -1554,12 +1589,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e073dc73/">字典树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/80036358/">大整数乘法题解</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
         </li>
     
     
@@ -1579,16 +1624,6 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/852a3205/">线段树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
         </li>
     
@@ -1599,17 +1634,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/3598786/">逆波兰表达式题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
         </li>
     
     
@@ -1619,27 +1644,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/17525de2/">AVL树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/852a3205/">线段树总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/6c3f6e84/">字符串hash，康托展开总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
         </li>
     
     
@@ -1649,22 +1669,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/17525de2/">AVL树总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e073dc73/">字典树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
         </li>
     
     
@@ -1674,17 +1694,32 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/6c3f6e84/">字符串hash，康托展开总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/76551050/">网络安全课笔记 of Shijie Zhou #1</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/eb65a69a/">Our 16bits wars</a>
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/6dada2a6/">Some Boxes</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/6dada2a6/">Some Boxes</a>
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/eb65a69a/">Our 16bits wars</a>
         </li>
     
     
@@ -1753,17 +1788,17 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="write up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
     
-        <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
+        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
     
         <span class="sidebar-category-name" data-categories="cnss_recruit_201809"><span class="iconfont-archer">&#xe60a;</span>write-up/cnss-recruit-201809</span>
     
-        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
+        <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
     
         <span class="sidebar-category-name" data-categories="notes"><span class="iconfont-archer">&#xe60a;</span>notes</span>
     
-        <span class="sidebar-category-name" data-categories="project"><span class="iconfont-archer">&#xe60a;</span>project</span>
-    
         <span class="sidebar-category-name" data-categories="c/c++"><span class="iconfont-archer">&#xe60a;</span>c-c</span>
+    
+        <span class="sidebar-category-name" data-categories="project"><span class="iconfont-archer">&#xe60a;</span>project</span>
     
         <span class="sidebar-category-name" data-categories="hgame_20190122"><span class="iconfont-archer">&#xe60a;</span>write-up/hgame-20190122</span>
     

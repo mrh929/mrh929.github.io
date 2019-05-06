@@ -266,7 +266,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">671</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">673</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -395,7 +395,42 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2>1696:逆波兰表达式</h2><p>总时间限制:</p><p>1000ms</p><p>内存限制:</p><p>65536kB</p><p>描述</p><p>逆波兰表达式是一种把运算符前置的算术表达式，例如普通的表达式2 + 3的逆波兰表示法为+ 2 3。逆波兰表达式的优点是运算符之间不必有优先级关系，也不必用括号改变运算次序，例如(2 + 3) <em>4的逆波兰表示法为</em> + 2 3 4。本题求解逆波兰表达式的值，其中运算符包括+ - * /四个。</p><p>输入</p><p>输入为一行，其中运算符和运算数之间都用空格分隔，运算数是浮点数。</p><p>输出</p><p>输出为一行，表达式的值。<br>可直接用printf(“%f\n”, v)输出表达式的值v。</p><p>样例输入</p><ul><li><ul><li>11.0 12.0 + 24.0 35.0</li></ul></li></ul><p>样例输出</p><p>1357.000000</p><p>提示</p><p>可使用atof(str)把字符串转换为一个double类型的浮点数。atof定义在math.h中。<br>此题可使用函数递归调用的方法求解。</p><p>来源</p><p>计算概论05</p><p><strong>题解：看到逆波兰表达式，首先我们要详细了解逆波兰表达式的用法。通过观察，我们可以大致明白一个逆波兰表达式是由</strong></p><p><strong>表达式=符号(+,-,*,/) + 数字1（或子表达式） + 数字2（或子表达式）</strong></p><p><strong>组成的，每个子表达式只需要两个参数的输入，所以参数的读入可以在运算时进行，以避免不知道读入数据的个数。PS：我做题时用while(getchar()!=‘ ’) scanf(“%d”,a) 做直接超时！（因为数据已经输入完成，而程序还在等待输入）</strong></p><p><strong></strong></p><p><strong>既然我们有了表达式到子表达式的过程，那么这其实是一个递归的过程，可以写一个递归的函数来处理问题。结束条件无需定义，因为每个子表达式只需两个参数，输入两个参数自动结束。</strong></p><p><strong>读入一个字符串，判断它是否为数字，如果为数字便直接以双精度形式return atof(a)，数字的判断以a[0]是否属于数字为准；如果是一个符号，就继续调用自身，获取两个参数，运算后返回。return f(x) 运算(+,-,*,/) f(x)，用switch语句判断符号。</strong></p><p><strong>大致过程如下：</strong></p><p><img src="http://img.blog.csdn.net/20160124153009539?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动">​</p><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;math.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">char</span> a[<span class="number">3000</span>];</span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">work</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%s"</span>,a);</span><br><span class="line">	<span class="keyword">int</span> len=<span class="built_in">strlen</span>(a);</span><br><span class="line">	<span class="keyword">if</span>(len==<span class="number">1</span>&amp;&amp;!(a[<span class="number">0</span>]&gt;=<span class="string">'0'</span>&amp;&amp;a[<span class="number">0</span>]&lt;=<span class="string">'9'</span>))</span><br><span class="line">		<span class="keyword">switch</span>(a[<span class="number">0</span>])</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">case</span> <span class="string">'+'</span>:<span class="keyword">return</span> work() + work();</span><br><span class="line">			<span class="keyword">case</span> <span class="string">'-'</span>:<span class="keyword">return</span> work() - work();</span><br><span class="line">			<span class="keyword">case</span> <span class="string">'*'</span>:<span class="keyword">return</span> work() * work();</span><br><span class="line">			<span class="keyword">case</span> <span class="string">'/'</span>:<span class="keyword">return</span> work() / work();</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> atof(a);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%f"</span>,work());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        <h2>1696:逆波兰表达式</h2>
+
+
+<p>总时间限制:</p>
+<p>1000ms</p>
+<p>内存限制:</p>
+<p>65536kB</p>
+<p>描述</p>
+<p>逆波兰表达式是一种把运算符前置的算术表达式，例如普通的表达式2 + 3的逆波兰表示法为+ 2 3。逆波兰表达式的优点是运算符之间不必有优先级关系，也不必用括号改变运算次序，例如(2 + 3) <em> 4的逆波兰表示法为</em> + 2 3 4。本题求解逆波兰表达式的值，其中运算符包括+ - * /四个。</p>
+<p>输入</p>
+<p>输入为一行，其中运算符和运算数之间都用空格分隔，运算数是浮点数。</p>
+<p>输出</p>
+<p>输出为一行，表达式的值。<br>可直接用printf(“%f\n”, v)输出表达式的值v。</p>
+<p>样例输入</p>
+<ul>
+<li><ul>
+<li>11.0 12.0 + 24.0 35.0</li>
+</ul>
+</li>
+</ul>
+<p>样例输出</p>
+<p>1357.000000</p>
+<p>提示</p>
+<p>可使用atof(str)把字符串转换为一个double类型的浮点数。atof定义在math.h中。<br>此题可使用函数递归调用的方法求解。</p>
+<p>来源</p>
+<p>计算概论05</p>
+<p><strong>题解：看到逆波兰表达式，首先我们要详细了解逆波兰表达式的用法。通过观察，我们可以大致明白一个逆波兰表达式是由</strong></p>
+<p><strong>表达式=符号(+,-,*,/)  + 数字1（或子表达式） +   数字2（或子表达式）</strong></p>
+<p><strong>组成的，每个子表达式只需要两个参数的输入，所以参数的读入可以在运算时进行，以避免不知道读入数据的个数。PS：我做题时用while(getchar()!=‘ ’) scanf(“%d”,a) 做直接超时！（因为数据已经输入完成，而程序还在等待输入）</strong></p>
+<p><strong> </strong></p>
+<p><strong>既然我们有了表达式到子表达式的过程，那么这其实是一个递归的过程，可以写一个递归的函数来处理问题。结束条件无需定义，因为每个子表达式只需两个参数，输入两个参数自动结束。</strong></p>
+<p><strong>      读入一个字符串，判断它是否为数字，如果为数字便直接以双精度形式return atof(a)，数字的判断以a[0]是否属于数字为准；如果是一个符号，就继续调用自身，获取两个参数，运算后返回。return f(x) 运算(+,-,*,/) f(x)，用switch语句判断符号。</strong></p>
+<p><strong>      大致过程如下：</strong></p>
+<p><img src="http://img.blog.csdn.net/20160124153009539?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center" alt><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动">​</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;math.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> n=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">char</span> a[<span class="number">3000</span>];</span><br><span class="line"><span class="function"><span class="keyword">double</span> <span class="title">work</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%s"</span>,a);</span><br><span class="line">	<span class="keyword">int</span> len=<span class="built_in">strlen</span>(a);</span><br><span class="line">	<span class="keyword">if</span>(len==<span class="number">1</span>&amp;&amp;!(a[<span class="number">0</span>]&gt;=<span class="string">'0'</span>&amp;&amp;a[<span class="number">0</span>]&lt;=<span class="string">'9'</span>))</span><br><span class="line">		<span class="keyword">switch</span>(a[<span class="number">0</span>])</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">case</span> <span class="string">'+'</span>:<span class="keyword">return</span> work() + work();</span><br><span class="line">			<span class="keyword">case</span> <span class="string">'-'</span>:<span class="keyword">return</span> work() - work();</span><br><span class="line">			<span class="keyword">case</span> <span class="string">'*'</span>:<span class="keyword">return</span> work() * work();</span><br><span class="line">			<span class="keyword">case</span> <span class="string">'/'</span>:<span class="keyword">return</span> work() / work();</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">return</span> atof(a);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%f"</span>,work());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
     </article>
     <!-- license  -->
     
@@ -1418,20 +1453,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 50
@@ -1554,12 +1575,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e073dc73/">字典树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/80036358/">大整数乘法题解</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
         </li>
     
     
@@ -1579,16 +1610,6 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/852a3205/">线段树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
         </li>
     
@@ -1599,17 +1620,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/3598786/">逆波兰表达式题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
         </li>
     
     
@@ -1619,27 +1630,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/17525de2/">AVL树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/852a3205/">线段树总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/6c3f6e84/">字符串hash，康托展开总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
         </li>
     
     
@@ -1649,22 +1655,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/17525de2/">AVL树总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e073dc73/">字典树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
         </li>
     
     
@@ -1674,17 +1680,32 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/6c3f6e84/">字符串hash，康托展开总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/76551050/">网络安全课笔记 of Shijie Zhou #1</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/eb65a69a/">Our 16bits wars</a>
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/6dada2a6/">Some Boxes</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/6dada2a6/">Some Boxes</a>
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/eb65a69a/">Our 16bits wars</a>
         </li>
     
     
@@ -1753,17 +1774,17 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="write up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
     
-        <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
+        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
     
         <span class="sidebar-category-name" data-categories="cnss_recruit_201809"><span class="iconfont-archer">&#xe60a;</span>write-up/cnss-recruit-201809</span>
     
-        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
+        <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
     
         <span class="sidebar-category-name" data-categories="notes"><span class="iconfont-archer">&#xe60a;</span>notes</span>
     
-        <span class="sidebar-category-name" data-categories="project"><span class="iconfont-archer">&#xe60a;</span>project</span>
-    
         <span class="sidebar-category-name" data-categories="c/c++"><span class="iconfont-archer">&#xe60a;</span>c-c</span>
+    
+        <span class="sidebar-category-name" data-categories="project"><span class="iconfont-archer">&#xe60a;</span>project</span>
     
         <span class="sidebar-category-name" data-categories="hgame_20190122"><span class="iconfont-archer">&#xe60a;</span>write-up/hgame-20190122</span>
     
