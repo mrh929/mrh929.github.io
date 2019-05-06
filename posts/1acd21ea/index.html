@@ -1,4 +1,401 @@
-<!DOCTYPE html><html lang="cn"><head><meta name="generator" content="Hexo 3.8.0"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no"><meta name="author" content="mrh929"><meta name="renderer" content="webkit"><meta name="copyright" content="mrh929"><meta name="keywords" content="hexo,hexo-theme,hexo-blog"><meta name="description" content="Blog"><meta http-equiv="Cache-control" content="no-cache"><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"><title>Tarjan算法求无向图割边割点、最近公共祖先的总结 · mrh929&#39;s Studio</title><style type="text/css">@font-face{font-family:Oswald-Regular;src:url(/font/Oswald-Regular.ttf)}body{margin:0}.back-top,.container,.sidebar,.site-intro-meta,.toc-wrapper,footer,header{display:none}.site-intro{position:relative;z-index:3;width:100%;overflow:hidden}.site-intro-placeholder{position:absolute;z-index:-2;top:0;left:0;width:calc(100% + 300px);height:100%;background:repeating-linear-gradient(-45deg,#444 0,#444 80px,#333 80px,#333 160px);background-position:center center;transform:translate3d(-226px,0,0);animation:gradient-move 2.5s ease-out 0s infinite}@keyframes gradient-move{0%{transform:translate3d(-226px,0,0)}100%{transform:translate3d(0,0,0)}}</style><link rel="preload" href="/css/style.css?v=20180824" as="style" onload='this.onload=null,this.rel="stylesheet"'><link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width:980px)"><link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload='this.onload=null,this.rel="stylesheet"'><script>!function(n){"use strict";n.loadCSS||(n.loadCSS=function(){});var o=loadCSS.relpreload={};if(o.support=function(){var e;try{e=n.document.createElement("link").relList.supports("preload")}catch(t){e=!1}return function(){return e}}(),o.bindMediaToggle=function(t){var e=t.media||"all";function a(){t.media=e}t.addEventListener?t.addEventListener("load",a):t.attachEvent&&t.attachEvent("onload",a),setTimeout(function(){t.rel="stylesheet",t.media="only x"}),setTimeout(a,3e3)},o.poly=function(){if(!o.support())for(var t=n.document.getElementsByTagName("link"),e=0;e<t.length;e++){var a=t[e];"preload"!==a.rel||"style"!==a.getAttribute("as")||a.getAttribute("data-loadcss")||(a.setAttribute("data-loadcss",!0),o.bindMediaToggle(a))}},!o.support()){o.poly();var t=n.setInterval(o.poly,500);n.addEventListener?n.addEventListener("load",function(){o.poly(),n.clearInterval(t)}):n.attachEvent&&n.attachEvent("onload",function(){o.poly(),n.clearInterval(t)})}"undefined"!=typeof exports?exports.loadCSS=loadCSS:n.loadCSS=loadCSS}("undefined"!=typeof global?global:this)</script><link rel="icon" href="/assets/favicon.ico"><link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script"><link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script"><link rel="preload" href="/scripts/main.js" as="script"><link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin><link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin><script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script></head><body class="post-body"><header class="header"><div class="read-progress"></div><div class="header-sidebar-menu">&#xe775;</div><div class="banner"><div class="blog-title"><a href="/">初音ミクの消失</a></div><div class="post-title"><a href="#" class="post-name">Tarjan算法求无向图割边割点、最近公共祖先的总结</a></div></div><a class="home-link" href="/">初音ミクの消失</a></header><div class="wrapper"><div class="site-intro" style="height:50vh"><div class="site-intro-placeholder"></div><div class="site-intro-img" style="background-image:url(/intro/post-bg_compressed.jpg)"></div><div class="site-intro-meta"><h1 class="intro-title">Tarjan算法求无向图割边割点、最近公共祖先的总结</h1><p class="intro-subtitle"></p><div class="post-intros"><div class="post-intro-read"><span>字数统计: <span class="post-count word-count">4k</span>阅读时长: <span class="post-count reading-time">16 min</span></span></div><div class="post-intro-meta"><span class="post-intro-calander iconfont-archer">&#xe676;</span> <span class="post-intro-time">2018/12/06</span> <span id="busuanzi_container_page_pv" class="busuanzi-pv"><span class="iconfont-archer">&#xe602;</span> <span id="busuanzi_value_page_pv"></span> </span><span class="shareWrapper"><span class="iconfont-archer shareIcon">&#xe71d;</span> <span class="shareText">Share</span><ul class="shareList"><li class="iconfont-archer share-qr" data-type="qr">&#xe75b;<div class="share-qrcode"></div></li><li class="iconfont-archer" data-type="weibo">&#xe619;</li><li class="iconfont-archer" data-type="qzone">&#xe62e;</li><li class="iconfont-archer" data-type="twitter">&#xe634;</li><li class="iconfont-archer" data-type="facebook">&#xe67a;</li></ul></span></div></div></div></div><script>var browser={versions:function(){var e=window.navigator.userAgent;return{userAgent:e,trident:-1<e.indexOf("Trident"),presto:-1<e.indexOf("Presto"),webKit:-1<e.indexOf("AppleWebKit"),gecko:-1<e.indexOf("Gecko")&&-1==e.indexOf("KHTML"),mobile:!!e.match(/AppleWebKit.*Mobile.*/),ios:!!e.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),android:-1<e.indexOf("Android")||-1<e.indexOf("Linux"),iPhone:-1<e.indexOf("iPhone")||-1<e.indexOf("Mac"),iPad:-1<e.indexOf("iPad"),webApp:-1==e.indexOf("Safari"),weixin:-1==e.indexOf("MicroMessenger"),uc:-1<e.indexOf("UCBrowser")}}()};function fontLoaded(){if(console.log("font loaded"),document.getElementsByClassName("site-intro-meta")){document.getElementsByClassName("intro-title")[0].classList.add("intro-fade-in"),document.getElementsByClassName("intro-subtitle")[0].classList.add("intro-fade-in");var e=document.getElementsByClassName("post-intros")[0];e&&e.classList.add("post-fade-in")}}function asyncCb(){browser.versions.uc?(console.log("UCBrowser"),fontLoaded()):WebFont.load({custom:{families:["Oswald-Regular"]},loading:function(){},active:function(){fontLoaded()},inactive:function(){console.log("inactive: timeout"),fontLoaded()},timeout:5e3})}function asyncErr(){console.warn("script load from CDN failed, will load local script")}function async(e,n,t){var o=document,i="script",s=o.createElement(i),a=o.getElementsByTagName(i)[0];s.src=e,n&&s.addEventListener("load",function(e){n(null,e)},!1),t&&s.addEventListener("error",function(e){t(null,e)},!1),a.parentNode.insertBefore(s,a)}console.log("userAgent:"+browser.versions.userAgent);var asyncLoadWithFallBack=function(e,n,t){var o=function(){t(),e.shift(),e.length&&async(e[0],n,o)};async(e[0],n,o)};asyncLoadWithFallBack(["https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js","https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js","/lib/webfontloader.min.js"],asyncCb,asyncErr)</script><img class="loading" src="/assets/loading.svg" style="display:block;margin:6rem auto 0 auto;width:6rem;height:6rem"><div class="container container-unloaded"><main class="main post-page"><article class="article-entry"><h1 id="无向图tarjan求割边割点、最近公共祖先总结"><a href="#无向图tarjan求割边割点、最近公共祖先总结" class="headerlink" title="无向图tarjan求割边割点、最近公共祖先总结"></a>无向图tarjan求割边割点、最近公共祖先总结</h1><p><strong>割点：删除这个点之后整个图变成不连通的两个部分的点</strong> <strong>割点集合：在一个无向图中删除该集合中的所有点，能使原图变成互不相连的连通块的点的集合</strong> <strong>点连通度：最小割点集合点数</strong> <strong>割边（桥）：类似于割点，删除一条边后会使一个连通图变得不完全连通</strong> <strong>割边集合：所有割边的集合</strong> <strong>边连通度：最小割边集合边数</strong> <strong>与有割边割点的图对应，有一种无向图，它的边连通度（或点连通度）大于1，那么我们称它为双连通分量，即删掉任意点（或边），图仍然是连通的</strong> <strong>用tarjan算法求割点</strong> <strong>原理：在一棵DFS树中</strong> <strong>根root是割顶当且仅当它至少有两个儿子</strong> <strong>其他点v是割顶当且仅当它有一个儿子u,从u或者u的后代出发没有指向v祖先(不含v)的B边,则删除v以后u和v的父亲不连通,故为割顶</strong></p><ol><li><strong>基本算法同tarjan经典算法</strong></li><li><strong>每遍历一个新的（颜色为白色）u的儿子v都记录个数</strong></li><li><p><strong>low[u]值更新后进行以下判断（前提v未被遍历过）：</strong></p></li><li><p><strong>u为树根，且儿子个数大于1</strong></p></li><li><strong>u不为树根，但low[v]&gt;=dfn[u]（说明v及其子节点都不能达到u以上的父亲节点）</strong></li></ol><p><strong>满足以上任意条件u便为割点，记录在数组里，tarjan完成后再输出（中途输出会重复）</strong> <strong>用tarjan算法求割边（桥）</strong> <strong>原理</strong> <strong>发现T边(u,v)时若发现v和它的后代不存在一条连接u或其祖先的B边,则删除(u,v)后u和v不连通,因此(u,v)为桥</strong> <strong>桥的判定算法</strong> <strong>发现T边(u, v)时若low[v]&gt;=dfn[u],则(u,v)为桥</strong></p><ol><li><strong>基本算法同tarjan经典算法</strong></li><li><strong>形参加上father，作用为记录u的父亲节点，避免在遍历v时遇到重边重新更新low[u]</strong></li><li><strong>在“v已被遍历”的位置加上判断 如果v点等于father，那么就不执行更新low[u]值</strong></li><li><p><strong>Tarjan算法结束后，遍历所有节点u及其子节点v，如果low[u]==low[v]，那么这条边就为割边</strong></p><p><strong>求点双连通分支(去掉割点之后所得的双连通分量)</strong></p></li><li><p><strong>tarjan求割点</strong></p></li><li><p><strong>每找到一个割点，将它上面的所有点弹出栈，所得的点集就是双连通分量</strong></p><p><strong>求边双连通分支</strong></p></li><li><p><strong>tarjan找桥边</strong></p></li><li><strong>删除桥边（1、2两步同时完成）</strong></li><li><p><strong>剩余各部分则为双连通分量</strong></p><p><strong>有桥的连通图，加边变成双连通图</strong></p></li><li><p><strong>tarjan找桥边并删除桥边</strong></p></li><li><strong>将点双连通分量收缩成为一个顶点</strong></li><li><strong>加回桥边，统计度为1的顶点个数</strong></li><li><p><strong>根据规律，需要加入的桥边最少为(n+1)/2条</strong></p><p><strong>最近公共祖先LCA</strong> <strong>原理：在一棵树中，父亲结点与儿子结点的最近公共祖先为父亲结点</strong></p></li><li><p><strong>建立并查集</strong></p></li><li><strong>DFS先序遍历一棵树</strong></li><li><p><strong>在每个结点上，进行以下操作：</strong></p></li><li><p><strong>涂黑该结点</strong></p></li><li><p><strong>如果有关于该结点a的询问，搜索另一询问的结点b，如果b也被涂黑，那么它们的公共祖先为b所在并查集的祖先，输出结果</strong></p><p><strong>拓展：求一棵树中两个结点的距离</strong></p></li><li><p><strong>建立dis[]数组，记录从树根到i点的距离dis[i]</strong></p></li><li><strong>则a与b的距离为</strong></li></ol><p><strong>d=dis[a]-dis[LCA]+dis[b]-dis[LCA]=dis[a]+dis[b]-2*dis[LCA]</strong></p><p><strong>Poj 1144</strong></p><p><strong>描述</strong> 一个电话线公司（简称TLC）正在建立一个新的电话线缆网络。他们连接了若干个地点分别从1到N编号。没有两个地点有相同的号码。这些线是双向的并且能使两个地点保持通讯。每个地点的线都终结于电话交换机。每个地点都有一个电话交换机。从每个地点都能通过线缆到达其他任意的地点，然而它并不需要直接连接，它可以通过若干个交换机来到达目的地。有时候某个地点供电出问题时，交换机就会停止工作。TLC的工作人员意识到，除非这个地点是不可达的，否则这种情况就会发生，它还会导致一些其它的地点不能互相通讯。在这种情况下我们会称这个地点（错误发生的地方）为critical。现在工作人员想要写一个程序找到所有critical地点的数量。帮帮他们。</p><p><strong>输入</strong> 输入文件包括若组测试数据。每一组是一个网络，每一组测试数据的第一行是地点的总数量N&lt;100.每个接下来最多N行包括一个数字表示一个地点和与它相连接的地点的数字。这些最多N行完全描述了整个网络，比如，网络中每个直接连接的两个地点被至少一行包括。一行内的所有数字都要用空格隔开。每组数据需要用单独的一个0结束。最后的块只有一行即N=0。</p><p><strong>输出</strong> 输出除了最后一个组其他每一个组的critical地点的数量，每个块用一行输出。</p><p><strong>样例输入：</strong> 5 5 1 2 3 4 0 6 2 1 3 5 4 6 2 0 0</p><p><strong>样例输出</strong> 1 2</p><p><strong>提示：</strong></p><p>你需要确定每行的结束。为了方便判断，每行的结束都没有多余的空白</p><p><strong>读入是难点，其余就是找割点的部分</strong></p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> first[<span class="number">120</span>],go[<span class="number">10000</span>],nxt[<span class="number">10000</span>],arcnum=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> dfn[<span class="number">120</span>],low[<span class="number">120</span>],idx;</span><br><span class="line"><span class="keyword">int</span> <span class="built_in">stack</span>[<span class="number">100000</span>],top,ans[<span class="number">120</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addarc</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">	nxt[arcnum]=first[a];</span><br><span class="line">	first[a]=arcnum;</span><br><span class="line">	go[arcnum++]=b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">(<span class="keyword">int</span> u)</span></span>&#123;</span><br><span class="line">	low[u]=dfn[u]=++idx;</span><br><span class="line"><span class="comment">//	stack[++top]=u;</span></span><br><span class="line">	<span class="keyword">int</span> son=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> p=first[u];p!=<span class="number">0</span>;p=nxt[p])&#123;</span><br><span class="line">		<span class="keyword">int</span> v=go[p];</span><br><span class="line">		<span class="keyword">if</span>(dfn[v]==<span class="number">0</span>)&#123;</span><br><span class="line">			tarjan(v); son++;</span><br><span class="line">			low[u]=min(low[u],low[v]);</span><br><span class="line">			<span class="keyword">if</span>((u==<span class="number">1</span>&amp;&amp;son&gt;<span class="number">1</span>)||(u!=<span class="number">1</span>&amp;&amp;low[v]&gt;=dfn[u])) ans[u]++;<span class="comment">//一定使用这种方法记录u是否为割点 </span></span><br><span class="line">		<span class="comment">//		printf("u=%d son=%d ans=%d low[v]=%d dfn[u]=%d\n",u,son,ans,low[v],dfn[u]);</span></span><br><span class="line">		&#125;<span class="keyword">else</span> low[u]=min(low[u],dfn[v]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">//	freopen("in.txt","r",stdin);</span></span><br><span class="line">	<span class="keyword">int</span> n,a,b;</span><br><span class="line">	<span class="keyword">char</span> c;</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n)!=EOF&amp;&amp;n!=<span class="number">0</span>)&#123;</span><br><span class="line">		<span class="built_in">memset</span>(first,<span class="number">0</span>,<span class="keyword">sizeof</span>(first));</span><br><span class="line">		<span class="built_in">memset</span>(dfn,<span class="number">0</span>,<span class="keyword">sizeof</span>(dfn));</span><br><span class="line">		<span class="built_in">memset</span>(low,<span class="number">0</span>,<span class="keyword">sizeof</span>(low));</span><br><span class="line">		<span class="built_in">memset</span>(ans,<span class="number">0</span>,<span class="keyword">sizeof</span>(ans));</span><br><span class="line">		arcnum=<span class="number">1</span>; top=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;a)&amp;&amp;a!=<span class="number">0</span>)&#123;</span><br><span class="line">			<span class="keyword">do</span>&#123;</span><br><span class="line">				<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;b);</span><br><span class="line">				<span class="keyword">if</span>(a==b) <span class="keyword">continue</span>;<span class="comment">//一定不考虑自环 </span></span><br><span class="line">				addarc(a,b);</span><br><span class="line">				addarc(b,a);</span><br><span class="line">				c=getchar();</span><br><span class="line">			&#125;<span class="keyword">while</span>(c!=<span class="string">'\n'</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		tarjan(<span class="number">1</span>);</span><br><span class="line">		<span class="keyword">int</span> sum=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">			<span class="keyword">if</span>(ans[i])</span><br><span class="line">				sum++;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,sum);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>​</p><p>​<br>​</p><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p><p>**POJ1523</p><p><strong>描述</strong> 考虑一下下图所示的两个网络。假设在这些网络中数据只能在两个直接连接的节点中传输。在左图网络中一个单独节点3的错误就会阻止一些其它可用节点的互相通信。节点1和2可以保持通信，4和5也是如此，但是其他的配对就无法再保持通信了。 因此3节点就是这个网络中的SinglePoint of Failure（SPF）。严格来讲，如果一个任意的不可用节点会阻止原有全通网络中至少一对可用节点保持通信，那么这就是一个SPF。注意在右图的网络中并没有这种节点。因此这个网络就没有SPF。至少有两台机器需要错误才能导致这个网络中有可用的节点对无法通信。</p><p><strong>输入</strong> 输入会包括若干网络的描述。一个网络描述会包括若干对的整数，每行一对整数来描述节点的连接情况，先后顺序是无关的，如：1 2和2 1描述了相同的连接。所有的节点编码会从1到1000.一个单独的0行来结束连接节点的列表。一个空的网络描述结束输入。输入文档中空白的行要被忽略。</p><p><strong>输出</strong> 对于每个输入的网络中，你需要输出存在的SPF节点的列表在文档中。 文档中第一个网络需要用“Network #1”来定义，第二个则是” Network #2”等等（如样例）。每个SPF节点，输出一行，方式如下方例子所示，列出节点的编号和当这个节点失效时完全连通的子网络的个数。如果网络中没有SPF节点，输出“NO SPF nodes“即可。</p><p><strong>样例输入：</strong> 1 2 5 4 3 1 3 2 3 4 3 5 0 1 2 2 3 3 4 4 5 5 1 0 1 2 2 3 3 4 4 6 6 3 2 5 5 1 0 0</p><p><strong>样例输出</strong></p><p>Network #1</p><p>SPFnode 3 leaves 2 subnets</p><p>Network #2</p><p>NoSPF nodes</p><p>Network #3 SPFnode 2 leaves 2 subnets SPFnode 3 leaves 2 subnets</p><p><strong>读入是难点，接下来是找割点，删除割点并且DFS找点双连通分量</strong></p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> first[<span class="number">1200</span>],go[<span class="number">10000</span>],nxt[<span class="number">10000</span>],arcnum=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> dfn[<span class="number">1200</span>],low[<span class="number">1200</span>],exist[<span class="number">1200</span>],rt,idx,ans[<span class="number">1200</span>];</span><br><span class="line"><span class="keyword">int</span> cut,vis[<span class="number">1200</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addarc</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">	nxt[arcnum]=first[a];</span><br><span class="line">	first[a]=arcnum;</span><br><span class="line">	go[arcnum++]=b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">(<span class="keyword">int</span> u)</span></span>&#123;</span><br><span class="line">	low[u]=dfn[u]=++idx;</span><br><span class="line">	<span class="keyword">int</span> son=<span class="number">0</span>,v;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> p=first[u];p!=<span class="number">0</span>;p=nxt[p])&#123;</span><br><span class="line">		v=go[p];</span><br><span class="line">		<span class="keyword">if</span>(dfn[v]==<span class="number">0</span>)&#123;</span><br><span class="line">			tarjan(v); son++;</span><br><span class="line">			low[u]=min(low[u],low[v]);</span><br><span class="line">			<span class="keyword">if</span>((u==rt&amp;&amp;son&gt;<span class="number">1</span>)||(u!=rt&amp;&amp;low[v]&gt;=dfn[u])) ans[u]=<span class="number">1</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span> low[u]=min(low[u],dfn[v]);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> u)</span></span>&#123;<span class="comment">//DFS找相连子网络 </span></span><br><span class="line">	<span class="keyword">if</span>(vis[u]) <span class="keyword">return</span>;</span><br><span class="line">	vis[u]=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> p=first[u];p!=<span class="number">0</span>;p=nxt[p])</span><br><span class="line">		<span class="keyword">if</span>(go[p]!=cut)</span><br><span class="line">			dfs(go[p]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">//	freopen("in.txt","r",stdin);</span></span><br><span class="line">	<span class="keyword">int</span> a,b,k=<span class="number">0</span>,cnt;</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;a))&#123;</span><br><span class="line">		<span class="keyword">if</span>(a==<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">		k++;</span><br><span class="line">		<span class="built_in">memset</span>(first,<span class="number">0</span>,<span class="keyword">sizeof</span>(first));</span><br><span class="line">		<span class="built_in">memset</span>(dfn,<span class="number">0</span>,<span class="keyword">sizeof</span>(dfn));</span><br><span class="line">		<span class="built_in">memset</span>(low,<span class="number">0</span>,<span class="keyword">sizeof</span>(low));</span><br><span class="line">		<span class="built_in">memset</span>(exist,<span class="number">0</span>,<span class="keyword">sizeof</span>(exist));</span><br><span class="line">		<span class="built_in">memset</span>(ans,<span class="number">0</span>,<span class="keyword">sizeof</span>(ans));</span><br><span class="line">		arcnum=<span class="number">1</span>; idx=<span class="number">0</span>; cnt=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">do</span>&#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;b);</span><br><span class="line">			exist[a]=exist[b]=<span class="number">1</span>;</span><br><span class="line">			<span class="keyword">if</span>(a==b) <span class="keyword">continue</span>;<span class="comment">//忽略自环 </span></span><br><span class="line">			addarc(a,b);</span><br><span class="line">			addarc(b,a);</span><br><span class="line">		&#125;<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;a)&amp;&amp;a!=<span class="number">0</span>);</span><br><span class="line">		rt=b;</span><br><span class="line">		tarjan(rt);</span><br><span class="line">		<span class="keyword">if</span>(k&gt;<span class="number">1</span>) <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"Network #%d\n"</span>,k);</span><br><span class="line">		<span class="keyword">for</span>(cut=<span class="number">1</span>;cut&lt;=<span class="number">1000</span>;cut++)</span><br><span class="line">			<span class="keyword">if</span>(exist[cut]&amp;&amp;ans[cut])&#123;</span><br><span class="line">				<span class="keyword">int</span> sum=<span class="number">0</span>;</span><br><span class="line">				<span class="built_in">memset</span>(vis,<span class="number">0</span>,<span class="keyword">sizeof</span>(vis));</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">1000</span>;i++)</span><br><span class="line">					<span class="keyword">if</span>(exist[i]&amp;&amp;!vis[i]&amp;&amp;!ans[i])<span class="comment">//一定不能遍历割点本身 </span></span><br><span class="line">						dfs(i),sum++;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">"  SPF node %d leaves %d subnets\n"</span>,cut,sum);</span><br><span class="line">				cnt++;</span><br><span class="line">			&#125;</span><br><span class="line">		<span class="keyword">if</span>(cnt==<span class="number">0</span>) <span class="built_in">printf</span>(<span class="string">"  No SPF nodes\n"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p><p><strong>POJ3177</strong></p><p><strong>描述</strong> 为了从F（1≤F≤5000）个牧场（从1到F进行编号）中的一个到达另一个牧场，Bessie和他的牛只能穿过烂苹果林。这些牛现在都累了，不想老走这个特殊的小路而是想要建一些新的小路，这样它们就有至少两种选择在任意牧场之间穿梭。在任意的两个牧场之间，它们现在至少有一条路径而他们想要至少有2条路径。 现在给出建好的R（F-1≤R≤10000）条路，每条都连接了两个不同的牧场，确定新修道路的最小数量（每个也是连接两个牧场）使得任意两个牧场之间都能有两条路连通。道路都是不同的，不会有相同的小路，即使他们在沿路的中间会碰到相同的牧场。 这里可能已经有一对牧场有超过一条小路的，并且你可能也会修一条新的另外的小路来连接相同的牧场。</p><p><strong>输入</strong> 第一行：两个空格隔开的整数：F和R 第二到第R+1行：每行包括两个空格隔开的整数，表示一些小路端点所在的牧场。</p><p><strong>输出</strong> 第一行：一个单独的整数，表述新修小道的数量</p><p><strong>样例输入</strong> 7 7 1 2 2 3 3 4 2 5 4 5 5 6 5 7</p><p><strong>样例输出</strong> 2</p><p><strong>提示</strong> 例子的解释： 一个形象化的小路： 1 2 3 +—+—+ | | | | 6 +—+—+ 4 / 5 / / 7 + 建一个从1到6和从4到7的新路可以满足条件。</p><pre><code>  1   2   3
+<!DOCTYPE html>
+<html lang="cn">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="mrh929">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="mrh929">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="Blog">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Tarjan算法求无向图割边割点、最近公共祖先的总结 · mrh929&#39;s Studio</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/">初音ミクの消失</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">Tarjan算法求无向图割边割点、最近公共祖先的总结</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href="/">初音ミクの消失</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg_compressed.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            Tarjan算法求无向图割边割点、最近公共祖先的总结
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">4k</span>阅读时长: <span class="post-count reading-time">16 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2018/12/06</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="无向图tarjan求割边割点、最近公共祖先总结"><a href="#无向图tarjan求割边割点、最近公共祖先总结" class="headerlink" title="无向图tarjan求割边割点、最近公共祖先总结"></a>无向图tarjan求割边割点、最近公共祖先总结</h1><p><strong>割点：删除这个点之后整个图变成不连通的两个部分的点</strong> <strong>割点集合：在一个无向图中删除该集合中的所有点，能使原图变成互不相连的连通块的点的集合</strong> <strong>点连通度：最小割点集合点数</strong> <strong>割边（桥）：类似于割点，删除一条边后会使一个连通图变得不完全连通</strong> <strong>割边集合：所有割边的集合</strong> <strong>边连通度：最小割边集合边数</strong> <strong>与有割边割点的图对应，有一种无向图，它的边连通度（或点连通度）大于1，那么我们称它为双连通分量，即删掉任意点（或边），图仍然是连通的</strong> <strong>用tarjan算法求割点</strong> <strong>原理：在一棵DFS树中</strong> <strong>根root是割顶当且仅当它至少有两个儿子</strong> <strong>其他点v是割顶当且仅当它有一个儿子u,从u或者u的后代出发没有指向v祖先(不含v)的B边,则删除v以后u和v的父亲不连通,故为割顶</strong></p><ol><li><strong>基本算法同tarjan经典算法</strong></li><li><strong>每遍历一个新的（颜色为白色）u的儿子v都记录个数</strong></li><li><p><strong>low[u]值更新后进行以下判断（前提v未被遍历过）：</strong></p></li><li><p><strong>u为树根，且儿子个数大于1</strong></p></li><li><strong>u不为树根，但low[v]&gt;=dfn[u]（说明v及其子节点都不能达到u以上的父亲节点）</strong></li></ol><p><strong>满足以上任意条件u便为割点，记录在数组里，tarjan完成后再输出（中途输出会重复）</strong> <strong>用tarjan算法求割边（桥）</strong> <strong>原理</strong> <strong>发现T边(u,v)时若发现v和它的后代不存在一条连接u或其祖先的B边,则删除(u,v)后u和v不连通,因此(u,v)为桥</strong> <strong>桥的判定算法</strong> <strong>发现T边(u, v)时若low[v]&gt;=dfn[u],则(u,v)为桥</strong></p><ol><li><strong>基本算法同tarjan经典算法</strong></li><li><strong>形参加上father，作用为记录u的父亲节点，避免在遍历v时遇到重边重新更新low[u]</strong></li><li><strong>在“v已被遍历”的位置加上判断 如果v点等于father，那么就不执行更新low[u]值</strong></li><li><p><strong>Tarjan算法结束后，遍历所有节点u及其子节点v，如果low[u]==low[v]，那么这条边就为割边</strong></p><p><strong>求点双连通分支(去掉割点之后所得的双连通分量)</strong></p></li><li><p><strong>tarjan求割点</strong></p></li><li><p><strong>每找到一个割点，将它上面的所有点弹出栈，所得的点集就是双连通分量</strong></p><p><strong>求边双连通分支</strong></p></li><li><p><strong>tarjan找桥边</strong></p></li><li><strong>删除桥边（1、2两步同时完成）</strong></li><li><p><strong>剩余各部分则为双连通分量</strong></p><p><strong>有桥的连通图，加边变成双连通图</strong></p></li><li><p><strong>tarjan找桥边并删除桥边</strong></p></li><li><strong>将点双连通分量收缩成为一个顶点</strong></li><li><strong>加回桥边，统计度为1的顶点个数</strong></li><li><p><strong>根据规律，需要加入的桥边最少为(n+1)/2条</strong></p><p><strong>最近公共祖先LCA</strong> <strong>原理：在一棵树中，父亲结点与儿子结点的最近公共祖先为父亲结点</strong></p></li><li><p><strong>建立并查集</strong></p></li><li><strong>DFS先序遍历一棵树</strong></li><li><p><strong>在每个结点上，进行以下操作：</strong></p></li><li><p><strong>涂黑该结点</strong></p></li><li><p><strong>如果有关于该结点a的询问，搜索另一询问的结点b，如果b也被涂黑，那么它们的公共祖先为b所在并查集的祖先，输出结果</strong></p><p><strong>拓展：求一棵树中两个结点的距离</strong></p></li><li><p><strong>建立dis[]数组，记录从树根到i点的距离dis[i]</strong></p></li><li><strong>则a与b的距离为</strong></li></ol><p><strong>d=dis[a]-dis[LCA]+dis[b]-dis[LCA]=dis[a]+dis[b]-2*dis[LCA]</strong></p><p><strong>Poj 1144</strong></p><p><strong>描述</strong> 一个电话线公司（简称TLC）正在建立一个新的电话线缆网络。他们连接了若干个地点分别从1到N编号。没有两个地点有相同的号码。这些线是双向的并且能使两个地点保持通讯。每个地点的线都终结于电话交换机。每个地点都有一个电话交换机。从每个地点都能通过线缆到达其他任意的地点，然而它并不需要直接连接，它可以通过若干个交换机来到达目的地。有时候某个地点供电出问题时，交换机就会停止工作。TLC的工作人员意识到，除非这个地点是不可达的，否则这种情况就会发生，它还会导致一些其它的地点不能互相通讯。在这种情况下我们会称这个地点（错误发生的地方）为critical。现在工作人员想要写一个程序找到所有critical地点的数量。帮帮他们。</p><p><strong>输入</strong> 输入文件包括若组测试数据。每一组是一个网络，每一组测试数据的第一行是地点的总数量N&lt;100.每个接下来最多N行包括一个数字表示一个地点和与它相连接的地点的数字。这些最多N行完全描述了整个网络，比如，网络中每个直接连接的两个地点被至少一行包括。一行内的所有数字都要用空格隔开。每组数据需要用单独的一个0结束。最后的块只有一行即N=0。</p><p><strong>输出</strong> 输出除了最后一个组其他每一个组的critical地点的数量，每个块用一行输出。</p><p><strong>样例输入：</strong> 5 5 1 2 3 4 0 6 2 1 3 5 4 6 2 0 0</p><p><strong>样例输出</strong> 1 2</p><p><strong>提示：</strong></p><p>你需要确定每行的结束。为了方便判断，每行的结束都没有多余的空白</p><p><strong>读入是难点，其余就是找割点的部分</strong></p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> first[<span class="number">120</span>],go[<span class="number">10000</span>],nxt[<span class="number">10000</span>],arcnum=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> dfn[<span class="number">120</span>],low[<span class="number">120</span>],idx;</span><br><span class="line"><span class="keyword">int</span> <span class="built_in">stack</span>[<span class="number">100000</span>],top,ans[<span class="number">120</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addarc</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">	nxt[arcnum]=first[a];</span><br><span class="line">	first[a]=arcnum;</span><br><span class="line">	go[arcnum++]=b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">(<span class="keyword">int</span> u)</span></span>&#123;</span><br><span class="line">	low[u]=dfn[u]=++idx;</span><br><span class="line"><span class="comment">//	stack[++top]=u;</span></span><br><span class="line">	<span class="keyword">int</span> son=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> p=first[u];p!=<span class="number">0</span>;p=nxt[p])&#123;</span><br><span class="line">		<span class="keyword">int</span> v=go[p];</span><br><span class="line">		<span class="keyword">if</span>(dfn[v]==<span class="number">0</span>)&#123;</span><br><span class="line">			tarjan(v); son++;</span><br><span class="line">			low[u]=min(low[u],low[v]);</span><br><span class="line">			<span class="keyword">if</span>((u==<span class="number">1</span>&amp;&amp;son&gt;<span class="number">1</span>)||(u!=<span class="number">1</span>&amp;&amp;low[v]&gt;=dfn[u])) ans[u]++;<span class="comment">//一定使用这种方法记录u是否为割点 </span></span><br><span class="line">		<span class="comment">//		printf("u=%d son=%d ans=%d low[v]=%d dfn[u]=%d\n",u,son,ans,low[v],dfn[u]);</span></span><br><span class="line">		&#125;<span class="keyword">else</span> low[u]=min(low[u],dfn[v]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">//	freopen("in.txt","r",stdin);</span></span><br><span class="line">	<span class="keyword">int</span> n,a,b;</span><br><span class="line">	<span class="keyword">char</span> c;</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n)!=EOF&amp;&amp;n!=<span class="number">0</span>)&#123;</span><br><span class="line">		<span class="built_in">memset</span>(first,<span class="number">0</span>,<span class="keyword">sizeof</span>(first));</span><br><span class="line">		<span class="built_in">memset</span>(dfn,<span class="number">0</span>,<span class="keyword">sizeof</span>(dfn));</span><br><span class="line">		<span class="built_in">memset</span>(low,<span class="number">0</span>,<span class="keyword">sizeof</span>(low));</span><br><span class="line">		<span class="built_in">memset</span>(ans,<span class="number">0</span>,<span class="keyword">sizeof</span>(ans));</span><br><span class="line">		arcnum=<span class="number">1</span>; top=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;a)&amp;&amp;a!=<span class="number">0</span>)&#123;</span><br><span class="line">			<span class="keyword">do</span>&#123;</span><br><span class="line">				<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;b);</span><br><span class="line">				<span class="keyword">if</span>(a==b) <span class="keyword">continue</span>;<span class="comment">//一定不考虑自环 </span></span><br><span class="line">				addarc(a,b);</span><br><span class="line">				addarc(b,a);</span><br><span class="line">				c=getchar();</span><br><span class="line">			&#125;<span class="keyword">while</span>(c!=<span class="string">'\n'</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		tarjan(<span class="number">1</span>);</span><br><span class="line">		<span class="keyword">int</span> sum=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">			<span class="keyword">if</span>(ans[i])</span><br><span class="line">				sum++;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,sum);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>​</p><p>​<br>​</p><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p><p>**POJ1523</p><p><strong>描述</strong> 考虑一下下图所示的两个网络。假设在这些网络中数据只能在两个直接连接的节点中传输。在左图网络中一个单独节点3的错误就会阻止一些其它可用节点的互相通信。节点1和2可以保持通信，4和5也是如此，但是其他的配对就无法再保持通信了。 因此3节点就是这个网络中的SinglePoint of Failure（SPF）。严格来讲，如果一个任意的不可用节点会阻止原有全通网络中至少一对可用节点保持通信，那么这就是一个SPF。注意在右图的网络中并没有这种节点。因此这个网络就没有SPF。至少有两台机器需要错误才能导致这个网络中有可用的节点对无法通信。</p><p><strong>输入</strong> 输入会包括若干网络的描述。一个网络描述会包括若干对的整数，每行一对整数来描述节点的连接情况，先后顺序是无关的，如：1 2和2 1描述了相同的连接。所有的节点编码会从1到1000.一个单独的0行来结束连接节点的列表。一个空的网络描述结束输入。输入文档中空白的行要被忽略。</p><p><strong>输出</strong> 对于每个输入的网络中，你需要输出存在的SPF节点的列表在文档中。 文档中第一个网络需要用“Network #1”来定义，第二个则是” Network #2”等等（如样例）。每个SPF节点，输出一行，方式如下方例子所示，列出节点的编号和当这个节点失效时完全连通的子网络的个数。如果网络中没有SPF节点，输出“NO SPF nodes“即可。</p><p><strong>样例输入：</strong> 1 2 5 4 3 1 3 2 3 4 3 5 0 1 2 2 3 3 4 4 5 5 1 0 1 2 2 3 3 4 4 6 6 3 2 5 5 1 0 0</p><p><strong>样例输出</strong></p><p>Network #1</p><p>SPFnode 3 leaves 2 subnets</p><p>Network #2</p><p>NoSPF nodes</p><p>Network #3 SPFnode 2 leaves 2 subnets SPFnode 3 leaves 2 subnets</p><p><strong>读入是难点，接下来是找割点，删除割点并且DFS找点双连通分量</strong></p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> first[<span class="number">1200</span>],go[<span class="number">10000</span>],nxt[<span class="number">10000</span>],arcnum=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> dfn[<span class="number">1200</span>],low[<span class="number">1200</span>],exist[<span class="number">1200</span>],rt,idx,ans[<span class="number">1200</span>];</span><br><span class="line"><span class="keyword">int</span> cut,vis[<span class="number">1200</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addarc</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">	nxt[arcnum]=first[a];</span><br><span class="line">	first[a]=arcnum;</span><br><span class="line">	go[arcnum++]=b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">(<span class="keyword">int</span> u)</span></span>&#123;</span><br><span class="line">	low[u]=dfn[u]=++idx;</span><br><span class="line">	<span class="keyword">int</span> son=<span class="number">0</span>,v;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> p=first[u];p!=<span class="number">0</span>;p=nxt[p])&#123;</span><br><span class="line">		v=go[p];</span><br><span class="line">		<span class="keyword">if</span>(dfn[v]==<span class="number">0</span>)&#123;</span><br><span class="line">			tarjan(v); son++;</span><br><span class="line">			low[u]=min(low[u],low[v]);</span><br><span class="line">			<span class="keyword">if</span>((u==rt&amp;&amp;son&gt;<span class="number">1</span>)||(u!=rt&amp;&amp;low[v]&gt;=dfn[u])) ans[u]=<span class="number">1</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span> low[u]=min(low[u],dfn[v]);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> u)</span></span>&#123;<span class="comment">//DFS找相连子网络 </span></span><br><span class="line">	<span class="keyword">if</span>(vis[u]) <span class="keyword">return</span>;</span><br><span class="line">	vis[u]=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> p=first[u];p!=<span class="number">0</span>;p=nxt[p])</span><br><span class="line">		<span class="keyword">if</span>(go[p]!=cut)</span><br><span class="line">			dfs(go[p]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">//	freopen("in.txt","r",stdin);</span></span><br><span class="line">	<span class="keyword">int</span> a,b,k=<span class="number">0</span>,cnt;</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;a))&#123;</span><br><span class="line">		<span class="keyword">if</span>(a==<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">		k++;</span><br><span class="line">		<span class="built_in">memset</span>(first,<span class="number">0</span>,<span class="keyword">sizeof</span>(first));</span><br><span class="line">		<span class="built_in">memset</span>(dfn,<span class="number">0</span>,<span class="keyword">sizeof</span>(dfn));</span><br><span class="line">		<span class="built_in">memset</span>(low,<span class="number">0</span>,<span class="keyword">sizeof</span>(low));</span><br><span class="line">		<span class="built_in">memset</span>(exist,<span class="number">0</span>,<span class="keyword">sizeof</span>(exist));</span><br><span class="line">		<span class="built_in">memset</span>(ans,<span class="number">0</span>,<span class="keyword">sizeof</span>(ans));</span><br><span class="line">		arcnum=<span class="number">1</span>; idx=<span class="number">0</span>; cnt=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">do</span>&#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;b);</span><br><span class="line">			exist[a]=exist[b]=<span class="number">1</span>;</span><br><span class="line">			<span class="keyword">if</span>(a==b) <span class="keyword">continue</span>;<span class="comment">//忽略自环 </span></span><br><span class="line">			addarc(a,b);</span><br><span class="line">			addarc(b,a);</span><br><span class="line">		&#125;<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;a)&amp;&amp;a!=<span class="number">0</span>);</span><br><span class="line">		rt=b;</span><br><span class="line">		tarjan(rt);</span><br><span class="line">		<span class="keyword">if</span>(k&gt;<span class="number">1</span>) <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"Network #%d\n"</span>,k);</span><br><span class="line">		<span class="keyword">for</span>(cut=<span class="number">1</span>;cut&lt;=<span class="number">1000</span>;cut++)</span><br><span class="line">			<span class="keyword">if</span>(exist[cut]&amp;&amp;ans[cut])&#123;</span><br><span class="line">				<span class="keyword">int</span> sum=<span class="number">0</span>;</span><br><span class="line">				<span class="built_in">memset</span>(vis,<span class="number">0</span>,<span class="keyword">sizeof</span>(vis));</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">1000</span>;i++)</span><br><span class="line">					<span class="keyword">if</span>(exist[i]&amp;&amp;!vis[i]&amp;&amp;!ans[i])<span class="comment">//一定不能遍历割点本身 </span></span><br><span class="line">						dfs(i),sum++;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">"  SPF node %d leaves %d subnets\n"</span>,cut,sum);</span><br><span class="line">				cnt++;</span><br><span class="line">			&#125;</span><br><span class="line">		<span class="keyword">if</span>(cnt==<span class="number">0</span>) <span class="built_in">printf</span>(<span class="string">"  No SPF nodes\n"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p><p><strong>POJ3177</strong></p><p><strong>描述</strong> 为了从F（1≤F≤5000）个牧场（从1到F进行编号）中的一个到达另一个牧场，Bessie和他的牛只能穿过烂苹果林。这些牛现在都累了，不想老走这个特殊的小路而是想要建一些新的小路，这样它们就有至少两种选择在任意牧场之间穿梭。在任意的两个牧场之间，它们现在至少有一条路径而他们想要至少有2条路径。 现在给出建好的R（F-1≤R≤10000）条路，每条都连接了两个不同的牧场，确定新修道路的最小数量（每个也是连接两个牧场）使得任意两个牧场之间都能有两条路连通。道路都是不同的，不会有相同的小路，即使他们在沿路的中间会碰到相同的牧场。 这里可能已经有一对牧场有超过一条小路的，并且你可能也会修一条新的另外的小路来连接相同的牧场。</p><p><strong>输入</strong> 第一行：两个空格隔开的整数：F和R 第二到第R+1行：每行包括两个空格隔开的整数，表示一些小路端点所在的牧场。</p><p><strong>输出</strong> 第一行：一个单独的整数，表述新修小道的数量</p><p><strong>样例输入</strong> 7 7 1 2 2 3 3 4 2 5 4 5 5 6 5 7</p><p><strong>样例输出</strong> 2</p><p><strong>提示</strong> 例子的解释： 一个形象化的小路： 1 2 3 +—+—+ | | | | 6 +—+—+ 4 / 5 / / 7 + 建一个从1到6和从4到7的新路可以满足条件。</p><pre><code>  1   2   3
 
   +---+---+  
 
@@ -15,7 +412,1336 @@
    /      :
 
 7 + - - - - 
-</code></pre><p>检查一些路径： 1 – 2: 1 –&gt; 2 and 1 –&gt; 6 –&gt; 5 –&gt; 2 1 – 4: 1 –&gt; 2 –&gt; 3 –&gt; 4 and 1 –&gt; 6 –&gt; 5 –&gt; 4 3 – 7: 3 –&gt; 4 –&gt; 7 and 3 –&gt; 2 –&gt; 5 –&gt; 7 可以看出每对牧场都是由两条路连接的 有可能加一些别的下路也能解决这个问题（比如6到7加一条道）。然而加两条已经是最小了。</p><p><strong>POJ3352</strong> <strong>描述：</strong> 夏天的建造时间到了。这一年，遥远热带小岛上的街道的管理员要修复并且升级岛上街道，这些街道连接了小岛上不同的景点。 这些街道很有意思。由于这个小岛的奇怪传统，这些街道需要被规划的没有任何十字路口，但是可以用桥和隧道来连通。在这种情况下，每条路就会在特定的景点之间连接，这样旅客就不会迷路了。 不幸的是，每条路都需要修理和升级，当建筑公司在一条特定的道路上工作时，这条道路是无法使用的。这就会导致一个问题，即使这个公司一次只修一条路，仍然有两个景点是无法访问的，。 所以，这个岛上的道路部门就决定召唤你的咨询服务来帮助他们解决这个问题。最后决定在景点之间建设新的道路。如果一条道路在建设中，这些新的道路能使任意两个景点之间仍然有路能够到达。你的任务就是找到这个新修道路的最小数量。</p><p><strong>输入</strong> 第一行的输入包括两个正整数n和r，其中3≤n≤1000是景点的数量，2≤r≤1000是道路的数量。景点则是从1到n进行标号。每个接下来的r行会包括两个整数，v和w，中间空格隔开，表示一个街道连接了标号为v和w的景点。注意街道是双向的，并且任意一对景点之间会有至多一条路直接连接它们。当然，你也要保证在现在的这个配置下，任意两个景点是连通的。</p><p><strong>输出</strong> 一行，包括一个整数，给出我们需要添加的街道的最小数量</p><p><strong>输入样例</strong> Sample Input 1 10 12 1 2 1 3 1 4 2 5 2 6 5 6 3 7 3 8 7 8 4 9 4 10 9 10 Sample Input 2 3 3 1 2 2 3 1 3</p><p><strong>输出样例</strong> Output for Sample Input 1 2 Output for Sample Input 2 0</p><p><strong>两道题完全相同，都是求有桥连通图变为双连通图所需要最少的边的个数</strong></p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN=<span class="number">5000</span>+<span class="number">20</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXM=<span class="number">10000</span>+<span class="number">20</span>;</span><br><span class="line"><span class="keyword">int</span> first[MAXN],go[MAXM],nxt[MAXM],arcnum=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> low[MAXN],dfn[MAXN],dex,cnt[MAXN],<span class="built_in">map</span>[MAXN][MAXN],sum;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addarc</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">	nxt[arcnum]=first[a];</span><br><span class="line">	first[a]=arcnum;</span><br><span class="line">	go[arcnum++]=b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> father)</span></span>&#123;</span><br><span class="line">	low[u]=dfn[u]=++dex;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> p=first[u];p!=<span class="number">0</span>;p=nxt[p])&#123;</span><br><span class="line">		<span class="keyword">int</span> v=go[p];</span><br><span class="line">		<span class="keyword">if</span>(!dfn[v])&#123;</span><br><span class="line">			tarjan(v,u);</span><br><span class="line">			low[u]=min(low[u],low[v]);</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(v!=father) low[u]=min(low[u],dfn[v]);<span class="comment">//如果引出v，而v是u的父亲，那么就不能更新low[u] </span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n,m,a,b;</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m)!=EOF)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;a,&amp;b);</span><br><span class="line">			<span class="keyword">if</span>(a==b) <span class="keyword">continue</span>;</span><br><span class="line">			<span class="keyword">if</span>(<span class="built_in">map</span>[min(a,b)][max(a,b)]) <span class="keyword">continue</span>;</span><br><span class="line">			<span class="built_in">map</span>[min(a,b)][max(a,b)]=<span class="number">1</span>;</span><br><span class="line">			addarc(a,b);</span><br><span class="line">			addarc(b,a);</span><br><span class="line">		&#125;</span><br><span class="line">		tarjan(<span class="number">1</span>,<span class="number">-1</span>);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> u=<span class="number">1</span>;u&lt;=n;u++)</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> p=first[u];p!=<span class="number">0</span>;p=nxt[p])&#123;</span><br><span class="line">				<span class="keyword">int</span> v=go[p];</span><br><span class="line">				<span class="keyword">if</span>(low[u]!=low[v])</span><br><span class="line">					cnt[low[u]]++;<span class="comment">//计算度数 </span></span><br><span class="line">			&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">			<span class="keyword">if</span>(cnt[i]==<span class="number">1</span>)</span><br><span class="line">				sum++;<span class="comment">//统计度为1的点的个数 </span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d"</span>,(sum+<span class="number">1</span>)/<span class="number">2</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>​<br>​</p><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p></article><div class="license-wrapper"><p>原文作者：<a href="http://mrh1s.top">mrh929</a></p><p>原文链接：<a href="http://mrh1s.top/posts/1acd21ea/">http://mrh1s.top/posts/1acd21ea/</a></p><p>发表日期：<a href="http://mrh1s.top/posts/1acd21ea/">December 6th 2018, 11:43:10 pm</a></p><p>更新日期：<a href="http://mrh1s.top/posts/1acd21ea/">May 5th 2019, 1:41:54 pm</a></p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p></div><ul class="post-paginator"><li class="next"><div class="nextSlogan">Next Post</div><a href="/posts/675d1a4b/" title="求最大网络流（最小割）总结"><div class="nextTitle">求最大网络流（最小割）总结</div></a></li><li class="previous"><div class="prevSlogan">Previous Post</div><a href="/posts/874d0da0/" title="Tarjan算法求强连通分量总结"><div class="prevTitle">Tarjan算法求强连通分量总结</div></a></li></ul></main></div><footer class="footer footer-unloaded"><div class="social"><a href="mailto:mrh929@cnss.io" class="iconfont-archer email" title="email"></a> <a href="//github.com/mrh929" class="iconfont-archer github" target="_blank" title="github"></a></div><div class="copyright"><span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span></div><div class="busuanzi-container"><span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span></div></footer></div><div class="toc-wrapper" style="top:50vh"><div class="toc-catalog"><span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span></div><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#无向图tarjan求割边割点、最近公共祖先总结"><span class="toc-number">1.</span> <span class="toc-text">无向图tarjan求割边割点、最近公共祖先总结</span></a></li></ol></div><div class="back-top iconfont-archer">&#xe639;</div><div class="sidebar sidebar-hide"><ul class="sidebar-tabs sidebar-tabs-active-0"><li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li><li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li><li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li></ul><div class="sidebar-content sidebar-content-show-archive"><div class="sidebar-panel-archives"><div class="total-and-search"><div class="total-archive">Total : 50</div></div><div class="post-archive"><div class="archive-year">2019</div><ul class="year-list"><li class="archive-post-item"><span class="archive-post-date">05/04</span><a class="archive-post-title" href="/posts/25290751/">To Be Alone</a></li><li class="archive-post-item"><span class="archive-post-date">05/03</span><a class="archive-post-title" href="/posts/ebedb07/">Migration_Success!</a></li><li class="archive-post-item"><span class="archive-post-date">04/28</span><a class="archive-post-title" href="/posts/ea74c872/">bbvvmm</a></li><li class="archive-post-item"><span class="archive-post-date">04/28</span><a class="archive-post-title" href="/posts/7f12b338/">南京邮电大学 RE-WxyVM2</a></li><li class="archive-post-item"><span class="archive-post-date">04/13</span><a class="archive-post-title" href="/posts/6d13a265/">壳相关</a></li><li class="archive-post-item"><span class="archive-post-date">03/22</span><a class="archive-post-title" href="/posts/ab82ece6/">ShinyShot!</a></li><li class="archive-post-item"><span class="archive-post-date">03/21</span><a class="archive-post-title" href="/posts/461ecec/">HappyVM</a></li><li class="archive-post-item"><span class="archive-post-date">02/16</span><a class="archive-post-title" href="/posts/4915557e/">maze</a></li><li class="archive-post-item"><span class="archive-post-date">02/16</span><a class="archive-post-title" href="/posts/8616795e/">brainfuck</a></li><li class="archive-post-item"><span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/9ed4e6b7/">Pro的Python教室(二)</a></li><li class="archive-post-item"><span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/6aab0075/">wakarimasu</a></li><li class="archive-post-item"><span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/f9cd8782/">xor</a></li><li class="archive-post-item"><span class="archive-post-date">02/04</span><a class="archive-post-title" href="/posts/46621246/">FAT16文件系统</a></li><li class="archive-post-item"><span class="archive-post-date">01/09</span><a class="archive-post-title" href="/posts/e0221437/">排序算法的一点小心得</a></li><li class="archive-post-item"><span class="archive-post-date">01/03</span><a class="archive-post-title" href="/posts/3cf48918/">网安课答辩-比特币与区块链</a></li></ul><div class="archive-year">2018</div><ul class="year-list"><li class="archive-post-item"><span class="archive-post-date">12/31</span><a class="archive-post-title" href="/posts/1879b15e/">记第一次电脑组装（二）</a></li><li class="archive-post-item"><span class="archive-post-date">12/30</span><a class="archive-post-title" href="/posts/286f5d86/">记第一次电脑组装（一）</a></li><li class="archive-post-item"><span class="archive-post-date">12/20</span><a class="archive-post-title" href="/posts/59c8895d/">商品管理系统</a></li><li class="archive-post-item"><span class="archive-post-date">12/13</span><a class="archive-post-title" href="/posts/ef5c41ea/">网络安全课笔记 of Shijie Zhou #2</a></li><li class="archive-post-item"><span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e073dc73/">字典树总结</a></li><li class="archive-post-item"><span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a></li><li class="archive-post-item"><span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a></li><li class="archive-post-item"><span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a></li><li class="archive-post-item"><span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28cf1e0f/">拓扑排序以及关键路径总结</a></li><li class="archive-post-item"><span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/4c789951/">Vigenère密码题解</a></li><li class="archive-post-item"><span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a></li><li class="archive-post-item"><span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e5abdd9c/">铺地毯题解</a></li><li class="archive-post-item"><span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/50d2edb9/">2的幂次方表示题解</a></li><li class="archive-post-item"><span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a></li><li class="archive-post-item"><span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/3598786/">逆波兰表达式题解</a></li><li class="archive-post-item"><span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a></li><li class="archive-post-item"><span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/1acd21ea/">Tarjan算法求无向图割边割点、最近公共祖先的总结</a></li><li class="archive-post-item"><span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a></li><li class="archive-post-item"><span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/17525de2/">AVL树总结</a></li><li class="archive-post-item"><span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/6c3f6e84/">字符串hash，康托展开总结</a></li><li class="archive-post-item"><span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/852a3205/">线段树总结</a></li><li class="archive-post-item"><span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a></li><li class="archive-post-item"><span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/675d1a4b/">求最大网络流（最小割）总结</a></li><li class="archive-post-item"><span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a></li><li class="archive-post-item"><span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a></li><li class="archive-post-item"><span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a></li><li class="archive-post-item"><span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/80036358/">大整数乘法题解</a></li><li class="archive-post-item"><span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/93b1f5dc/">暑期人生测试一总结</a></li><li class="archive-post-item"><span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/76551050/">网络安全课笔记 of Shijie Zhou #1</a></li><li class="archive-post-item"><span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/6dada2a6/">Some Boxes</a></li><li class="archive-post-item"><span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/28572e84/">基本操作 Reverse Version</a></li><li class="archive-post-item"><span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/eb65a69a/">Our 16bits wars</a></li><li class="archive-post-item"><span class="archive-post-date">10/13</span><a class="archive-post-title" href="/posts/6d22fa14/">Vector Majic</a></li><li class="archive-post-item"><span class="archive-post-date">10/03</span><a class="archive-post-title" href="/posts/3f79aed7/">莫名其妙的https配置错误</a></li><li class="archive-post-item"><span class="archive-post-date">10/03</span><a class="archive-post-title" href="/posts/1b851995/">Hello world!</a></li></ul></div></div><div class="sidebar-panel-tags"><div class="sidebar-tags-name"><span class="sidebar-tag-name" data-tags="RE_Dynamic"><span class="iconfont-archer">&#xe606;</span>RE_Dynamic</span> <span class="sidebar-tag-name" data-tags="RE_Static"><span class="iconfont-archer">&#xe606;</span>RE_Static</span></div><div class="iconfont-archer sidebar-tags-empty">&#xe678;</div><div class="tag-load-fail" style="display:none;color:#ccc;font-size:.6rem">缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是archer根目录）执行以下命令：<br><span style="color:#f75357;font-size:1rem;line-height:2rem">npm i hexo-generator-json-content --save</span><br>3、在根目录_config.yml里添加配置：<pre style="color:#787878;font-size:.6rem">
+</code></pre><p>检查一些路径： 1 – 2: 1 –&gt; 2 and 1 –&gt; 6 –&gt; 5 –&gt; 2 1 – 4: 1 –&gt; 2 –&gt; 3 –&gt; 4 and 1 –&gt; 6 –&gt; 5 –&gt; 4 3 – 7: 3 –&gt; 4 –&gt; 7 and 3 –&gt; 2 –&gt; 5 –&gt; 7 可以看出每对牧场都是由两条路连接的 有可能加一些别的下路也能解决这个问题（比如6到7加一条道）。然而加两条已经是最小了。</p><p><strong>POJ3352</strong> <strong>描述：</strong> 夏天的建造时间到了。这一年，遥远热带小岛上的街道的管理员要修复并且升级岛上街道，这些街道连接了小岛上不同的景点。 这些街道很有意思。由于这个小岛的奇怪传统，这些街道需要被规划的没有任何十字路口，但是可以用桥和隧道来连通。在这种情况下，每条路就会在特定的景点之间连接，这样旅客就不会迷路了。 不幸的是，每条路都需要修理和升级，当建筑公司在一条特定的道路上工作时，这条道路是无法使用的。这就会导致一个问题，即使这个公司一次只修一条路，仍然有两个景点是无法访问的，。 所以，这个岛上的道路部门就决定召唤你的咨询服务来帮助他们解决这个问题。最后决定在景点之间建设新的道路。如果一条道路在建设中，这些新的道路能使任意两个景点之间仍然有路能够到达。你的任务就是找到这个新修道路的最小数量。</p><p><strong>输入</strong> 第一行的输入包括两个正整数n和r，其中3≤n≤1000是景点的数量，2≤r≤1000是道路的数量。景点则是从1到n进行标号。每个接下来的r行会包括两个整数，v和w，中间空格隔开，表示一个街道连接了标号为v和w的景点。注意街道是双向的，并且任意一对景点之间会有至多一条路直接连接它们。当然，你也要保证在现在的这个配置下，任意两个景点是连通的。</p><p><strong>输出</strong> 一行，包括一个整数，给出我们需要添加的街道的最小数量</p><p><strong>输入样例</strong> Sample Input 1 10 12 1 2 1 3 1 4 2 5 2 6 5 6 3 7 3 8 7 8 4 9 4 10 9 10 Sample Input 2 3 3 1 2 2 3 1 3</p><p><strong>输出样例</strong> Output for Sample Input 1 2 Output for Sample Input 2 0</p><p><strong>两道题完全相同，都是求有桥连通图变为双连通图所需要最少的边的个数</strong></p><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN=<span class="number">5000</span>+<span class="number">20</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXM=<span class="number">10000</span>+<span class="number">20</span>;</span><br><span class="line"><span class="keyword">int</span> first[MAXN],go[MAXM],nxt[MAXM],arcnum=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> low[MAXN],dfn[MAXN],dex,cnt[MAXN],<span class="built_in">map</span>[MAXN][MAXN],sum;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addarc</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">	nxt[arcnum]=first[a];</span><br><span class="line">	first[a]=arcnum;</span><br><span class="line">	go[arcnum++]=b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> father)</span></span>&#123;</span><br><span class="line">	low[u]=dfn[u]=++dex;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> p=first[u];p!=<span class="number">0</span>;p=nxt[p])&#123;</span><br><span class="line">		<span class="keyword">int</span> v=go[p];</span><br><span class="line">		<span class="keyword">if</span>(!dfn[v])&#123;</span><br><span class="line">			tarjan(v,u);</span><br><span class="line">			low[u]=min(low[u],low[v]);</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(v!=father) low[u]=min(low[u],dfn[v]);<span class="comment">//如果引出v，而v是u的父亲，那么就不能更新low[u] </span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n,m,a,b;</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m)!=EOF)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;a,&amp;b);</span><br><span class="line">			<span class="keyword">if</span>(a==b) <span class="keyword">continue</span>;</span><br><span class="line">			<span class="keyword">if</span>(<span class="built_in">map</span>[min(a,b)][max(a,b)]) <span class="keyword">continue</span>;</span><br><span class="line">			<span class="built_in">map</span>[min(a,b)][max(a,b)]=<span class="number">1</span>;</span><br><span class="line">			addarc(a,b);</span><br><span class="line">			addarc(b,a);</span><br><span class="line">		&#125;</span><br><span class="line">		tarjan(<span class="number">1</span>,<span class="number">-1</span>);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> u=<span class="number">1</span>;u&lt;=n;u++)</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> p=first[u];p!=<span class="number">0</span>;p=nxt[p])&#123;</span><br><span class="line">				<span class="keyword">int</span> v=go[p];</span><br><span class="line">				<span class="keyword">if</span>(low[u]!=low[v])</span><br><span class="line">					cnt[low[u]]++;<span class="comment">//计算度数 </span></span><br><span class="line">			&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">			<span class="keyword">if</span>(cnt[i]==<span class="number">1</span>)</span><br><span class="line">				sum++;<span class="comment">//统计度为1的点的个数 </span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d"</span>,(sum+<span class="number">1</span>)/<span class="number">2</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>​<br>​</p><p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="http://mrh1s.top">mrh929</a>
+            </p><p>原文链接：<a href="http://mrh1s.top/posts/1acd21ea/">http://mrh1s.top/posts/1acd21ea/</a>
+            </p><p>发表日期：<a href="http://mrh1s.top/posts/1acd21ea/">December 6th 2018, 11:43:10 pm</a>
+            </p><p>更新日期：<a href="http://mrh1s.top/posts/1acd21ea/">May 5th 2019, 1:41:54 pm</a>
+            </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/posts/675d1a4b/" title="求最大网络流（最小割）总结">
+                    <div class="nextTitle">求最大网络流（最小割）总结</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/posts/874d0da0/" title="Tarjan算法求强连通分量总结">
+                    <div class="prevTitle">Tarjan算法求强连通分量总结</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:mrh929@cnss.io" class="iconfont-archer email" title="email"></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/mrh929" class="iconfont-archer github" target="_blank" title="github"></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 不蒜子  -->
+    
+    <div class="busuanzi-container">
+    
+     
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#无向图tarjan求割边割点、最近公共祖先总结"><span class="toc-number">1.</span> <span class="toc-text">无向图tarjan求割边割点、最近公共祖先总结</span></a></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 50
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/04</span><a class="archive-post-title" href="/posts/25290751/">To Be Alone</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/03</span><a class="archive-post-title" href="/posts/ebedb07/">Migration_Success!</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href="/posts/ea74c872/">bbvvmm</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href="/posts/7f12b338/">南京邮电大学 RE-WxyVM2</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/13</span><a class="archive-post-title" href="/posts/6d13a265/">壳相关</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/22</span><a class="archive-post-title" href="/posts/ab82ece6/">ShinyShot!</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/21</span><a class="archive-post-title" href="/posts/461ecec/">HappyVM</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/16</span><a class="archive-post-title" href="/posts/4915557e/">maze</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/16</span><a class="archive-post-title" href="/posts/8616795e/">brainfuck</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/9ed4e6b7/">Pro的Python教室(二)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/6aab0075/">wakarimasu</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/f9cd8782/">xor</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/04</span><a class="archive-post-title" href="/posts/46621246/">FAT16文件系统</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/09</span><a class="archive-post-title" href="/posts/e0221437/">排序算法的一点小心得</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/03</span><a class="archive-post-title" href="/posts/3cf48918/">网安课答辩-比特币与区块链</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/31</span><a class="archive-post-title" href="/posts/1879b15e/">记第一次电脑组装（二）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/30</span><a class="archive-post-title" href="/posts/286f5d86/">记第一次电脑组装（一）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/20</span><a class="archive-post-title" href="/posts/59c8895d/">商品管理系统</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/13</span><a class="archive-post-title" href="/posts/ef5c41ea/">网络安全课笔记 of Shijie Zhou #2</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/80036358/">大整数乘法题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/50d2edb9/">2的幂次方表示题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/4c789951/">Vigenère密码题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28cf1e0f/">拓扑排序以及关键路径总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/852a3205/">线段树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e5abdd9c/">铺地毯题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/3598786/">逆波兰表达式题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/1acd21ea/">Tarjan算法求无向图割边割点、最近公共祖先的总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/17525de2/">AVL树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/6c3f6e84/">字符串hash，康托展开总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/675d1a4b/">求最大网络流（最小割）总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e073dc73/">字典树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/93b1f5dc/">暑期人生测试一总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/76551050/">网络安全课笔记 of Shijie Zhou #1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/eb65a69a/">Our 16bits wars</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/6dada2a6/">Some Boxes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/28572e84/">基本操作 Reverse Version</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/13</span><a class="archive-post-title" href="/posts/6d22fa14/">Vector Majic</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/03</span><a class="archive-post-title" href="/posts/3f79aed7/">莫名其妙的https配置错误</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/03</span><a class="archive-post-title" href="/posts/1b851995/">Hello world!</a>
+        </li>
+    
+    </ul></div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="RE_Dynamic"><span class="iconfont-archer">&#xe606;</span>RE_Dynamic</span>
+    
+        <span class="sidebar-tag-name" data-tags="RE_Static"><span class="iconfont-archer">&#xe606;</span>RE_Static</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br>
+    1、请确保node版本大于6.2<br>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
 jsonContent:
   meta: false
   pages: false
@@ -33,4 +1759,71 @@ jsonContent:
     permalink: false
     excerpt: false
     categories: true
-    tags: true</pre></div><div class="sidebar-tags-list"></div></div><div class="sidebar-panel-categories"><div class="sidebar-categories-name"><span class="sidebar-category-name" data-categories="牢骚"><span class="iconfont-archer">&#xe60a;</span>牢骚</span> <span class="sidebar-category-name" data-categories="write up"><span class="iconfont-archer">&#xe60a;</span>write-up</span> <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span> <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span> <span class="sidebar-category-name" data-categories="cnss_recruit_201809"><span class="iconfont-archer">&#xe60a;</span>write-up/cnss-recruit-201809</span> <span class="sidebar-category-name" data-categories="notes"><span class="iconfont-archer">&#xe60a;</span>notes</span> <span class="sidebar-category-name" data-categories="project"><span class="iconfont-archer">&#xe60a;</span>project</span> <span class="sidebar-category-name" data-categories="c/c++"><span class="iconfont-archer">&#xe60a;</span>c-c</span> <span class="sidebar-category-name" data-categories="hgame_20190122"><span class="iconfont-archer">&#xe60a;</span>write-up/hgame-20190122</span> <span class="sidebar-category-name" data-categories="nationalCTF_20190421"><span class="iconfont-archer">&#xe60a;</span>write-up/nationalCTF-20190421</span> <span class="sidebar-category-name" data-categories="cgctf"><span class="iconfont-archer">&#xe60a;</span>write-up/cgctf</span></div><div class="iconfont-archer sidebar-categories-empty">&#xe678;</div><div class="sidebar-categories-list"></div></div></div></div><script>var siteMeta={root:"/",author:"mrh929"}</script><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script type="text/javascript">void 0===window.$&&(console.warn("jquery load from jsdelivr failed, will load local script"),document.write('<script src="/lib/jquery.min.js"><\/script>'))</script><script src="/scripts/main.js"></script><script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><script src="/scripts/share.js" async></script></body></html>
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="牢骚"><span class="iconfont-archer">&#xe60a;</span>牢骚</span>
+    
+        <span class="sidebar-category-name" data-categories="write up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
+    
+        <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
+    
+        <span class="sidebar-category-name" data-categories="cnss_recruit_201809"><span class="iconfont-archer">&#xe60a;</span>write-up/cnss-recruit-201809</span>
+    
+        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
+    
+        <span class="sidebar-category-name" data-categories="notes"><span class="iconfont-archer">&#xe60a;</span>notes</span>
+    
+        <span class="sidebar-category-name" data-categories="project"><span class="iconfont-archer">&#xe60a;</span>project</span>
+    
+        <span class="sidebar-category-name" data-categories="c/c++"><span class="iconfont-archer">&#xe60a;</span>c-c</span>
+    
+        <span class="sidebar-category-name" data-categories="hgame_20190122"><span class="iconfont-archer">&#xe60a;</span>write-up/hgame-20190122</span>
+    
+        <span class="sidebar-category-name" data-categories="nationalCTF_20190421"><span class="iconfont-archer">&#xe60a;</span>write-up/nationalCTF-20190421</span>
+    
+        <span class="sidebar-category-name" data-categories="cgctf"><span class="iconfont-archer">&#xe60a;</span>write-up/cgctf</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "mrh929"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
