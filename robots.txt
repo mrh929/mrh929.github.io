@@ -14,4 +14,4 @@ Disallow: /vendors/
 Disallow: /fancybox/
 
 Sitemap: https://mrh1s.top/sitemap.xml
-Sitemap: https://mrh1s.top/baidusitemap.xml
+# Sitemap: https://mrh1s.top/baidusitemap.xml
