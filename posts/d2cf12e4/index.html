@@ -1,0 +1,2018 @@
+<!DOCTYPE html>
+<html lang="cn">
+    <!-- title -->
+
+
+
+
+<!-- keywords -->
+
+
+
+
+<head><meta name="generator" content="Hexo 3.8.0">
+    <meta name="google-site-verification" content="EapGTh3LeQttqNDh5NNG7NukKkYlqLxZkSNXGqfHwwI">
+
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="mrh929">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="mrh929">
+    
+    <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="Blog">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>补题：Strange_int · mrh929&#39;s Studio</title>
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
+    
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+(function( w ){
+	"use strict";
+	// rel=preload support test
+	if( !w.loadCSS ){
+		w.loadCSS = function(){};
+	}
+	// define on the loadCSS obj
+	var rp = loadCSS.relpreload = {};
+	// rel=preload feature support test
+	// runs once and returns a function for compat purposes
+	rp.support = (function(){
+		var ret;
+		try {
+			ret = w.document.createElement( "link" ).relList.supports( "preload" );
+		} catch (e) {
+			ret = false;
+		}
+		return function(){
+			return ret;
+		};
+	})();
+
+	// if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+	// then change that media back to its intended value on load
+	rp.bindMediaToggle = function( link ){
+		// remember existing media attr for ultimate state, or default to 'all'
+		var finalMedia = link.media || "all";
+
+		function enableStylesheet(){
+			link.media = finalMedia;
+		}
+
+		// bind load handlers to enable media
+		if( link.addEventListener ){
+			link.addEventListener( "load", enableStylesheet );
+		} else if( link.attachEvent ){
+			link.attachEvent( "onload", enableStylesheet );
+		}
+
+		// Set rel and non-applicable media type to start an async request
+		// note: timeout allows this to happen async to let rendering continue in IE
+		setTimeout(function(){
+			link.rel = "stylesheet";
+			link.media = "only x";
+		});
+		// also enable media after 3 seconds,
+		// which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+		setTimeout( enableStylesheet, 3000 );
+	};
+
+	// loop through link elements in DOM
+	rp.poly = function(){
+		// double check this to prevent external calls from running
+		if( rp.support() ){
+			return;
+		}
+		var links = w.document.getElementsByTagName( "link" );
+		for( var i = 0; i < links.length; i++ ){
+			var link = links[ i ];
+			// qualify links to those with rel=preload and as=style attrs
+			if( link.rel === "preload" && link.getAttribute( "as" ) === "style" && !link.getAttribute( "data-loadcss" ) ){
+				// prevent rerunning on link
+				link.setAttribute( "data-loadcss", true );
+				// bind listeners to toggle media back
+				rp.bindMediaToggle( link );
+			}
+		}
+	};
+
+	// if unsupported, run the polyfill
+	if( !rp.support() ){
+		// run once at least
+		rp.poly();
+
+		// rerun poly on an interval until onload
+		var run = w.setInterval( rp.poly, 500 );
+		if( w.addEventListener ){
+			w.addEventListener( "load", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		} else if( w.attachEvent ){
+			w.attachEvent( "onload", function(){
+				rp.poly();
+				w.clearInterval( run );
+			} );
+		}
+	}
+
+
+	// commonjs
+	if( typeof exports !== "undefined" ){
+		exports.loadCSS = loadCSS;
+	}
+	else {
+		w.loadCSS = loadCSS;
+	}
+}( typeof global !== "undefined" ? global : this ) );
+</script>
+
+    <link rel="icon" href="/assets/favicon.ico">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js" as="script">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js" as="script">
+    <link rel="preload" as="font" href="/font/Oswald-Regular.ttf" crossorigin>
+    <link rel="preload" as="font" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" crossorigin>
+    
+        <!-- algolia -->
+        <script>
+            
+            var hits = JSON.parse('{"per_page":10}')
+            var labels = JSON.parse('{"input_placeholder":"Search for Posts","hits_empty":"We did not find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}')
+
+            var algolia = {
+                applicationID: '42EE3L4Y0B',
+                apiKey: 'c7b5dcba6c3a7f11e6bfe0ef2f288219',
+                indexName: 'mrh929',
+                hits: hits,
+                labels: labels
+            }
+        </script>
+    
+    <!-- fancybox -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" defer></script>
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+</head>
+
+    
+        <body class="post-body">
+    
+    
+<header class="header">
+
+    <div class="read-progress"></div>
+    <div class="header-sidebar-menu">&#xe775;</div>
+    <!-- post页的toggle banner  -->
+    
+    <div class="banner">
+            <div class="blog-title">
+                <a href="/">初音ミクの消失</a>
+            </div>
+            <div class="post-title">
+                <a href="#" class="post-name">补题：Strange_int</a>
+            </div>
+    </div>
+    
+    <a class="home-link" href="/">初音ミクの消失</a>
+</header>
+    <div class="wrapper">
+        <div class="site-intro" style="
+
+
+
+
+
+
+
+height:50vh;
+">
+    
+    <!-- 主页  -->
+    
+    
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg_compressed.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+            补题：Strange_int
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+            
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class="post-intro-tags">
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="RE_Static">RE_Static</a>
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="VM">VM</a>
+    
+</div>
+                
+                
+                    <div class="post-intro-read">
+                        <span>字数统计: <span class="post-count word-count">2.3k</span>阅读时长: <span class="post-count reading-time">13 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <span class="post-intro-calander iconfont-archer">&#xe676;</span>
+                    <span class="post-intro-time">2019/05/13</span>
+                    
+                    <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                        <span class="iconfont-archer">&#xe602;</span>
+                        <span id="busuanzi_value_page_pv"></span>
+                    </span>
+                    
+                    <span class="shareWrapper">
+                        <span class="iconfont-archer shareIcon">&#xe71d;</span>
+                        <span class="shareText">Share</span>
+                        <ul class="shareList">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+        <script>
+ 
+  // get user agent
+  var browser = {
+    versions: function () {
+      var u = window.navigator.userAgent;
+      return {
+        userAgent: u,
+        trident: u.indexOf('Trident') > -1, //IE内核
+        presto: u.indexOf('Presto') > -1, //opera内核
+        webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+        gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+        mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+        ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+        android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+        iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+        iPad: u.indexOf('iPad') > -1, //是否为iPad
+        webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+        weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+        uc: u.indexOf('UCBrowser') > -1 //是否为android下的UC浏览器
+      };
+    }()
+  }
+  console.log("userAgent:" + browser.versions.userAgent);
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded');
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document.getElementsByClassName('intro-title')[0].classList.add('intro-fade-in');
+      document.getElementsByClassName('intro-subtitle')[0].classList.add('intro-fade-in');
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in');
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb(){
+    if (browser.versions.uc) {
+      console.log("UCBrowser");
+      fontLoaded();
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular']
+        },
+        loading: function () {  //所有字体开始加载
+          // console.log('loading');
+        },
+        active: function () {  //所有字体已渲染
+          fontLoaded();
+        },
+        inactive: function () { //字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout');
+          fontLoaded();
+        },
+        timeout: 5000 // Set the timeout to two seconds
+      });
+    }
+  }
+
+  function asyncErr(){
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document, t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0];
+    o.src = u;
+    if (cb) { o.addEventListener('load', function (e) { cb(null, e); }, false); }
+    if (err) { o.addEventListener('error', function (e) { err(null, e); }, false); }
+    s.parentNode.insertBefore(o, s);
+  }
+
+  var asyncLoadWithFallBack = function(arr, success, reject) {
+      var currReject = function(){
+        reject()
+        arr.shift()
+        if(arr.length)
+          async(arr[0], success, currReject)
+        }
+
+      async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack([
+    "https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js", 
+    "https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js",
+    "/lib/webfontloader.min.js"
+  ], asyncCb, asyncErr)
+</script>        
+        <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+        <div class="container container-unloaded">
+            <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="strange-int"><a href="#strange-int" class="headerlink" title="strange int"></a>strange int</h1><blockquote>
+<p>打国赛的时候没做出来这道题，现在看了题解来补一补</p>
+</blockquote>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><h3 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h3><p>以前写过FAT16的模拟程序，看到这个文件第一想法是这是一个DBR</p>
+<p>第一行的 jmp 就是 jump 到这个命令的下一个命令。。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line">seg000:0000                 jmp     far ptr 7C0h:5</span><br><span class="line">seg000:0005 ; ---------------------------------------------------------------------------</span><br><span class="line">seg000:0005                 mov     ax, cs</span><br><span class="line">seg000:0007                 mov     ds, ax</span><br><span class="line">seg000:0009                 mov     ss, ax</span><br><span class="line">seg000:000B                 mov     sp, 400h</span><br><span class="line">seg000:000E                 cld</span><br><span class="line">seg000:000F                 mov     ax, 3</span><br><span class="line">seg000:0012                 int     10h             ; - VIDEO - SET VIDEO MODE</span><br><span class="line">seg000:0012                                         ; AL = mode</span><br><span class="line">seg000:0014                 mov     dx, 0</span><br><span class="line">seg000:0017                 mov     cx, 2</span><br><span class="line">seg000:001A                 mov     ax, 1000h</span><br><span class="line">seg000:001D                 mov     es, ax</span><br><span class="line">seg000:001F                 assume es:nothing</span><br><span class="line">seg000:001F                 xor     bx, bx</span><br><span class="line">seg000:0021                 mov     ax, 228h</span><br><span class="line">seg000:0024                 int     13h             ; DISK - READ SECTORS INTO MEMORY</span><br><span class="line">seg000:0024                                         ; AL = number of sectors to read, CH = track, CL = sector</span><br><span class="line">seg000:0024                                         ; DH = head, DL = drive, ES:BX -&gt; buffer to fill</span><br><span class="line">seg000:0024                                         ; Return: CF set on error, AH = status, AL = number of sectors read</span><br><span class="line">seg000:0026                 jnb     short loc_2A</span><br><span class="line">seg000:0028</span><br><span class="line">seg000:0028 loc_28:                                 ; CODE XREF: seg000:loc_28↓j</span><br><span class="line">seg000:0028                 jmp     short loc_28</span><br><span class="line">seg000:002A ; ---------------------------------------------------------------------------</span><br><span class="line">seg000:002A</span><br><span class="line">seg000:002A loc_2A:                                 ; CODE XREF: seg000:0026↑j</span><br><span class="line">seg000:002A                 cli</span><br><span class="line">seg000:002B                 mov     ax, 1000h</span><br><span class="line">seg000:002E                 mov     ds, ax</span><br><span class="line">seg000:0030                 assume ds:nothing</span><br><span class="line">seg000:0030                 xor     ax, ax</span><br><span class="line">seg000:0032                 mov     es, ax</span><br><span class="line">seg000:0034                 assume es:nothing</span><br><span class="line">seg000:0034                 mov     cx, 2000h</span><br><span class="line">seg000:0037                 sub     si, si</span><br><span class="line">seg000:0039                 sub     di, di</span><br><span class="line">seg000:003B                 rep movsb</span><br><span class="line">seg000:003D                 mov     ax, 7C0h</span><br><span class="line">seg000:0040</span><br><span class="line">seg000:0040 loc_40:                                 ; DATA XREF: seg000:0012↑r</span><br><span class="line">seg000:0040                 mov     ds, ax</span><br><span class="line">seg000:0042                 assume ds:nothing</span><br><span class="line">seg000:0042                 lidt    fword ptr ds:6Fh</span><br><span class="line">seg000:0047                 lgdt    fword ptr ds:75h</span><br><span class="line">seg000:004C</span><br><span class="line">seg000:004C loc_4C:                                 ; DATA XREF: seg000:0024↑r</span><br><span class="line">seg000:004C                 mov     ax, 1</span><br><span class="line">seg000:004F                 lmsw    ax</span><br><span class="line">seg000:0052                 jmp     far ptr 8:0</span><br></pre></td></tr></table></figure>
+<p>然后就跳转到一个神秘的鬼地方去了</p>
+<p>程序大概是把ebx置0了，然后作为计数变量，一共循环了10h次</p>
+<p>把一堆数送到了内存中，经高人指点，这堆数属于中断向量</p>
+<p>（也就是VM里面的操作数，对应相应的操作）</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">seg000:000001FE ; ---------------------------------------------------------------------------</span><br><span class="line">seg000:000001FE                 push    ebp</span><br><span class="line">seg000:000001FF                 stosb</span><br><span class="line">seg000:00000200                 mov     eax, 10h</span><br><span class="line">seg000:00000205                 mov     ds, eax</span><br><span class="line">seg000:00000207                 assume ds:nothing</span><br><span class="line">seg000:00000207                 lss     esp, large ds:0B5Ch</span><br><span class="line">seg000:0000020E                 call    sub_28B</span><br><span class="line">seg000:00000213                 call    sub_283</span><br><span class="line">seg000:00000218                 mov     eax, 10h        ; DATA XREF: sub_28B+27↓r</span><br><span class="line">seg000:0000021D                 mov     ds, eax</span><br><span class="line">seg000:0000021F                 mov     es, eax</span><br><span class="line">seg000:00000221                 assume es:nothing</span><br><span class="line">seg000:00000221                 mov     fs, eax         ; DATA XREF: sub_283↓r</span><br><span class="line">seg000:00000223                 assume fs:nothing</span><br><span class="line">seg000:00000223                 mov     gs, eax</span><br><span class="line">seg000:00000225                 assume gs:nothing</span><br><span class="line">seg000:00000225</span><br><span class="line">seg000:00000225 loc_225:                                ; DATA XREF: sub_28B+11↓o</span><br><span class="line">seg000:00000225                 lss     esp, large ds:0B5Ch</span><br><span class="line">seg000:0000022C                 xor     ebx, ebx</span><br><span class="line">seg000:0000022E</span><br><span class="line">seg000:0000022E loc_22E:                                ; CODE XREF: seg000:0000025D↓j</span><br><span class="line">seg000:0000022E                 nop</span><br><span class="line">seg000:0000022F                 cmp     ebx, 10h</span><br><span class="line">seg000:00000232                 jge     short loc_25F</span><br><span class="line"></span><br><span class="line">seg000:00000234                 mov     eax, 80000h</span><br><span class="line">seg000:00000239                 lea     edx, ds:0D08h[ebx*4] ;这个内存里面全部存的0</span><br><span class="line">seg000:00000240                 mov     edx, [edx]</span><br><span class="line">seg000:00000242                 mov     ax, dx</span><br><span class="line">seg000:00000245                 mov     dx, 8E00h</span><br><span class="line">seg000:00000249                 mov     ecx, 21h ; &apos;!&apos; ;21h</span><br><span class="line">seg000:0000024E                 add     ecx, ebx    ;21h + ebx， </span><br><span class="line">													;也就是把21h开始的10h个数作为操作数</span><br><span class="line">seg000:00000250                 lea     esi, ds:128h[ecx*8]</span><br><span class="line">seg000:00000257                 mov     [esi], eax</span><br><span class="line">seg000:00000259                 mov     [esi+4], edx</span><br><span class="line">seg000:0000025C                 inc     ebx</span><br><span class="line">seg000:0000025D                 jmp     short loc_22E</span><br><span class="line">seg000:0000025F ; ---------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line"># 后面是多次中断进行操作</span><br><span class="line">seg000:0000025F</span><br><span class="line">seg000:0000025F loc_25F:                                ; CODE XREF: seg000:00000232↑j</span><br><span class="line">seg000:0000025F                                         ; seg000:00000266↓j</span><br><span class="line">seg000:0000025F                 call    sub_268</span><br><span class="line">seg000:00000264                 int     21h             ; DOS -</span><br><span class="line">seg000:00000266                 jmp     short loc_25F</span><br></pre></td></tr></table></figure>
+<h3 id="switch跳转语句"><a href="#switch跳转语句" class="headerlink" title="switch跳转语句"></a>switch跳转语句</h3><p>中断之前call的sub_268汇编代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">seg000:00000268 sub_268         proc near               ; CODE XREF: seg000:loc_25F↑p</span><br><span class="line">seg000:00000268                 mov     edi, large ds:0B78h</span><br><span class="line">seg000:0000026E                 lea     edi, ds:0D48h[edi*4]</span><br><span class="line">seg000:00000275                 mov     eax, [edi]</span><br><span class="line">seg000:00000277                 mov     large ds:65h, al</span><br><span class="line">seg000:0000027C                 mov     ecx, [edi+4]</span><br><span class="line">seg000:0000027F                 mov     eax, [edi+8]</span><br><span class="line">seg000:00000282                 retn</span><br><span class="line">seg000:00000282 sub_268         endp</span><br></pre></td></tr></table></figure>
+<p>操作数1被送入内存了</p>
+<p>ecx应该是操作数2</p>
+<p>eax是操作数3</p>
+<h3 id="各个case"><a href="#各个case" class="headerlink" title="各个case"></a>各个case</h3><h4 id="汇编"><a href="#汇编" class="headerlink" title="汇编"></a>汇编</h4><p>以下是每个操作数对应的操作， 因为所有的操作数是依次出现的 ，所以只需要挨着翻译就好了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br></pre></td><td class="code"><pre><span class="line">seg000:00000D7C ; ---------------------------------------------------------------------------</span><br><span class="line">seg000:00000D7C                 lea     ecx, ds:0B64h[ecx*4]</span><br><span class="line">seg000:00000D83                 mov     [ecx], eax</span><br><span class="line">seg000:00000D85                 jmp     loc_EF8</span><br><span class="line">seg000:00000D8A ; ---------------------------------------------------------------------------</span><br><span class="line">seg000:00000D8A                 lea     eax, ds:0B64h[eax*4]</span><br><span class="line">seg000:00000D91                 mov     eax, [eax]</span><br><span class="line">seg000:00000D93                 lea     ecx, ds:0B64h[ecx*4]</span><br><span class="line">seg000:00000D9A                 mov     [ecx], eax</span><br><span class="line">seg000:00000D9C                 jmp     loc_EF8</span><br><span class="line">seg000:00000DA1 ; ---------------------------------------------------------------------------</span><br><span class="line">seg000:00000DA1                 lea     eax, ds:0B64h[eax*4]</span><br><span class="line">seg000:00000DA8                 mov     eax, [eax]</span><br><span class="line">seg000:00000DAA                 lea     ecx, ds:0B64h[ecx*4]</span><br><span class="line">seg000:00000DB1                 lea     eax, ds:0D48h[eax*4]</span><br><span class="line">seg000:00000DB8                 mov     eax, [eax]</span><br><span class="line">seg000:00000DBA                 mov     [ecx], eax</span><br><span class="line">seg000:00000DBC                 jmp     loc_EF8</span><br><span class="line">seg000:00000DC1 ; ---------------------------------------------------------------------------seg000:00000DC1                 lea     eax, ds:0B64h[eax*4]</span><br><span class="line">seg000:00000DC8                 mov     eax, [eax]</span><br><span class="line">seg000:00000DCA                 lea     ecx, ds:0B64h[ecx*4]</span><br><span class="line">seg000:00000DD1                 mov     ecx, [ecx]</span><br><span class="line">seg000:00000DD3                 lea     ecx, ds:0D48h[ecx*4]</span><br><span class="line">seg000:00000DDA                 mov     [ecx], eax</span><br><span class="line">seg000:00000DDC                 jmp     loc_EF8</span><br><span class="line">seg000:00000DE1 ; ---------------------------------------------------------------------------</span><br><span class="line">seg000:00000DE1                 lea     eax, ds:0B64h[eax*4]</span><br><span class="line">seg000:00000DE8                 mov     edx, [eax]</span><br><span class="line">seg000:00000DEA                 lea     ecx, ds:0B64h[ecx*4]</span><br><span class="line">seg000:00000DF1                 mov     eax, [ecx]</span><br><span class="line">seg000:00000DF3                 add     eax, edx</span><br><span class="line">seg000:00000DF5                 mov     [ecx], eax</span><br><span class="line">seg000:00000DF7                 jmp     loc_EF8</span><br><span class="line">seg000:00000DFC ; ---------------------------------------------------------------------------</span><br><span class="line">seg000:00000DFC                 lea     eax, ds:0B64h[eax*4]</span><br><span class="line">seg000:00000E03                 mov     edx, [eax]</span><br><span class="line">seg000:00000E05                 lea     ecx, ds:0B64h[ecx*4]</span><br><span class="line">seg000:00000E0C                 mov     eax, [ecx]</span><br><span class="line">seg000:00000E0E                 sub     eax, edx</span><br><span class="line">seg000:00000E10                 mov     [ecx], eax</span><br><span class="line">seg000:00000E12                 jmp     loc_EF8</span><br><span class="line">seg000:00000E17 ; ---------------------------------------------------------------------------</span><br><span class="line">seg000:00000E17                 lea     eax, ds:0B64h[eax*4]</span><br><span class="line">seg000:00000E1E                 mov     edx, [eax]</span><br><span class="line">seg000:00000E20                 lea     ecx, ds:0B64h[ecx*4]</span><br><span class="line">seg000:00000E27                 mov     eax, [ecx]</span><br><span class="line">seg000:00000E29                 xor     eax, edx</span><br><span class="line">seg000:00000E2B                 mov     [ecx], eax</span><br><span class="line">seg000:00000E2D                 jmp     loc_EF8</span><br><span class="line">seg000:00000E32 ; ---------------------------------------------------------------------------</span><br><span class="line">seg000:00000E32                 lea     eax, ds:0B64h[eax*4]</span><br><span class="line">seg000:00000E39                 mov     eax, [eax]</span><br><span class="line">seg000:00000E3B                 lea     edx, ds:0B64h[ecx*4]</span><br><span class="line">seg000:00000E42                 mov     cl, al</span><br><span class="line">seg000:00000E44                 mov     eax, [edx]</span><br><span class="line">seg000:00000E46                 shl     eax, cl</span><br><span class="line">seg000:00000E48                 mov     [edx], eax</span><br><span class="line">seg000:00000E4A                 jmp     loc_EF8</span><br><span class="line">seg000:00000E4F ; ---------------------------------------------------------------------------</span><br><span class="line">seg000:00000E4F                 lea     eax, ds:0B64h[eax*4]</span><br><span class="line">seg000:00000E56                 mov     eax, [eax]</span><br><span class="line">seg000:00000E58                 lea     edx, ds:0B64h[ecx*4]</span><br><span class="line">seg000:00000E5F                 mov     cl, al</span><br><span class="line">seg000:00000E61                 mov     eax, [edx]</span><br><span class="line">seg000:00000E63                 shr     eax, cl</span><br><span class="line">seg000:00000E65                 mov     [edx], eax</span><br><span class="line">seg000:00000E67                 jmp     loc_EF8</span><br><span class="line">seg000:00000E6C ; ---------------------------------------------------------------------------</span><br><span class="line">seg000:00000E6C                 lea     eax, ds:0B64h[eax*4]</span><br><span class="line">seg000:00000E73                 mov     eax, [eax]</span><br><span class="line">seg000:00000E75                 lea     ecx, ds:0B64h[ecx*4]</span><br><span class="line">seg000:00000E7C                 mov     edx, [ecx]</span><br><span class="line">seg000:00000E7E                 and     eax, edx</span><br><span class="line">seg000:00000E80                 mov     [ecx], eax</span><br><span class="line">seg000:00000E82                 jmp     short loc_EF8</span><br><span class="line">seg000:00000E84 ; ---------------------------------------------------------------------------</span><br><span class="line">seg000:00000E84                 lea     eax, ds:0B64h[ecx*4]</span><br><span class="line">seg000:00000E8B                 mov     eax, [eax]</span><br><span class="line">seg000:00000E8D                 lea     ecx, unk_B78</span><br><span class="line">seg000:00000E93                 mov     [ecx], eax</span><br><span class="line">seg000:00000E95                 iret</span><br><span class="line">seg000:00000E96 ; ---------------------------------------------------------------------------</span><br><span class="line">seg000:00000E96                 lea     eax, ds:0B64h[eax*4]</span><br><span class="line">seg000:00000E9D                 mov     eax, [eax]</span><br><span class="line">seg000:00000E9F                 test    eax, eax</span><br><span class="line">seg000:00000EA1                 jnz     short loc_EF8</span><br><span class="line">seg000:00000EA3                 lea     eax, ds:0B64h[ecx*4]</span><br><span class="line">seg000:00000EAA                 mov     eax, [eax]</span><br><span class="line">seg000:00000EAC                 lea     ecx, unk_B78</span><br><span class="line">seg000:00000EB2                 mov     [ecx], eax</span><br><span class="line">seg000:00000EB4                 iret</span><br><span class="line">seg000:00000EB5 ; ---------------------------------------------------------------------------</span><br><span class="line">seg000:00000EB5                 lea     eax, ds:0B64h[eax*4]</span><br><span class="line">seg000:00000EBC                 mov     eax, [eax]</span><br><span class="line">seg000:00000EBE                 test    eax, eax</span><br><span class="line">seg000:00000EC0                 jz      short loc_EF8</span><br><span class="line">seg000:00000EC2                 lea     eax, ds:0B64h[ecx*4]</span><br><span class="line">seg000:00000EC9                 mov     eax, [eax]</span><br><span class="line">seg000:00000ECB                 lea     ecx, unk_B78</span><br><span class="line">seg000:00000ED1                 mov     [ecx], eax</span><br><span class="line">seg000:00000ED3                 iret</span><br><span class="line">seg000:00000ED4 ; ---------------------------------------------------------------------------</span><br><span class="line">seg000:00000ED4                 lea     eax, unk_F94</span><br><span class="line">seg000:00000EDA                 call    sub_2EA</span><br><span class="line">seg000:00000EDF                 hlt</span><br><span class="line">seg000:00000EE0 ; ---------------------------------------------------------------------------</span><br><span class="line">seg000:00000EE0                 lea     eax, unk_FA0</span><br><span class="line">seg000:00000EE6                 call    sub_2EA</span><br><span class="line">seg000:00000EEB                 lea     eax, word_FAE</span><br><span class="line">seg000:00000EF1                 call    sub_2EA</span><br><span class="line">seg000:00000EF6                 hlt</span><br><span class="line">seg000:00000EF6 ; ---------------------------------------------------------------------------</span><br><span class="line">seg000:00000EF7                 db 0F4h</span><br><span class="line">seg000:00000EF8 ; ---------------------------------------------------------------------------</span><br><span class="line">seg000:00000EF8</span><br><span class="line">seg000:00000EF8 loc_EF8:                                ; CODE XREF: seg000:00000D85↑j</span><br><span class="line">seg000:00000EF8                                         ; seg000:00000D9C↑j ...</span><br><span class="line">seg000:00000EF8                 lea     ecx, unk_B78</span><br><span class="line">seg000:00000EFE                 mov     eax, [ecx]</span><br><span class="line">seg000:00000F00                 add     eax, 3</span><br><span class="line">seg000:00000F03                 mov     [ecx], eax</span><br><span class="line">seg000:00000F05                 iret</span><br><span class="line">seg000:00000F05 ; ---------------------------------------------------------------------------</span><br></pre></td></tr></table></figure>
+<h4 id="翻译后"><a href="#翻译后" class="headerlink" title="翻译后"></a>翻译后</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">buf[a] = b</span><br><span class="line">buf[a] = buf[b]</span><br><span class="line">buf[a] = (dword) opt[buf[b]]</span><br><span class="line">(dword) opt[buf[a]] = buf[b]</span><br><span class="line">buf[a] += buf[b]</span><br><span class="line">buf[a] -= buf[b]</span><br><span class="line">buf[a] ^= buf[b]</span><br><span class="line">buf[a] &lt;&lt;= buf[b]</span><br><span class="line">buf[a] &gt;&gt;= buf[b]</span><br><span class="line">buf[a] &amp;= buf[b]</span><br><span class="line">temp = buf[a]</span><br><span class="line"><span class="keyword">if</span>(buf[b] == <span class="number">0</span>)  temp = buf[a]</span><br><span class="line"><span class="keyword">if</span>(buf[b] != <span class="number">0</span>)  temp = buf[a]</span><br><span class="line"><span class="built_in">exit</span>(<span class="number">0</span>)</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"wrong"</span>)</span><br><span class="line"><span class="built_in">printf</span>(<span class="string">"wrong"</span>)</span><br></pre></td></tr></table></figure>
+<h3 id="指令数组"><a href="#指令数组" class="headerlink" title="指令数组"></a>指令数组</h3><h4 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h4><p>数据区，存储操作数，这个是通过</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">seg000:0000026E                 lea     edi, ds:0D48h[edi*4]</span><br></pre></td></tr></table></figure>
+<p>算出来的</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line">seg000:00000F48                 db  21h ; !             ; data start</span><br><span class="line">seg000:00000F49                 db    0</span><br><span class="line">seg000:00000F4A                 db    0</span><br><span class="line">seg000:00000F4B                 db    0</span><br><span class="line">seg000:00000F4C                 db    0</span><br><span class="line">seg000:00000F4D                 db    0</span><br><span class="line">seg000:00000F4E                 db    0</span><br><span class="line">seg000:00000F4F                 db    0</span><br><span class="line">seg000:00000F50                 db  81h</span><br><span class="line">seg000:00000F51                 db    0</span><br><span class="line">seg000:00000F52                 db    0</span><br><span class="line">seg000:00000F53                 db    0</span><br><span class="line">seg000:00000F54                 db  27h ; &apos;</span><br><span class="line">seg000:00000F55                 db    0</span><br><span class="line">seg000:00000F56                 db    0</span><br><span class="line">seg000:00000F57                 db    0</span><br><span class="line">seg000:00000F58                 dd 2 dup(1), 24h, 2 dup(1), 23h, 2, 0</span><br><span class="line">seg000:00000F78                 db  22h ; &quot;</span><br><span class="line">seg000:00000F79                 align 4</span><br><span class="line">seg000:00000F7C                 db    3</span><br><span class="line">seg000:00000F7D                 align 10h</span><br><span class="line">seg000:00000F80                 db    2</span><br><span class="line">seg000:00000F81                 align 4</span><br><span class="line">seg000:00000F84                 dd offset dword_0+21h</span><br><span class="line">seg000:00000F88                 dd 4, 8, 28h</span><br><span class="line">seg000:00000F94 unk_F94         db    3                 ; DATA XREF: seg000:00000ED4↑o</span><br><span class="line">seg000:00000F95                 align 4</span><br><span class="line">seg000:00000F98                 dd 4, 27h</span><br><span class="line">seg000:00000FA0 unk_FA0         db    2                 ; DATA XREF: seg000:00000EE0↑o</span><br><span class="line">seg000:00000FA1                 align 4</span><br><span class="line">seg000:00000FA4                 db    3</span><br><span class="line">seg000:00000FA5                 align 4</span><br><span class="line">seg000:00000FA8                 dd offset dword_0+28h</span><br><span class="line">seg000:00000FAC                 db    3</span><br><span class="line">seg000:00000FAD                 align 2</span><br><span class="line">seg000:00000FAE word_FAE        dw 0                    ; DATA XREF: seg000:00000EEB↑o</span><br><span class="line">seg000:00000FB0                 dd 4, 27h, 2, 3, 28h, 3, 4, 27h, 2, 3, 27h, 2 dup(3), 23h</span><br><span class="line">seg000:00000FB0                 dd 4, 3, 24h, 3, 2, 27h, 2, 4, 24h, 0</span><br><span class="line">seg000:00001010                 db    2</span><br><span class="line">seg000:00001011                 align 4</span><br><span class="line">seg000:00001014                 dd offset dword_0+21h</span><br><span class="line">seg000:00001018                 dd 2 dup(1), 25h, 0</span><br><span class="line">seg000:00001028                 dd 1, 22h, 1, 0</span><br><span class="line">seg000:00001038                 dd offset dword_0+21h</span><br><span class="line">seg000:0000103C                 db    2</span><br><span class="line">seg000:0000103D                 align 10h</span><br><span class="line">seg000:00001040                 db  81h</span><br><span class="line">seg000:00001041                 align 4</span><br><span class="line">seg000:00001044                 dd offset dword_0+26h</span><br><span class="line">seg000:00001048                 dd 1, 2, 21h, 2, 9, 26h, 1, 2, 21h, 2, 9, 2Dh, 2, 1, 21h</span><br><span class="line">seg000:00001048                 dd 0</span><br><span class="line">seg000:00001088                 db  81h</span><br><span class="line">seg000:00001089                 align 4</span><br><span class="line">seg000:0000108C                 db  22h ; &quot;</span><br><span class="line">seg000:0000108D                 align 10h</span><br><span class="line">seg000:00001090                 dd 1, 0</span><br><span class="line">seg000:00001098                 dd offset dword_0+21h</span><br><span class="line">seg000:0000109C                 db    2</span><br><span class="line">seg000:0000109D                 align 10h</span><br><span class="line">seg000:000010A0                 dd 9, 25h, 1, 2, 23h, 3, 0</span><br><span class="line">seg000:000010BC                 db  23h ; #</span><br><span class="line">seg000:000010BD                 align 10h</span><br><span class="line">seg000:000010C0                 dd 4, 1, 26h, 3, 4, 21h, 4, 7Eh, 2Dh, 4, 3, 21h, 3, 1</span><br><span class="line">seg000:000010C0                 dd 25h, 0</span><br><span class="line">seg000:00001100                 db    3</span><br><span class="line">seg000:00001101                 align 4</span><br><span class="line">seg000:00001104                 db  25h ; %</span><br><span class="line">seg000:00001105                 align 4</span><br><span class="line">seg000:00001108                 dd 1, 3, 26h, 2, 3, 21h, 4, 5Ah, 2Dh, 4, 2, 2Fh, 2 dup(0)</span><br><span class="line">seg000:00001140                 dd offset dword_0+30h</span><br><span class="line">seg000:00001144                 dd 2 dup(0)</span><br><span class="line">seg000:0000114C                 db  38h ; 8</span><br><span class="line">seg000:0000114D                 db 62h, 64h, 61h</span><br></pre></td></tr></table></figure>
+<h4 id="dump"><a href="#dump" class="headerlink" title="dump"></a>dump</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">addr = <span class="number">0x0F48</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">"\nopt:"</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">while</span>(<span class="number">1</span>):</span><br><span class="line">    opt = Dword(addr)</span><br><span class="line">    a = Dword(addr + <span class="number">4</span>)</span><br><span class="line">    b = Dword(addr + <span class="number">8</span>)</span><br><span class="line">    <span class="keyword">print</span> opt,<span class="string">","</span>,a,<span class="string">","</span>,b,<span class="string">","</span>,</span><br><span class="line">    <span class="keyword">if</span>(opt &gt;= <span class="number">0x2E</span>):</span><br><span class="line">        <span class="keyword">break</span></span><br><span class="line">    addr += <span class="number">12</span></span><br></pre></td></tr></table></figure>
+<h4 id="翻译"><a href="#翻译" class="headerlink" title="翻译"></a>翻译</h4><p>妈耶，好不容易把指令翻译成了C语言，结果发现这段代码里面还嵌套了类似汇编的指令，还有循环，需要翻译</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">0</span>       buf0 = <span class="number">129</span>    				<span class="comment">//buf0 = 129</span></span><br><span class="line"><span class="number">1</span>       buf1 ^= buf1   				<span class="comment">//buf1 = 0</span></span><br><span class="line"><span class="number">2</span>       (dword) data[buf1] = buf1   <span class="comment">//data[0] = 0</span></span><br><span class="line"><span class="number">3</span>       buf2 = (dword) data[buf0]   <span class="comment">//buf2 = data[129]</span></span><br><span class="line"><span class="number">4</span>       buf3 = buf2                 <span class="comment">//buf3 = data[129]</span></span><br><span class="line"><span class="number">5</span>       buf4 = <span class="number">8</span>				    <span class="comment">//buf4 = 8</span></span><br><span class="line"><span class="number">6</span>       buf3 &lt;&lt;= buf4               <span class="comment">//buf3 = data[129] &lt;&lt; 8</span></span><br><span class="line"><span class="number">7</span>       buf2 ^= buf3			    <span class="comment">//buf2 = data[129] ^ (data[129] &lt;&lt; 8)</span></span><br><span class="line"><span class="number">8</span>       buf3 &lt;&lt;= buf4		        <span class="comment">//buf3 = data[129] &lt;&lt; 16</span></span><br><span class="line"><span class="number">9</span>       buf2 ^= buf3 </span><br><span class="line"><span class="number">10</span>      buf3 &lt;&lt;= buf4</span><br><span class="line"><span class="number">11</span>      buf2 ^= buf3</span><br><span class="line"></span><br><span class="line"><span class="comment">//buf2 = data[129] ^ (data[129] &lt;&lt; 8) ^ (data[129] &lt;&lt; 16) ^ (data[129] &lt;&lt; 24) </span></span><br><span class="line"><span class="comment">//  = afterXor</span></span><br><span class="line"></span><br><span class="line"><span class="number">12</span>      buf3 ^= buf3			    <span class="comment">//buf3 = 0</span></span><br><span class="line"><span class="number">13</span>      buf4 = (dword) data[buf3]   <span class="comment">//buf4 = data[0]</span></span><br><span class="line"><span class="number">14</span>      (dword) data[buf3] = buf2   <span class="comment">//data[0] = afterXor</span></span><br><span class="line"><span class="number">15</span>      buf2 ^= buf4                <span class="comment">//buf2 = afterXor ^ data[0]</span></span><br><span class="line"><span class="number">16</span>      (dword) data[buf0] = buf2   <span class="comment">//data[129] = afterXor ^ data[0]</span></span><br><span class="line"><span class="number">17</span>      buf1 = <span class="number">1</span>					<span class="comment">//buf1 = 1</span></span><br><span class="line"><span class="number">18</span>      buf0 += buf1				<span class="comment">//buf0 = 130</span></span><br><span class="line"><span class="number">19</span>      buf1 = buf0					<span class="comment">//buf1 = 130</span></span><br><span class="line"><span class="number">20</span>      buf2 = <span class="number">129</span>					<span class="comment">//buf2 = 129</span></span><br><span class="line"><span class="number">21</span>      buf1 -= buf2				<span class="comment">//buf1 = 1</span></span><br><span class="line"><span class="number">22</span>      buf2 = <span class="number">9</span>					<span class="comment">//buf2 = 9</span></span><br><span class="line"><span class="number">23</span>      buf1 -= buf2				<span class="comment">//buf1 = -8</span></span><br><span class="line"><span class="number">24</span>      buf2 = <span class="number">9</span>					<span class="comment">//buf2 = 9</span></span><br><span class="line"></span><br><span class="line"><span class="number">25</span>      <span class="keyword">if</span>(buf1 != <span class="number">0</span>)  temp = buf2  <span class="comment">//经高人指点，这里是设置eip</span></span><br><span class="line">									<span class="comment">//jmp 3</span></span><br><span class="line">									</span><br><span class="line"><span class="number">26</span>      buf0 = <span class="number">129</span>					<span class="comment">//buf0 = 129</span></span><br><span class="line"><span class="number">27</span>      buf1 = buf0					<span class="comment">//buf1 = 129</span></span><br><span class="line"><span class="number">28</span>      buf2 = <span class="number">9</span>					<span class="comment">//buf2 = 9</span></span><br><span class="line"><span class="number">29</span>      buf1 += buf2				<span class="comment">//buf1 = 138</span></span><br><span class="line"><span class="number">30</span>      buf3 = (dword) data[buf0]	<span class="comment">//buf3 = data[129]</span></span><br><span class="line"><span class="number">31</span>      buf4 = (dword) data[buf1]	<span class="comment">//buf4 = data[138]</span></span><br><span class="line"><span class="number">32</span>      buf3 -= buf4				<span class="comment">//buf3 = data[129] - data[138]</span></span><br><span class="line"><span class="number">33</span>      buf4 = <span class="number">126</span>					<span class="comment">//buf4 = 126</span></span><br><span class="line"></span><br><span class="line"><span class="number">34</span>      <span class="keyword">if</span>(buf3 != <span class="number">0</span>)  temp = buf4	<span class="comment">//jmp 42</span></span><br><span class="line"></span><br><span class="line"><span class="number">35</span>      buf3 = <span class="number">1</span>					<span class="comment">//buf3 = 1</span></span><br><span class="line"><span class="number">36</span>      buf0 += buf3				<span class="comment">//buf0 = data[129] - data[138] + 129</span></span><br><span class="line"><span class="number">37</span>      buf1 += buf3				<span class="comment">//buf1 = 139</span></span><br><span class="line"><span class="number">38</span>      buf2 -= buf3				<span class="comment">//buf2 = 8</span></span><br><span class="line"><span class="number">39</span>      buf4 = <span class="number">90</span>					<span class="comment">//buf4 = 90</span></span><br><span class="line"><span class="number">40</span>      <span class="keyword">if</span>(buf2 != <span class="number">0</span>)  temp = buf4	</span><br><span class="line"><span class="number">41</span>      <span class="built_in">printf</span>(<span class="string">"wrong"</span>)</span><br><span class="line"><span class="number">42</span>      <span class="built_in">printf</span>(<span class="string">"right"</span>)</span><br></pre></td></tr></table></figure>
+<h4 id="再翻译"><a href="#再翻译" class="headerlink" title="再翻译"></a>再翻译</h4><p>程序作了一个很奇怪的循环，并且异或了一大堆</p>
+<p>这个程序要逆向实在太难了，考虑到本来这个数据也不大，就暴力枚举</p>
+<p><strong>script from yypE:</strong></p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">dec</span><span class="params">(arr)</span>:</span></span><br><span class="line">    <span class="keyword">assert</span>(len(arr)==<span class="number">9</span>)</span><br><span class="line">    last = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">9</span>):</span><br><span class="line">        var = <span class="number">0</span></span><br><span class="line">        arr[i] ^= last</span><br><span class="line">        last = arr[i]</span><br><span class="line">        var |= arr[i] &amp; <span class="number">0xff</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">1</span>,<span class="number">4</span>):</span><br><span class="line">            var |= (byte(arr[i],j) ^ byte(arr[i],j<span class="number">-1</span>)) &lt;&lt;(<span class="number">8</span>*j)</span><br><span class="line">        arr[i] = var</span><br><span class="line">    <span class="keyword">return</span> arr</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">enc</span><span class="params">(arr)</span>:</span></span><br><span class="line">    <span class="keyword">assert</span>(len(arr)==<span class="number">9</span>)</span><br><span class="line">    last = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">9</span>):</span><br><span class="line">        var = <span class="number">0</span></span><br><span class="line">        <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">            var ^= (arr[i]&lt;&lt;(<span class="number">8</span>*j)) &amp; <span class="number">0xffffffff</span></span><br><span class="line">        arr[i] = var ^ last</span><br><span class="line">        last = var</span><br><span class="line">    <span class="keyword">return</span> arr</span><br></pre></td></tr></table></figure>
+<p>获得flag：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gen_flag</span><span class="params">()</span>:</span></span><br><span class="line">    ar = [<span class="number">1466127717</span>, <span class="number">106103809</span>, <span class="number">524896585</span>, <span class="number">1364657951</span>, <span class="number">1465860951</span>, <span class="number">1464032855</span>, <span class="number">1129775626</span>, <span class="number">1465779038</span>, <span class="number">257490944</span>]</span><br><span class="line">    flag = <span class="string">b''</span></span><br><span class="line">    <span class="keyword">for</span> each <span class="keyword">in</span> dec(ar):</span><br><span class="line">        flag+=each.to_bytes(<span class="number">4</span>,<span class="string">'little'</span>)</span><br><span class="line">    print(flag)</span><br></pre></td></tr></table></figure>
+<p><strong>虚拟机+反汇编+循环+暴力搜索</strong></p>
+<h2 id="难点"><a href="#难点" class="headerlink" title="难点"></a>难点</h2><ol>
+<li>猜出来程序的入口点</li>
+<li>猜出修改的temp变量原来是EIP</li>
+<li>逆向带循环的程序</li>
+<li>耐心</li>
+</ol>
+
+    </article>
+    <!-- license  -->
+    
+        <div class="license-wrapper">
+            <p>原文作者：<a href="https://mrh1s.top">mrh929</a>
+            </p><p>原文链接：<a href="https://mrh1s.top/posts/d2cf12e4/">https://mrh1s.top/posts/d2cf12e4/</a>
+            </p><p>发表日期：<a href="https://mrh1s.top/posts/d2cf12e4/">May 13th 2019, 11:06:14 pm</a>
+            </p><p>更新日期：<a href="https://mrh1s.top/posts/d2cf12e4/">May 13th 2019, 11:09:44 pm</a>
+            </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator  -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/posts/5f4cc17f/" title="simple_machine">
+                    <div class="prevTitle">simple_machine</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- 评论插件 -->
+    <!-- 来必力City版安装代码 -->
+
+<!-- City版安装代码已完成 -->
+    
+    
+    <!-- partial('_partial/comment/changyan') -->
+    <!--PC版-->
+
+
+    
+    
+
+    <!-- 评论 -->
+</main>
+            <!-- profile -->
+            
+        </div>
+        <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+    <div class="social">
+        
+    
+        
+            
+                <a href="mailto:mrh929@cnss.io" class="iconfont-archer email" title="email"></a>
+            
+        
+    
+        
+            
+                <a href="//github.com/mrh929" class="iconfont-archer github" target="_blank" title="github"></a>
+            
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="https://t.me/mrh929" class="iconfont-archer telegram" target="_blank" title="telegram"></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+    </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">Modified by <a href="https://mrh1s.top/about/" target="_blank">Mrh929</a> </span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- 丝蒜孝  -->
+    
+    <div class="busuanzi-container">
+    
+    
+    <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+    
+    </div>
+    
+</footer>
+    </div>
+    <!-- toc -->
+    
+    <div class="toc-wrapper" style=
+    
+
+
+
+
+
+
+
+top:50vh;
+
+    >
+        <div class="toc-catalog">
+            <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+        </div>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#strange-int"><span class="toc-number">1.</span> <span class="toc-text">strange int</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#思路"><span class="toc-number">1.1.</span> <span class="toc-text">思路</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#开始"><span class="toc-number">1.1.1.</span> <span class="toc-text">开始</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#switch跳转语句"><span class="toc-number">1.1.2.</span> <span class="toc-text">switch跳转语句</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#各个case"><span class="toc-number">1.1.3.</span> <span class="toc-text">各个case</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#汇编"><span class="toc-number">1.1.3.1.</span> <span class="toc-text">汇编</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#翻译后"><span class="toc-number">1.1.3.2.</span> <span class="toc-text">翻译后</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指令数组"><span class="toc-number">1.1.4.</span> <span class="toc-text">指令数组</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#内存"><span class="toc-number">1.1.4.1.</span> <span class="toc-text">内存</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#dump"><span class="toc-number">1.1.4.2.</span> <span class="toc-text">dump</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#翻译"><span class="toc-number">1.1.4.3.</span> <span class="toc-text">翻译</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#再翻译"><span class="toc-number">1.1.4.4.</span> <span class="toc-text">再翻译</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#难点"><span class="toc-number">1.2.</span> <span class="toc-text">难点</span></a></li></ol></li></ol>
+    </div>
+    
+    <div class="back-top iconfont-archer">&#xe639;</div>
+    <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+          <div class="sidebar-panel-archives">
+    <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 55
+        </div>
+        <!-- search  -->
+        
+            <div class="site-search popup-trigger">
+                <span class="iconfont-archer search-icon">&#xe627;</span>
+            </div>
+        
+    </div>
+    
+    <div class="post-archive">
+    
+    
+    
+    
+    <div class="archive-year"> 2019 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/13</span><a class="archive-post-title" href="/posts/d2cf12e4/">补题：Strange_int</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/11</span><a class="archive-post-title" href="/posts/5f4cc17f/">simple_machine</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/08</span><a class="archive-post-title" href="/posts/db7779bb/">多并发编程尝试</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/07</span><a class="archive-post-title" href="/posts/f22525af/">homuraVM</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/06</span><a class="archive-post-title" href="/posts/a4a48694/">学生信息管理系统</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/04</span><a class="archive-post-title" href="/posts/25290751/">To Be Alone</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/03</span><a class="archive-post-title" href="/posts/ebedb07/">Migration_Success!</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href="/posts/7f12b338/">南京邮电大学 RE-WxyVM2</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href="/posts/ea74c872/">bbvvmm</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">04/13</span><a class="archive-post-title" href="/posts/6d13a265/">壳相关</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/22</span><a class="archive-post-title" href="/posts/ab82ece6/">ShinyShot!</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">03/21</span><a class="archive-post-title" href="/posts/461ecec/">HappyVM</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/16</span><a class="archive-post-title" href="/posts/4915557e/">maze</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/16</span><a class="archive-post-title" href="/posts/8616795e/">brainfuck</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/9ed4e6b7/">Pro的Python教室(二)</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/6aab0075/">wakarimasu</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/f9cd8782/">xor</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">02/04</span><a class="archive-post-title" href="/posts/46621246/">FAT16文件系统</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/09</span><a class="archive-post-title" href="/posts/e0221437/">排序算法的一点小心得</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/03</span><a class="archive-post-title" href="/posts/3cf48918/">网安课答辩-比特币与区块链</a>
+        </li>
+    
+    
+    
+    
+    
+        </ul>
+    
+    <div class="archive-year"> 2018 </div>
+    <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/31</span><a class="archive-post-title" href="/posts/1879b15e/">记第一次电脑组装（二）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/30</span><a class="archive-post-title" href="/posts/286f5d86/">记第一次电脑组装（一）</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/20</span><a class="archive-post-title" href="/posts/59c8895d/">商品管理系统</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/13</span><a class="archive-post-title" href="/posts/ef5c41ea/">网络安全课笔记 of Shijie Zhou #2</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e073dc73/">字典树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e5abdd9c/">铺地毯题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28cf1e0f/">拓扑排序以及关键路径总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/50d2edb9/">2的幂次方表示题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/3598786/">逆波兰表达式题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/6c3f6e84/">字符串hash，康托展开总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/17525de2/">AVL树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/93b1f5dc/">暑期人生测试一总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/80036358/">大整数乘法题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/1acd21ea/">Tarjan算法求无向图割边割点、最近公共祖先的总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/4c789951/">Vigenère密码题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/675d1a4b/">求最大网络流（最小割）总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/852a3205/">线段树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/76551050/">网络安全课笔记 of Shijie Zhou #1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/eb65a69a/">Our 16bits wars</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/28572e84/">基本操作 Reverse Version</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/6dada2a6/">Some Boxes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/13</span><a class="archive-post-title" href="/posts/6d22fa14/">Vector Majic</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/03</span><a class="archive-post-title" href="/posts/3f79aed7/">莫名其妙的https配置错误</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/03</span><a class="archive-post-title" href="/posts/1b851995/">Hello world!</a>
+        </li>
+    
+    </ul></div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="RE_Dynamic"><span class="iconfont-archer">&#xe606;</span>RE_Dynamic</span>
+    
+        <span class="sidebar-tag-name" data-tags="RE_Static"><span class="iconfont-archer">&#xe606;</span>RE_Static</span>
+    
+        <span class="sidebar-tag-name" data-tags="VM"><span class="iconfont-archer">&#xe606;</span>VM</span>
+    
+        <span class="sidebar-tag-name" data-tags="SMC"><span class="iconfont-archer">&#xe606;</span>SMC</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br>
+    1、请确保node版本大于6.2<br>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="write up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
+    
+        <span class="sidebar-category-name" data-categories="牢骚"><span class="iconfont-archer">&#xe60a;</span>牢骚</span>
+    
+        <span class="sidebar-category-name" data-categories="cnss_recruit_201809"><span class="iconfont-archer">&#xe60a;</span>write-up/cnss-recruit-201809</span>
+    
+        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
+    
+        <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
+    
+        <span class="sidebar-category-name" data-categories="notes"><span class="iconfont-archer">&#xe60a;</span>notes</span>
+    
+        <span class="sidebar-category-name" data-categories="project"><span class="iconfont-archer">&#xe60a;</span>project</span>
+    
+        <span class="sidebar-category-name" data-categories="hgame_20190122"><span class="iconfont-archer">&#xe60a;</span>write-up/hgame-20190122</span>
+    
+        <span class="sidebar-category-name" data-categories="c-learn"><span class="iconfont-archer">&#xe60a;</span>c-learn</span>
+    
+        <span class="sidebar-category-name" data-categories="nationalCTF_20190421"><span class="iconfont-archer">&#xe60a;</span>write-up/nationalCTF-20190421</span>
+    
+        <span class="sidebar-category-name" data-categories="cgctf"><span class="iconfont-archer">&#xe60a;</span>write-up/cgctf</span>
+    
+        <span class="sidebar-category-name" data-categories="write-up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
+    
+        <span class="sidebar-category-name" data-categories="cgctf"><span class="iconfont-archer">&#xe60a;</span>write-up/cgctf</span>
+    
+        <span class="sidebar-category-name" data-categories="nationalCTF_20190421"><span class="iconfont-archer">&#xe60a;</span>write-up/nationalCTF-20190421</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "mrh929"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+        <div class="site-search">
+  <div class="algolia-popup popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="iconfont-archer">&#xe609;</i>
+    </span>
+  </div>
+</div>
+        <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.8.0/dist/instantsearch.min.js" defer></script>
+        <script src="/scripts/search.js" defer></script>
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+    
+        <script src="/scripts/share.js" async></script>    
+     
+    </body>
+</html>
+
+
