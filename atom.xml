@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://mrh1s.top/"/>
-  <updated>2019-05-18T17:15:03.253Z</updated>
+  <updated>2019-05-18T17:17:17.499Z</updated>
   <id>https://mrh1s.top/</id>
   
   <author>
@@ -21,9 +21,9 @@
     <link href="https://mrh1s.top/posts/74b676c7/"/>
     <id>https://mrh1s.top/posts/74b676c7/</id>
     <published>2019-05-18T16:29:53.000Z</published>
-    <updated>2019-05-18T17:15:03.253Z</updated>
+    <updated>2019-05-18T17:17:17.499Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="CCSP2019"><a href="#CCSP2019" class="headerlink" title="CCSP2019"></a>CCSP2019</h1><blockquote><p> 有幸通过了CCF CSP  认证，获得了参加CCSP西南赛区比赛的资格</p></blockquote><p><strong>来到川大（江安校区）</strong></p><p>这个校区管理非常严格，进门之前甚至需要出示身份证和准考证( x</p><p>校园中一片宁静，可能是因为星期六的原因，并没有太多人愿意在这个搭好的天气出来走动走动，偶尔看见一两对情侣唧唧我我，酸死我了</p><p><img src="https://i.loli.net/2019/05/19/5ce039812509636998.jpg" alt="MVIMG_20190518_165030.jpg"></p><p>人文气息气息极其浓厚</p><p><img src="https://i.loli.net/2019/05/19/5ce03985947f538834.jpg" alt="MVIMG_20190518_162435.jpg"></p><p>这个比赛并不是很出名，整个教学楼就只看到两个指示牌，这是其中一个（</p><p><img src="https://i.loli.net/2019/05/19/5ce03984b835c99805.jpg" alt="MVIMG_20190518_080614.jpg"></p><p>CCSP分区赛是第一次在川大举办的，看出来主办方对于应急事件的处理方法还不够了解，试机过程中状况百出</p><p>8:30上机调试，没有提供windows的IDE，仅仅有一个linux虚拟机，配上里面“丰富”的IDE，不过我并不觉得这是一个好办法，因为川大的电脑实在是太垃圾了。。虚拟机真的是带不动啊</p><p>幸好我带了U盘，装上了Dev-Cpp</p><p>经过无数次重启，好不容易进去了比赛界面</p><p>OJ是清华大学提供的，这个非常好</p><p><img src="https://i.loli.net/2019/05/19/5ce039821f3f850433.jpg" alt="MVIMG_20190518_092009.jpg"></p><p>比赛期间还算进行得很顺利，不过嘛，菜是原罪</p><p>第一题是图论题，并不是什么高大上的题目，题目叙述非常简单，就是靠自己爆搜，剪枝吧</p><p>第二题模拟题，模拟raid5阵列恢复数据的过程</p><p>第三题是一道看不懂的与c++的类有关的题目，，，但是题目给的样例程序，交上去居然有分</p><p>中午12:30有午餐，是德克士的汉堡跟鸡腿，主办方在给选手提供良好比赛环境上还是下了很大功夫的</p><p>图片：颁奖现场</p><p><img src="https://i.loli.net/2019/05/19/5ce039814c74597275.jpg" alt="MVIMG_20190518_153959.jpg"></p><blockquote><p>水了个铜奖</p></blockquote><p>奖励是罗技鼠标一个</p><p><img src="https://i.loli.net/2019/05/19/5ce03982d7ed266471.jpg" alt="IMG_20190518_233712.jpg"></p><p>总结：这次川大之行非常愉快，一方面是见了见老同学聊了聊往事，另一方面我看到了川大在准备比赛上的用心和负责，虽然自己的水平还不够继续参加总决赛，不过这次区域赛无疑是一个很好的锻炼，期待我以后的表现吧！</p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="CCSP2019"><a href="#CCSP2019" class="headerlink" title="CCSP2019"></a>CCSP2019</h1><blockquote><p> 有幸通过了CCF CSP  认证，获得了参加CCSP西南赛区比赛的资格</p></blockquote><p><strong>来到川大（江安校区）</strong></p><p>这个校区管理非常严格，进门之前甚至需要出示身份证和准考证( x</p><p>校园中一片宁静，可能是因为星期六的原因，并没有太多人愿意在这个搭好的天气出来走动走动，偶尔看见一两对情侣唧唧我我，酸死我了</p><p><img src="https://i.loli.net/2019/05/19/5ce039812509636998.jpg" alt="MVIMG_20190518_165030.jpg"></p><p>人文气息极其浓厚</p><p><img src="https://i.loli.net/2019/05/19/5ce03985947f538834.jpg" alt="MVIMG_20190518_162435.jpg"></p><p>这个比赛并不是很出名，整个教学楼就只看到两个指示牌，这是其中一个（</p><p><img src="https://i.loli.net/2019/05/19/5ce03984b835c99805.jpg" alt="MVIMG_20190518_080614.jpg"></p><p>CCSP分区赛是第一次在川大举办的，看出来主办方对于应急事件的处理方法还不够了解，试机过程中状况百出</p><p>8:30上机调试，没有提供windows的IDE，仅仅有一个linux虚拟机，配上里面“丰富”的IDE，不过我并不觉得这是一个好办法，因为川大的电脑实在是太垃圾了。。虚拟机真的是带不动啊</p><p>幸好我带了U盘，装上了Dev-Cpp</p><p>经过无数次重启，好不容易进去了比赛界面</p><p>OJ是清华大学提供的，这个非常好</p><p><img src="https://i.loli.net/2019/05/19/5ce039821f3f850433.jpg" alt="MVIMG_20190518_092009.jpg"></p><p>比赛期间还算进行得很顺利，不过嘛，菜是原罪</p><p>第一题是图论题，并不是什么高大上的题目，题目叙述非常简单，就是靠自己爆搜，剪枝吧</p><p>第二题模拟题，模拟raid5阵列恢复数据的过程</p><p>第三题是一道看不懂的与c++的类有关的题目，，，但是题目给的样例程序，交上去居然有分</p><p>中午12:30有午餐，是德克士的汉堡跟鸡腿，主办方在给选手提供良好比赛环境上还是下了很大功夫的</p><p>图片：颁奖现场</p><p><img src="https://i.loli.net/2019/05/19/5ce039814c74597275.jpg" alt="MVIMG_20190518_153959.jpg"></p><blockquote><p>水了个铜奖</p></blockquote><p>奖励是罗技鼠标一个</p><p><img src="https://i.loli.net/2019/05/19/5ce03982d7ed266471.jpg" alt="IMG_20190518_233712.jpg"></p><p>总结：这次川大之行非常愉快，一方面是见了见老同学聊了聊往事，另一方面我看到了川大在准备比赛上的用心和负责，虽然自己的水平还不够继续参加总决赛，不过这次区域赛无疑是一个很好的锻炼，期待以后的表现</p>]]></content>
     
     <summary type="html">
     
