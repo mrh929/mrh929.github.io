@@ -364,277 +364,28 @@
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/posts/caa72719/">
+        <a class="abstract-title" href="/posts/122a7c75/">
             
-                <span>single</span>
+                <span>rctf_babyre1</span>
         </a>
         <div class="abstract-content">
-            single思路
- 经观察 发现a1是一个矩阵
-
-sub_40083312345678910111213141516171819202122unsigned __int64 __fastcall sub_400833(__int64 a1)&#123;  signed int i; // [r...
+            RCTF_babyre1思路以下是与输入相关的指令
+main123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354555657585960616263...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/14</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/21</span>
             </div>
             <!-- tags  -->
             
             <div class="abstract-tags">
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="RE_Static">RE_Static</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="Re_Static">Re_Static</a>
     
-</div>
-            
-        </div>
-    </article>
+        <a class="post-tag" href="javascript:void(0);" data-tags="xtea">xtea</a>
     
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/posts/d2cf12e4/">
-            
-                <span>补题：Strange_int</span>
-        </a>
-        <div class="abstract-content">
-            strange int
-打国赛的时候没做出来这道题，现在看了题解来补一补
-
-思路开始以前写过FAT16的模拟程序，看到这个文件第一想法是这是一个DBR
-第一行的 jmp 就是 jump 到这个命令的下一个命令。。
-1234567891011121314151617181920212223242...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/13</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="RE_Static">RE_Static</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="VM">VM</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/posts/5f4cc17f/">
-            
-                <span>simple_machine</span>
-        </a>
-        <div class="abstract-content">
-            simple-machine思路整理general这道题说起来是vm，实际上和vm的挂钩并不大，就是用高级语言去实现了汇编，把变量都当做了寄存器来使用，其中还有各种压栈出栈过程，不过跟本题关系不大，也就不用过于细究了
-fun1fun1主要是通过输入的字符串，与预置的feed进行异或，得到一串加...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/11</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="RE_Static">RE_Static</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="VM">VM</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/posts/f22525af/">
-            
-                <span>homuraVM</span>
-        </a>
-        <div class="abstract-content">
-            HomuraVM
-太丢脸了，这么简单一个vm还是做了三个多小时
-
-homuraVM
-概况这道题是WxyVM的一个加强版，即使把vm的指令翻译出来了，也会发现得到的是一串鸟语，俗称类brainf**k语言
-程序的大概思路是这样的，读入一串数据，然后把这段数据载入内存，随后执行保存在程序里面的一段...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/07</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="RE_Static">RE_Static</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="VM">VM</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/posts/ea74c872/">
-            
-                <span>bbvvmm</span>
-        </a>
-        <div class="abstract-content">
-            bbvvmm用ida打开 可以发现程序读入了用户名和密码，然后对用户名和密码进行了加密，如果用户名和密码校验正确，那么就cat flag
-首先是用户名，用户名先进行一层加密，后进行sm4加密，最后进行变表base64转换为了一串密文
-首先解决base64：
-12345678910111213i...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/28</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="RE_Static">RE_Static</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="VM">VM</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/posts/7f12b338/">
-            
-                <span>南京邮电大学 RE-WxyVM2</span>
-        </a>
-        <div class="abstract-content">
-            WxyVM2
-大概是要读这个程序里面的一段汇编代码，这段汇编代码非常长，连ida都无法反编译，但是非常有规律，可以通过写脚本来还原 这是初始化代码，估计是对加密的字符串进行还原的：
-12345678.text:00000000004005FE                 mov     c...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/04/28</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="RE_Static">RE_Static</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="VM">VM</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/posts/ab82ece6/">
-            
-                <span>ShinyShot!</span>
-        </a>
-        <div class="abstract-content">
-            utf-8’ ‘ShinyShot!
-
-这个程序主要是利用了smc（动态代码修改技术）
-
-
-首先我们向程序里面输入一个数，然后这个程序利用这个数去修改了一些程序的代码
-
-
-然后输入一个字符串，将字符串base64加密后得到的密文与程序尾所保存的字符串进行比较，如果相同，则flag正确
-
-程序在...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/22</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="RE_Static">RE_Static</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="RE_Dynamic">RE_Dynamic</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="SMC">SMC</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/posts/461ecec/">
-            
-                <span>HappyVM</span>
-        </a>
-        <div class="abstract-content">
-            happyVM
-
-第一次做VM题，花了很多时间，最终还是有所收获
-
-首先逆向虚拟机的操作数，操作数无非几个操作：压栈，出栈，寄存器与内存之间的读写，寄存器与寄存器之间的赋值
-使用如下代码配合ida python获得所有操作数：
-12345678910111213141516addr = 0x4...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/03/21</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="RE_Static">RE_Static</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="VM">VM</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="crc16">crc16</a>
     
 </div>
             
@@ -642,10 +393,6 @@ homuraVM
     </article>
     
     <!-- paginator  -->
-    
-    <nav class="page-nav">
-        <span class="page-number current">1</span><a class="page-number" href="/tags/RE-Static/page/2/">2</a><a class="extend next" rel="next" href="/tags/RE-Static/page/2/">NEXT &#62;</a>
-    </nav>
     
 </main>
             <!-- profile -->
@@ -1730,9 +1477,84 @@ homuraVM
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
-        Total : 57
+        Total : 58
         </div>
         <!-- search  -->
         
@@ -1749,6 +1571,11 @@ homuraVM
     
     <div class="archive-year"> 2019 </div>
     <ul class="year-list">
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">05/21</span><a class="archive-post-title" href="/posts/122a7c75/">rctf_babyre1</a>
+        </li>
     
     
         <li class="archive-post-item">
@@ -1896,17 +1723,7 @@ homuraVM
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/50d2edb9/">2的幂次方表示题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28cf1e0f/">拓扑排序以及关键路径总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/4c789951/">Vigenère密码题解</a>
         </li>
     
     
@@ -1916,27 +1733,7 @@ homuraVM
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/3598786/">逆波兰表达式题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/17525de2/">AVL树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/6c3f6e84/">字符串hash，康托展开总结</a>
         </li>
     
     
@@ -1946,22 +1743,12 @@ homuraVM
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/17525de2/">AVL树总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/675d1a4b/">求最大网络流（最小割）总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/80036358/">大整数乘法题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
         </li>
     
     
@@ -1971,17 +1758,22 @@ homuraVM
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/6c3f6e84/">字符串hash，康托展开总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/675d1a4b/">求最大网络流（最小割）总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/1acd21ea/">Tarjan算法求无向图割边割点、最近公共祖先的总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
         </li>
     
     
@@ -1991,22 +1783,57 @@ homuraVM
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/80036358/">大整数乘法题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/1acd21ea/">Tarjan算法求无向图割边割点、最近公共祖先的总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/50d2edb9/">2的幂次方表示题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28cf1e0f/">拓扑排序以及关键路径总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/3598786/">逆波兰表达式题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/4c789951/">Vigenère密码题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/93b1f5dc/">暑期人生测试一总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
         </li>
     
     
@@ -2021,12 +1848,12 @@ homuraVM
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/28572e84/">基本操作 Reverse Version</a>
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/eb65a69a/">Our 16bits wars</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/eb65a69a/">Our 16bits wars</a>
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/28572e84/">基本操作 Reverse Version</a>
         </li>
     
     
@@ -2049,13 +1876,19 @@ homuraVM
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="RE_Static"><span class="iconfont-archer">&#xe606;</span>RE_Static</span>
-    
         <span class="sidebar-tag-name" data-tags="RE_Dynamic"><span class="iconfont-archer">&#xe606;</span>RE_Dynamic</span>
+    
+        <span class="sidebar-tag-name" data-tags="RE_Static"><span class="iconfont-archer">&#xe606;</span>RE_Static</span>
     
         <span class="sidebar-tag-name" data-tags="VM"><span class="iconfont-archer">&#xe606;</span>VM</span>
     
         <span class="sidebar-tag-name" data-tags="SMC"><span class="iconfont-archer">&#xe606;</span>SMC</span>
+    
+        <span class="sidebar-tag-name" data-tags="Re_Static"><span class="iconfont-archer">&#xe606;</span>Re_Static</span>
+    
+        <span class="sidebar-tag-name" data-tags="xtea"><span class="iconfont-archer">&#xe606;</span>xtea</span>
+    
+        <span class="sidebar-tag-name" data-tags="crc16"><span class="iconfont-archer">&#xe606;</span>crc16</span>
     
     </div>
     <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
@@ -2094,11 +1927,11 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="write up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
     
-        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
-    
         <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
     
         <span class="sidebar-category-name" data-categories="cnss_recruit_201809"><span class="iconfont-archer">&#xe60a;</span>write-up/cnss-recruit-201809</span>
+    
+        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
     
         <span class="sidebar-category-name" data-categories="notes"><span class="iconfont-archer">&#xe60a;</span>notes</span>
     
@@ -2115,6 +1948,212 @@ jsonContent:
         <span class="sidebar-category-name" data-categories="write-up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
     
         <span class="sidebar-category-name" data-categories="cgctf"><span class="iconfont-archer">&#xe60a;</span>write-up/cgctf</span>
+    
+        <span class="sidebar-category-name" data-categories="rctf-20190518"><span class="iconfont-archer">&#xe60a;</span>write-up/rctf-20190518</span>
+    
+        <span class="sidebar-category-name" data-categories="nationalCTF_20190421"><span class="iconfont-archer">&#xe60a;</span>write-up/nationalCTF-20190421</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+    </div>
+</div> 
+    <script>
+    var siteMeta = {
+        root: "/",
+        author: "mrh929"
+    }
+</script>
+    <!-- CDN failover -->
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ === 'undefined')
+        {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js">\x3C/script>')
+        }
+    </script>
+    <script src="/scripts/main.js"></script>
+    <!-- algolia -->
+    
+        <div class="site-search">
+  <div class="algolia-popup popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="iconfont-archer">&#xe609;</i>
+    </span>
+  </div>
+</div>
+        <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.8.0/dist/instantsearch.min.js" defer></script>
+        <script src="/scripts/search.js" defer></script>
+    
+    <!-- busuanzi  -->
+    
+    <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    
+    <!-- CNZZ  -->
+    
+    </div>
+    <!-- async load share.js -->
+     
+    </body>
+</html>
+
+
+     </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/3598786/">逆波兰表达式题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/93b1f5dc/">暑期人生测试一总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/76551050/">网络安全课笔记 of Shijie Zhou #1</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/6dada2a6/">Some Boxes</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/eb65a69a/">Our 16bits wars</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/28572e84/">基本操作 Reverse Version</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/13</span><a class="archive-post-title" href="/posts/6d22fa14/">Vector Majic</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/03</span><a class="archive-post-title" href="/posts/3f79aed7/">莫名其妙的https配置错误</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">10/03</span><a class="archive-post-title" href="/posts/1b851995/">Hello world!</a>
+        </li>
+    
+    </ul></div>
+  </div>
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+    
+        <span class="sidebar-tag-name" data-tags="RE_Dynamic"><span class="iconfont-archer">&#xe606;</span>RE_Dynamic</span>
+    
+        <span class="sidebar-tag-name" data-tags="RE_Static"><span class="iconfont-archer">&#xe606;</span>RE_Static</span>
+    
+        <span class="sidebar-tag-name" data-tags="VM"><span class="iconfont-archer">&#xe606;</span>VM</span>
+    
+        <span class="sidebar-tag-name" data-tags="SMC"><span class="iconfont-archer">&#xe606;</span>SMC</span>
+    
+        <span class="sidebar-tag-name" data-tags="Re_Static"><span class="iconfont-archer">&#xe606;</span>Re_Static</span>
+    
+        <span class="sidebar-tag-name" data-tags="xtea"><span class="iconfont-archer">&#xe606;</span>xtea</span>
+    
+        <span class="sidebar-tag-name" data-tags="crc16"><span class="iconfont-archer">&#xe606;</span>crc16</span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+    缺失模块。<br>
+    1、请确保node版本大于6.2<br>
+    2、在博客根目录（注意不是archer根目录）执行以下命令：<br>
+    <span style="color: #f75357; font-size: 1rem; line-height: 2rem;">npm i hexo-generator-json-content --save</span><br>
+    3、在根目录_config.yml里添加配置：
+    <pre style="color: #787878; font-size: 0.6rem;">
+jsonContent:
+  meta: false
+  pages: false
+  posts:
+    title: true
+    date: true
+    path: true
+    text: false
+    raw: false
+    content: false
+    slug: false
+    updated: false
+    comments: false
+    link: false
+    permalink: false
+    excerpt: false
+    categories: true
+    tags: true</pre>
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="牢骚"><span class="iconfont-archer">&#xe60a;</span>牢骚</span>
+    
+        <span class="sidebar-category-name" data-categories="write up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
+    
+        <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
+    
+        <span class="sidebar-category-name" data-categories="cnss_recruit_201809"><span class="iconfont-archer">&#xe60a;</span>write-up/cnss-recruit-201809</span>
+    
+        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
+    
+        <span class="sidebar-category-name" data-categories="notes"><span class="iconfont-archer">&#xe60a;</span>notes</span>
+    
+        <span class="sidebar-category-name" data-categories="project"><span class="iconfont-archer">&#xe60a;</span>project</span>
+    
+        <span class="sidebar-category-name" data-categories="c-learn"><span class="iconfont-archer">&#xe60a;</span>c-learn</span>
+    
+        <span class="sidebar-category-name" data-categories="hgame_20190122"><span class="iconfont-archer">&#xe60a;</span>write-up/hgame-20190122</span>
+    
+        <span class="sidebar-category-name" data-categories="nationalCTF_20190421"><span class="iconfont-archer">&#xe60a;</span>write-up/nationalCTF-20190421</span>
+    
+        <span class="sidebar-category-name" data-categories="cgctf"><span class="iconfont-archer">&#xe60a;</span>write-up/cgctf</span>
+    
+        <span class="sidebar-category-name" data-categories="write-up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
+    
+        <span class="sidebar-category-name" data-categories="cgctf"><span class="iconfont-archer">&#xe60a;</span>write-up/cgctf</span>
+    
+        <span class="sidebar-category-name" data-categories="rctf-20190518"><span class="iconfont-archer">&#xe60a;</span>write-up/rctf-20190518</span>
     
         <span class="sidebar-category-name" data-categories="nationalCTF_20190421"><span class="iconfont-archer">&#xe60a;</span>write-up/nationalCTF-20190421</span>
     
