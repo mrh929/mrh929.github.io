@@ -81,6 +81,8 @@
     <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
     
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
 - testing support for link[rel=preload]
@@ -219,10 +221,8 @@
 </head>
 
     
-        <body class="home-body">
     
-    
-<header class="header index-header">
+<header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
@@ -238,34 +238,21 @@
 
 
 
-
-height:50vh;
 ">
     
     <!-- 主页  -->
-    
-    
-    <!-- 文章页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/index-bg_compressed.jpg)"></div>
+    <div class="site-intro-img" style="background-image: url(/)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            初音ミクの消失
-            <!-- 文章页  -->
-            
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
-            
-            
-                はじめてのキスは涙の味がした。
-            
-            <!-- 文章页  -->
             
         </p>
         <!-- 文章页meta -->
@@ -377,294 +364,40 @@ height:50vh;
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/posts/30ce1405/">
+        <a class="abstract-title" href="/posts/8b232dcf/">
             
-                <span>树状数组总结</span>
+                <span>rctf_babyre2</span>
         </a>
         <div class="abstract-content">
-            树状数组总结树状数组是一个类似于线段树的树状结构，它通过存储一定区间内的元素来达到快速插入、快速求和的效果。并且可以节省时间，节省空间，减少代码量，可谓是非常优秀的一个树形结构
-方格中数字代表对应数组的第几个元素,下排是a数组,其上方的是e数组,最下的二进制则是对应编号的二进制表示.
-可以观察...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/06</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/posts/e073dc73/">
-            
-                <span>字典树总结</span>
-        </a>
-        <div class="abstract-content">
-            字典树总结在实际生活中，图书馆、书店都会遇到一种麻烦，就是不知道如何储存所有的书名，因为藏书实在是太多了。这种情形非常常见。 由此单词查找树便出现了：Trie树，是一种树形结构，是一种哈希树的变种，它通过储存大部分字符串的前缀来达到不仅是存储空间而且是查找效率的优化。 字典树的操作大致分为三种...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/06</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/posts/8e2c30b/">
-            
-                <span>树形动态规划总结</span>
-        </a>
-        <div class="abstract-content">
-            树形动规总结树型动规的基本方式同普通的线性动态规划，但遍历的顺序是由高深度向低深度直至根节点，通常一个树型动规包括了状态、阶段、决策、状态转移方程，找到每个题目对应的动归要素，是一个题目的难点所在。
-     状态：程序求解到每个程度所储存的信息，通常我们需要在一开始找到适合题目的状态并进行定...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/06</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/posts/28355435/">
-            
-                <span>可并堆之左偏树总结</span>
-        </a>
-        <div class="abstract-content">
-            可并堆之左偏树总结左偏树，顾名思义，是左边的结点权值较大的树形数据结构。主要用于两个优先队列的快速合并，是可并堆的一种实现方式。 定义与性质：
+            Rctf_babyre2思路alarm
+程序一开头就有一个alarm函数，这会使我们在调试的时候中途退出，直接把call alarm nop掉即可
 
-外结点：一个结点的右子结点为空就为外结点
-距离：结点一直向右，直到外结点所经历的步数，每个结点距离等于右儿子的距离+1。
-左偏树的父亲结点的优先级高...
+sub_55761565891A1234567891011121314151617181920212223__int64 __fastcall ...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/06</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/21</span>
             </div>
             <!-- tags  -->
             
-        </div>
-    </article>
+            <div class="abstract-tags">
     
+        <a class="post-tag" href="javascript:void(0);" data-tags="RE_Static">RE_Static</a>
     
+        <a class="post-tag" href="javascript:void(0);" data-tags="xtea">xtea</a>
     
+        <a class="post-tag" href="javascript:void(0);" data-tags="pwntools">pwntools</a>
     
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/posts/6c3f6e84/">
-            
-                <span>字符串hash，康托展开总结</span>
-        </a>
-        <div class="abstract-content">
-            字符串hash，康托展开总结各种字符串hash函数：
-ELF HashBKDRHashAPHashDJBHashJSHashRSHashSDBMHashPJWHashELFHash
-字符串hash之BKDRhash函数
-有研究表明BKDRhash函数冲突率较低，且变成复杂度低，所以可以用来作为...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/06</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/posts/c1dd3892/">
-            
-                <span>离散hash优化总结</span>
-        </a>
-        <div class="abstract-content">
-            离散优化总结离散优化是一种常见的高效数据结构，它通过建立数据与存储结构（数组）之间（不一定）一一对应的映射关系来达到对复杂数据的优化。 离散优化最重要的一点是建立映射，对于特殊的线段、点而言，这些映射可以是对一个区间的映射，即将某段线或者某块区域映射到数组里面去，从而在计算时降低时间复杂度。 ...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/06</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/posts/675d1a4b/">
-            
-                <span>求最大网络流（最小割）总结</span>
-        </a>
-        <div class="abstract-content">
-              求最大网络流总结 
-一个有向图，每条边都有最大可能的数据传输量c，要求一个点到某个点一次能传输的最大数据量，即为求最大网络流，每条边实际的数据传输量称为流量。  基本思路：使用贪心算法，每次找出能使总流量更大的边，将数据向那条边流。  Ford-fulkerson算法**
-
-读入所有有向边...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/06</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/posts/1acd21ea/">
-            
-                <span>Tarjan算法求无向图割边割点、最近公共祖先的总结</span>
-        </a>
-        <div class="abstract-content">
-            无向图tarjan求割边割点、最近公共祖先总结割点：删除这个点之后整个图变成不连通的两个部分的点 割点集合：在一个无向图中删除该集合中的所有点，能使原图变成互不相连的连通块的点的集合 点连通度：最小割点集合点数 割边（桥）：类似于割点，删除一条边后会使一个连通图变得不完全连通 割边集合：所有割...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2018/12/06</span>
-            </div>
-            <!-- tags  -->
+</div>
             
         </div>
     </article>
     
     <!-- paginator  -->
     
-    <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/page/4/">&#60; PREV</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/6/">NEXT &#62;</a>
-    </nav>
-    
 </main>
             <!-- profile -->
-            
-            <div class="profile">
-    <img class="profile-avatar" alt="avatar" src="/avatar/Miku.jpg">
-    <div class="profile-name">mrh929</div>
-    
-    <div class="profile-signature">
-        I think, therefore I am.
-    </div>
-    
-    
-    <div class="profile-social">
-        
-    
-        
-            
-                <a href="mailto:mrh929@cnss.io" class="iconfont-archer email" title="email"></a>
-            
-        
-    
-        
-            
-                <a href="//github.com/mrh929" class="iconfont-archer github" target="_blank" title="github"></a>
-            
-        
-    
-        
-    
-        
-    
-        
-            
-                <a href="https://t.me/mrh929" class="iconfont-archer telegram" target="_blank" title="telegram"></a>
-            
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-    </div>
-    
-    
-        <div class="friends">
-            <div>FRIENDS</div>
-            
-                
-                    <span>
-                        <a href="//ccdragon.cc/" target="_black">CCDragon</a>
-                    </span>
-                
-            
-        </div>
-    
-    
-        <div class="about-me">
-            <a href="/about">ABOUT ME</a>
-        </div>
-    
-
-    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="200" height="40" src="//music.163.com/outchain/player?type=2&id=22709631&auto=0&height=32"></iframe>
-
-</div>
             
         </div>
         <footer class="footer footer-unloaded">
