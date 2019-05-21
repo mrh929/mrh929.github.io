@@ -284,7 +284,7 @@ height:50vh;
                 
                     <div class="post-intro-tags">
     
-        <a class="post-tag" href="javascript:void(0);" data-tags="Re_Static">Re_Static</a>
+        <a class="post-tag" href="javascript:void(0);" data-tags="RE_Static">RE_Static</a>
     
         <a class="post-tag" href="javascript:void(0);" data-tags="xtea">xtea</a>
     
@@ -423,7 +423,8 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h1 id="RCTF-babyre1"><a href="#RCTF-babyre1" class="headerlink" title="RCTF_babyre1"></a>RCTF_babyre1</h1><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>以下是与输入相关的指令</p>
+        <h1 id="RCTF-babyre1"><a href="#RCTF-babyre1" class="headerlink" title="RCTF_babyre1"></a>RCTF_babyre1</h1><p><a href="\uploads\rctf_babyre1.7z">rctf_babyre1</a></p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>以下是与输入相关的指令</p>
 <h3 id="main"><a href="#main" class="headerlink" title="main"></a>main</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br></pre></td><td class="code"><pre><span class="line">__int64 __<span class="function">fastcall <span class="title">main</span><span class="params">(__int64 a1, <span class="keyword">char</span> **a2, <span class="keyword">char</span> **a3)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">unsigned</span> __int64 *in; <span class="comment">// rdx</span></span><br><span class="line">  <span class="keyword">int</span> v4; <span class="comment">// ecx</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> v5; <span class="comment">// eax</span></span><br><span class="line">  <span class="keyword">unsigned</span> __int64 v6; <span class="comment">// rdx</span></span><br><span class="line">  <span class="keyword">int</span> v7; <span class="comment">// eax</span></span><br><span class="line">  <span class="keyword">int</span> *v8; <span class="comment">// rax</span></span><br><span class="line">  <span class="keyword">char</span> *v9; <span class="comment">// rbx</span></span><br><span class="line">  __int64 i; <span class="comment">// rax</span></span><br><span class="line">  <span class="keyword">int</span> v12; <span class="comment">// [rsp+4h] [rbp-124h]</span></span><br><span class="line">  <span class="keyword">void</span> *ptr; <span class="comment">// [rsp+8h] [rbp-120h]</span></span><br><span class="line">  <span class="keyword">unsigned</span> __int64 str; <span class="comment">// [rsp+10h] [rbp-118h]</span></span><br><span class="line">  <span class="keyword">unsigned</span> __int64 v15; <span class="comment">// [rsp+118h] [rbp-10h]</span></span><br><span class="line"></span><br><span class="line">  v15 = __readfsqword(<span class="number">0x28</span>u);</span><br><span class="line">  setbuf(<span class="built_in">stdin</span>, <span class="number">0L</span>L);</span><br><span class="line">  setbuf(<span class="built_in">stdout</span>, <span class="number">0L</span>L);</span><br><span class="line">  setbuf(<span class="built_in">stderr</span>, <span class="number">0L</span>L);</span><br><span class="line">  ptr = <span class="number">0L</span>L;</span><br><span class="line">  v12 = <span class="number">0</span>;</span><br><span class="line">  <span class="built_in">memset</span>(&amp;str, <span class="number">0</span>, <span class="number">0x100</span>uLL);</span><br><span class="line">  __printf_chk(<span class="number">1L</span>L, <span class="string">"Input right flag you can got 'Bingo!' :"</span>);</span><br><span class="line">  __isoc99_scanf(<span class="string">"%31s"</span>, &amp;str);                 <span class="comment">// 输入为16位</span></span><br><span class="line">  in = &amp;str;</span><br><span class="line">  <span class="keyword">do</span></span><br><span class="line">  &#123;</span><br><span class="line">    v4 = *(_DWORD *)in;</span><br><span class="line">    in = (<span class="keyword">unsigned</span> __int64 *)((<span class="keyword">char</span> *)in + <span class="number">4</span>);</span><br><span class="line">    v5 = ~v4 &amp; (v4 - <span class="number">0x1010101</span>) &amp; <span class="number">0x80808080</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">while</span> ( !v5 );</span><br><span class="line">  <span class="keyword">if</span> ( !((<span class="keyword">unsigned</span> __int16)~(_WORD)v4 &amp; (<span class="keyword">unsigned</span> __int16)(v4 - <span class="number">0x101</span>) &amp; <span class="number">0x8080</span>) )</span><br><span class="line">    v5 &gt;&gt;= <span class="number">16</span>;</span><br><span class="line">  <span class="keyword">if</span> ( !((<span class="keyword">unsigned</span> __int16)~(_WORD)v4 &amp; (<span class="keyword">unsigned</span> __int16)(v4 - <span class="number">0x101</span>) &amp; <span class="number">0x8080</span>) )</span><br><span class="line">    in = (<span class="keyword">unsigned</span> __int64 *)((<span class="keyword">char</span> *)in + <span class="number">2</span>);</span><br><span class="line">  v6 = (<span class="keyword">char</span> *)in - __CFADD__((_BYTE)v5, (_BYTE)v5) - <span class="number">3</span> - (<span class="keyword">char</span> *)&amp;str;</span><br><span class="line">  <span class="keyword">if</span> ( v6 &gt; <span class="number">0x10</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"input is too long!"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span> <span class="keyword">if</span> ( v6 == <span class="number">16</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    v7 = change_into_number((<span class="keyword">unsigned</span> __int64)&amp;str, <span class="number">16</span>, &amp;ptr);<span class="comment">// 这个程序就是把输入的内容（十六进制）转换成了程序可读的数字</span></span><br><span class="line">    <span class="keyword">if</span> ( v7</span><br><span class="line">      &amp;&amp; (v8 = xtea_keychanged(ptr, v7, (__int64)&amp;unk_55883B7B0010, <span class="number">16</span>, &amp;v12), (v9 = (<span class="keyword">char</span> *)v8) != <span class="number">0L</span>L)</span><br><span class="line">      &amp;&amp; v12 &gt; <span class="number">0</span></span><br><span class="line">      &amp;&amp; (<span class="keyword">unsigned</span> __int16)crc16((__int64)v8, v12) == <span class="number">0x69E2</span> )</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">for</span> ( i = <span class="number">0L</span>L; v12 &gt; (<span class="keyword">signed</span> <span class="keyword">int</span>)i; ++i )</span><br><span class="line">        v9[i] ^= <span class="number">0x17</span>u;</span><br><span class="line">      <span class="built_in">puts</span>(v9);</span><br><span class="line">      <span class="keyword">if</span> ( ptr )</span><br><span class="line">        <span class="built_in">free</span>(ptr);</span><br><span class="line">      <span class="built_in">free</span>(v9);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="built_in">puts</span>(<span class="string">"input flag is wrong!"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"input is too short!"</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0L</span>L;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>可以看到输入后的字符串进行了一大堆看不懂的操作，但是能推测出来输入的长度为16位</p>
 <p>用ida调试可知，change_into_number这个函数把输入的字符串进行了转换</p>
@@ -483,7 +484,7 @@ height:50vh;
             <p>原文作者：<a href="https://mrh1s.top">mrh929</a>
             </p><p>原文链接：<a href="https://mrh1s.top/posts/122a7c75/">https://mrh1s.top/posts/122a7c75/</a>
             </p><p>发表日期：<a href="https://mrh1s.top/posts/122a7c75/">May 21st 2019, 12:49:39 am</a>
-            </p><p>更新日期：<a href="https://mrh1s.top/posts/122a7c75/">May 21st 2019, 12:51:12 am</a>
+            </p><p>更新日期：<a href="https://mrh1s.top/posts/122a7c75/">May 21st 2019, 3:55:35 pm</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -1691,6 +1692,28 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 58
@@ -1803,12 +1826,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/6aab0075/">wakarimasu</a>
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/f9cd8782/">xor</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/f9cd8782/">xor</a>
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/6aab0075/">wakarimasu</a>
         </li>
     
     
@@ -1857,7 +1880,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e073dc73/">字典树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
         </li>
     
     
@@ -1867,7 +1890,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e5abdd9c/">铺地毯题解</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/3598786/">逆波兰表达式题解</a>
         </li>
     
     
@@ -1877,7 +1900,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
         </li>
     
     
@@ -1887,22 +1910,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/675d1a4b/">求最大网络流（最小割）总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e5abdd9c/">铺地毯题解</a>
         </li>
     
     
@@ -1912,7 +1925,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
         </li>
     
     
@@ -1922,7 +1935,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/80036358/">大整数乘法题解</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e073dc73/">字典树总结</a>
         </li>
     
     
@@ -1932,22 +1945,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/50d2edb9/">2的幂次方表示题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28cf1e0f/">拓扑排序以及关键路径总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/80036358/">大整数乘法题解</a>
         </li>
     
     
@@ -1957,12 +1955,27 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/50d2edb9/">2的幂次方表示题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/675d1a4b/">求最大网络流（最小割）总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28cf1e0f/">拓扑排序以及关键路径总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/3598786/">逆波兰表达式题解</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
         </li>
     
     
@@ -1972,7 +1985,17 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/93b1f5dc/">暑期人生测试一总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
         </li>
     
     
@@ -2022,8 +2045,6 @@ top:50vh;
         <span class="sidebar-tag-name" data-tags="VM"><span class="iconfont-archer">&#xe606;</span>VM</span>
     
         <span class="sidebar-tag-name" data-tags="SMC"><span class="iconfont-archer">&#xe606;</span>SMC</span>
-    
-        <span class="sidebar-tag-name" data-tags="Re_Static"><span class="iconfont-archer">&#xe606;</span>Re_Static</span>
     
         <span class="sidebar-tag-name" data-tags="xtea"><span class="iconfont-archer">&#xe606;</span>xtea</span>
     
@@ -2086,7 +2107,11 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="write-up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
     
+        <span class="sidebar-category-name" data-categories="sm4"><span class="iconfont-archer">&#xe60a;</span>write-up/nationalCTF-20190421/sm4</span>
+    
         <span class="sidebar-category-name" data-categories="cgctf"><span class="iconfont-archer">&#xe60a;</span>write-up/cgctf</span>
+    
+        <span class="sidebar-category-name" data-categories="base64"><span class="iconfont-archer">&#xe60a;</span>write-up/nationalCTF-20190421/sm4/base64</span>
     
         <span class="sidebar-category-name" data-categories="rctf-20190518"><span class="iconfont-archer">&#xe60a;</span>write-up/rctf-20190518</span>
     
