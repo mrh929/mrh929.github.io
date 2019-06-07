@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://mrh1s.top/"/>
-  <updated>2019-06-07T16:18:16.445Z</updated>
+  <updated>2019-06-07T16:34:59.055Z</updated>
   <id>https://mrh1s.top/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>让win10系统任务栏变为透明</title>
+    <link href="https://mrh1s.top/posts/36dd5647/"/>
+    <id>https://mrh1s.top/posts/36dd5647/</id>
+    <published>2019-06-07T16:19:11.000Z</published>
+    <updated>2019-06-07T16:34:59.055Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><blockquote><p>win10的界面可谓比win7、xp高到不知道哪里去了，然而事物总是有两面性，win10任务栏一直是我们所诟病的一个东西</p></blockquote><h2 id="TranslucentTB"><a href="#TranslucentTB" class="headerlink" title="TranslucentTB"></a>TranslucentTB</h2><blockquote><p>A lightweight utility that makes the Windows taskbar translucent/transparent.</p></blockquote><p><a href="https://github.com/TranslucentTB/TranslucentTB" target="_blank" rel="noopener">TranslucentTB</a></p><h3 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h3><p><strong>半透明</strong></p><p><img src="https://i.loli.net/2019/06/08/5cfa920826a9d62322.png" alt="Snipaste_2019-06-08_00-32-03.png"></p><p><strong>全透明</strong></p><p><img src="https://i.loli.net/2019/06/08/5cfa92082ed1c37164.png" alt="Snipaste_2019-06-08_00-31-36.png"></p><h3 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h3><blockquote><p>看起来现在加了不少功能</p><p>主要的还是改变任务栏透明度</p></blockquote><ul><li><p>Advanced <strong>color picker</strong> supporting alpha and live preview to change the taskbar’s color.</p></li><li><p>Taskbar states</p><p>(choose one - color can be customized on every state except Normal):</p><ul><li><strong>Blur</strong>: Will make the taskbar slightly blurred. <strong>半透明</strong></li><li><strong>Clear</strong>: Transparent taskbar. <strong>全透明</strong></li><li><strong>Normal</strong>: Regular Windows style. (as if TranslucentTB was not running)  </li><li><strong>Opaque</strong>: No transparency.</li><li><strong>Fluent</strong>: Windows 10 April 2018 update and up only. Will give the taskbar an appearance similar to Microsoft’s Fluent Design guidelines.</li></ul></li><li><p>Dynamic</p><p>modes (these can be used together and each of them provides a taskbar state and color you can customize):</p><ul><li><strong>Dynamic Windows</strong>: Will change the taskbar to a different appearance if a window is currently maximised.</li><li><strong>Dynamic Start Menu</strong>: Will change the taskbar appearance when the start menu is opened.</li><li><strong>Dynamic Cortana</strong>: Will change the taskbar appearance when Cortana (or the search menu if Cortana is disabled) is open.</li><li><strong>Dynamic Timeline/Task View</strong>: Will change the taskbar apperance when the Timeline (or Task View on older builds) is open.</li></ul></li><li><p>Ability to <strong>show or hide the Aero Peek</strong> button. Can be customized <strong>at will</strong> or <strong>dynamic</strong>.</p></li></ul><h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><ol><li><a href="https://www.microsoft.com/store/apps/9PF4KZ2VN4W9" target="_blank" rel="noopener">Microsoft Store</a> （最近添加的）</li><li><a href="https://github.com/TranslucentTB/TranslucentTB/releases" target="_blank" rel="noopener">the releases tab</a>.（zip压缩包）</li></ol>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+      <category term="Tips" scheme="https://mrh1s.top/categories/Tips/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>在word中贴出漂亮的代码</title>
@@ -469,9 +492,9 @@
       <category term="hgame_20190122" scheme="https://mrh1s.top/categories/write-up/hgame-20190122/"/>
     
     
-      <category term="RE_Static" scheme="https://mrh1s.top/tags/RE-Static/"/>
-    
       <category term="RE_Dynamic" scheme="https://mrh1s.top/tags/RE-Dynamic/"/>
+    
+      <category term="RE_Static" scheme="https://mrh1s.top/tags/RE-Static/"/>
     
       <category term="SMC" scheme="https://mrh1s.top/tags/SMC/"/>
     
@@ -530,29 +553,6 @@
     
     
       <category term="RE_Static" scheme="https://mrh1s.top/tags/RE-Static/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>brainfuck</title>
-    <link href="https://mrh1s.top/posts/8616795e/"/>
-    <id>https://mrh1s.top/posts/8616795e/</id>
-    <published>2019-02-15T16:11:14.000Z</published>
-    <updated>2019-05-05T05:50:02.094Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>brainfuck是一种小型化程序语言，符合图灵完全思想</p><table><thead><tr><th>字符</th><th>含义</th></tr></thead><tbody><tr><td>&gt;</td><td>指针加一</td></tr><tr><td>&lt;</td><td>指针减一</td></tr><tr><td>+</td><td>指针指向的字节的值加一</td></tr><tr><td>-</td><td>指针指向的字节的值减一</td></tr><tr><td>.</td><td>输出指针指向的单元内容（ASCⅡ码）</td></tr><tr><td>,</td><td>输入内容到指针指向的单元（ASCⅡ码）</td></tr><tr><td>[</td><td>如果指针指向的单元值为零，向后跳转到对应的]指令的次一指令处</td></tr><tr><td>]</td><td>如果指针指向的单元值不为零，向前跳转到对应的[指令的次一指令处</td></tr></tbody></table><p>,.充当输入输出<br>+-用于数值操作<br>&lt;&gt;用于指针操作<br>[]用于循环（其中执行到”[“时，程序会判断当前指针所指空间是否为0，为0则终止循环，否则继续循环）</p><p>用更通俗一点的C语言来描述：</p><table><thead><tr><th>Brainfuck</th><th>C</th></tr></thead><tbody><tr><td>&gt;</td><td>++ptr;</td></tr><tr><td>&lt;</td><td>–ptr;</td></tr><tr><td>+</td><td>++*ptr;</td></tr><tr><td>-</td><td>–*ptr;</td></tr><tr><td>.</td><td>*ptr</td></tr><tr><td>,</td><td>*ptr =getch();</td></tr><tr><td>[</td><td>while (*ptr) {</td></tr><tr><td>]</td><td>}</td></tr></tbody></table><p><strong>当前位置清零</strong><br>[-] 将当前指针的值归零</p><p><strong>之前位置清零</strong><br>[[-]&lt;] 将当前指针以及之前的指针归零</p><p><strong>字符I/O</strong><br>,. 从键盘读取一个字符并输出到屏幕上。</p><p><strong>简单的循环</strong><br>,[.,] 这是一个连续从键盘读取字符并回显到屏幕上的循环。注意，这里假定0表示输入结束，事实上有些系统并非如此。以-1和”未改变”作为判断依据的程序代码分别是”,+[-.,+]”和”,[.[-],]”。</p><p><strong>指针维护</strong><br>“&gt;,[.&gt;,] “通过移动指针保存所有的输入，供后面的程序使用。</p><p><strong>加法</strong><br>[-&gt;+&lt;]  把当前位置的值加到后面的单元中（破坏性的加，它导致左边的单元被归零）。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla
-      
-    
-    </summary>
-    
-      <category term="notes" scheme="https://mrh1s.top/categories/notes/"/>
-    
     
   </entry>
   
