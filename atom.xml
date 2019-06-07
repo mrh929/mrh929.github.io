@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://mrh1s.top/"/>
-  <updated>2019-06-07T16:07:52.928Z</updated>
+  <updated>2019-06-07T16:15:49.071Z</updated>
   <id>https://mrh1s.top/</id>
   
   <author>
@@ -17,13 +17,13 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Untitled</title>
-    <link href="https://mrh1s.top/posts/503970b4/"/>
-    <id>https://mrh1s.top/posts/503970b4/</id>
-    <published>2019-06-07T16:05:00.000Z</published>
-    <updated>2019-06-07T16:07:52.928Z</updated>
+    <title>在word中贴出漂亮的代码</title>
+    <link href="https://mrh1s.top/posts/472395fb/"/>
+    <id>https://mrh1s.top/posts/472395fb/</id>
+    <published>2019-06-07T16:12:28.000Z</published>
+    <updated>2019-06-07T16:15:49.071Z</updated>
     
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p>请先添加tag，categories，并且修改title 再进行写作。</p>]]></content>
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="工具"><a href="#工具" class="headerlink" title="工具"></a>工具</h1><h4 id="工具-1"><a href="#工具-1" class="headerlink" title="工具"></a>工具</h4><ol><li>打开这个网页<a href="http://www.planetb.ca/syntax-highlight-word" target="_blank" rel="noopener">PlanetB</a>;</li><li>谷歌搜索<strong>syntax highlight code in word documents</strong>，检索结果的第一个</li></ol><h4 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h4><p>​    打开网页，把需要的代码粘贴进去，然后show highlighted即可</p><p>​    </p>]]></content>
     
     <summary type="html">
     
@@ -34,7 +34,7 @@
     
     </summary>
     
-      <category term="牢骚" scheme="https://mrh1s.top/categories/%E7%89%A2%E9%AA%9A/"/>
+      <category term="Tips" scheme="https://mrh1s.top/categories/Tips/"/>
     
     
   </entry>
@@ -469,9 +469,9 @@
       <category term="hgame_20190122" scheme="https://mrh1s.top/categories/write-up/hgame-20190122/"/>
     
     
-      <category term="RE_Dynamic" scheme="https://mrh1s.top/tags/RE-Dynamic/"/>
-    
       <category term="RE_Static" scheme="https://mrh1s.top/tags/RE-Static/"/>
+    
+      <category term="RE_Dynamic" scheme="https://mrh1s.top/tags/RE-Dynamic/"/>
     
       <category term="SMC" scheme="https://mrh1s.top/tags/SMC/"/>
     
