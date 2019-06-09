@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://mrh1s.top/"/>
-  <updated>2019-06-07T16:37:10.782Z</updated>
+  <updated>2019-06-09T03:54:17.449Z</updated>
   <id>https://mrh1s.top/</id>
   
   <author>
@@ -17,11 +17,34 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>在linux上搭建minecraft java版服务器</title>
+    <link href="https://mrh1s.top/posts/6f2d090a/"/>
+    <id>https://mrh1s.top/posts/6f2d090a/</id>
+    <published>2019-06-09T03:36:09.000Z</published>
+    <updated>2019-06-09T03:54:17.449Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="如何在Linux上搭建Minecraft服务器"><a href="#如何在Linux上搭建Minecraft服务器" class="headerlink" title="如何在Linux上搭建Minecraft服务器"></a>如何在Linux上搭建Minecraft服务器</h1><blockquote><p>搭建minecraft服务器并不复杂，只需要一些linux的基础操作知识就行了</p></blockquote><h3 id="购买服务器"><a href="#购买服务器" class="headerlink" title="购买服务器"></a>购买服务器</h3><p><a href="https://promotion.aliyun.com/ntms/act/campus2018.html?spm=5176.10695662.1244717.1.17df4336v6PBv6" target="_blank" rel="noopener">https://promotion.aliyun.com/ntms/act/campus2018.html?spm=5176.10695662.1244717.1.17df4336v6PBv6</a></p><p>我选择的是阿里云学生机，这样的配置能带好几个人加上几个大mod，几个小伙伴一起玩已经足够了</p><p>理论上Ubuntu也可以使用，不过这个教程里面的指令都是基于centOS的</p><p><img src="https://i.loli.net/2019/06/09/5cfc7f897c0d832894.png" alt="Snipaste_2019-06-09_11-39-45.png"></p><h3 id="配置服务器"><a href="#配置服务器" class="headerlink" title="配置服务器"></a>配置服务器</h3><p>查看java版本</p><blockquote><p>java –version</p></blockquote><p>如果提示</p><blockquote><p>[root@vultr /]# java –version<br>-bash: java: command not found</p></blockquote><p>则说明没有安装java</p><p>安装java</p><blockquote><p>sudo yum install java-1.8.0-openjdk</p></blockquote><p>然后自己找一个想装mc的目录</p><blockquote><p>cd usr</p><p>mkdir minecraft</p><p>cd minecraft</p></blockquote><p>获取mc服务器端</p><p>根据你玩的mc的版本，可以下载相应的jar包</p><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo wget https://s3.amazonaws.com/Minecraft.Download/versions/版本号/minecraft_server.版本号.jar</span><br></pre></td></tr></table></figure><blockquote><p>以我的为例，目前支持mod的最新版本是1.12.2</p><p>sudo wget <a href="https://s3.amazonaws.com/Minecraft.Download/versions/1.12.2/minecraft_server.1.12.2.jar" target="_blank" rel="noopener">https://s3.amazonaws.com/Minecraft.Download/versions/1.12.2/minecraft_server.1.12.2.jar</a></p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+      <category term="Tips" scheme="https://mrh1s.top/categories/Tips/"/>
+    
+    
+  </entry>
+  
+  <entry>
     <title>让win10系统任务栏变为透明</title>
     <link href="https://mrh1s.top/posts/36dd5647/"/>
     <id>https://mrh1s.top/posts/36dd5647/</id>
     <published>2019-06-07T16:19:11.000Z</published>
-    <updated>2019-06-07T16:37:10.782Z</updated>
+    <updated>2019-06-08T03:57:07.794Z</updated>
     
     <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="TranslucentTB"><a href="#TranslucentTB" class="headerlink" title="TranslucentTB"></a>TranslucentTB</h2><blockquote><p>win10的界面可谓比win7、xp高到不知道哪里去了，然而事物总是有两面性，win10任务栏一直是我们所诟病的一个东西</p></blockquote><blockquote><p>A lightweight utility that makes the Windows taskbar translucent/transparent.</p></blockquote><p><a href="https://github.com/TranslucentTB/TranslucentTB" target="_blank" rel="noopener">TranslucentTB</a></p><h3 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h3><p><strong>半透明</strong></p><p><img src="https://i.loli.net/2019/06/08/5cfa920826a9d62322.png" alt="Snipaste_2019-06-08_00-32-03.png"></p><p><strong>全透明</strong></p><p><img src="https://i.loli.net/2019/06/08/5cfa92082ed1c37164.png" alt="Snipaste_2019-06-08_00-31-36.png"></p><h3 id="Features"><a href="#Features" class="headerlink" title="Features"></a>Features</h3><blockquote><p>看起来现在加了不少功能</p><p>主要的还是改变任务栏透明度</p></blockquote><ul><li><p>Advanced <strong>color picker</strong> supporting alpha and live preview to change the taskbar’s color.</p></li><li><p>Taskbar states</p><p>(choose one - color can be customized on every state except Normal):</p><ul><li><strong>Blur</strong>: Will make the taskbar slightly blurred. <strong>半透明</strong></li><li><strong>Clear</strong>: Transparent taskbar. <strong>全透明</strong></li><li><strong>Normal</strong>: Regular Windows style. (as if TranslucentTB was not running)  </li><li><strong>Opaque</strong>: No transparency.</li><li><strong>Fluent</strong>: Windows 10 April 2018 update and up only. Will give the taskbar an appearance similar to Microsoft’s Fluent Design guidelines.</li></ul></li><li><p>Dynamic</p><p>modes (these can be used together and each of them provides a taskbar state and color you can customize):</p><ul><li><strong>Dynamic Windows</strong>: Will change the taskbar to a different appearance if a window is currently maximised.</li><li><strong>Dynamic Start Menu</strong>: Will change the taskbar appearance when the start menu is opened.</li><li><strong>Dynamic Cortana</strong>: Will change the taskbar appearance when Cortana (or the search menu if Cortana is disabled) is open.</li><li><strong>Dynamic Timeline/Task View</strong>: Will change the taskbar apperance when the Timeline (or Task View on older builds) is open.</li></ul></li><li><p>Ability to <strong>show or hide the Aero Peek</strong> button. Can be customized <strong>at will</strong> or <strong>dynamic</strong>.</p></li></ul><h3 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h3><ol><li><a href="https://www.microsoft.com/store/apps/9PF4KZ2VN4W9" target="_blank" rel="noopener">Microsoft Store</a> （最近添加的）</li><li><a href="https://github.com/TranslucentTB/TranslucentTB/releases" target="_blank" rel="noopener">the releases tab</a>（zip压缩包）</li></ol>]]></content>
     
@@ -526,33 +549,6 @@
       <category term="RE_Static" scheme="https://mrh1s.top/tags/RE-Static/"/>
     
       <category term="VM" scheme="https://mrh1s.top/tags/VM/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>maze</title>
-    <link href="https://mrh1s.top/posts/4915557e/"/>
-    <id>https://mrh1s.top/posts/4915557e/</id>
-    <published>2019-02-16T08:22:32.000Z</published>
-    <updated>2019-05-04T15:39:44.423Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><p><a href="/uploads/maze.7z">maze</a> 迷宫题，用正确的方式走出迷宫即可，wsad分别控制上下左右</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">aaa = <span class="string">"""11111111111111111111111111111111111111111111111111111111111111111111...............111111111111111...............111</span></span><br><span class="line"><span class="string">    111111111111.1111111111111.111111111111111.1111111111111.111111111111111.1111111111111.111111111111111.1111111111111</span></span><br><span class="line"><span class="string">    .111111111111111.1111111111111.111111111111111.1111111111111.111111111111111.1111111111111s111111111111111.111111111</span></span><br><span class="line"><span class="string">    1111s111111111111111.11111111111111111111111111111.11111111111111111111111111111.11111111111111111111111111111.11111</span></span><br><span class="line"><span class="string">    111111111111111111111111.11111111111111111111111111111.1111.111111111111111111111111.1t............111111111111111.1</span></span><br><span class="line"><span class="string">    t............111111111111111.1111111111111.111111111111111.1111111111111.111111111111111.1111111111111.1111111111111</span></span><br><span class="line"><span class="string">    11.1111111111111.111111111111111.1111111111111.111111111111111.1111111111111.111111111111111.1111111111111.111111111</span></span><br><span class="line"><span class="string">    111111.1111111111111.111111111111111.1111111111111.111111111111111.1111111111111.111111111111111.1111111111111.11111</span></span><br><span class="line"><span class="string">    1111111111.1111111111111.111111111111111...............111111111111111...............1111111111111111111111111111111</span></span><br><span class="line"><span class="string">    111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111"""</span></span><br><span class="line"></span><br><span class="line">cnt = <span class="number">0</span></span><br><span class="line">map = <span class="string">""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> aaa:</span><br><span class="line">    <span class="keyword">if</span>(c != <span class="string">'\n'</span> <span class="keyword">and</span> c != <span class="string">' '</span>):</span><br><span class="line">        map = map + c</span><br><span class="line">        cnt += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span>(cnt % <span class="number">60</span> == <span class="number">0</span>):</span><br><span class="line">            map = map + <span class="string">'\n'</span></span><br><span class="line"></span><br><span class="line">print(map)</span><br></pre></td></tr></table></figure><p>得到如下地图：</p><pre><code>11111111111111111111111111111111111111111111111111111111111111111111...............111111111111111...............111111111111111.1111111111111.111111111111111.1111111111111.111111111111111.1111111111111.111111111111111.1111111111111.111111111111111.1111111111111.111111111111111.1111111111111.111111111111111.1111111111111s111111111111111.1111111111111s111111111111111.11111111111111111111111111111.11111111111111111111111111111.11111111111111111111111111111.11111111111111111111111111111.11111111111111111111111111111.1111.111111111111111111111111.1t............111111111111111.1t............111111111111111.1111111111111.111111111111111.1111111111111.111111111111111.1111111111111.111111111111111.1111111111111.111111111111111.1111111111111.111111111111111.1111111111111.111111111111111.1111111111111.111111111111111.1111111111111.111111111111111.1111111111111.111111111111111.1111111111111.111111111111111.1111111111111.111111111111111.1111111111111.111111111111111...............111111111111111...............1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</code></pre><p>走出迷宫即可： wwwwaaaaaaaaaaaaaasssssssssssssssddddddddddddddwwwwwwwaaaaaaaaaaaa</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla
-      
-    
-    </summary>
-    
-      <category term="write up" scheme="https://mrh1s.top/categories/write-up/"/>
-    
-      <category term="hgame_20190122" scheme="https://mrh1s.top/categories/write-up/hgame-20190122/"/>
-    
-    
-      <category term="RE_Static" scheme="https://mrh1s.top/tags/RE-Static/"/>
     
   </entry>
   
