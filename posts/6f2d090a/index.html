@@ -284,7 +284,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">469</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">782</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -416,6 +416,8 @@ height:50vh;
         <h1 id="如何在Linux上搭建Minecraft服务器"><a href="#如何在Linux上搭建Minecraft服务器" class="headerlink" title="如何在Linux上搭建Minecraft服务器"></a>如何在Linux上搭建Minecraft服务器</h1><blockquote>
 <p>搭建minecraft服务器并不复杂，只需要一些linux的基础操作知识就行了</p>
 </blockquote>
+<p>灵感来自csdn，教程为自己编写.</p>
+<p>link: <a href="https://blog.csdn.net/iwts_24/article/details/79181972" target="_blank" rel="noopener">https://blog.csdn.net/iwts_24/article/details/79181972</a></p>
 <h3 id="购买服务器"><a href="#购买服务器" class="headerlink" title="购买服务器"></a>购买服务器</h3><p><a href="https://promotion.aliyun.com/ntms/act/campus2018.html?spm=5176.10695662.1244717.1.17df4336v6PBv6" target="_blank" rel="noopener">https://promotion.aliyun.com/ntms/act/campus2018.html?spm=5176.10695662.1244717.1.17df4336v6PBv6</a></p>
 <p>我选择的是阿里云学生机，这样的配置能带好几个人加上几个大mod，几个小伙伴一起玩已经足够了</p>
 <p>理论上Ubuntu也可以使用，不过这个教程里面的指令都是基于centOS的</p>
@@ -428,17 +430,20 @@ height:50vh;
 <p>则说明没有安装java</p>
 <p>安装java</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum install java-1.8.0-openjdk</span><br></pre></td></tr></table></figure>
+<hr>
 <h5 id="选择目录"><a href="#选择目录" class="headerlink" title="选择目录"></a>选择目录</h5><p>然后自己找一个想装mc的目录</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd usr</span><br><span class="line">mkdir minecraft</span><br><span class="line">cd minecraft</span><br></pre></td></tr></table></figure>
+<hr>
 <h5 id="获取mc服务器端"><a href="#获取mc服务器端" class="headerlink" title="获取mc服务器端"></a>获取mc服务器端</h5><p>根据你玩的mc的版本，可以下载相应的jar包</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo wget https://s3.amazonaws.com/Minecraft.Download/versions/版本号/minecraft_server.版本号.jar</span><br></pre></td></tr></table></figure>
 <p>以我的为例，目前支持mod的最新版本是1.12.2</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo wget https://s3.amazonaws.com/Minecraft.Download/versions/1.12.2/minecraft_server.1.12.2.jar</span><br></pre></td></tr></table></figure>
-<h3 id="开启游戏！"><a href="#开启游戏！" class="headerlink" title="开启游戏！"></a>开启游戏！</h3><p>在这之前，先创建一个启动脚本，方便后续一键启动</p>
+<h3 id="开启游戏！"><a href="#开启游戏！" class="headerlink" title="开启游戏！"></a>开启游戏！</h3><h5 id="创建启动脚本"><a href="#创建启动脚本" class="headerlink" title="创建启动脚本"></a>创建启动脚本</h5><p>在这之前，先创建一个启动脚本，方便后续一键启动</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo vi start.sh</span><br></pre></td></tr></table></figure>
 <p>在start.sh填入如下的内容</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo java -Xms120m -Xmx160m -jar /usr/minecraft/minecraft_server.1.12.2.jar nogui</span><br></pre></td></tr></table></figure>
-<p>开启服务器</p>
+<hr>
+<h5 id="开启"><a href="#开启" class="headerlink" title="开启"></a>开启</h5><p>开启服务器</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">bash start.sh</span><br></pre></td></tr></table></figure>
 <p>不要着急，这里一定启动不了的，因为你没有同意用户协议</p>
 <blockquote>
@@ -450,10 +455,28 @@ height:50vh;
 <blockquote>
 <p>eula=true</p>
 </blockquote>
-<p>现在已经可以启动服务器了，但是我们还无法运行mod，需要安装forge</p>
+<h5 id="安装forge"><a href="#安装forge" class="headerlink" title="安装forge"></a>安装forge</h5><p>现在已经可以启动服务器了，<strong>无mod需求的可以直接开服,无需进行下面的步骤</strong></p>
+<p>但是我们还是无法运行mod，需要安装forge</p>
 <p>可以去官网自行下载，也可以用我的指令</p>
 <p><a href="https://files.minecraftforge.net/maven/net/minecraftforge/forge/index_1.12.2.html" target="_blank" rel="noopener">https://files.minecraftforge.net/maven/net/minecraftforge/forge/index_1.12.2.html</a></p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo wget https://files.minecraftforge.net/maven/net/minecraftforge/forge/1.12.2-14.23.5.2768/forge-1.12.2-14.23.5.2768-installer.jar</span><br></pre></td></tr></table></figure>
+<p>接下来是安装forge</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">java -jar forge-1.12.2-14.23.5.2768-installer.jar nogui --installServer</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Extracting: /forge-1.12.2-14.23.5.2768-universal.jar<br>To:          /usr/minecraft/./forge-1.12.2-14.23.5.2768-universal.jar<br>The server installed successfully, you should now be able to run the file forge-1.12.2-14.23.5.2768-universal.jar<br>You can delete this installer file now if you wish</p>
+</blockquote>
+<p>这个 <strong>forge-1.12.2-14.23.5.2768-universal.jar</strong> 就是启动forge服务器的启动端</p>
+<p>打开start.sh把原版启动程序换为forge的启动程序</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo vi start.sh</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>填入</p>
+<p>sudo java -Xms120m -Xmx160m -jar /usr/minecraft/forge-1.12.2-14.23.5.2768-universal.jar nogui</p>
+</blockquote>
+<p>开服</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">bash start.sh</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>[04:22:29] [Server thread/INFO] [minecraft/MinecraftServer]: Preparing start region for level 0<br>[04:22:30] [Server thread/INFO] [minecraft/MinecraftServer]: Preparing spawn area: 2%<br>[04:22:32] [Server thread/INFO] [minecraft/MinecraftServer]: Preparing spawn area: 4%<br>[04:22:33] [Server thread/INFO] [minecraft/MinecraftServer]: Preparing spawn area: 7%<br>[04:22:49] [Server thread/INFO] [minecraft/MinecraftServer]: Preparing spawn area: 50%<br>[04:22:50] [Server thread/INFO] [minecraft/MinecraftServer]: Preparing spawn area: 52%<br>[04:22:55] [Server thread/INFO] [minecraft/MinecraftServer]: Preparing spawn area: 64%<br>[04:23:05] [Server thread/INFO] [minecraft/MinecraftServer]: Preparing spawn area: 97%<br>[04:23:06] [Server thread/INFO] [minecraft/DedicatedServer]: Done (39.625s)! For help, type “help” or “?”</p>
+</blockquote>
 
     </article>
     <!-- license  -->
@@ -462,7 +485,7 @@ height:50vh;
             <p>原文作者：<a href="https://mrh1s.top">mrh929</a>
             </p><p>原文链接：<a href="https://mrh1s.top/posts/6f2d090a/">https://mrh1s.top/posts/6f2d090a/</a>
             </p><p>发表日期：<a href="https://mrh1s.top/posts/6f2d090a/">June 9th 2019, 11:36:09 am</a>
-            </p><p>更新日期：<a href="https://mrh1s.top/posts/6f2d090a/">June 9th 2019, 12:11:17 pm</a>
+            </p><p>更新日期：<a href="https://mrh1s.top/posts/6f2d090a/">June 9th 2019, 12:24:10 pm</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -591,7 +614,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#如何在Linux上搭建Minecraft服务器"><span class="toc-number">1.</span> <span class="toc-text">如何在Linux上搭建Minecraft服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#购买服务器"><span class="toc-number">1.0.1.</span> <span class="toc-text">购买服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置服务器"><span class="toc-number">1.0.2.</span> <span class="toc-text">配置服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#查看java版本"><span class="toc-number">1.0.2.0.1.</span> <span class="toc-text">查看java版本</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#选择目录"><span class="toc-number">1.0.2.0.2.</span> <span class="toc-text">选择目录</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#获取mc服务器端"><span class="toc-number">1.0.2.0.3.</span> <span class="toc-text">获取mc服务器端</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开启游戏！"><span class="toc-number">1.0.3.</span> <span class="toc-text">开启游戏！</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#如何在Linux上搭建Minecraft服务器"><span class="toc-number">1.</span> <span class="toc-text">如何在Linux上搭建Minecraft服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#购买服务器"><span class="toc-number">1.0.1.</span> <span class="toc-text">购买服务器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#配置服务器"><span class="toc-number">1.0.2.</span> <span class="toc-text">配置服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#查看java版本"><span class="toc-number">1.0.2.0.1.</span> <span class="toc-text">查看java版本</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#选择目录"><span class="toc-number">1.0.2.0.2.</span> <span class="toc-text">选择目录</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#获取mc服务器端"><span class="toc-number">1.0.2.0.3.</span> <span class="toc-text">获取mc服务器端</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开启游戏！"><span class="toc-number">1.0.3.</span> <span class="toc-text">开启游戏！</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#创建启动脚本"><span class="toc-number">1.0.3.0.1.</span> <span class="toc-text">创建启动脚本</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#开启"><span class="toc-number">1.0.3.0.2.</span> <span class="toc-text">开启</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#安装forge"><span class="toc-number">1.0.3.0.3.</span> <span class="toc-text">安装forge</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
