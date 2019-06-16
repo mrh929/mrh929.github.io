@@ -292,7 +292,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">839</span>阅读时长: <span class="post-count reading-time">4 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">844</span>阅读时长: <span class="post-count reading-time">4 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -421,18 +421,25 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h1 id="simple-machine"><a href="#simple-machine" class="headerlink" title="simple-machine"></a>simple-machine</h1><p><a href="\uploads\simple-machine.7z">simple-machine</a></p>
-<h2 id="思路整理"><a href="#思路整理" class="headerlink" title="思路整理"></a>思路整理</h2><h3 id="general"><a href="#general" class="headerlink" title="general"></a>general</h3><p>这道题说起来是vm，实际上和vm的挂钩并不大，就是用高级语言去实现了汇编，把变量都当做了寄存器来使用，其中还有各种压栈出栈过程，不过跟本题关系不大，也就不用过于细究了</p>
-<h3 id="fun1"><a href="#fun1" class="headerlink" title="fun1"></a>fun1</h3><p>fun1主要是通过输入的字符串，与预置的feed进行异或，得到一串加密的字符串，存在内存中</p>
+        <h1>simple-machine</h1>
+<p><a href="%5Cuploads%5Csimple-machine.7z">simple-machine</a></p>
+<h2>思路整理</h2>
+<h3>general</h3>
+<p>这道题说起来是vm，实际上和vm的挂钩并不大，就是用高级语言去实现了汇编，把变量都当做了寄存器来使用，其中还有各种压栈出栈过程，不过跟本题关系不大，也就不用过于细究了</p>
+<h3>fun1</h3>
+<p>fun1主要是通过输入的字符串，与预置的feed进行异或，得到一串加密的字符串，存在内存中</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> __<span class="function">cdecl <span class="title">fun1</span><span class="params">(<span class="keyword">int</span> str, <span class="keyword">unsigned</span> <span class="keyword">int</span> a2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> v2; <span class="comment">// eax</span></span><br><span class="line">  <span class="keyword">int</span> v3; <span class="comment">// eax</span></span><br><span class="line"></span><br><span class="line">  push(base_addr_804B15C);</span><br><span class="line">  base_addr_804B15C = esp1;</span><br><span class="line">  push(temp);</span><br><span class="line">  push(temp2);</span><br><span class="line">  esp1 -= <span class="number">48</span>;</span><br><span class="line">  *(_DWORD *)(base_addr_804B15C - 29) = 'deef'; // 0x804B13F</span><br><span class="line">  *(_DWORD *)(base_addr_804B15C - 25) = 'daed';</span><br><span class="line">  *(_DWORD *)(base_addr_804B15C - 21) = 'feeb';</span><br><span class="line">  *(_DWORD *)(base_addr_804B15C - 17) = 'efac';</span><br><span class="line">  *(_BYTE *)(base_addr_804B15C - <span class="number">13</span>) = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> ( *(_DWORD *)(base_addr_804B15C - <span class="number">12</span>) = <span class="number">0</span>; ; ++*(_DWORD *)(base_addr_804B15C - <span class="number">12</span>) )<span class="comment">// i = base_addr_804B15C - 12</span></span><br><span class="line">  &#123;</span><br><span class="line">    eaxx = *(_DWORD *)(base_addr_804B15C - <span class="number">12</span>); <span class="comment">// i</span></span><br><span class="line">    <span class="keyword">if</span> ( eaxx &gt;= a2 )</span><br><span class="line">      <span class="keyword">break</span>;                                    <span class="comment">// 判断是否退出循环</span></span><br><span class="line">                                                <span class="comment">// </span></span><br><span class="line">                                                <span class="comment">// </span></span><br><span class="line">                                                <span class="comment">// </span></span><br><span class="line">    ebxx = *(_DWORD *)(base_addr_804B15C - <span class="number">12</span>); <span class="comment">// i</span></span><br><span class="line">    eaxx = str;                                 <span class="comment">// str</span></span><br><span class="line">    temp = ebxx + str;                          <span class="comment">// str + i</span></span><br><span class="line">    ebxx = *(_DWORD *)(base_addr_804B15C - <span class="number">12</span>); <span class="comment">// i</span></span><br><span class="line">    eaxx = ebxx + str;                          <span class="comment">// str + i</span></span><br><span class="line">    eaxx = *(<span class="keyword">unsigned</span> __int8 *)(ebxx + str);    <span class="comment">// 取当前字符串</span></span><br><span class="line">    temp1 = eaxx;</span><br><span class="line">    *(_BYTE *)(base_addr_804B15C - <span class="number">41</span>) = eaxx;  <span class="comment">// 把当前字符串保存到一个地址里面</span></span><br><span class="line">                                                <span class="comment">// </span></span><br><span class="line">                                                <span class="comment">// </span></span><br><span class="line">                                                <span class="comment">// </span></span><br><span class="line">    temp2 = *(_DWORD *)(base_addr_804B15C - <span class="number">12</span>);</span><br><span class="line">    esp1 -= <span class="number">12</span>;</span><br><span class="line">    eaxx = base_addr_804B15C - <span class="number">29</span>;              <span class="comment">// 取feed</span></span><br><span class="line">    push(base_addr_804B15C - <span class="number">29</span>);               <span class="comment">// push(feed)</span></span><br><span class="line">    v2 = <span class="built_in">strlen</span>(*(<span class="keyword">const</span> <span class="keyword">char</span> **)esp1);          <span class="comment">// v2 是 feed的长度</span></span><br><span class="line">    esp1 += <span class="number">16</span>;</span><br><span class="line">    len = v2;</span><br><span class="line">    eaxx = temp2;</span><br><span class="line">    ebxx = <span class="number">0</span>;</span><br><span class="line">    sub_80485AB(v2);                            <span class="comment">// j = i % v2  </span></span><br><span class="line">                                                <span class="comment">// i = i / v2</span></span><br><span class="line">    eaxx = ebxx;</span><br><span class="line">    eaxx = *(<span class="keyword">unsigned</span> __int8 *)(ebxx - <span class="number">29</span> + base_addr_804B15C);<span class="comment">// 算feed中的偏移</span></span><br><span class="line">    temp1 = eaxx;</span><br><span class="line">    temp1 = *(_BYTE *)(base_addr_804B15C - <span class="number">41</span>) ^ eaxx;<span class="comment">// c ^ feed[]</span></span><br><span class="line">    *(_BYTE *)temp = temp1;</span><br><span class="line">    v3 = eaxx;</span><br><span class="line">    LOBYTE(v3) = <span class="number">0</span>;</span><br><span class="line">    eaxx = v3 + (<span class="keyword">unsigned</span> __int8)temp1;</span><br><span class="line">  &#125;</span><br><span class="line">  sub_80485A5();</span><br><span class="line">  esp1 = base_addr_804B15C - <span class="number">8</span>;</span><br><span class="line">  pop(&amp;temp2);</span><br><span class="line">  pop(&amp;temp);</span><br><span class="line">  <span class="keyword">return</span> pop(&amp;base_addr_804B15C);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="fun2"><a href="#fun2" class="headerlink" title="fun2"></a>fun2</h3><p>fun2中有两个循环，看似很复杂实则简单</p>
+<h3>fun2</h3>
+<p>fun2中有两个循环，看似很复杂实则简单</p>
 <p>看到两个寄存器在之间移来移去，发现很多操作都是无效的</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">void</span> __<span class="function">cdecl <span class="title">fun2</span><span class="params">(<span class="keyword">int</span> a1, <span class="keyword">int</span> a2, <span class="keyword">int</span> a3)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  push(base_addr_804B15C);</span><br><span class="line">  base_addr_804B15C = esp1;</span><br><span class="line">  esp1 -= <span class="number">16</span>;</span><br><span class="line">  <span class="keyword">for</span> ( *(_DWORD *)(base_addr_804B15C - <span class="number">4</span>) = <span class="number">0</span>; <span class="comment">// 循环三次</span></span><br><span class="line">        *(_DWORD *)(base_addr_804B15C - <span class="number">4</span>) &lt;= <span class="number">2u</span>;</span><br><span class="line">        ++*(_DWORD *)(base_addr_804B15C - <span class="number">4</span>) )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">for</span> ( *(_DWORD *)(base_addr_804B15C - <span class="number">8</span>) = <span class="number">0</span>; ; ++*(_DWORD *)(base_addr_804B15C - <span class="number">8</span>) )</span><br><span class="line">    &#123;</span><br><span class="line">      len = a3;</span><br><span class="line">      ebxx = <span class="number">1431655766</span>;</span><br><span class="line">      eaxx = a3;</span><br><span class="line">      sub_80485DB(<span class="number">1431655766</span>);                  <span class="comment">// ebxx = (eaxx * 1431655766) &gt;&gt; 32</span></span><br><span class="line">      ebxx -= (<span class="keyword">unsigned</span> <span class="keyword">int</span>)len &gt;&gt; <span class="number">31</span>;</span><br><span class="line">      eaxx = ebxx;</span><br><span class="line">      <span class="keyword">if</span> ( *(_DWORD *)(base_addr_804B15C - <span class="number">8</span>) &gt;= (<span class="keyword">unsigned</span> <span class="keyword">int</span>)ebxx )</span><br><span class="line">        <span class="keyword">break</span>;                                  <span class="comment">// 前面一段是关于判断跳出条件的</span></span><br><span class="line">      len = a3;</span><br><span class="line">      ebxx = <span class="number">0x55555556</span>;</span><br><span class="line">      eaxx = a3;</span><br><span class="line">      sub_80485DB(<span class="number">0x55555556</span>);                  <span class="comment">// ebxx = (unsigned __int64)(a1 * (signed __int64)eaxx) &gt;&gt; 32;</span></span><br><span class="line">                                                <span class="comment">//   </span></span><br><span class="line">      ebxx -= (<span class="keyword">unsigned</span> <span class="keyword">int</span>)len &gt;&gt; <span class="number">31</span>;</span><br><span class="line">      eaxx = ebxx;                              <span class="comment">// repeated</span></span><br><span class="line">      eaxx = ebxx * *(_DWORD *)(base_addr_804B15C - <span class="number">4</span>);</span><br><span class="line">      ebxx = eaxx;</span><br><span class="line">      eaxx = *(_DWORD *)(base_addr_804B15C - <span class="number">8</span>);</span><br><span class="line">      eaxx += ebxx;</span><br><span class="line">      ebxx = eaxx;</span><br><span class="line">      eaxx = a2;</span><br><span class="line">      len = ebxx + a2;                          <span class="comment">// 算偏移地址 addr = 0x804B100 + (i * 18) + j</span></span><br><span class="line">      ebxx = *(_DWORD *)(base_addr_804B15C - <span class="number">8</span>);</span><br><span class="line">      eaxx = <span class="number">2</span> * ebxx;                          <span class="comment">// j * 2</span></span><br><span class="line">      ebxx *= <span class="number">3</span>;                                <span class="comment">// j * 3</span></span><br><span class="line">      eaxx = *(_DWORD *)(base_addr_804B15C - <span class="number">4</span>);<span class="comment">// i</span></span><br><span class="line">      eaxx += ebxx;                             <span class="comment">// i +  j * 3</span></span><br><span class="line">      ebxx = eaxx;                              <span class="comment">// i +  j * 3</span></span><br><span class="line">      eaxx += a1;</span><br><span class="line">      eaxx = *(<span class="keyword">unsigned</span> __int8 *)(a1 + ebxx);   <span class="comment">// *(input + i + j * 3)</span></span><br><span class="line">      temp1 = eaxx;</span><br><span class="line">      *(_BYTE *)len = eaxx;                     <span class="comment">// 修改上方的那个偏移地址</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  sub_80485A5();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>翻译过来是这样： </p>
+<p>翻译过来是这样：</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">2</span>; i++)</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;;j++)&#123;</span><br><span class="line">        addr[(i * <span class="number">18</span>) + j] = input + i + j * <span class="number">3</span></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><p><del>比较fun1和fun2中生成的字符串是否相等</del></p>
+<h3>验证</h3>
+<p>~~比较fun1和fun2中生成的字符串是否相等~~</p>
 <p>经高人指点，不是比较fun1和fun2的字符串，而是先经过fun1进行处理，然后再经过fun2处理，然后直接和内存中的一串字符串进行比较</p>
-<h2 id="solve"><a href="#solve" class="headerlink" title="solve"></a>solve</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">feed = <span class="string">"feeddeadbeefcafe"</span></span><br><span class="line">enc = [<span class="number">0x00</span>,<span class="number">0x03</span>,<span class="number">0x09</span>,<span class="number">0x3A</span>,<span class="number">0x05</span>,<span class="number">0x0E</span>,<span class="number">0x02</span>,<span class="number">0x16</span>,<span class="number">0x0F</span>,<span class="number">0x1F</span>,<span class="number">0x12</span>,<span class="number">0x56</span>,<span class="number">0x3B</span>,<span class="number">0x0B</span>,<span class="number">0x51</span>,<span class="number">0x50</span>,<span class="number">0x39</span>,<span class="number">0x00</span>,<span class="number">0x09</span>,<span class="number">0x1F</span>,<span class="number">0x50</span>,<span class="number">0x04</span>,<span class="number">0x14</span>,<span class="number">0x57</span>,<span class="number">0x3B</span>,<span class="number">0x12</span>,<span class="number">0x07</span>,<span class="number">0x3C</span>,<span class="number">0x1C</span>,<span class="number">0x3A</span>,<span class="number">0x15</span>,<span class="number">0x05</span>,<span class="number">0x0B</span>,<span class="number">0x08</span>,<span class="number">0x06</span>,<span class="number">0x01</span>,<span class="number">0x04</span>,<span class="number">0x12</span>,<span class="number">0x16</span>,<span class="number">0x39</span>,<span class="number">0x05</span>,<span class="number">0x0B</span>,<span class="number">0x50</span>,<span class="number">0x57</span>,<span class="number">0x09</span>,<span class="number">0x12</span>,<span class="number">0x0A</span>,<span class="number">0x27</span>,<span class="number">0x13</span>,<span class="number">0x17</span>,<span class="number">0x0E</span>,<span class="number">0x02</span>,<span class="number">0x55</span>,<span class="number">0x18</span>]</span><br><span class="line">dec = [<span class="number">0x00</span>,<span class="number">0x03</span>,<span class="number">0x09</span>,<span class="number">0x3A</span>,<span class="number">0x05</span>,<span class="number">0x0E</span>,<span class="number">0x02</span>,<span class="number">0x16</span>,<span class="number">0x0F</span>,<span class="number">0x1F</span>,<span class="number">0x12</span>,<span class="number">0x56</span>,<span class="number">0x3B</span>,<span class="number">0x0B</span>,<span class="number">0x51</span>,<span class="number">0x50</span>,<span class="number">0x39</span>,<span class="number">0x00</span>,<span class="number">0x09</span>,<span class="number">0x1F</span>,<span class="number">0x50</span>,<span class="number">0x04</span>,<span class="number">0x14</span>,<span class="number">0x57</span>,<span class="number">0x3B</span>,<span class="number">0x12</span>,<span class="number">0x07</span>,<span class="number">0x3C</span>,<span class="number">0x1C</span>,<span class="number">0x3A</span>,<span class="number">0x15</span>,<span class="number">0x05</span>,<span class="number">0x0B</span>,<span class="number">0x08</span>,<span class="number">0x06</span>,<span class="number">0x01</span>,<span class="number">0x04</span>,<span class="number">0x12</span>,<span class="number">0x16</span>,<span class="number">0x39</span>,<span class="number">0x05</span>,<span class="number">0x0B</span>,<span class="number">0x50</span>,<span class="number">0x57</span>,<span class="number">0x09</span>,<span class="number">0x12</span>,<span class="number">0x0A</span>,<span class="number">0x27</span>,<span class="number">0x13</span>,<span class="number">0x17</span>,<span class="number">0x0E</span>,<span class="number">0x02</span>,<span class="number">0x55</span>,<span class="number">0x18</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">18</span>):</span><br><span class="line">        dec[i + j * <span class="number">3</span>] = enc[i * <span class="number">18</span> + j]</span><br><span class="line"></span><br><span class="line">ans = <span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">54</span>):</span><br><span class="line">    dec[i] ^= ord(feed[i % <span class="number">16</span>])</span><br><span class="line">    ans = ans + chr(dec[i])</span><br><span class="line"></span><br><span class="line">print(ans)</span><br></pre></td></tr></table></figure>
+<h2>solve</h2>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">feed = <span class="string">"feeddeadbeefcafe"</span></span><br><span class="line">enc = [<span class="number">0x00</span>,<span class="number">0x03</span>,<span class="number">0x09</span>,<span class="number">0x3A</span>,<span class="number">0x05</span>,<span class="number">0x0E</span>,<span class="number">0x02</span>,<span class="number">0x16</span>,<span class="number">0x0F</span>,<span class="number">0x1F</span>,<span class="number">0x12</span>,<span class="number">0x56</span>,<span class="number">0x3B</span>,<span class="number">0x0B</span>,<span class="number">0x51</span>,<span class="number">0x50</span>,<span class="number">0x39</span>,<span class="number">0x00</span>,<span class="number">0x09</span>,<span class="number">0x1F</span>,<span class="number">0x50</span>,<span class="number">0x04</span>,<span class="number">0x14</span>,<span class="number">0x57</span>,<span class="number">0x3B</span>,<span class="number">0x12</span>,<span class="number">0x07</span>,<span class="number">0x3C</span>,<span class="number">0x1C</span>,<span class="number">0x3A</span>,<span class="number">0x15</span>,<span class="number">0x05</span>,<span class="number">0x0B</span>,<span class="number">0x08</span>,<span class="number">0x06</span>,<span class="number">0x01</span>,<span class="number">0x04</span>,<span class="number">0x12</span>,<span class="number">0x16</span>,<span class="number">0x39</span>,<span class="number">0x05</span>,<span class="number">0x0B</span>,<span class="number">0x50</span>,<span class="number">0x57</span>,<span class="number">0x09</span>,<span class="number">0x12</span>,<span class="number">0x0A</span>,<span class="number">0x27</span>,<span class="number">0x13</span>,<span class="number">0x17</span>,<span class="number">0x0E</span>,<span class="number">0x02</span>,<span class="number">0x55</span>,<span class="number">0x18</span>]</span><br><span class="line">dec = [<span class="number">0x00</span>,<span class="number">0x03</span>,<span class="number">0x09</span>,<span class="number">0x3A</span>,<span class="number">0x05</span>,<span class="number">0x0E</span>,<span class="number">0x02</span>,<span class="number">0x16</span>,<span class="number">0x0F</span>,<span class="number">0x1F</span>,<span class="number">0x12</span>,<span class="number">0x56</span>,<span class="number">0x3B</span>,<span class="number">0x0B</span>,<span class="number">0x51</span>,<span class="number">0x50</span>,<span class="number">0x39</span>,<span class="number">0x00</span>,<span class="number">0x09</span>,<span class="number">0x1F</span>,<span class="number">0x50</span>,<span class="number">0x04</span>,<span class="number">0x14</span>,<span class="number">0x57</span>,<span class="number">0x3B</span>,<span class="number">0x12</span>,<span class="number">0x07</span>,<span class="number">0x3C</span>,<span class="number">0x1C</span>,<span class="number">0x3A</span>,<span class="number">0x15</span>,<span class="number">0x05</span>,<span class="number">0x0B</span>,<span class="number">0x08</span>,<span class="number">0x06</span>,<span class="number">0x01</span>,<span class="number">0x04</span>,<span class="number">0x12</span>,<span class="number">0x16</span>,<span class="number">0x39</span>,<span class="number">0x05</span>,<span class="number">0x0B</span>,<span class="number">0x50</span>,<span class="number">0x57</span>,<span class="number">0x09</span>,<span class="number">0x12</span>,<span class="number">0x0A</span>,<span class="number">0x27</span>,<span class="number">0x13</span>,<span class="number">0x17</span>,<span class="number">0x0E</span>,<span class="number">0x02</span>,<span class="number">0x55</span>,<span class="number">0x18</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">18</span>):</span><br><span class="line">        dec[i + j * <span class="number">3</span>] = enc[i * <span class="number">18</span> + j]</span><br><span class="line"></span><br><span class="line">ans = <span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">54</span>):</span><br><span class="line">    dec[i] ^= ord(feed[i % <span class="number">16</span>])</span><br><span class="line">    ans = ans + chr(dec[i])</span><br><span class="line"></span><br><span class="line">print(ans)</span><br></pre></td></tr></table></figure>
     </article>
     <!-- license  -->
     
@@ -574,7 +581,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#simple-machine"><span class="toc-number">1.</span> <span class="toc-text">simple-machine</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#思路整理"><span class="toc-number">1.1.</span> <span class="toc-text">思路整理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#general"><span class="toc-number">1.1.1.</span> <span class="toc-text">general</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fun1"><span class="toc-number">1.1.2.</span> <span class="toc-text">fun1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fun2"><span class="toc-number">1.1.3.</span> <span class="toc-text">fun2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#验证"><span class="toc-number">1.1.4.</span> <span class="toc-text">验证</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#solve"><span class="toc-number">1.2.</span> <span class="toc-text">solve</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">simple-machine</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">思路整理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.1.</span> <span class="toc-text">general</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.2.</span> <span class="toc-text">fun1</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.3.</span> <span class="toc-text">fun2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.4.</span> <span class="toc-text">验证</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.</span> <span class="toc-text">solve</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -587,6 +594,20 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1873,12 +1894,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/08</span><a class="archive-post-title" href="/posts/36dd5647/">让win10系统任务栏变为透明</a>
+            <span class="archive-post-date">06/08</span><a class="archive-post-title" href="/posts/472395fb/">在word中贴出漂亮的代码</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/08</span><a class="archive-post-title" href="/posts/472395fb/">在word中贴出漂亮的代码</a>
+            <span class="archive-post-date">06/08</span><a class="archive-post-title" href="/posts/36dd5647/">让win10系统任务栏变为透明</a>
         </li>
     
     
@@ -1943,12 +1964,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/28</span><a class="archive-post-title" href="/posts/7f12b338/">南京邮电大学 RE-WxyVM2</a>
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href="/posts/ea74c872/">bbvvmm</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/28</span><a class="archive-post-title" href="/posts/ea74c872/">bbvvmm</a>
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href="/posts/7f12b338/">南京邮电大学 RE-WxyVM2</a>
         </li>
     
     
@@ -1983,12 +2004,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/6aab0075/">wakarimasu</a>
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/f9cd8782/">xor</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/f9cd8782/">xor</a>
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/6aab0075/">wakarimasu</a>
         </li>
     
     
@@ -2037,7 +2058,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/17525de2/">AVL树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
         </li>
     
     
@@ -2047,47 +2068,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/852a3205/">线段树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e5abdd9c/">铺地毯题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28cf1e0f/">拓扑排序以及关键路径总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/3598786/">逆波兰表达式题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/4c789951/">Vigenère密码题解</a>
         </li>
     
     
@@ -2097,22 +2078,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/93b1f5dc/">暑期人生测试一总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e073dc73/">字典树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/4c789951/">Vigenère密码题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/3598786/">逆波兰表达式题解</a>
         </li>
     
     
@@ -2122,12 +2093,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/50d2edb9/">2的幂次方表示题解</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e073dc73/">字典树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/93b1f5dc/">暑期人生测试一总结</a>
         </li>
     
     
@@ -2137,17 +2118,47 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/675d1a4b/">求最大网络流（最小割）总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28cf1e0f/">拓扑排序以及关键路径总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/50d2edb9/">2的幂次方表示题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e5abdd9c/">铺地毯题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/852a3205/">线段树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/17525de2/">AVL树总结</a>
         </li>
     
     
@@ -2157,17 +2168,27 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/76551050/">网络安全课笔记 of Shijie Zhou #1</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/28572e84/">基本操作 Reverse Version</a>
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/6dada2a6/">Some Boxes</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/6dada2a6/">Some Boxes</a>
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/28572e84/">基本操作 Reverse Version</a>
         </li>
     
     
@@ -2195,9 +2216,9 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="RE_Static"><span class="iconfont-archer">&#xe606;</span>RE_Static</span>
-    
         <span class="sidebar-tag-name" data-tags="RE_Dynamic"><span class="iconfont-archer">&#xe606;</span>RE_Dynamic</span>
+    
+        <span class="sidebar-tag-name" data-tags="RE_Static"><span class="iconfont-archer">&#xe606;</span>RE_Static</span>
     
         <span class="sidebar-tag-name" data-tags="VM"><span class="iconfont-archer">&#xe606;</span>VM</span>
     
@@ -2205,13 +2226,13 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="3des"><span class="iconfont-archer">&#xe606;</span>3des</span>
     
-        <span class="sidebar-tag-name" data-tags="RE_Android"><span class="iconfont-archer">&#xe606;</span>RE_Android</span>
-    
         <span class="sidebar-tag-name" data-tags="xtea"><span class="iconfont-archer">&#xe606;</span>xtea</span>
     
         <span class="sidebar-tag-name" data-tags="crc16"><span class="iconfont-archer">&#xe606;</span>crc16</span>
     
         <span class="sidebar-tag-name" data-tags="pwntools"><span class="iconfont-archer">&#xe606;</span>pwntools</span>
+    
+        <span class="sidebar-tag-name" data-tags="RE_Android"><span class="iconfont-archer">&#xe606;</span>RE_Android</span>
     
         <span class="sidebar-tag-name" data-tags="packer"><span class="iconfont-archer">&#xe606;</span>packer</span>
     
@@ -2248,15 +2269,15 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="write up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
-    
         <span class="sidebar-category-name" data-categories="牢骚"><span class="iconfont-archer">&#xe60a;</span>牢骚</span>
     
-        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
+        <span class="sidebar-category-name" data-categories="write up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
+    
+        <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
     
         <span class="sidebar-category-name" data-categories="cnss_recruit_201809"><span class="iconfont-archer">&#xe60a;</span>write-up/cnss-recruit-201809</span>
     
-        <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
+        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
     
         <span class="sidebar-category-name" data-categories="notes"><span class="iconfont-archer">&#xe60a;</span>notes</span>
     
@@ -2266,9 +2287,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="hgame_20190122"><span class="iconfont-archer">&#xe60a;</span>write-up/hgame-20190122</span>
     
-        <span class="sidebar-category-name" data-categories="cgctf"><span class="iconfont-archer">&#xe60a;</span>write-up/cgctf</span>
-    
         <span class="sidebar-category-name" data-categories="nationalCTF_20190421"><span class="iconfont-archer">&#xe60a;</span>write-up/nationalCTF-20190421</span>
+    
+        <span class="sidebar-category-name" data-categories="cgctf"><span class="iconfont-archer">&#xe60a;</span>write-up/cgctf</span>
     
         <span class="sidebar-category-name" data-categories="write-up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
     
@@ -2280,11 +2301,11 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="qwb_ctf20190526"><span class="iconfont-archer">&#xe60a;</span>write-up/qwb-ctf20190526</span>
     
-        <span class="sidebar-category-name" data-categories="JarvisOJ"><span class="iconfont-archer">&#xe60a;</span>write-up/JarvisOJ</span>
-    
         <span class="sidebar-category-name" data-categories="base64"><span class="iconfont-archer">&#xe60a;</span>write-up/nationalCTF-20190421/sm4/base64</span>
     
         <span class="sidebar-category-name" data-categories="rctf-20190518"><span class="iconfont-archer">&#xe60a;</span>write-up/rctf-20190518</span>
+    
+        <span class="sidebar-category-name" data-categories="JarvisOJ"><span class="iconfont-archer">&#xe60a;</span>write-up/JarvisOJ</span>
     
         <span class="sidebar-category-name" data-categories="Project"><span class="iconfont-archer">&#xe60a;</span>Project</span>
     

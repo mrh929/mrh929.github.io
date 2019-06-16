@@ -413,19 +413,20 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h1 id="离散优化总结"><a href="#离散优化总结" class="headerlink" title="离散优化总结"></a>离散优化总结</h1><p><strong>离散优化是一种常见的高效数据结构，它通过建立数据与存储结构（数组）之间（不一定）一一对应的映射关系来达到对复杂数据的优化。</strong> <strong>离散优化最重要的一点是建立映射，对于特殊的线段、点而言，这些映射可以是对一个区间的映射，即将某段线或者某块区域映射到数组里面去，从而在计算时降低时间复杂度。</strong> <strong>Hash优化：是对于字符串和数字的一种优化方式。它通过将数据映射到数组内的某个元素从而达到节省空间的效果。</strong> <strong>根据hash算法的不同，可能会引起数据的碰撞，即hash(key1)==hash(key2)，会使得数据存储出现错误。有两个方法可以解决：</strong></p>
+        <h1>离散优化总结</h1>
+<p><strong>离散优化是一种常见的高效数据结构，它通过建立数据与存储结构（数组）之间（不一定）一一对应的映射关系来达到对复杂数据的优化。</strong> <strong>离散优化最重要的一点是建立映射，对于特殊的线段、点而言，这些映射可以是对一个区间的映射，即将某段线或者某块区域映射到数组里面去，从而在计算时降低时间复杂度。</strong> <strong>Hash优化：是对于字符串和数字的一种优化方式。它通过将数据映射到数组内的某个元素从而达到节省空间的效果。</strong> <strong>根据hash算法的不同，可能会引起数据的碰撞，即hash(key1)==hash(key2)，会使得数据存储出现错误。有两个方法可以解决：</strong></p>
 <ol>
 <li><strong>拉链法，将hash所对密码指向链表头，每次查找元素遍历整串链表，直到找到该元素为止（编程复杂度较高）</strong></li>
 <li><strong>开地址法，当hash所对密码冲突时，将数据存入另外的位置（可以是下一个空位置，也可以是计算出的任意位置），当然如果使用线性开地址法，只要有一个数据碰撞，那么其余所有数据都很有可能进行至少一次碰撞，非常耗费时间。所以我们运用hash算出另一个位置并存储：</strong></li>
 </ol>
-<p><strong>while(hashtable[ad]!=0){</strong>    ad+=ad%3+1;//可以是异于主hash算法的另一hash算法<strong> </strong>}**    通常Hash算法分为两个板块：</p>
+<p><strong>while(hashtable[ad]!=0){</strong>    ad+=ad%3+1;//可以是异于主hash算法的另一hash算法** <strong>}</strong>    通常Hash算法分为两个板块：</p>
 <ol>
 <li><strong>查找元素，hash(key)对应的不一定是目标元素，需要对目标进行搜索，推荐使用开地址法进行搜索</strong></li>
-<li><p><strong>插入元素，与查找同理，在插入之前必须检查此元素是否已被插入，再用开地址法存入相应的地址</strong></p>
+<li><strong>插入元素，与查找同理，在插入之前必须检查此元素是否已被插入，再用开地址法存入相应的地址</strong></li>
+</ol>
 <p><strong>Hash可用的构造方法</strong></p>
-</li>
-<li><p><strong>直接定址</strong></p>
-</li>
+<ol>
+<li><strong>直接定址</strong></li>
 <li><strong>取模法</strong></li>
 <li><strong>平均取中值</strong></li>
 <li><strong>随机数</strong></li>
@@ -433,46 +434,64 @@ height:50vh;
 <li><strong>折叠法，将数拆分成几部分并求和</strong></li>
 <li><strong>基数法，将低进制数当作高进制数转化为原进制的数，并进行分析，取特征码（两个进制之间应该是互质的关系）</strong></li>
 </ol>
-<h2 id="1640-线段覆盖"><a href="#1640-线段覆盖" class="headerlink" title="1640: 线段覆盖"></a>1640: 线段覆盖</h2><p>时间限制:1 Sec  内存限制: 128 MB 提交:43  解决: 27 [<a href="http://fzoj.xndxfz.com/JudgeOnline/submitpage.php?id=1640" target="_blank" rel="noopener">提交</a>][<a href="http://fzoj.xndxfz.com/JudgeOnline/problemstatus.php?id=1640" target="_blank" rel="noopener">状态</a>][<a href="http://fzoj.xndxfz.com/JudgeOnline/bbs.php?pid=1640" target="_blank" rel="noopener">讨论版</a>]</p>
-<h2 id="题目描述"><a href="#题目描述" class="headerlink" title="题目描述"></a>题目描述</h2><p>X轴上方有若干条平行于X轴的线段，求这些线段能覆盖到的X轴的总长度？</p>
-<h2 id="输入"><a href="#输入" class="headerlink" title="输入"></a>输入</h2><p>第一行一个数n(n&lt;=1000)，表示线段的个数； 接下来n行，每行两个整数ai,bi （-10^8&lt;=ai,bi&lt;=10^8)，代表一个线段的两个端点。</p>
-<h2 id="输出"><a href="#输出" class="headerlink" title="输出"></a>输出</h2><p>输出覆盖x轴的长度。</p>
-<h2 id="样例输入"><a href="#样例输入" class="headerlink" title="样例输入"></a>样例输入</h2><pre><code>2
+<h2>1640: 线段覆盖</h2>
+<p>时间限制:1 Sec  内存限制: 128 MB 提交:43  解决: 27 [<a href="http://fzoj.xndxfz.com/JudgeOnline/submitpage.php?id=1640" target="_blank" rel="noopener">提交</a>][<a href="http://fzoj.xndxfz.com/JudgeOnline/problemstatus.php?id=1640" target="_blank" rel="noopener">状态</a>][<a href="http://fzoj.xndxfz.com/JudgeOnline/bbs.php?pid=1640" target="_blank" rel="noopener">讨论版</a>]</p>
+<h2>题目描述</h2>
+<p>X轴上方有若干条平行于X轴的线段，求这些线段能覆盖到的X轴的总长度？</p>
+<h2>输入</h2>
+<p>第一行一个数n(n&lt;=1000)，表示线段的个数； 接下来n行，每行两个整数ai,bi （-10^8&lt;=ai,bi&lt;=10^8)，代表一个线段的两个端点。</p>
+<h2>输出</h2>
+<p>输出覆盖x轴的长度。</p>
+<h2>样例输入</h2>
+<pre><code>2
 
 10 12
 
 2 4
-</code></pre><h2 id="样例输出"><a href="#样例输出" class="headerlink" title="样例输出"></a>样例输出</h2><pre><code>4
-</code></pre><p><strong>将每个点存入数组进行排序，然后遍历所有线段，将线段所覆盖到的点全部记录，输出结果</strong></p>
+</code></pre>
+<h2>样例输出</h2>
+<pre><code>4
+</code></pre>
+<p><strong>将每个点存入数组进行排序，然后遍历所有线段，将线段所覆盖到的点全部记录，输出结果</strong></p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> n,a[<span class="number">1200</span>],b[<span class="number">1200</span>],t[<span class="number">2400</span>],flag[<span class="number">2400</span>],tot,sum;</span><br><span class="line"><span class="comment">//flag[i]表示i到i+1之间是否被覆盖 </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> s,<span class="keyword">int</span> e,<span class="keyword">int</span> aim)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> mid;</span><br><span class="line">	<span class="keyword">while</span>(s&lt;=e)&#123;</span><br><span class="line">		mid=(s+e)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span>(t[mid]==aim)&#123;</span><br><span class="line">			<span class="keyword">while</span>(t[mid<span class="number">-1</span>]==t[mid]) mid--;</span><br><span class="line">			<span class="keyword">return</span> mid;</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(t[mid]&gt;aim)</span><br><span class="line">			e=mid<span class="number">-1</span>;</span><br><span class="line">		<span class="keyword">else</span> s=mid+<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="comment">//	freopen("in.txt","r",stdin);</span></span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;a[i],&amp;b[i]);</span><br><span class="line">		<span class="keyword">if</span>(a[i]&gt;b[i]) swap(a[i],b[i]);</span><br><span class="line">		t[++tot]=a[i]; t[++tot]=b[i];</span><br><span class="line">	&#125;</span><br><span class="line">	sort(t+<span class="number">1</span>,t+<span class="number">1</span>+tot);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=tot;i&gt;=<span class="number">2</span>;i--)</span><br><span class="line">		<span class="keyword">if</span>(t[i]==t[i<span class="number">-1</span>]) flag[i]=<span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">		<span class="keyword">int</span> top=find(<span class="number">1</span>,tot,a[i]),tail=find(<span class="number">1</span>,tot,b[i]);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> j=top;j&lt;=tail<span class="number">-1</span>;j++)</span><br><span class="line">			<span class="keyword">if</span>(flag[j]!=<span class="number">-1</span>) flag[j]=<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=tot<span class="number">-1</span>;i++)&#123;</span><br><span class="line">		<span class="keyword">int</span> nxt=i+<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">while</span>(flag[nxt]==<span class="number">-1</span>) nxt++;</span><br><span class="line">		<span class="keyword">if</span>(flag[i]==<span class="number">1</span>) sum+=t[nxt]-t[i];</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d"</span>,sum);</span><br><span class="line">		</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
-<h2 id="1234-图形面积"><a href="#1234-图形面积" class="headerlink" title="1234: 图形面积"></a>1234: 图形面积</h2><p>时间限制:0 Sec  内存限制: 128 MB 提交:11  解决: 2 [<a href="http://fzoj.xndxfz.com/JudgeOnline/submitpage.php?id=1234" target="_blank" rel="noopener">提交</a>][<a href="http://fzoj.xndxfz.com/JudgeOnline/problemstatus.php?id=1234" target="_blank" rel="noopener">状态</a>][<a href="http://fzoj.xndxfz.com/JudgeOnline/bbs.php?pid=1234" target="_blank" rel="noopener">讨论版</a>]</p>
-<h2 id="题目描述-1"><a href="#题目描述-1" class="headerlink" title="题目描述"></a>题目描述</h2><p>桌面上放了N个矩形，这N个矩形可能有互相覆盖的部分，求它们组成的图形的面积。</p>
-<h2 id="输入-1"><a href="#输入-1" class="headerlink" title="输入"></a>输入</h2><p>输入第一行为一个数N（1≤N≤100），表示矩形的数量。下面N行，每行四个整数，分别表示每个矩形的左下角和右上角的坐标，坐标范围为–10^8到10^8之间的整数。</p>
-<h2 id="输出-1"><a href="#输出-1" class="headerlink" title="输出"></a>输出</h2><p>输出只有一行，一个整数，表示图形的面积。</p>
-<h2 id="样例输入-1"><a href="#样例输入-1" class="headerlink" title="样例输入"></a>样例输入</h2><pre><code>3
+<p></p>
+<h2>1234: 图形面积</h2>
+<p>时间限制:0 Sec  内存限制: 128 MB 提交:11  解决: 2 [<a href="http://fzoj.xndxfz.com/JudgeOnline/submitpage.php?id=1234" target="_blank" rel="noopener">提交</a>][<a href="http://fzoj.xndxfz.com/JudgeOnline/problemstatus.php?id=1234" target="_blank" rel="noopener">状态</a>][<a href="http://fzoj.xndxfz.com/JudgeOnline/bbs.php?pid=1234" target="_blank" rel="noopener">讨论版</a>]</p>
+<h2>题目描述</h2>
+<p>桌面上放了N个矩形，这N个矩形可能有互相覆盖的部分，求它们组成的图形的面积。</p>
+<h2>输入</h2>
+<p>输入第一行为一个数N（1≤N≤100），表示矩形的数量。下面N行，每行四个整数，分别表示每个矩形的左下角和右上角的坐标，坐标范围为–10^8到10^8之间的整数。</p>
+<h2>输出</h2>
+<p>输出只有一行，一个整数，表示图形的面积。</p>
+<h2>样例输入</h2>
+<pre><code>3
 
 1 1 4 3
 
 2 -1 3 2
 
 4 0 5 2
-</code></pre><h2 id="样例输出-1"><a href="#样例输出-1" class="headerlink" title="样例输出"></a>样例输出</h2><pre><code>10
-</code></pre><p><strong>二维离散优化，将图形在x轴上投影的点找出，并且分析相邻两点间的距离（即图形的宽），以及投影这段线的图形在y轴上的投影（即图形的高），ans+=d*h即可</strong> <a href="http://noi.openjudge.cn/ch0305/1551/" target="_blank" rel="noopener">http://noi.openjudge.cn/ch0305/1551/</a> <strong>Sumsets</strong> <strong>描述</strong> 给出一个整数集合s，找到集合中最大的d，让等式a+b+c=d成立， 其中，a,b,c,d是集合S中不同的元素。 输入 Several S, each consisting of a line containing an integer 1 &lt;= n&lt;= 1000 indicating the number of elements in S, followed by the elements ofS, one per line. Each element of S is a distinct integer between -536870912 and+536870911 inclusive. The last line of input contains 0. 输出 For each S, a single line containing d, or a single line containing”no solution”. 样例输入 5 2 3 5 7 12 5 2 16 64 256 1024 0 样例输出 12 no solution <strong>经过变形可得a+b=d-c，先枚举a+b用hash表存储</strong> <strong>再枚举d-c，如果在hash表中有值,且该值对应的a，b异于d，c，那么将此时的d存起来，取最大值</strong></p>
+</code></pre>
+<h2>样例输出</h2>
+<pre><code>10
+</code></pre>
+<p><em><em>二维离散优化，将图形在x轴上投影的点找出，并且分析相邻两点间的距离（即图形的宽），以及投影这段线的图形在y轴上的投影（即图形的高），ans+=d</em>h即可</em>* <a href="http://noi.openjudge.cn/ch0305/1551/" target="_blank" rel="noopener">http://noi.openjudge.cn/ch0305/1551/</a> <strong>Sumsets</strong> <strong>描述</strong> 给出一个整数集合s，找到集合中最大的d，让等式a+b+c=d成立， 其中，a,b,c,d是集合S中不同的元素。 输入 Several S, each consisting of a line containing an integer 1 &lt;= n&lt;= 1000 indicating the number of elements in S, followed by the elements ofS, one per line. Each element of S is a distinct integer between -536870912 and+536870911 inclusive. The last line of input contains 0. 输出 For each S, a single line containing d, or a single line containing&quot;no solution&quot;. 样例输入 5 2 3 5 7 12 5 2 16 64 256 1024 0 样例输出 12 no solution <strong>经过变形可得a+b=d-c，先枚举a+b用hash表存储</strong> <strong>再枚举d-c，如果在hash表中有值,且该值对应的a，b异于d，c，那么将此时的d存起来，取最大值</strong></p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> ADD=<span class="number">536870911</span>;</span><br><span class="line"><span class="keyword">int</span> flag[<span class="number">1000020</span>],in[<span class="number">1020</span>],ha1[<span class="number">1000020</span>],ha2[<span class="number">1000020</span>],data[<span class="number">1000000</span>];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">hashh</span><span class="params">(<span class="keyword">int</span> key)</span></span>&#123;</span><br><span class="line"><span class="comment">//	key+=ADD;</span></span><br><span class="line">	<span class="keyword">int</span> ad=((key%<span class="number">1000000</span>)+<span class="number">10061894</span>)%<span class="number">1000000</span>;</span><br><span class="line">	<span class="keyword">while</span>(flag[ad]!=<span class="number">0</span>)&#123;</span><br><span class="line">		ad+=ad%<span class="number">11</span>+<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span>(ad&gt;<span class="number">1000000</span>) ad%=<span class="number">1000000</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> ad;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">find</span><span class="params">(<span class="keyword">int</span> key)</span></span>&#123;</span><br><span class="line"><span class="comment">//	key+=ADD;</span></span><br><span class="line">	<span class="keyword">int</span> ad=((key%<span class="number">1000000</span>)+<span class="number">10061894</span>)%<span class="number">1000000</span>;</span><br><span class="line">	<span class="keyword">while</span>(data[ad]!=key&amp;&amp;flag[ad]!=<span class="number">0</span>)&#123;</span><br><span class="line">		ad+=ad%<span class="number">11</span>+<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span>(ad&gt;<span class="number">1000000</span>) ad%=<span class="number">1000000</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> flag[ad]==<span class="number">0</span>?<span class="number">-1</span>:ad;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="comment">//	freopen("in.txt","r",stdin);</span></span><br><span class="line">	<span class="keyword">int</span> n,maxx;</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n)!=EOF&amp;&amp;n!=<span class="number">0</span>)&#123;</span><br><span class="line">		<span class="built_in">memset</span>(flag,<span class="number">0</span>,<span class="keyword">sizeof</span>(flag));</span><br><span class="line">		maxx=<span class="number">-1</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;in[i]);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j=i+<span class="number">1</span>;j&lt;=n;j++)&#123;</span><br><span class="line">				<span class="keyword">int</span> ans=hashh(in[i]+in[j]);</span><br><span class="line">				flag[ans]=<span class="number">1</span>,ha1[ans]=in[i],ha2[ans]=in[j],data[ans]=in[i]+in[j];</span><br><span class="line">			&#125;</span><br><span class="line">				</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">1</span>;j&lt;=n;j++)&#123;</span><br><span class="line">				<span class="keyword">int</span> ans=find(in[i]-in[j]);</span><br><span class="line">				<span class="keyword">if</span>(i==j||ans==<span class="number">-1</span>) <span class="keyword">continue</span>;</span><br><span class="line">				<span class="keyword">if</span>(flag[ans]&amp;&amp;ha1[ans]!=in[i]&amp;&amp;ha1[ans]!=in[j]&amp;&amp;ha2[ans]!=in[i]&amp;&amp;ha2[ans]!=in[j])</span><br><span class="line">					maxx=max(maxx,in[i]);</span><br><span class="line">			&#125;</span><br><span class="line">		<span class="keyword">if</span>(maxx!=<span class="number">-1</span>) <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,maxx);</span><br><span class="line">		<span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">"no solution\n"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>​        </p>
+<p>​</p>
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
-<h2 id="1807-正方形"><a href="#1807-正方形" class="headerlink" title="1807:正方形"></a>1807:正方形</h2><p><a href="http://noi.openjudge.cn/ch0305/1807/" target="_blank" rel="noopener">http://noi.openjudge.cn/ch0305/1807/</a> </p>
-<p>描述 给出平面上一些点的坐标，统计由这些点可以组成多少个正方形。注意：正方形的边不一定平行于坐标轴。 </p>
+<h2>1807:正方形</h2>
+<p><a href="http://noi.openjudge.cn/ch0305/1807/" target="_blank" rel="noopener">http://noi.openjudge.cn/ch0305/1807/</a></p>
+<p>描述 给出平面上一些点的坐标，统计由这些点可以组成多少个正方形。注意：正方形的边不一定平行于坐标轴。</p>
 <p>输入 输入包括多组测试数据。每组的第一行是一个整数n (1 &lt;= n &lt;= 1000)，表示平面上点的数目，接下来n行，每行包括两个整数，分别给出一个点在平面上的x坐标和y坐标。输入保证：平面上点的位置是两两不同的，而且坐标的绝对值都不大于20000。最后一组输入数据中n = 0，这组数据表示输入的结束，不用进行处理。</p>
-<p> 输出 对每组输入数据，输出一行，表示这些点能够组成的正方形的数目。 </p>
-<p>样例输入 4 1 0 0 1 1 1 0 0 9 0 0 1 0 2 0 0 2 1 2 2 2 0 1 1 1 2 1 4 -2 5 3 7 0 0 5 2 0 </p>
+<p>输出 对每组输入数据，输出一行，表示这些点能够组成的正方形的数目。</p>
+<p>样例输入 4 1 0 0 1 1 1 0 0 9 0 0 1 0 2 0 0 2 1 2 2 2 0 1 1 1 2 1 4 -2 5 3 7 0 0 5 2 0</p>
 <p>样例输出 1 6 1</p>
-<p> <strong>将每个点用hash表存起来，这里有个小技巧，可以开longlong数组，从而实现一个变量存一个点的功效。然后枚举任意两个未枚举的点，将它们作为正方形的一条边，通过规律我们可以确定两个待定的正方形，寻找计算出的正方形另两个点的位置，搜索hash表，如果都有相应的元素对应，那么即为找到一个正方形。注意：每两个点都会被遍历，即每条边都会被遍历，所以正方形的个数是边数d&gt;&gt;2</strong></p>
+<p><strong>将每个点用hash表存起来，这里有个小技巧，可以开longlong数组，从而实现一个变量存一个点的功效。然后枚举任意两个未枚举的点，将它们作为正方形的一条边，通过规律我们可以确定两个待定的正方形，寻找计算出的正方形另两个点的位置，搜索hash表，如果都有相应的元素对应，那么即为找到一个正方形。注意：每两个点都会被遍历，即每条边都会被遍历，所以正方形的个数是边数d&gt;&gt;2</strong></p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX=<span class="number">30000</span>;</span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">node</span>&#123;</span></span><br><span class="line">	<span class="keyword">int</span> x,y;</span><br><span class="line">&#125;poi[MAX+<span class="number">500</span>];</span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> hashtable[MAX+<span class="number">500</span>];</span><br><span class="line"><span class="comment">//任意选取两个点，可确定两个正方形，将两个正方形除已选择外的点hash存储 </span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">InsertHash</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> ad=(x*x+y*y)%<span class="number">30000</span>;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> aim=x*<span class="number">100000</span>+y;</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">		ad+=ad%<span class="number">31</span>+<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span>(ad&gt;MAX) ad%=MAX;</span><br><span class="line">		<span class="keyword">if</span>(hashtable[ad]==aim) <span class="keyword">return</span>;</span><br><span class="line">		<span class="keyword">if</span>(hashtable[ad]==<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">	&#125;hashtable[ad]=aim;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">FindHash</span><span class="params">(<span class="keyword">int</span> x,<span class="keyword">int</span> y)</span></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> ad=(x*x+y*y)%<span class="number">30000</span>;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> aim=x*<span class="number">100000</span>+y;</span><br><span class="line">	<span class="keyword">while</span>(<span class="number">1</span>)&#123;</span><br><span class="line">		ad+=ad%<span class="number">31</span>+<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span>(ad&gt;MAX) ad%=MAX;</span><br><span class="line">		<span class="keyword">if</span>(hashtable[ad]==<span class="number">0</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(hashtable[ad]==aim) <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="comment">//	freopen("in.txt","r",stdin);</span></span><br><span class="line">	<span class="keyword">int</span> n,x,y,ans;</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n)!=EOF&amp;&amp;n!=<span class="number">0</span>)&#123;</span><br><span class="line">		<span class="built_in">memset</span>(hashtable,<span class="number">0</span>,<span class="keyword">sizeof</span>(hashtable));</span><br><span class="line">		ans=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;poi[i].x,&amp;poi[i].y);</span><br><span class="line">			poi[i].x+=<span class="number">20001</span>; poi[i].y+=<span class="number">20001</span>;</span><br><span class="line">			InsertHash(poi[i].x,poi[i].y);</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">	<span class="comment">/*	for(int i=1;i&lt;=MAX;i++)</span></span><br><span class="line"><span class="comment">			if(hashtable[i]!=0)</span></span><br><span class="line"><span class="comment">				printf("%lld\n",hashtable[i]);*/</span></span><br><span class="line">		</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j=i+<span class="number">1</span>;j&lt;=n;j++)&#123;</span><br><span class="line">				<span class="keyword">int</span> x1,x2,y1,y2,delx,dely;</span><br><span class="line">				delx=poi[i].x-poi[j].x;</span><br><span class="line">				dely=poi[i].y-poi[j].y;</span><br><span class="line">				x1=poi[i].x+dely; y1=poi[i].y-delx;</span><br><span class="line">				x2=poi[j].x+dely; y2=poi[j].y-delx;</span><br><span class="line">				<span class="keyword">if</span>(FindHash(x1,y1)&amp;&amp;FindHash(x2,y2)) ans++;</span><br><span class="line">				</span><br><span class="line">				x1=poi[i].x-dely; y1=poi[i].y+delx;</span><br><span class="line">				x2=poi[j].x-dely; y2=poi[j].y+delx;</span><br><span class="line">				<span class="keyword">if</span>(FindHash(x1,y1)&amp;&amp;FindHash(x2,y2)) ans++;</span><br><span class="line">			&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,ans&gt;&gt;<span class="number">2</span>);<span class="comment">//根据两个点找正方形会找四次 </span></span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
 <p>FZOJ1639魔板</p>
-<p> <strong>题目描述</strong> 在魔方风靡全球之后，小Y发明了它的简化版——魔板，如图1所示，魔板由8个同样大小的方块组成，每个方块的颜色均不相同，本题中分别用数字1~8表示，它们可能出现在魔板的任一位置。任一时刻魔板的状态可以用方块的颜色序列表示：从魔板的左上角开始，按顺时针方向依次写下各个颜色块的颜色代号，得到数字序列即可表示此时魔板的状态。</p>
+<p><strong>题目描述</strong> 在魔方风靡全球之后，小Y发明了它的简化版——魔板，如图1所示，魔板由8个同样大小的方块组成，每个方块的颜色均不相同，本题中分别用数字1~8表示，它们可能出现在魔板的任一位置。任一时刻魔板的状态可以用方块的颜色序列表示：从魔板的左上角开始，按顺时针方向依次写下各个颜色块的颜色代号，得到数字序列即可表示此时魔板的状态。</p>
 <p>例如，序列(1,2,3,4,5,6,7,8)表示如图1所示魔板的状态，这也是本题中魔板的初始状态。</p>
 <p>1</p>
 <p>2</p>
@@ -482,8 +501,8 @@ height:50vh;
 <p>7</p>
 <p>6</p>
 <p>5</p>
-<pre><code>**图 1 魔板的初始状态** 对于魔板，可以施加三种不同的操作，分别以A,B,C标识。具体操作方法如下： A:上下行互换。 B：每一行同时循环右移一格。 C：中间4个方块顺时针旋转一格。 应用这三种基本操作，可以由任一种状态达到任意另外一种状态。
-</code></pre><p> <strong>图 2 魔板的操作方法</strong> 图2描述了上述3种操作的具体含义，图中方格外面的数字标识魔板的8个方块位置，方格内数字表示此次操作前该小方块所在位置，即：如果位置P对应的方格中数字为I，则表示此次操作前该方块在位置I。 任务一：请编一程序，对于输入的一个目标状态寻找一种操作的序列，使得从初始状态开始，经过此操作序列后使该魔板变为目标状态。 任务二：如果你的程序寻找到的操作序列在300步以内，会得到任务二的分数。 输入数据只有一行，内容是8个以一个空隔分隔的正整数，表示目标状态。输入样例对应的状态如图3所示。输出数据要求第一行输出你的程序寻找到的操作序列的步数L，随后L行是相应的操作序列，每行的行首输出一个字符，代表相应的操作。</p>
+<p><strong>图 1 魔板的初始状态</strong> 对于魔板，可以施加三种不同的操作，分别以A,B,C标识。具体操作方法如下： A:上下行互换。 B：每一行同时循环右移一格。 C：中间4个方块顺时针旋转一格。 应用这三种基本操作，可以由任一种状态达到任意另外一种状态。</p>
+<p><strong>图 2 魔板的操作方法</strong> 图2描述了上述3种操作的具体含义，图中方格外面的数字标识魔板的8个方块位置，方格内数字表示此次操作前该小方块所在位置，即：如果位置P对应的方格中数字为I，则表示此次操作前该方块在位置I。 任务一：请编一程序，对于输入的一个目标状态寻找一种操作的序列，使得从初始状态开始，经过此操作序列后使该魔板变为目标状态。 任务二：如果你的程序寻找到的操作序列在300步以内，会得到任务二的分数。 输入数据只有一行，内容是8个以一个空隔分隔的正整数，表示目标状态。输入样例对应的状态如图3所示。输出数据要求第一行输出你的程序寻找到的操作序列的步数L，随后L行是相应的操作序列，每行的行首输出一个字符，代表相应的操作。</p>
 <p>2</p>
 <p>6</p>
 <p>8</p>
@@ -492,9 +511,9 @@ height:50vh;
 <p>3</p>
 <p>7</p>
 <p>5</p>
-<pre><code>**图 3 魔板的输入样例的状态** 
-</code></pre><p><strong>输入</strong> <strong>输出</strong> 第一行输出你的程序寻找到的操作序列的步数L，随后L行是相应的操作序列，每行的行首输出一个字符，代表相应的操作。 </p>
-<p><strong>样例输入</strong> 2 6 8 4 5 7 3 1 <strong>样例输出</strong> 7 B C A B C C B  </p>
+<p><strong>图 3 魔板的输入样例的状态</strong></p>
+<p><strong>输入</strong> <strong>输出</strong> 第一行输出你的程序寻找到的操作序列的步数L，随后L行是相应的操作序列，每行的行首输出一个字符，代表相应的操作。</p>
+<p><strong>样例输入</strong> 2 6 8 4 5 7 3 1 <strong>样例输出</strong> 7 B C A B C C B</p>
 <p><strong>如果魔板数据太小，可用直接地址法，但本题魔板有10^8种可能，不现实。又考虑到在300步内可得到目标魔板，于是想到使用hash表存储已经遍历过的走法。</strong> <strong>从初始状态开始，进行BFS，取出一个元素，每次考虑三种可能的变化情况，搜索hash表，如果还未考虑此情况，就加入队列，继续搜索，同时记录每种走法的上一步father[]</strong> <strong>直到程序找到了目标解，那么依次遍历father[]，输出结果即可</strong></p>
 
     </article>
@@ -638,7 +657,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#离散优化总结"><span class="toc-number">1.</span> <span class="toc-text">离散优化总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1640-线段覆盖"><span class="toc-number">1.1.</span> <span class="toc-text">1640: 线段覆盖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#题目描述"><span class="toc-number">1.2.</span> <span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#输入"><span class="toc-number">1.3.</span> <span class="toc-text">输入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#输出"><span class="toc-number">1.4.</span> <span class="toc-text">输出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#样例输入"><span class="toc-number">1.5.</span> <span class="toc-text">样例输入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#样例输出"><span class="toc-number">1.6.</span> <span class="toc-text">样例输出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1234-图形面积"><span class="toc-number">1.7.</span> <span class="toc-text">1234: 图形面积</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#题目描述-1"><span class="toc-number">1.8.</span> <span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#输入-1"><span class="toc-number">1.9.</span> <span class="toc-text">输入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#输出-1"><span class="toc-number">1.10.</span> <span class="toc-text">输出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#样例输入-1"><span class="toc-number">1.11.</span> <span class="toc-text">样例输入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#样例输出-1"><span class="toc-number">1.12.</span> <span class="toc-text">样例输出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1807-正方形"><span class="toc-number">1.13.</span> <span class="toc-text">1807:正方形</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">离散优化总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">1640: 线段覆盖</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.</span> <span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.3.</span> <span class="toc-text">输入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.4.</span> <span class="toc-text">输出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.5.</span> <span class="toc-text">样例输入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.6.</span> <span class="toc-text">样例输出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.7.</span> <span class="toc-text">1234: 图形面积</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.8.</span> <span class="toc-text">题目描述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.9.</span> <span class="toc-text">输入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.10.</span> <span class="toc-text">输出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.11.</span> <span class="toc-text">样例输入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.12.</span> <span class="toc-text">样例输出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.13.</span> <span class="toc-text">1807:正方形</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -651,6 +670,20 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1937,12 +1970,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/08</span><a class="archive-post-title" href="/posts/36dd5647/">让win10系统任务栏变为透明</a>
+            <span class="archive-post-date">06/08</span><a class="archive-post-title" href="/posts/472395fb/">在word中贴出漂亮的代码</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/08</span><a class="archive-post-title" href="/posts/472395fb/">在word中贴出漂亮的代码</a>
+            <span class="archive-post-date">06/08</span><a class="archive-post-title" href="/posts/36dd5647/">让win10系统任务栏变为透明</a>
         </li>
     
     
@@ -2007,12 +2040,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/28</span><a class="archive-post-title" href="/posts/7f12b338/">南京邮电大学 RE-WxyVM2</a>
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href="/posts/ea74c872/">bbvvmm</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/28</span><a class="archive-post-title" href="/posts/ea74c872/">bbvvmm</a>
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href="/posts/7f12b338/">南京邮电大学 RE-WxyVM2</a>
         </li>
     
     
@@ -2047,12 +2080,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/6aab0075/">wakarimasu</a>
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/f9cd8782/">xor</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/f9cd8782/">xor</a>
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/6aab0075/">wakarimasu</a>
         </li>
     
     
@@ -2101,7 +2134,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/17525de2/">AVL树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
         </li>
     
     
@@ -2111,47 +2144,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/852a3205/">线段树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e5abdd9c/">铺地毯题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28cf1e0f/">拓扑排序以及关键路径总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/3598786/">逆波兰表达式题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/4c789951/">Vigenère密码题解</a>
         </li>
     
     
@@ -2161,22 +2154,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/93b1f5dc/">暑期人生测试一总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e073dc73/">字典树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/4c789951/">Vigenère密码题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/3598786/">逆波兰表达式题解</a>
         </li>
     
     
@@ -2186,12 +2169,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/50d2edb9/">2的幂次方表示题解</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e073dc73/">字典树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/93b1f5dc/">暑期人生测试一总结</a>
         </li>
     
     
@@ -2201,17 +2194,47 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/675d1a4b/">求最大网络流（最小割）总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28cf1e0f/">拓扑排序以及关键路径总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/50d2edb9/">2的幂次方表示题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e5abdd9c/">铺地毯题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/852a3205/">线段树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/17525de2/">AVL树总结</a>
         </li>
     
     
@@ -2221,17 +2244,27 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/76551050/">网络安全课笔记 of Shijie Zhou #1</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/28572e84/">基本操作 Reverse Version</a>
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/6dada2a6/">Some Boxes</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/6dada2a6/">Some Boxes</a>
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/28572e84/">基本操作 Reverse Version</a>
         </li>
     
     
@@ -2259,9 +2292,9 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="RE_Static"><span class="iconfont-archer">&#xe606;</span>RE_Static</span>
-    
         <span class="sidebar-tag-name" data-tags="RE_Dynamic"><span class="iconfont-archer">&#xe606;</span>RE_Dynamic</span>
+    
+        <span class="sidebar-tag-name" data-tags="RE_Static"><span class="iconfont-archer">&#xe606;</span>RE_Static</span>
     
         <span class="sidebar-tag-name" data-tags="VM"><span class="iconfont-archer">&#xe606;</span>VM</span>
     
@@ -2269,13 +2302,13 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="3des"><span class="iconfont-archer">&#xe606;</span>3des</span>
     
-        <span class="sidebar-tag-name" data-tags="RE_Android"><span class="iconfont-archer">&#xe606;</span>RE_Android</span>
-    
         <span class="sidebar-tag-name" data-tags="xtea"><span class="iconfont-archer">&#xe606;</span>xtea</span>
     
         <span class="sidebar-tag-name" data-tags="crc16"><span class="iconfont-archer">&#xe606;</span>crc16</span>
     
         <span class="sidebar-tag-name" data-tags="pwntools"><span class="iconfont-archer">&#xe606;</span>pwntools</span>
+    
+        <span class="sidebar-tag-name" data-tags="RE_Android"><span class="iconfont-archer">&#xe606;</span>RE_Android</span>
     
         <span class="sidebar-tag-name" data-tags="packer"><span class="iconfont-archer">&#xe606;</span>packer</span>
     
@@ -2312,15 +2345,15 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="write up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
-    
         <span class="sidebar-category-name" data-categories="牢骚"><span class="iconfont-archer">&#xe60a;</span>牢骚</span>
     
-        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
+        <span class="sidebar-category-name" data-categories="write up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
+    
+        <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
     
         <span class="sidebar-category-name" data-categories="cnss_recruit_201809"><span class="iconfont-archer">&#xe60a;</span>write-up/cnss-recruit-201809</span>
     
-        <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
+        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
     
         <span class="sidebar-category-name" data-categories="notes"><span class="iconfont-archer">&#xe60a;</span>notes</span>
     
@@ -2330,9 +2363,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="hgame_20190122"><span class="iconfont-archer">&#xe60a;</span>write-up/hgame-20190122</span>
     
-        <span class="sidebar-category-name" data-categories="cgctf"><span class="iconfont-archer">&#xe60a;</span>write-up/cgctf</span>
-    
         <span class="sidebar-category-name" data-categories="nationalCTF_20190421"><span class="iconfont-archer">&#xe60a;</span>write-up/nationalCTF-20190421</span>
+    
+        <span class="sidebar-category-name" data-categories="cgctf"><span class="iconfont-archer">&#xe60a;</span>write-up/cgctf</span>
     
         <span class="sidebar-category-name" data-categories="write-up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
     
@@ -2344,11 +2377,11 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="qwb_ctf20190526"><span class="iconfont-archer">&#xe60a;</span>write-up/qwb-ctf20190526</span>
     
-        <span class="sidebar-category-name" data-categories="JarvisOJ"><span class="iconfont-archer">&#xe60a;</span>write-up/JarvisOJ</span>
-    
         <span class="sidebar-category-name" data-categories="base64"><span class="iconfont-archer">&#xe60a;</span>write-up/nationalCTF-20190421/sm4/base64</span>
     
         <span class="sidebar-category-name" data-categories="rctf-20190518"><span class="iconfont-archer">&#xe60a;</span>write-up/rctf-20190518</span>
+    
+        <span class="sidebar-category-name" data-categories="JarvisOJ"><span class="iconfont-archer">&#xe60a;</span>write-up/JarvisOJ</span>
     
         <span class="sidebar-category-name" data-categories="Project"><span class="iconfont-archer">&#xe60a;</span>Project</span>
     

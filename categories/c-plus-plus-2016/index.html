@@ -393,9 +393,14 @@
                 <span>SBT总结</span>
         </a>
         <div class="abstract-content">
-             SBT节点大小平衡树总结SBT是二叉查找树的优化。
+            SBT节点大小平衡树总结
+SBT是二叉查找树的优化。
 与二叉平衡树AVL类似，我们定义一棵树： 
-     这棵树的size为这棵树所有节点的个数     每棵子树的大小不小于其兄弟的子树大小即s[right[t]]≥s[left[left[t]]],s[right[left[t]]] 且 s...
+
+ 	这棵树的size为这棵树所有节点的个数
+ 	每棵子树的大小不小于其兄弟的子树大小
+
+即s[right[t]]≥s[left[left[t]]],s[right[left[t]]] 且 s[l...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -418,14 +423,16 @@
                 <span>AVL树总结</span>
         </a>
         <div class="abstract-content">
-            AVL树总结AVL树是二叉查找树的一种优化，能将链状的二叉查找树几乎平均地储存下来，从而减少搜索使用的时间。
+            
+AVL树总结
+AVL树是二叉查找树的一种优化，能将链状的二叉查找树几乎平均地储存下来，从而减少搜索使用的时间。
  
 AVL树是空树，或满足以下定义的树：
 1、左右子树都是AVL树；（递归定义）
 2、左右子树高度之差不超过1； 
  
 定义平衡因子：
-左子树高度-右子树高度，当平衡因子大于等于2时，...
+左子树高度-右子树高度，当平衡因子大于等于2...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -448,9 +455,15 @@ AVL树是空树，或满足以下定义的树：
                 <span>线段树总结</span>
         </a>
         <div class="abstract-content">
-            线段树总结引入：有一个数组data[1000000]，如果有m个操作(m&lt;=50000)，操作如下：
-     修改一个数（加或减）     求l到r的所有元素的和 
-对于通常的题目，用一个sum[i]数组记录1~i的和，即可将任何的区间和在O(1)的时间之内求出。然而对于操作一，显然就...
+            
+线段树总结
+引入：有一个数组data[1000000]，如果有m个操作(m
+
+ 	修改一个数（加或减）
+ 	求l到r的所有元素的和
+
+ 
+对于通常的题目，用一个sum[i]数组记录1~i的和，即可将任何的区间和在O(1)的时间之内求出。然而对于操作一，显然就显得很耗时间，至少会花费O(n)，...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -473,9 +486,10 @@ AVL树是空树，或满足以下定义的树：
                 <span>树状数组总结</span>
         </a>
         <div class="abstract-content">
-            树状数组总结树状数组是一个类似于线段树的树状结构，它通过存储一定区间内的元素来达到快速插入、快速求和的效果。并且可以节省时间，节省空间，减少代码量，可谓是非常优秀的一个树形结构
+            树状数组总结
+树状数组是一个类似于线段树的树状结构，它通过存储一定区间内的元素来达到快速插入、快速求和的效果。并且可以节省时间，节省空间，减少代码量，可谓是非常优秀的一个树形结构
 方格中数字代表对应数组的第几个元素,下排是a数组,其上方的是e数组,最下的二进制则是对应编号的二进制表示.
-可以观察...
+可以观...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -498,7 +512,9 @@ AVL树是空树，或满足以下定义的树：
                 <span>字典树总结</span>
         </a>
         <div class="abstract-content">
-            字典树总结在实际生活中，图书馆、书店都会遇到一种麻烦，就是不知道如何储存所有的书名，因为藏书实在是太多了。这种情形非常常见。 由此单词查找树便出现了：Trie树，是一种树形结构，是一种哈希树的变种，它通过储存大部分字符串的前缀来达到不仅是存储空间而且是查找效率的优化。 字典树的操作大致分为三种...
+            
+字典树总结
+在实际生活中，图书馆、书店都会遇到一种麻烦，就是不知道如何储存所有的书名，因为藏书实在是太多了。这种情形非常常见。 由此单词查找树便出现了：Trie树，是一种树形结构，是一种哈希树的变种，它通过储存大部分字符串的前缀来达到不仅是存储空间而且是查找效率的优化。 字典树的操作大致分为...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -521,8 +537,10 @@ AVL树是空树，或满足以下定义的树：
                 <span>树形动态规划总结</span>
         </a>
         <div class="abstract-content">
-            树形动规总结树型动规的基本方式同普通的线性动态规划，但遍历的顺序是由高深度向低深度直至根节点，通常一个树型动规包括了状态、阶段、决策、状态转移方程，找到每个题目对应的动归要素，是一个题目的难点所在。
-     状态：程序求解到每个程度所储存的信息，通常我们需要在一开始找到适合题目的状态并进行定...
+            树形动规总结
+树型动规的基本方式同普通的线性动态规划，但遍历的顺序是由高深度向低深度直至根节点，通常一个树型动规包括了状态、阶段、决策、状态转移方程，找到每个题目对应的动归要素，是一个题目的难点所在。
+
+ 	状态：程序求解到每个程度所储存的信息，通常我们需要在一开始找到适合题目的状态并进行定义...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -545,11 +563,13 @@ AVL树是空树，或满足以下定义的树：
                 <span>可并堆之左偏树总结</span>
         </a>
         <div class="abstract-content">
-            可并堆之左偏树总结左偏树，顾名思义，是左边的结点权值较大的树形数据结构。主要用于两个优先队列的快速合并，是可并堆的一种实现方式。 定义与性质：
+            
+可并堆之左偏树总结
+左偏树，顾名思义，是左边的结点权值较大的树形数据结构。主要用于两个优先队列的快速合并，是可并堆的一种实现方式。 定义与性质：
 
 外结点：一个结点的右子结点为空就为外结点
 距离：结点一直向右，直到外结点所经历的步数，每个结点距离等于右儿子的距离+1。
-左偏树的父亲结点的优先级高...
+左偏树的父亲结点的优先...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -1893,6 +1913,20 @@ AVL树是空树，或满足以下定义的树：
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 68
@@ -1945,12 +1979,12 @@ AVL树是空树，或满足以下定义的树：
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/08</span><a class="archive-post-title" href="/posts/36dd5647/">让win10系统任务栏变为透明</a>
+            <span class="archive-post-date">06/08</span><a class="archive-post-title" href="/posts/472395fb/">在word中贴出漂亮的代码</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/08</span><a class="archive-post-title" href="/posts/472395fb/">在word中贴出漂亮的代码</a>
+            <span class="archive-post-date">06/08</span><a class="archive-post-title" href="/posts/36dd5647/">让win10系统任务栏变为透明</a>
         </li>
     
     
@@ -2015,12 +2049,12 @@ AVL树是空树，或满足以下定义的树：
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/28</span><a class="archive-post-title" href="/posts/7f12b338/">南京邮电大学 RE-WxyVM2</a>
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href="/posts/ea74c872/">bbvvmm</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/28</span><a class="archive-post-title" href="/posts/ea74c872/">bbvvmm</a>
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href="/posts/7f12b338/">南京邮电大学 RE-WxyVM2</a>
         </li>
     
     
@@ -2055,12 +2089,12 @@ AVL树是空树，或满足以下定义的树：
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/6aab0075/">wakarimasu</a>
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/f9cd8782/">xor</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/f9cd8782/">xor</a>
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/6aab0075/">wakarimasu</a>
         </li>
     
     
@@ -2109,7 +2143,7 @@ AVL树是空树，或满足以下定义的树：
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/17525de2/">AVL树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
         </li>
     
     
@@ -2119,47 +2153,7 @@ AVL树是空树，或满足以下定义的树：
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/852a3205/">线段树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e5abdd9c/">铺地毯题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28cf1e0f/">拓扑排序以及关键路径总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/3598786/">逆波兰表达式题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/4c789951/">Vigenère密码题解</a>
         </li>
     
     
@@ -2169,22 +2163,12 @@ AVL树是空树，或满足以下定义的树：
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/93b1f5dc/">暑期人生测试一总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e073dc73/">字典树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/4c789951/">Vigenère密码题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/3598786/">逆波兰表达式题解</a>
         </li>
     
     
@@ -2194,12 +2178,22 @@ AVL树是空树，或满足以下定义的树：
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/50d2edb9/">2的幂次方表示题解</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e073dc73/">字典树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/93b1f5dc/">暑期人生测试一总结</a>
         </li>
     
     
@@ -2209,17 +2203,47 @@ AVL树是空树，或满足以下定义的树：
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/675d1a4b/">求最大网络流（最小割）总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28cf1e0f/">拓扑排序以及关键路径总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/50d2edb9/">2的幂次方表示题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e5abdd9c/">铺地毯题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/852a3205/">线段树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/17525de2/">AVL树总结</a>
         </li>
     
     
@@ -2229,17 +2253,27 @@ AVL树是空树，或满足以下定义的树：
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/76551050/">网络安全课笔记 of Shijie Zhou #1</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/28572e84/">基本操作 Reverse Version</a>
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/6dada2a6/">Some Boxes</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/6dada2a6/">Some Boxes</a>
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/28572e84/">基本操作 Reverse Version</a>
         </li>
     
     
@@ -2267,9 +2301,9 @@ AVL树是空树，或满足以下定义的树：
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="RE_Static"><span class="iconfont-archer">&#xe606;</span>RE_Static</span>
-    
         <span class="sidebar-tag-name" data-tags="RE_Dynamic"><span class="iconfont-archer">&#xe606;</span>RE_Dynamic</span>
+    
+        <span class="sidebar-tag-name" data-tags="RE_Static"><span class="iconfont-archer">&#xe606;</span>RE_Static</span>
     
         <span class="sidebar-tag-name" data-tags="VM"><span class="iconfont-archer">&#xe606;</span>VM</span>
     
@@ -2277,13 +2311,13 @@ AVL树是空树，或满足以下定义的树：
     
         <span class="sidebar-tag-name" data-tags="3des"><span class="iconfont-archer">&#xe606;</span>3des</span>
     
-        <span class="sidebar-tag-name" data-tags="RE_Android"><span class="iconfont-archer">&#xe606;</span>RE_Android</span>
-    
         <span class="sidebar-tag-name" data-tags="xtea"><span class="iconfont-archer">&#xe606;</span>xtea</span>
     
         <span class="sidebar-tag-name" data-tags="crc16"><span class="iconfont-archer">&#xe606;</span>crc16</span>
     
         <span class="sidebar-tag-name" data-tags="pwntools"><span class="iconfont-archer">&#xe606;</span>pwntools</span>
+    
+        <span class="sidebar-tag-name" data-tags="RE_Android"><span class="iconfont-archer">&#xe606;</span>RE_Android</span>
     
         <span class="sidebar-tag-name" data-tags="packer"><span class="iconfont-archer">&#xe606;</span>packer</span>
     
@@ -2320,15 +2354,15 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="write up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
-    
         <span class="sidebar-category-name" data-categories="牢骚"><span class="iconfont-archer">&#xe60a;</span>牢骚</span>
     
-        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
+        <span class="sidebar-category-name" data-categories="write up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
+    
+        <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
     
         <span class="sidebar-category-name" data-categories="cnss_recruit_201809"><span class="iconfont-archer">&#xe60a;</span>write-up/cnss-recruit-201809</span>
     
-        <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
+        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
     
         <span class="sidebar-category-name" data-categories="notes"><span class="iconfont-archer">&#xe60a;</span>notes</span>
     
@@ -2338,9 +2372,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="hgame_20190122"><span class="iconfont-archer">&#xe60a;</span>write-up/hgame-20190122</span>
     
-        <span class="sidebar-category-name" data-categories="cgctf"><span class="iconfont-archer">&#xe60a;</span>write-up/cgctf</span>
-    
         <span class="sidebar-category-name" data-categories="nationalCTF_20190421"><span class="iconfont-archer">&#xe60a;</span>write-up/nationalCTF-20190421</span>
+    
+        <span class="sidebar-category-name" data-categories="cgctf"><span class="iconfont-archer">&#xe60a;</span>write-up/cgctf</span>
     
         <span class="sidebar-category-name" data-categories="write-up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
     
@@ -2352,11 +2386,11 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="qwb_ctf20190526"><span class="iconfont-archer">&#xe60a;</span>write-up/qwb-ctf20190526</span>
     
-        <span class="sidebar-category-name" data-categories="JarvisOJ"><span class="iconfont-archer">&#xe60a;</span>write-up/JarvisOJ</span>
-    
         <span class="sidebar-category-name" data-categories="base64"><span class="iconfont-archer">&#xe60a;</span>write-up/nationalCTF-20190421/sm4/base64</span>
     
         <span class="sidebar-category-name" data-categories="rctf-20190518"><span class="iconfont-archer">&#xe60a;</span>write-up/rctf-20190518</span>
+    
+        <span class="sidebar-category-name" data-categories="JarvisOJ"><span class="iconfont-archer">&#xe60a;</span>write-up/JarvisOJ</span>
     
         <span class="sidebar-category-name" data-categories="Project"><span class="iconfont-archer">&#xe60a;</span>Project</span>
     

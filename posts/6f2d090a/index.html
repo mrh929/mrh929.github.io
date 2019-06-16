@@ -413,36 +413,46 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h1 id="如何在Linux上搭建Minecraft服务器"><a href="#如何在Linux上搭建Minecraft服务器" class="headerlink" title="如何在Linux上搭建Minecraft服务器"></a>如何在Linux上搭建Minecraft服务器</h1><blockquote>
+        <h1>如何在Linux上搭建Minecraft服务器</h1>
+<blockquote>
 <p>搭建minecraft服务器并不复杂，只需要一些linux的基础操作知识就行了</p>
 </blockquote>
 <p>灵感来自<a href="https://blog.csdn.net/iwts_24/article/details/79181972" target="_blank" rel="noopener">csdn</a>，教程为自己编写.</p>
-<h2 id="购买服务器"><a href="#购买服务器" class="headerlink" title="购买服务器"></a>购买服务器</h2><p>我选择的是<a href="https://promotion.aliyun.com/ntms/act/campus2018.html?spm=5176.10695662.1244717.1.17df4336v6PBv6" target="_blank" rel="noopener">阿里云学生机</a>，这样的配置能带好几个人加上几个大mod，几个小伙伴一起玩已经足够了</p>
+<h2>购买服务器</h2>
+<p>我选择的是<a href="https://promotion.aliyun.com/ntms/act/campus2018.html?spm=5176.10695662.1244717.1.17df4336v6PBv6" target="_blank" rel="noopener">阿里云学生机</a>，这样的配置能带好几个人加上几个大mod，几个小伙伴一起玩已经足够了</p>
 <p>理论上Ubuntu也可以使用，不过这个教程里面的指令都是基于centOS的</p>
 <p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="https://i.loli.net/2019/06/09/5cfc7f897c0d832894.png" alt="Snipaste_2019-06-09_11-39-45.png"></p>
-<h2 id="配置服务器"><a href="#配置服务器" class="headerlink" title="配置服务器"></a>配置服务器</h2><h3 id="查看java版本"><a href="#查看java版本" class="headerlink" title="查看java版本"></a>查看java版本</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">java --version</span><br></pre></td></tr></table></figure>
+<h2>配置服务器</h2>
+<h3>查看java版本</h3>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">java --version</span><br></pre></td></tr></table></figure>
 <p>如果提示</p>
 <blockquote>
-<p>[root@vultr /]# java –version<br>-bash: java: command not found</p>
+<p>[root@vultr /]# java --version
+-bash: java: command not found</p>
 </blockquote>
 <p>则说明没有安装java</p>
 <p>安装java</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum install java-1.8.0-openjdk</span><br></pre></td></tr></table></figure>
 <hr>
-<h3 id="选择目录"><a href="#选择目录" class="headerlink" title="选择目录"></a>选择目录</h3><p>然后自己找一个想装mc的目录</p>
+<h3>选择目录</h3>
+<p>然后自己找一个想装mc的目录</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">cd usr</span><br><span class="line">mkdir minecraft</span><br><span class="line">cd minecraft</span><br></pre></td></tr></table></figure>
 <hr>
-<h3 id="获取mc服务器端"><a href="#获取mc服务器端" class="headerlink" title="获取mc服务器端"></a>获取mc服务器端</h3><p>根据你玩的mc的版本，可以下载相应的jar包</p>
+<h3>获取mc服务器端</h3>
+<p>根据你玩的mc的版本，可以下载相应的jar包</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo wget https://s3.amazonaws.com/Minecraft.Download/versions/版本号/minecraft_server.版本号.jar</span><br></pre></td></tr></table></figure>
 <p>以我的为例，目前支持mod的最新版本是1.12.2</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo wget https://s3.amazonaws.com/Minecraft.Download/versions/1.12.2/minecraft_server.1.12.2.jar</span><br></pre></td></tr></table></figure>
-<h2 id="开启游戏！"><a href="#开启游戏！" class="headerlink" title="开启游戏！"></a>开启游戏！</h2><h3 id="创建启动脚本"><a href="#创建启动脚本" class="headerlink" title="创建启动脚本"></a>创建启动脚本</h3><p>在这之前，先创建一个启动脚本，方便后续一键启动</p>
+<h2>开启游戏！</h2>
+<h3>创建启动脚本</h3>
+<p>在这之前，先创建一个启动脚本，方便后续一键启动</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo vi start.sh</span><br></pre></td></tr></table></figure>
 <p>在start.sh填入如下的内容</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo java -Xms120m -Xmx160m -jar /usr/minecraft/minecraft_server.1.12.2.jar nogui</span><br></pre></td></tr></table></figure>
 <p>其中120m,160m分别是给服务器分配的内存,建议如果是开forege服的话把最大内存调高一点,不然mod带不动</p>
 <hr>
-<h3 id="开启"><a href="#开启" class="headerlink" title="开启"></a>开启</h3><p>开启服务器</p>
+<h3>开启</h3>
+<p>开启服务器</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">bash start.sh</span><br></pre></td></tr></table></figure>
 <p>不要着急，这里一定启动不了的，因为你没有同意用户协议</p>
 <blockquote>
@@ -454,14 +464,18 @@ height:50vh;
 <blockquote>
 <p>eula=true</p>
 </blockquote>
-<h3 id="安装forge"><a href="#安装forge" class="headerlink" title="安装forge"></a>安装forge</h3><p>现在已经可以启动服务器了，<strong>无mod需求的可以直接开服,无需进行下面的步骤</strong></p>
+<h3>安装forge</h3>
+<p>现在已经可以启动服务器了，<strong>无mod需求的可以直接开服,无需进行下面的步骤</strong></p>
 <p>但是我们还是无法运行mod，需要安装forge</p>
 <p>可以去<a href="https://files.minecraftforge.net/maven/net/minecraftforge/forge/index_1.12.2.html" target="_blank" rel="noopener">官网</a>自行下载，也可以用我的指令</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo wget https://files.minecraftforge.net/maven/net/minecraftforge/forge/1.12.2-14.23.5.2768/forge-1.12.2-14.23.5.2768-installer.jar</span><br></pre></td></tr></table></figure>
 <p>接下来是安装forge</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">java -jar forge-1.12.2-14.23.5.2768-installer.jar nogui --installServer</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>Extracting: /forge-1.12.2-14.23.5.2768-universal.jar<br>To:          /usr/minecraft/./forge-1.12.2-14.23.5.2768-universal.jar<br>The server installed successfully, you should now be able to run the file forge-1.12.2-14.23.5.2768-universal.jar<br>You can delete this installer file now if you wish</p>
+<p>Extracting: /forge-1.12.2-14.23.5.2768-universal.jar
+To:          /usr/minecraft/./forge-1.12.2-14.23.5.2768-universal.jar
+The server installed successfully, you should now be able to run the file forge-1.12.2-14.23.5.2768-universal.jar
+You can delete this installer file now if you wish</p>
 </blockquote>
 <p>这个 <strong>forge-1.12.2-14.23.5.2768-universal.jar</strong> 就是启动forge服务器的启动端</p>
 <p>打开start.sh把原版启动程序换为forge的启动程序</p>
@@ -470,11 +484,22 @@ height:50vh;
 <p>填入</p>
 <p>sudo java -Xms120m -Xmx160m -jar /usr/minecraft/forge-1.12.2-14.23.5.2768-universal.jar nogui</p>
 </blockquote>
-<h3 id="开服"><a href="#开服" class="headerlink" title="开服"></a>开服</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">bash start.sh</span><br></pre></td></tr></table></figure>
+<h3>开服</h3>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">bash start.sh</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>[04:22:29] [Server thread/INFO] [minecraft/MinecraftServer]: Preparing start region for level 0<br>[04:22:30] [Server thread/INFO] [minecraft/MinecraftServer]: Preparing spawn area: 2%<br>[04:22:32] [Server thread/INFO] [minecraft/MinecraftServer]: Preparing spawn area: 4%<br>[04:22:33] [Server thread/INFO] [minecraft/MinecraftServer]: Preparing spawn area: 7%<br>[04:22:49] [Server thread/INFO] [minecraft/MinecraftServer]: Preparing spawn area: 50%<br>[04:22:50] [Server thread/INFO] [minecraft/MinecraftServer]: Preparing spawn area: 52%<br>[04:22:55] [Server thread/INFO] [minecraft/MinecraftServer]: Preparing spawn area: 64%<br>[04:23:05] [Server thread/INFO] [minecraft/MinecraftServer]: Preparing spawn area: 97%<br>[04:23:06] [Server thread/INFO] [minecraft/DedicatedServer]: Done (39.625s)! For help, type “help” or “?”</p>
+<p>[04:22:29] [Server thread/INFO] [minecraft/MinecraftServer]: Preparing start region for level 0
+[04:22:30] [Server thread/INFO] [minecraft/MinecraftServer]: Preparing spawn area: 2%
+[04:22:32] [Server thread/INFO] [minecraft/MinecraftServer]: Preparing spawn area: 4%
+[04:22:33] [Server thread/INFO] [minecraft/MinecraftServer]: Preparing spawn area: 7%
+[04:22:49] [Server thread/INFO] [minecraft/MinecraftServer]: Preparing spawn area: 50%
+[04:22:50] [Server thread/INFO] [minecraft/MinecraftServer]: Preparing spawn area: 52%
+[04:22:55] [Server thread/INFO] [minecraft/MinecraftServer]: Preparing spawn area: 64%
+[04:23:05] [Server thread/INFO] [minecraft/MinecraftServer]: Preparing spawn area: 97%
+[04:23:06] [Server thread/INFO] [minecraft/DedicatedServer]: Done (39.625s)! For help, type &quot;help&quot; or &quot;?&quot;</p>
 </blockquote>
-<h2 id="其他补充"><a href="#其他补充" class="headerlink" title="其他补充"></a>其他补充</h2><h3 id="screen"><a href="#screen" class="headerlink" title="screen"></a>screen</h3><p>开服之后的服务器其实并不稳定,只要你关闭远程连接,mc便会自动结束</p>
+<h2>其他补充</h2>
+<h3>screen</h3>
+<p>开服之后的服务器其实并不稳定,只要你关闭远程连接,mc便会自动结束</p>
 <p>为了解决这个问题 就要用到screen工具</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo yum install screen</span><br></pre></td></tr></table></figure>
 <p>在开服之前,先创建一个screen</p>
@@ -482,272 +507,62 @@ height:50vh;
 <p>创建好screen之后再开启mc服务器</p>
 <p>当然,如果需要切换出来 , 按一下Ctrl+a  再按一下d即可</p>
 <blockquote>
-<p>[root@vultr ~]# screen -S mc<br>[detached from 7293.mc]<br>[root@vultr ~]# </p>
+<p>[root@vultr ~]# screen -S mc
+[detached from 7293.mc]
+[root@vultr ~]#</p>
 </blockquote>
 <p>下次还需进入该screen,就不需要创建了,直接</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">screen -r mc</span><br></pre></td></tr></table></figure>
-<h3 id="mod"><a href="#mod" class="headerlink" title="mod"></a>mod</h3><p>要加载mod,将服务器端使用的mod放入<strong>/usr/minecraft/mods</strong>文件夹,重启mc服务器即可</p>
-<h3 id="server-properties"><a href="#server-properties" class="headerlink" title="server.properties"></a>server.properties</h3><p>配置文件修改,具体请参照<a href="https://minecraft.gamepedia.com/Server.properties" target="_blank" rel="noopener">官方文档</a></p>
+<h3>mod</h3>
+<p>要加载mod,将服务器端使用的mod放入**/usr/minecraft/mods**文件夹,重启mc服务器即可</p>
+<h3>server.properties</h3>
+<p>配置文件修改,具体请参照<a href="https://minecraft.gamepedia.com/Server.properties" target="_blank" rel="noopener">官方文档</a></p>
 <p>通常是把pvp,正版检测关闭</p>
 <p>还可以限制总加入人数,服务器难度,以及最大高度等等</p>
-<h6 id="Java-Edition"><a href="#Java-Edition" class="headerlink" title="Java Edition"></a>Java Edition</h6><table>
-<thead>
-<tr>
-<th style="text-align:center">Key</th>
-<th style="text-align:center">Type</th>
-<th style="text-align:center">Default Value</th>
-<th style="text-align:center">Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center"><strong>allow-flight</strong></td>
-<td style="text-align:center">boolean</td>
-<td style="text-align:center">false</td>
-<td style="text-align:center">Allows users to use flight on your server while in Survival mode, if they have a <a href="https://minecraft.gamepedia.com/Mod" target="_blank" rel="noopener">mod</a>that provides flight installed.With allow-flight enabled, <a href="https://minecraft.gamepedia.com/Griefers" target="_blank" rel="noopener">griefers</a> will possibly be more common, because it will make their work easier. In Creative mode this has no effect.<strong>false</strong> - Flight is not allowed (players in air for at least 5 seconds will be kicked).<strong>true</strong> - Flight is allowed, and used if the player has a fly mod installed.</td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>allow-nether</strong></td>
-<td style="text-align:center">boolean</td>
-<td style="text-align:center">true</td>
-<td style="text-align:center">Allows players to travel to the <a href="https://minecraft.gamepedia.com/Nether" target="_blank" rel="noopener">Nether</a>.<strong>false</strong> - <a href="https://minecraft.gamepedia.com/Nether" target="_blank" rel="noopener">Nether</a> portals will not work.<strong>true</strong> - The server will allow <a href="https://minecraft.gamepedia.com/Portal" target="_blank" rel="noopener">portals</a> to send players to the Nether.</td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>difficulty</strong></td>
-<td style="text-align:center">string</td>
-<td style="text-align:center">easy</td>
-<td style="text-align:center">Defines the <a href="https://minecraft.gamepedia.com/Difficulty" target="_blank" rel="noopener">difficulty</a> (such as damage dealt by mobs and the way hunger and poison affects players) of the server.If a legacy difficulty number is specified it will be silently converted to a difficulty name.<strong>peaceful</strong> (0)<strong>easy</strong> (1)<strong>normal</strong> (2)<strong>hard</strong> (3)</td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>enable-command-block</strong></td>
-<td style="text-align:center">boolean</td>
-<td style="text-align:center">false</td>
-<td style="text-align:center">Enables command blocks</td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>enable-query</strong></td>
-<td style="text-align:center">boolean</td>
-<td style="text-align:center">false</td>
-<td style="text-align:center">Enables GameSpy4 protocol server listener. Used to get information about server.</td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>enable-rcon</strong></td>
-<td style="text-align:center">boolean</td>
-<td style="text-align:center">false</td>
-<td style="text-align:center">Enables remote access to the server console.</td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>force-gamemode</strong></td>
-<td style="text-align:center">boolean</td>
-<td style="text-align:center">false</td>
-<td style="text-align:center">Force players to join in the default <a href="https://minecraft.gamepedia.com/Game_mode" target="_blank" rel="noopener">game mode</a>.<strong>false</strong> - Players will join in the gamemode they left in.<strong>true</strong> - Players will always join in the default gamemode.</td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>gamemode</strong></td>
-<td style="text-align:center">string</td>
-<td style="text-align:center">survival</td>
-<td style="text-align:center">Defines the <a href="https://minecraft.gamepedia.com/Game_mode" target="_blank" rel="noopener">mode of gameplay</a>.If a legacy gamemode number is specified it will be silently converted to a gamemode name.<strong>survival</strong> (0)<strong>creative</strong> (1)<strong>adventure</strong> (2)<strong>spectator</strong> (3)</td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>generate-structures</strong></td>
-<td style="text-align:center">boolean</td>
-<td style="text-align:center">true</td>
-<td style="text-align:center">Defines whether <a href="https://minecraft.gamepedia.com/Structures" target="_blank" rel="noopener">structures</a> (such as villages) will be generated.<strong>false</strong> - Structures will not be generated in new chunks.<strong>true</strong> - Structures will be generated in new chunks.<strong>Note:</strong> <em>Dungeons will still generate if this is set to false.</em></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>generator-settings</strong></td>
-<td style="text-align:center">string</td>
-<td style="text-align:center"><em>blank</em></td>
-<td style="text-align:center">The settings used to customize world generation. See <a href="https://minecraft.gamepedia.com/Superflat" target="_blank" rel="noopener">Superflat</a> and <a href="https://minecraft.gamepedia.com/Customized" target="_blank" rel="noopener">Customized</a> for possible settings and examples.</td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>hardcore</strong></td>
-<td style="text-align:center">boolean</td>
-<td style="text-align:center">false</td>
-<td style="text-align:center">If set to <strong>true</strong>, server difficulty is ignored and set to hard and players will be set to spectator mode if they die.</td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>level-name</strong></td>
-<td style="text-align:center">string</td>
-<td style="text-align:center">world</td>
-<td style="text-align:center">The “level-name” value will be used as the world name and its folder name. You may also copy your saved game folder here, and change the name to the same as that folder’s to load it instead.Characters such as ‘ (apostrophe) may need to be escaped by adding a backslash before them.</td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>level-seed</strong></td>
-<td style="text-align:center">string</td>
-<td style="text-align:center"><em>blank</em></td>
-<td style="text-align:center">Add a <a href="https://minecraft.gamepedia.com/Seed_(level_generation" target="_blank" rel="noopener">seed</a>) for your world, as in Singleplayer.Some examples are: minecraft, 404, 1a2b3c.</td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>level-type</strong></td>
-<td style="text-align:center">string</td>
-<td style="text-align:center">default</td>
-<td style="text-align:center">Determines the type of map that is generated.<strong>default</strong> - Standard world with hills, valleys, water, etc.<strong>flat</strong> - A flat world with no features, can be modified with <strong>generator-settings</strong>.<strong>largebiomes</strong> - Same as default but all biomes are larger.<strong>amplified</strong> - Same as default but world-generation height limit is increased.<strong>buffet</strong> - Same as default unless <strong>generator-settings</strong> is set to a preset.</td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>max-build-height</strong></td>
-<td style="text-align:center">integer</td>
-<td style="text-align:center">256</td>
-<td style="text-align:center">The maximum height in which building is allowed. Terrain may still naturally generate above a low height limit.</td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>max-players</strong></td>
-<td style="text-align:center">integer (0-2147483647)</td>
-<td style="text-align:center">20</td>
-<td style="text-align:center">The maximum number of players that can play on the server at the same time. Note that if more players are on the server it will use more resources. Note also, op player connections are not supposed to count against the max players, but ops currently cannot join a full server. However, this can be changed by going to the file called ops.json in your server directory, opening it, finding the op you want the change, and changing the setting called bypassesPlayerLimit to true (the default is false). This means that that op will not have to wait for a player to leave in order to join. Extremely large values for this field result in the client-side user list being broken.</td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>max-tick-time</strong></td>
-<td style="text-align:center">integer (0–(2^63 - 1))</td>
-<td style="text-align:center">60000</td>
-<td style="text-align:center">The maximum number of milliseconds a single tick may take before the server watchdog stops the server with the message, <em>A single server tick took 60.00 seconds (should be max 0.05); Considering it to be crashed, server will forcibly shutdown.</em> Once this criterion is met, it calls System.exit(1).<strong>-1</strong> - disable watchdog entirely (this disable option was added in 14w32a)</td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>max-world-size</strong></td>
-<td style="text-align:center">integer (1-29999984)</td>
-<td style="text-align:center">29999984</td>
-<td style="text-align:center">This sets the maximum possible size in blocks, expressed as a radius, that the <a href="https://minecraft.gamepedia.com/World_border" target="_blank" rel="noopener">world border</a> can obtain. Setting the world border bigger causes the commands to complete successfully but the actual border will not move past this block limit. Setting the max-world-size higher than the default doesn’t appear to do anything.Examples:Setting max-world-size to 1000 will allow you to have a 2000x2000 world border.Setting max-world-size to 4000 will give you an 8000 x 8000 world border.</td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>motd</strong></td>
-<td style="text-align:center">string</td>
-<td style="text-align:center"><em>A Minecraft Server</em></td>
-<td style="text-align:center">This is the message that is displayed in the server list of the client, below the name.The MOTD supports <a href="https://minecraft.gamepedia.com/Formatting_codes" target="_blank" rel="noopener">color and formatting codes</a>.The MOTD supports special characters, such as “♥”. However, such characters must be converted to escaped Unicode form. An online converter can be found <a href="http://www.freeformatter.com/string-utilities.html#charinfo" target="_blank" rel="noopener">here</a>.If the MOTD is over 59 characters, the server list will likely report a communication error.</td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>network-compression-threshold</strong></td>
-<td style="text-align:center">integer</td>
-<td style="text-align:center">256</td>
-<td style="text-align:center">By default it allows packets that are <em>n-1</em> bytes big to go normally, but a packet that <em>n</em>bytes or more will be compressed down. So, lower number means more compression but compressing small amounts of bytes might actually end up with a larger result than what went in.<strong>-1</strong> - disable compression entirely<strong>0</strong> - compress everything<strong>Note:</strong> <em>The Ethernet spec requires that packets less than 64 bytes become padded to 64 bytes. Thus, setting a value lower than 64 may not be beneficial. It is also not recommended to exceed the MTU, typically 1500 bytes.</em></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>online-mode</strong></td>
-<td style="text-align:center">boolean</td>
-<td style="text-align:center">true</td>
-<td style="text-align:center">Server checks connecting players against <em>Minecraft</em> account database. Only set this to false if your server is <strong>not</strong> connected to the Internet. Hackers with fake accounts can connect if this is set to false! If minecraft.net is down or inaccessible, no players will be able to connect if this is set to true. Setting this variable to off purposely is called “cracking” a server, and servers that are presently with online mode off are called “cracked” servers, allowing players with unlicensed copies of <em>Minecraft</em> to join.<strong>true</strong> - Enabled. The server will assume it has an Internet connection and check every connecting player.<strong>false</strong> - Disabled. The server will not attempt to check connecting players.</td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>op-permission-level</strong></td>
-<td style="text-align:center">integer (1-4)</td>
-<td style="text-align:center">4</td>
-<td style="text-align:center">Sets the default permission level for ops when using <code>/op</code>. All levels inherit abilities and commands from levels before them.<strong>1</strong> - Ops can bypass spawn protection.<strong>2</strong> - Ops can use all singleplayer cheats commands (except <code>/publish</code>, as it is not on servers; along with <code>/debug</code> and <code>/reload</code>) and use command blocks. Command blocks, along with Realms owners/operators, have the same permissions as this level.<strong>3</strong> - Ops can use most multiplayer-exclusive commands, including <code>/debug</code>, <code>/reload</code>, and commands that manage players (<code>/ban</code>, <code>/op</code>, etc).<strong>4</strong> - Ops can use all commands including <code>/stop</code>, <code>/save-all</code>, <code>/save-on</code>, <code>/save-off</code>, <code>/forceload add</code>, and <code>/forceload remove</code>.</td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>player-idle-timeout</strong></td>
-<td style="text-align:center">integer</td>
-<td style="text-align:center">0</td>
-<td style="text-align:center">If non-zero, players are kicked from the server if they are idle for more than that many minutes.<strong>Note:</strong> <em>Idle time is reset when the server receives one of the following packets:</em><a href="http://wiki.vg/Protocol#Click_Window" target="_blank" rel="noopener">Click Window</a><a href="http://wiki.vg/Protocol#Enchant_Item" target="_blank" rel="noopener">Enchant Item</a><a href="http://wiki.vg/Protocol#Update_Sign" target="_blank" rel="noopener">Update Sign</a><a href="http://wiki.vg/Protocol#Player_Digging" target="_blank" rel="noopener">Player Digging</a><a href="http://wiki.vg/Protocol#Player_Block_Placement" target="_blank" rel="noopener">Player Block Placement</a><a href="http://wiki.vg/Protocol#Held_Item_Change_.28serverbound.29" target="_blank" rel="noopener">Held Item Change</a><a href="http://wiki.vg/Protocol#Animation_.28serverbound.29" target="_blank" rel="noopener">Animation</a> (swing arm)<a href="http://wiki.vg/Protocol#Entity_Action" target="_blank" rel="noopener">Entity Action</a><a href="http://wiki.vg/Protocol#Client_Status" target="_blank" rel="noopener">Client Status</a><a href="http://wiki.vg/Protocol#Chat_Message_.28serverbound.29" target="_blank" rel="noopener">Chat Message</a><a href="http://wiki.vg/Protocol#Use_Entity" target="_blank" rel="noopener">Use Entity</a></td>
-</tr>
-<tr>
-<td style="text-align:center">prevent-proxy-connections</td>
-<td style="text-align:center">boolean</td>
-<td style="text-align:center">false</td>
-<td style="text-align:center">If the ISP/AS sent from the server is different from the one from Mojang’s authentication server, the player is kicked<strong>true</strong> - Enabled. Server prevents users from using vpns or proxies.<strong>false</strong> - Disabled. The server doesn’t prevent users from using vpns or proxies.</td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>pvp</strong></td>
-<td style="text-align:center">boolean</td>
-<td style="text-align:center">true</td>
-<td style="text-align:center">Enable PvP on the server. Players shooting themselves with arrows will only receive damage if PvP is enabled.<strong>true</strong> - Players will be able to kill each other.<strong>false</strong> - Players cannot kill other players (also known as <strong>Player versus Environment</strong> (<strong>PvE</strong>)).<strong>Note:</strong> <em>Indirect damage sources spawned by players (such as lava, fire, TNT and to some extent water, sand and gravel) will still deal damage to other players.</em></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>query.port</strong></td>
-<td style="text-align:center">integer (1-65534)</td>
-<td style="text-align:center">25565</td>
-<td style="text-align:center">Sets the port for the query server (see <strong>enable-query</strong>).</td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>rcon.password</strong></td>
-<td style="text-align:center">string</td>
-<td style="text-align:center"><em>blank</em></td>
-<td style="text-align:center">Sets the password to rcon.</td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>rcon.port</strong></td>
-<td style="text-align:center">integer (1-65534)</td>
-<td style="text-align:center">25575</td>
-<td style="text-align:center">Sets the port to rcon.</td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>resource-pack</strong></td>
-<td style="text-align:center">string</td>
-<td style="text-align:center"><em>blank</em></td>
-<td style="text-align:center">Optional URI to a <a href="https://minecraft.gamepedia.com/Resource_pack" target="_blank" rel="noopener">resource pack</a>. The player may choose to use it.Note that the “:” and “=” characters need to be escaped with backslash (), e.g. http\://somedomain.com/somepack.zip?someparam\=somevalueNote download success/failure is logged by the client, not by the server.</td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>resource-pack-sha1</strong></td>
-<td style="text-align:center">string</td>
-<td style="text-align:center"><em>blank</em></td>
-<td style="text-align:center">Optional SHA-1 digest of the resource pack, in lowercase hexadecimal. It’s recommended to specify this. This is not yet used to verify the integrity of the resource pack, but improves the effectiveness and reliability of caching.</td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>server-ip</strong></td>
-<td style="text-align:center">string</td>
-<td style="text-align:center"><em>blank</em></td>
-<td style="text-align:center">Set this if you want the server to bind to a particular IP. It is strongly recommended that you leave server-ip blank!Set to blank, or the IP you want your server to run (listen) on.</td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>server-port</strong></td>
-<td style="text-align:center">integer (1-65534)</td>
-<td style="text-align:center">25565</td>
-<td style="text-align:center">Changes the port the server is hosting (listening) on. This port must be <a href="https://en.wikipedia.org/wiki/Port_forwarding" target="_blank" rel="noopener">forwarded</a> if the server is hosted in a network using <a href="https://en.wikipedia.org/wiki/Network_address_translation" target="_blank" rel="noopener">NAT</a> (If you have a home router/firewall).</td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>snooper-enabled</strong></td>
-<td style="text-align:center">boolean</td>
-<td style="text-align:center">true</td>
-<td style="text-align:center">Sets whether the server sends snoop data regularly to <a href="http://snoop.minecraft.net/" target="_blank" rel="noopener">http://snoop.minecraft.net</a>.<strong>false</strong> - disable snooping.<strong>true</strong> - enable snooping.</td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>spawn-animals</strong></td>
-<td style="text-align:center">boolean</td>
-<td style="text-align:center">true</td>
-<td style="text-align:center">Determines if <a href="https://minecraft.gamepedia.com/Animal" target="_blank" rel="noopener">animals</a> will be able to spawn.<strong>true</strong> - Animals spawn as normal.<strong>false</strong> - Animals will immediately vanish.<em>Tip: if you have major lag, turn this off/set to false.</em></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>spawn-monsters</strong></td>
-<td style="text-align:center">boolean</td>
-<td style="text-align:center">true</td>
-<td style="text-align:center">Determines if monsters will be spawned.<strong>true</strong> - Enabled. Monsters will appear at night and in the dark.<strong>false</strong> - Disabled. No monsters.This setting has no effect if difficulty = 0 (peaceful). If difficulty is not = 0, a monster can still spawn from a <a href="https://minecraft.gamepedia.com/Monster_Spawner" target="_blank" rel="noopener">Monster Spawner</a>.<em>Tip: if you have major lag, turn this off/set to false.</em></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>spawn-npcs</strong></td>
-<td style="text-align:center">boolean</td>
-<td style="text-align:center">true</td>
-<td style="text-align:center">Determines whether villagers will be spawned.<strong>true</strong> - Enabled. Villagers will spawn.<strong>false</strong> - Disabled. No villagers.</td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>spawn-protection</strong></td>
-<td style="text-align:center">integer</td>
-<td style="text-align:center">16</td>
-<td style="text-align:center">Determines the radius of the <a href="https://minecraft.gamepedia.com/index.php?title=Spawn_protection&amp;action=edit&amp;redlink=1" target="_blank" rel="noopener">spawn protection</a> as 2<em>x</em>+1. Setting this to 0 will not disable spawn protection. 0 will protect the single block at the spawn point. 1 will protect a 3x3 area centered on the spawn point. 2 will protect 5x5, 3 will protect 7x7, etc. This option is not generated on the first server start and appears when the first player joins. If there are no <a href="https://minecraft.gamepedia.com/Operator" target="_blank" rel="noopener">ops</a> set on the server, the spawn protection will be disabled automatically.</td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>use-native-transport</strong></td>
-<td style="text-align:center">boolean</td>
-<td style="text-align:center">true</td>
-<td style="text-align:center">Linux server performance improvements: optimized packet sending/receiving on Linux<strong>true</strong> - Enabled. Enable Linux packet sending/receiving optimization<strong>false</strong> - Disabled. Disable Linux packet sending/receiving optimization</td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>view-distance</strong></td>
-<td style="text-align:center">integer (2-32)</td>
-<td style="text-align:center">10</td>
-<td style="text-align:center">Sets the amount of world data the server sends the client, measured in chunks in each direction of the player (radius, not diameter). It determines the server-side viewing distance. (see <a href="https://minecraft.gamepedia.com/Frame_rate#Render_distance" target="_blank" rel="noopener">Render distance</a>)<em>10 is the default/recommended. If you have major lag, reduce this value.<strong>**Note:</strong></em> <em>A value less than 9 will have big impacts on the mobs’ spawn of your server as it mentionned by the bug MC-2536.</em></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>white-list</strong></td>
-<td style="text-align:center">boolean</td>
-<td style="text-align:center">false</td>
-<td style="text-align:center">Enables a whitelist on the server.With a whitelist enabled, users not on the whitelist will be unable to connect. Intended for private servers, such as those for real-life friends or strangers carefully selected via an application process, for example.<strong>false</strong> - No white list is used.<strong>true</strong> - The file whitelist.json is used to generate the white list.<strong>Note:</strong> <em>Ops are automatically white listed, and there is no need to add them to the whitelist.</em></td>
-</tr>
-<tr>
-<td style="text-align:center"><strong>enforce-whitelist</strong></td>
-<td style="text-align:center">boolean</td>
-<td style="text-align:center">false</td>
-<td style="text-align:center">Enforces the whitelist on the server.When this option is enabled, users who are not present on the whitelist (if it’s enabled) will be kicked from the server after the server reloads the whitelist file.<strong>false</strong> - No user will be kicked if not on the whitelist.<strong>true</strong> - Online users not on the whitelist will be kicked.</td>
-</tr>
-</tbody>
-</table>
+<h6>Java Edition</h6>
+<p>|                Key                |          Type          |    Default Value     |                         Description                          |
+| :-------------------------------: | :--------------------: | :------------------: | :----------------------------------------------------------: |
+|         <strong>allow-flight</strong>          |        boolean         |        false         | Allows users to use flight on your server while in Survival mode, if they have a <a href="https://minecraft.gamepedia.com/Mod" target="_blank" rel="noopener">mod</a>that provides flight installed.With allow-flight enabled, <a href="https://minecraft.gamepedia.com/Griefers" target="_blank" rel="noopener">griefers</a> will possibly be more common, because it will make their work easier. In Creative mode this has no effect.<strong>false</strong> - Flight is not allowed (players in air for at least 5 seconds will be kicked).<strong>true</strong> - Flight is allowed, and used if the player has a fly mod installed. |
+|         <strong>allow-nether</strong>          |        boolean         |         true         | Allows players to travel to the <a href="https://minecraft.gamepedia.com/Nether" target="_blank" rel="noopener">Nether</a>.<strong>false</strong> - <a href="https://minecraft.gamepedia.com/Nether" target="_blank" rel="noopener">Nether</a> portals will not work.<strong>true</strong> - The server will allow <a href="https://minecraft.gamepedia.com/Portal" target="_blank" rel="noopener">portals</a> to send players to the Nether. |
+|          <strong>difficulty</strong>           |         string         |         easy         | Defines the <a href="https://minecraft.gamepedia.com/Difficulty" target="_blank" rel="noopener">difficulty</a> (such as damage dealt by mobs and the way hunger and poison affects players) of the server.If a legacy difficulty number is specified it will be silently converted to a difficulty name.<strong>peaceful</strong> (0)<strong>easy</strong> (1)<strong>normal</strong> (2)<strong>hard</strong> (3) |
+|     <strong>enable-command-block</strong>      |        boolean         |        false         |                    Enables command blocks                    |
+|         <strong>enable-query</strong>          |        boolean         |        false         | Enables GameSpy4 protocol server listener. Used to get information about server. |
+|          <strong>enable-rcon</strong>          |        boolean         |        false         |         Enables remote access to the server console.         |
+|        <strong>force-gamemode</strong>         |        boolean         |        false         | Force players to join in the default <a href="https://minecraft.gamepedia.com/Game_mode" target="_blank" rel="noopener">game mode</a>.<strong>false</strong> - Players will join in the gamemode they left in.<strong>true</strong> - Players will always join in the default gamemode. |
+|           <strong>gamemode</strong>            |         string         |       survival       | Defines the <a href="https://minecraft.gamepedia.com/Game_mode" target="_blank" rel="noopener">mode of gameplay</a>.If a legacy gamemode number is specified it will be silently converted to a gamemode name.<strong>survival</strong> (0)<strong>creative</strong> (1)<strong>adventure</strong> (2)<strong>spectator</strong> (3) |
+|      <strong>generate-structures</strong>      |        boolean         |         true         | Defines whether <a href="https://minecraft.gamepedia.com/Structures" target="_blank" rel="noopener">structures</a> (such as villages) will be generated.<strong>false</strong> - Structures will not be generated in new chunks.<strong>true</strong> - Structures will be generated in new chunks.<strong>Note:</strong> <em>Dungeons will still generate if this is set to false.</em> |
+|      <strong>generator-settings</strong>       |         string         |       <em>blank</em>        | The settings used to customize world generation. See <a href="https://minecraft.gamepedia.com/Superflat" target="_blank" rel="noopener">Superflat</a> and <a href="https://minecraft.gamepedia.com/Customized" target="_blank" rel="noopener">Customized</a> for possible settings and examples. |
+|           <strong>hardcore</strong>            |        boolean         |        false         | If set to <strong>true</strong>, server difficulty is ignored and set to hard and players will be set to spectator mode if they die. |
+|          <strong>level-name</strong>           |         string         |        world         | The &quot;level-name&quot; value will be used as the world name and its folder name. You may also copy your saved game folder here, and change the name to the same as that folder's to load it instead.Characters such as ' (apostrophe) may need to be escaped by adding a backslash before them. |
+|          <strong>level-seed</strong>           |         string         |       <em>blank</em>        | Add a <a href="https://minecraft.gamepedia.com/Seed_(level_generation)" target="_blank" rel="noopener">seed</a> for your world, as in Singleplayer.Some examples are: minecraft, 404, 1a2b3c. |
+|          <strong>level-type</strong>           |         string         |       default        | Determines the type of map that is generated.<strong>default</strong> - Standard world with hills, valleys, water, etc.<strong>flat</strong> - A flat world with no features, can be modified with <strong>generator-settings</strong>.<strong>largebiomes</strong> - Same as default but all biomes are larger.<strong>amplified</strong> - Same as default but world-generation height limit is increased.<strong>buffet</strong> - Same as default unless <strong>generator-settings</strong> is set to a preset. |
+|       <strong>max-build-height</strong>        |        integer         |         256          | The maximum height in which building is allowed. Terrain may still naturally generate above a low height limit. |
+|          <strong>max-players</strong>          | integer (0-2147483647) |          20          | The maximum number of players that can play on the server at the same time. Note that if more players are on the server it will use more resources. Note also, op player connections are not supposed to count against the max players, but ops currently cannot join a full server. However, this can be changed by going to the file called ops.json in your server directory, opening it, finding the op you want the change, and changing the setting called bypassesPlayerLimit to true (the default is false). This means that that op will not have to wait for a player to leave in order to join. Extremely large values for this field result in the client-side user list being broken. |
+|         <strong>max-tick-time</strong>         | integer (0–(2^63 - 1)) |        60000         | The maximum number of milliseconds a single tick may take before the server watchdog stops the server with the message, <em>A single server tick took 60.00 seconds (should be max 0.05); Considering it to be crashed, server will forcibly shutdown.</em> Once this criterion is met, it calls System.exit(1).<strong>-1</strong> - disable watchdog entirely (this disable option was added in 14w32a) |
+|        <strong>max-world-size</strong>         |  integer (1-29999984)  |       29999984       | This sets the maximum possible size in blocks, expressed as a radius, that the <a href="https://minecraft.gamepedia.com/World_border" target="_blank" rel="noopener">world border</a> can obtain. Setting the world border bigger causes the commands to complete successfully but the actual border will not move past this block limit. Setting the max-world-size higher than the default doesn't appear to do anything.Examples:Setting max-world-size to 1000 will allow you to have a 2000x2000 world border.Setting max-world-size to 4000 will give you an 8000 x 8000 world border. |
+|             <strong>motd</strong>              |         string         | <em>A Minecraft Server</em> | This is the message that is displayed in the server list of the client, below the name.The MOTD supports <a href="https://minecraft.gamepedia.com/Formatting_codes" target="_blank" rel="noopener">color and formatting codes</a>.The MOTD supports special characters, such as &quot;♥&quot;. However, such characters must be converted to escaped Unicode form. An online converter can be found <a href="http://www.freeformatter.com/string-utilities.html#charinfo" target="_blank" rel="noopener">here</a>.If the MOTD is over 59 characters, the server list will likely report a communication error. |
+| <strong>network-compression-threshold</strong> |        integer         |         256          | By default it allows packets that are <em>n-1</em> bytes big to go normally, but a packet that <em>n</em>bytes or more will be compressed down. So, lower number means more compression but compressing small amounts of bytes might actually end up with a larger result than what went in.<strong>-1</strong> - disable compression entirely<strong>0</strong> - compress everything<strong>Note:</strong> <em>The Ethernet spec requires that packets less than 64 bytes become padded to 64 bytes. Thus, setting a value lower than 64 may not be beneficial. It is also not recommended to exceed the MTU, typically 1500 bytes.</em> |
+|          <strong>online-mode</strong>          |        boolean         |         true         | Server checks connecting players against <em>Minecraft</em> account database. Only set this to false if your server is <strong>not</strong> connected to the Internet. Hackers with fake accounts can connect if this is set to false! If minecraft.net is down or inaccessible, no players will be able to connect if this is set to true. Setting this variable to off purposely is called &quot;cracking&quot; a server, and servers that are presently with online mode off are called &quot;cracked&quot; servers, allowing players with unlicensed copies of <em>Minecraft</em> to join.<strong>true</strong> - Enabled. The server will assume it has an Internet connection and check every connecting player.<strong>false</strong> - Disabled. The server will not attempt to check connecting players. |
+|      <strong>op-permission-level</strong>      |     integer (1-4)      |          4           | Sets the default permission level for ops when using <code>/op</code>. All levels inherit abilities and commands from levels before them.<strong>1</strong> - Ops can bypass spawn protection.<strong>2</strong> - Ops can use all singleplayer cheats commands (except <code>/publish</code>, as it is not on servers; along with <code>/debug</code> and <code>/reload</code>) and use command blocks. Command blocks, along with Realms owners/operators, have the same permissions as this level.<strong>3</strong> - Ops can use most multiplayer-exclusive commands, including <code>/debug</code>, <code>/reload</code>, and commands that manage players (<code>/ban</code>, <code>/op</code>, etc).<strong>4</strong> - Ops can use all commands including <code>/stop</code>, <code>/save-all</code>, <code>/save-on</code>, <code>/save-off</code>, <code>/forceload add</code>, and <code>/forceload remove</code>. |
+|      <strong>player-idle-timeout</strong>      |        integer         |          0           | If non-zero, players are kicked from the server if they are idle for more than that many minutes.<strong>Note:</strong> <em>Idle time is reset when the server receives one of the following packets:</em><a href="http://wiki.vg/Protocol#Click_Window" target="_blank" rel="noopener">Click Window</a><a href="http://wiki.vg/Protocol#Enchant_Item" target="_blank" rel="noopener">Enchant Item</a><a href="http://wiki.vg/Protocol#Update_Sign" target="_blank" rel="noopener">Update Sign</a><a href="http://wiki.vg/Protocol#Player_Digging" target="_blank" rel="noopener">Player Digging</a><a href="http://wiki.vg/Protocol#Player_Block_Placement" target="_blank" rel="noopener">Player Block Placement</a><a href="http://wiki.vg/Protocol#Held_Item_Change_.28serverbound.29" target="_blank" rel="noopener">Held Item Change</a><a href="http://wiki.vg/Protocol#Animation_.28serverbound.29" target="_blank" rel="noopener">Animation</a> (swing arm)<a href="http://wiki.vg/Protocol#Entity_Action" target="_blank" rel="noopener">Entity Action</a><a href="http://wiki.vg/Protocol#Client_Status" target="_blank" rel="noopener">Client Status</a><a href="http://wiki.vg/Protocol#Chat_Message_.28serverbound.29" target="_blank" rel="noopener">Chat Message</a><a href="http://wiki.vg/Protocol#Use_Entity" target="_blank" rel="noopener">Use Entity</a> |
+|     prevent-proxy-connections     |        boolean         |        false         | If the ISP/AS sent from the server is different from the one from Mojang's authentication server, the player is kicked<strong>true</strong> - Enabled. Server prevents users from using vpns or proxies.<strong>false</strong> - Disabled. The server doesn't prevent users from using vpns or proxies. |
+|              <strong>pvp</strong>              |        boolean         |         true         | Enable PvP on the server. Players shooting themselves with arrows will only receive damage if PvP is enabled.<strong>true</strong> - Players will be able to kill each other.<strong>false</strong> - Players cannot kill other players (also known as <strong>Player versus Environment</strong> (<strong>PvE</strong>)).<strong>Note:</strong> <em>Indirect damage sources spawned by players (such as lava, fire, TNT and to some extent water, sand and gravel) will still deal damage to other players.</em> |
+|          <strong>query.port</strong>           |   integer (1-65534)    |        25565         |  Sets the port for the query server (see <strong>enable-query</strong>).  |
+|         <strong>rcon.password</strong>         |         string         |       <em>blank</em>        |                  Sets the password to rcon.                  |
+|           <strong>rcon.port</strong>           |   integer (1-65534)    |        25575         |                    Sets the port to rcon.                    |
+|         <strong>resource-pack</strong>         |         string         |       <em>blank</em>        | Optional URI to a <a href="https://minecraft.gamepedia.com/Resource_pack" target="_blank" rel="noopener">resource pack</a>. The player may choose to use it.Note that the &quot;:&quot; and &quot;=&quot; characters need to be escaped with backslash (), e.g. http://somedomain.com/somepack.zip?someparam=somevalueNote download success/failure is logged by the client, not by the server. |
+|      <strong>resource-pack-sha1</strong>       |         string         |       <em>blank</em>        | Optional SHA-1 digest of the resource pack, in lowercase hexadecimal. It's recommended to specify this. This is not yet used to verify the integrity of the resource pack, but improves the effectiveness and reliability of caching. |
+|           <strong>server-ip</strong>           |         string         |       <em>blank</em>        | Set this if you want the server to bind to a particular IP. It is strongly recommended that you leave server-ip blank!Set to blank, or the IP you want your server to run (listen) on. |
+|          <strong>server-port</strong>          |   integer (1-65534)    |        25565         | Changes the port the server is hosting (listening) on. This port must be <a href="https://en.wikipedia.org/wiki/Port_forwarding" target="_blank" rel="noopener">forwarded</a> if the server is hosted in a network using <a href="https://en.wikipedia.org/wiki/Network_address_translation" target="_blank" rel="noopener">NAT</a> (If you have a home router/firewall). |
+|        <strong>snooper-enabled</strong>        |        boolean         |         true         | Sets whether the server sends snoop data regularly to <a href="http://snoop.minecraft.net/" target="_blank" rel="noopener">http://snoop.minecraft.net</a>.<strong>false</strong> - disable snooping.<strong>true</strong> - enable snooping. |
+|         <strong>spawn-animals</strong>         |        boolean         |         true         | Determines if <a href="https://minecraft.gamepedia.com/Animal" target="_blank" rel="noopener">animals</a> will be able to spawn.<strong>true</strong> - Animals spawn as normal.<strong>false</strong> - Animals will immediately vanish.<em>Tip: if you have major lag, turn this off/set to false.</em> |
+|        <strong>spawn-monsters</strong>         |        boolean         |         true         | Determines if monsters will be spawned.<strong>true</strong> - Enabled. Monsters will appear at night and in the dark.<strong>false</strong> - Disabled. No monsters.This setting has no effect if difficulty = 0 (peaceful). If difficulty is not = 0, a monster can still spawn from a <a href="https://minecraft.gamepedia.com/Monster_Spawner" target="_blank" rel="noopener">Monster Spawner</a>.<em>Tip: if you have major lag, turn this off/set to false.</em> |
+|          <strong>spawn-npcs</strong>           |        boolean         |         true         | Determines whether villagers will be spawned.<strong>true</strong> - Enabled. Villagers will spawn.<strong>false</strong> - Disabled. No villagers. |
+|       <strong>spawn-protection</strong>        |        integer         |          16          | Determines the radius of the <a href="https://minecraft.gamepedia.com/index.php?title=Spawn_protection&amp;action=edit&amp;redlink=1" target="_blank" rel="noopener">spawn protection</a> as 2<em>x</em>+1. Setting this to 0 will not disable spawn protection. 0 will protect the single block at the spawn point. 1 will protect a 3x3 area centered on the spawn point. 2 will protect 5x5, 3 will protect 7x7, etc. This option is not generated on the first server start and appears when the first player joins. If there are no <a href="https://minecraft.gamepedia.com/Operator" target="_blank" rel="noopener">ops</a> set on the server, the spawn protection will be disabled automatically. |
+|     <strong>use-native-transport</strong>      |        boolean         |         true         | Linux server performance improvements: optimized packet sending/receiving on Linux<strong>true</strong> - Enabled. Enable Linux packet sending/receiving optimization<strong>false</strong> - Disabled. Disable Linux packet sending/receiving optimization |
+|         <strong>view-distance</strong>         |     integer (2-32)     |          10          | Sets the amount of world data the server sends the client, measured in chunks in each direction of the player (radius, not diameter). It determines the server-side viewing distance. (see <a href="https://minecraft.gamepedia.com/Frame_rate#Render_distance" target="_blank" rel="noopener">Render distance</a>)*10 is the default/recommended. If you have major lag, reduce this value.*<strong><em>Note:</em></strong> <em>A value less than 9 will have big impacts on the mobs' spawn of your server as it mentionned by the bug MC-2536.</em> |
+|          <strong>white-list</strong>           |        boolean         |        false         | Enables a whitelist on the server.With a whitelist enabled, users not on the whitelist will be unable to connect. Intended for private servers, such as those for real-life friends or strangers carefully selected via an application process, for example.<strong>false</strong> - No white list is used.<strong>true</strong> - The file whitelist.json is used to generate the white list.<strong>Note:</strong> <em>Ops are automatically white listed, and there is no need to add them to the whitelist.</em> |
+|       <strong>enforce-whitelist</strong>       |        boolean         |        false         | Enforces the whitelist on the server.When this option is enabled, users who are not present on the whitelist (if it's enabled) will be kicked from the server after the server reloads the whitelist file.<strong>false</strong> - No user will be kicked if not on the whitelist.<strong>true</strong> - Online users not on the whitelist will be kicked. |</p>
 <p>In versions prior to <a href="https://minecraft.gamepedia.com/Java_Edition_1.12" target="_blank" rel="noopener">Java Edition 1.12</a>, the <strong>announce-player-achievements</strong> boolean property (default true) was used to toggle whether <a href="https://minecraft.gamepedia.com/Achievements" target="_blank" rel="noopener">achievements</a>were broadcasted to all players. This property no longer exists, but if it is set, the <code>announceAdvancements</code> <a href="https://minecraft.gamepedia.com/Gamerule" target="_blank" rel="noopener">gamerule</a> will automatically be updated to match and the property will be removed.</p>
 
     </article>
@@ -891,7 +706,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#如何在Linux上搭建Minecraft服务器"><span class="toc-number">1.</span> <span class="toc-text">如何在Linux上搭建Minecraft服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#购买服务器"><span class="toc-number">1.1.</span> <span class="toc-text">购买服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#配置服务器"><span class="toc-number">1.2.</span> <span class="toc-text">配置服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#查看java版本"><span class="toc-number">1.2.1.</span> <span class="toc-text">查看java版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#选择目录"><span class="toc-number">1.2.2.</span> <span class="toc-text">选择目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#获取mc服务器端"><span class="toc-number">1.2.3.</span> <span class="toc-text">获取mc服务器端</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#开启游戏！"><span class="toc-number">1.3.</span> <span class="toc-text">开启游戏！</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#创建启动脚本"><span class="toc-number">1.3.1.</span> <span class="toc-text">创建启动脚本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开启"><span class="toc-number">1.3.2.</span> <span class="toc-text">开启</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#安装forge"><span class="toc-number">1.3.3.</span> <span class="toc-text">安装forge</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#开服"><span class="toc-number">1.3.4.</span> <span class="toc-text">开服</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#其他补充"><span class="toc-number">1.4.</span> <span class="toc-text">其他补充</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#screen"><span class="toc-number">1.4.1.</span> <span class="toc-text">screen</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#mod"><span class="toc-number">1.4.2.</span> <span class="toc-text">mod</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#server-properties"><span class="toc-number">1.4.3.</span> <span class="toc-text">server.properties</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#Java-Edition"><span class="toc-number">1.4.3.0.0.1.</span> <span class="toc-text">Java Edition</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">如何在Linux上搭建Minecraft服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">购买服务器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.</span> <span class="toc-text">配置服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.1.</span> <span class="toc-text">查看java版本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.2.</span> <span class="toc-text">选择目录</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.3.</span> <span class="toc-text">获取mc服务器端</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.3.</span> <span class="toc-text">开启游戏！</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.3.1.</span> <span class="toc-text">创建启动脚本</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.3.2.</span> <span class="toc-text">开启</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.3.3.</span> <span class="toc-text">安装forge</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.3.4.</span> <span class="toc-text">开服</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.4.</span> <span class="toc-text">其他补充</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.4.1.</span> <span class="toc-text">screen</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.4.2.</span> <span class="toc-text">mod</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.4.3.</span> <span class="toc-text">server.properties</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#undefined"><span class="toc-number">1.4.3.0.0.1.</span> <span class="toc-text">Java Edition</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -904,6 +719,20 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -2190,12 +2019,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/08</span><a class="archive-post-title" href="/posts/36dd5647/">让win10系统任务栏变为透明</a>
+            <span class="archive-post-date">06/08</span><a class="archive-post-title" href="/posts/472395fb/">在word中贴出漂亮的代码</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/08</span><a class="archive-post-title" href="/posts/472395fb/">在word中贴出漂亮的代码</a>
+            <span class="archive-post-date">06/08</span><a class="archive-post-title" href="/posts/36dd5647/">让win10系统任务栏变为透明</a>
         </li>
     
     
@@ -2260,12 +2089,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/28</span><a class="archive-post-title" href="/posts/7f12b338/">南京邮电大学 RE-WxyVM2</a>
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href="/posts/ea74c872/">bbvvmm</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">04/28</span><a class="archive-post-title" href="/posts/ea74c872/">bbvvmm</a>
+            <span class="archive-post-date">04/28</span><a class="archive-post-title" href="/posts/7f12b338/">南京邮电大学 RE-WxyVM2</a>
         </li>
     
     
@@ -2300,12 +2129,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/6aab0075/">wakarimasu</a>
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/f9cd8782/">xor</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/f9cd8782/">xor</a>
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/6aab0075/">wakarimasu</a>
         </li>
     
     
@@ -2354,7 +2183,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/17525de2/">AVL树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
         </li>
     
     
@@ -2364,47 +2193,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/852a3205/">线段树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e5abdd9c/">铺地毯题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28cf1e0f/">拓扑排序以及关键路径总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/3598786/">逆波兰表达式题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/4c789951/">Vigenère密码题解</a>
         </li>
     
     
@@ -2414,22 +2203,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/93b1f5dc/">暑期人生测试一总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e073dc73/">字典树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/4c789951/">Vigenère密码题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/3598786/">逆波兰表达式题解</a>
         </li>
     
     
@@ -2439,12 +2218,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/50d2edb9/">2的幂次方表示题解</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e073dc73/">字典树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/93b1f5dc/">暑期人生测试一总结</a>
         </li>
     
     
@@ -2454,17 +2243,47 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/675d1a4b/">求最大网络流（最小割）总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28cf1e0f/">拓扑排序以及关键路径总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/50d2edb9/">2的幂次方表示题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e5abdd9c/">铺地毯题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/852a3205/">线段树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/17525de2/">AVL树总结</a>
         </li>
     
     
@@ -2474,17 +2293,27 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/76551050/">网络安全课笔记 of Shijie Zhou #1</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/28572e84/">基本操作 Reverse Version</a>
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/6dada2a6/">Some Boxes</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/6dada2a6/">Some Boxes</a>
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/28572e84/">基本操作 Reverse Version</a>
         </li>
     
     
@@ -2512,9 +2341,9 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="RE_Static"><span class="iconfont-archer">&#xe606;</span>RE_Static</span>
-    
         <span class="sidebar-tag-name" data-tags="RE_Dynamic"><span class="iconfont-archer">&#xe606;</span>RE_Dynamic</span>
+    
+        <span class="sidebar-tag-name" data-tags="RE_Static"><span class="iconfont-archer">&#xe606;</span>RE_Static</span>
     
         <span class="sidebar-tag-name" data-tags="VM"><span class="iconfont-archer">&#xe606;</span>VM</span>
     
@@ -2522,13 +2351,13 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="3des"><span class="iconfont-archer">&#xe606;</span>3des</span>
     
-        <span class="sidebar-tag-name" data-tags="RE_Android"><span class="iconfont-archer">&#xe606;</span>RE_Android</span>
-    
         <span class="sidebar-tag-name" data-tags="xtea"><span class="iconfont-archer">&#xe606;</span>xtea</span>
     
         <span class="sidebar-tag-name" data-tags="crc16"><span class="iconfont-archer">&#xe606;</span>crc16</span>
     
         <span class="sidebar-tag-name" data-tags="pwntools"><span class="iconfont-archer">&#xe606;</span>pwntools</span>
+    
+        <span class="sidebar-tag-name" data-tags="RE_Android"><span class="iconfont-archer">&#xe606;</span>RE_Android</span>
     
         <span class="sidebar-tag-name" data-tags="packer"><span class="iconfont-archer">&#xe606;</span>packer</span>
     
@@ -2565,15 +2394,15 @@ jsonContent:
         <div class="sidebar-panel-categories">
     <div class="sidebar-categories-name">
     
-        <span class="sidebar-category-name" data-categories="write up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
-    
         <span class="sidebar-category-name" data-categories="牢骚"><span class="iconfont-archer">&#xe60a;</span>牢骚</span>
     
-        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
+        <span class="sidebar-category-name" data-categories="write up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
+    
+        <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
     
         <span class="sidebar-category-name" data-categories="cnss_recruit_201809"><span class="iconfont-archer">&#xe60a;</span>write-up/cnss-recruit-201809</span>
     
-        <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
+        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
     
         <span class="sidebar-category-name" data-categories="notes"><span class="iconfont-archer">&#xe60a;</span>notes</span>
     
@@ -2583,9 +2412,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="hgame_20190122"><span class="iconfont-archer">&#xe60a;</span>write-up/hgame-20190122</span>
     
-        <span class="sidebar-category-name" data-categories="cgctf"><span class="iconfont-archer">&#xe60a;</span>write-up/cgctf</span>
-    
         <span class="sidebar-category-name" data-categories="nationalCTF_20190421"><span class="iconfont-archer">&#xe60a;</span>write-up/nationalCTF-20190421</span>
+    
+        <span class="sidebar-category-name" data-categories="cgctf"><span class="iconfont-archer">&#xe60a;</span>write-up/cgctf</span>
     
         <span class="sidebar-category-name" data-categories="write-up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
     
@@ -2597,11 +2426,11 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="qwb_ctf20190526"><span class="iconfont-archer">&#xe60a;</span>write-up/qwb-ctf20190526</span>
     
-        <span class="sidebar-category-name" data-categories="JarvisOJ"><span class="iconfont-archer">&#xe60a;</span>write-up/JarvisOJ</span>
-    
         <span class="sidebar-category-name" data-categories="base64"><span class="iconfont-archer">&#xe60a;</span>write-up/nationalCTF-20190421/sm4/base64</span>
     
         <span class="sidebar-category-name" data-categories="rctf-20190518"><span class="iconfont-archer">&#xe60a;</span>write-up/rctf-20190518</span>
+    
+        <span class="sidebar-category-name" data-categories="JarvisOJ"><span class="iconfont-archer">&#xe60a;</span>write-up/JarvisOJ</span>
     
         <span class="sidebar-category-name" data-categories="Project"><span class="iconfont-archer">&#xe60a;</span>Project</span>
     
