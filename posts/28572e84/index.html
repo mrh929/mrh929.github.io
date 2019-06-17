@@ -423,11 +423,11 @@ height:50vh;
 <blockquote>
 <p>ida得到加密算法</p>
 </blockquote>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 翻译的太丑  太丑</span></span><br><span class="line">flag=<span class="string">""</span></span><br><span class="line">s_change1=<span class="string">""</span></span><br><span class="line">c=<span class="number">0</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">change1</span><span class="params">(a)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> a&lt;<span class="number">64</span>:</span><br><span class="line">        v1=c</span><br><span class="line">        c+=<span class="number">1</span></span><br><span class="line">        s_change1[v1]=flag[a]</span><br><span class="line">        change1(<span class="number">2</span>*a+<span class="number">1</span>)</span><br><span class="line">        res=change1(<span class="number">2</span>*(a+<span class="number">1</span>))</span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment"># 翻译的太丑  太丑</span></span><br><span class="line">flag=<span class="string">""</span></span><br><span class="line">s_change1=<span class="string">""</span></span><br><span class="line">c=<span class="number">0</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">change1</span><span class="params">(a)</span>:</span></span><br><span class="line">    <span class="keyword">if</span> a&lt;<span class="number">64</span>:</span><br><span class="line">        v1=c</span><br><span class="line">        c+=<span class="number">1</span></span><br><span class="line">        s_change1[v1]=flag[a]</span><br><span class="line">        change1(<span class="number">2</span>*a+<span class="number">1</span>)</span><br><span class="line">        res=change1(<span class="number">2</span>*(a+<span class="number">1</span>))</span><br><span class="line">    <span class="keyword">return</span> res</span><br></pre></td></tr></table></figure></p>
 <blockquote>
 <p>对输入的字符串进行了一次先序遍历和一次中序遍历 出题人的意思应该是已知先序遍历和中序遍历求原二叉树。。 却没想到原二叉树是个满二叉树，直接通过一种遍历方式就可以推出原二叉树 （或者是出题人发题之前把难度降低了嘤嘤嘤，出题人别捶我别捶我） 这里只给出用先序遍历求原二叉树的代码</p>
 </blockquote>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">char</span> str[] = <span class="string">"bcec8d7dcda25d91ed3e0b720cbb6cf202b09fedbc3e017774273ef5d5581794"</span>;</span><br><span class="line"><span class="keyword">char</span> p[<span class="number">65</span>];</span><br><span class="line"><span class="keyword">int</span> cnt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fuck</span><span class="params">(<span class="keyword">int</span> t)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(t &gt;= <span class="number">64</span>) <span class="keyword">return</span>;</span><br><span class="line">    p[t] = str[cnt++];</span><br><span class="line">    fuck(<span class="number">2</span> * t + <span class="number">1</span>);</span><br><span class="line">    fuck(<span class="number">2</span> * (t + <span class="number">1</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	fuck(<span class="number">0</span>);</span><br><span class="line"> 	<span class="built_in">printf</span>(<span class="string">"%s"</span>,p);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">char</span> str[] = <span class="string">"bcec8d7dcda25d91ed3e0b720cbb6cf202b09fedbc3e017774273ef5d5581794"</span>;</span><br><span class="line"><span class="keyword">char</span> p[<span class="number">65</span>];</span><br><span class="line"><span class="keyword">int</span> cnt;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">fuck</span><span class="params">(<span class="keyword">int</span> t)</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(t &gt;= <span class="number">64</span>) <span class="keyword">return</span>;</span><br><span class="line">    p[t] = str[cnt++];</span><br><span class="line">    fuck(<span class="number">2</span> * t + <span class="number">1</span>);</span><br><span class="line">    fuck(<span class="number">2</span> * (t + <span class="number">1</span>));</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	fuck(<span class="number">0</span>);</span><br><span class="line"> 	<span class="built_in">printf</span>(<span class="string">"%s"</span>,p);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>​</p>
 
     </article>
@@ -1786,52 +1786,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 68
@@ -1859,22 +1813,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/14</span><a class="archive-post-title" href="/posts/512d4c5b/">JarvisOJ-findpass</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">06/14</span><a class="archive-post-title" href="/posts/db7ddaa/">JarvisOJ_DD_Evil_Exe</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/13</span><a class="archive-post-title" href="/posts/cbf6a417/">利用python搭建简易http服务器</a>
+            <span class="archive-post-date">06/14</span><a class="archive-post-title" href="/posts/512d4c5b/">JarvisOJ-findpass</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">06/13</span><a class="archive-post-title" href="/posts/b15e7935/">如何修改hosts</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/13</span><a class="archive-post-title" href="/posts/cbf6a417/">利用python搭建简易http服务器</a>
         </li>
     
     
@@ -1994,12 +1948,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/f9cd8782/">xor</a>
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/6aab0075/">wakarimasu</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/6aab0075/">wakarimasu</a>
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/f9cd8782/">xor</a>
         </li>
     
     
@@ -2048,12 +2002,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/17525de2/">AVL树总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
         </li>
     
     
@@ -2063,12 +2017,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/852a3205/">线段树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e5abdd9c/">铺地毯题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/1acd21ea/">Tarjan算法求无向图割边割点、最近公共祖先的总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
         </li>
     
     
@@ -2078,7 +2042,27 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/6c3f6e84/">字符串hash，康托展开总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28cf1e0f/">拓扑排序以及关键路径总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
         </li>
     
     
@@ -2088,7 +2072,37 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/675d1a4b/">求最大网络流（最小割）总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/6c3f6e84/">字符串hash，康托展开总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/80036358/">大整数乘法题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/50d2edb9/">2的幂次方表示题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
         </li>
     
     
@@ -2103,66 +2117,6 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/80036358/">大整数乘法题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/675d1a4b/">求最大网络流（最小割）总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28cf1e0f/">拓扑排序以及关键路径总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/50d2edb9/">2的幂次方表示题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e5abdd9c/">铺地毯题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/852a3205/">线段树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/17525de2/">AVL树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
         </li>
     
@@ -2173,17 +2127,17 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/6dada2a6/">Some Boxes</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/28572e84/">基本操作 Reverse Version</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/eb65a69a/">Our 16bits wars</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/6dada2a6/">Some Boxes</a>
         </li>
     
     
@@ -2206,9 +2160,9 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="RE_Dynamic"><span class="iconfont-archer">&#xe606;</span>RE_Dynamic</span>
-    
         <span class="sidebar-tag-name" data-tags="RE_Static"><span class="iconfont-archer">&#xe606;</span>RE_Static</span>
+    
+        <span class="sidebar-tag-name" data-tags="RE_Dynamic"><span class="iconfont-archer">&#xe606;</span>RE_Dynamic</span>
     
         <span class="sidebar-tag-name" data-tags="VM"><span class="iconfont-archer">&#xe606;</span>VM</span>
     
@@ -2216,13 +2170,13 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="3des"><span class="iconfont-archer">&#xe606;</span>3des</span>
     
-        <span class="sidebar-tag-name" data-tags="xtea"><span class="iconfont-archer">&#xe606;</span>xtea</span>
+        <span class="sidebar-tag-name" data-tags="RE_Android"><span class="iconfont-archer">&#xe606;</span>RE_Android</span>
     
-        <span class="sidebar-tag-name" data-tags="crc16"><span class="iconfont-archer">&#xe606;</span>crc16</span>
+        <span class="sidebar-tag-name" data-tags="xtea"><span class="iconfont-archer">&#xe606;</span>xtea</span>
     
         <span class="sidebar-tag-name" data-tags="pwntools"><span class="iconfont-archer">&#xe606;</span>pwntools</span>
     
-        <span class="sidebar-tag-name" data-tags="RE_Android"><span class="iconfont-archer">&#xe606;</span>RE_Android</span>
+        <span class="sidebar-tag-name" data-tags="crc16"><span class="iconfont-archer">&#xe606;</span>crc16</span>
     
         <span class="sidebar-tag-name" data-tags="packer"><span class="iconfont-archer">&#xe606;</span>packer</span>
     
@@ -2263,11 +2217,11 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="write up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
     
+        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
+    
         <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
     
         <span class="sidebar-category-name" data-categories="cnss_recruit_201809"><span class="iconfont-archer">&#xe60a;</span>write-up/cnss-recruit-201809</span>
-    
-        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
     
         <span class="sidebar-category-name" data-categories="notes"><span class="iconfont-archer">&#xe60a;</span>notes</span>
     
@@ -2291,11 +2245,11 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="qwb_ctf20190526"><span class="iconfont-archer">&#xe60a;</span>write-up/qwb-ctf20190526</span>
     
+        <span class="sidebar-category-name" data-categories="JarvisOJ"><span class="iconfont-archer">&#xe60a;</span>write-up/JarvisOJ</span>
+    
         <span class="sidebar-category-name" data-categories="base64"><span class="iconfont-archer">&#xe60a;</span>write-up/nationalCTF-20190421/sm4/base64</span>
     
         <span class="sidebar-category-name" data-categories="rctf-20190518"><span class="iconfont-archer">&#xe60a;</span>write-up/rctf-20190518</span>
-    
-        <span class="sidebar-category-name" data-categories="JarvisOJ"><span class="iconfont-archer">&#xe60a;</span>write-up/JarvisOJ</span>
     
         <span class="sidebar-category-name" data-categories="Project"><span class="iconfont-archer">&#xe60a;</span>Project</span>
     

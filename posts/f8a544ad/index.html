@@ -426,7 +426,7 @@ height:50vh;
 <li><strong>注意变量k的维护，k满足k==n-1时必须及时跳出循环</strong></li>
 </ol>
 <p>还有一个很容易忽略的问题！！就是memset，特别是有多组数据的时候必须在前面重置内存** 附上我对次小生成树代码的注释：</p>
-<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 次小生成树</span></span><br><span class="line"><span class="comment"> * 求最小生成树时，用数组Max[i][j]来表示MST中i到j最大边权</span></span><br><span class="line"><span class="comment"> * 求完后，直接枚举所有不在MST中的边，替换掉最大边权的边，更新答案</span></span><br><span class="line"><span class="comment"> * 点的编号从0开始</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN=<span class="number">110</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF=<span class="number">0x3f3f3f3f</span>;<span class="comment">//最大值 </span></span><br><span class="line"><span class="keyword">bool</span> vis[MAXN];<span class="comment">//点是否已使用 </span></span><br><span class="line"><span class="keyword">int</span> lowc[MAXN];<span class="comment">//到每一个点权值最短的路径的权值 </span></span><br><span class="line"><span class="keyword">int</span> pre[MAXN];<span class="comment">//存父亲 </span></span><br><span class="line"><span class="keyword">int</span> Max[MAXN][MAXN];<span class="comment">//Max[i][j]表示在最小生成树中从i到j的路径中的最大边权</span></span><br><span class="line"><span class="keyword">bool</span> used[MAXN][MAXN];<span class="comment">//边是否已使用 </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Prim</span><span class="params">(<span class="keyword">int</span> cost[][MAXN],<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ans=<span class="number">0</span>;</span><br><span class="line">    <span class="built_in">memset</span>(vis,<span class="literal">false</span>,<span class="keyword">sizeof</span>(vis));</span><br><span class="line">    <span class="built_in">memset</span>(Max,<span class="number">0</span>,<span class="keyword">sizeof</span>(Max));</span><br><span class="line">    <span class="built_in">memset</span>(used,<span class="literal">false</span>,<span class="keyword">sizeof</span>(used));</span><br><span class="line">    vis[<span class="number">0</span>]=<span class="literal">true</span>;<span class="comment">//已遍历 </span></span><br><span class="line">    pre[<span class="number">0</span>]=<span class="number">-1</span>;<span class="comment">//起始点没有父亲 </span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">        lowc[i]=cost[<span class="number">0</span>][i];</span><br><span class="line">        pre[i]=<span class="number">0</span>;<span class="comment">//设置父亲 </span></span><br><span class="line">    &#125;</span><br><span class="line">    lowc[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> minc=INF;</span><br><span class="line">        <span class="keyword">int</span> p=<span class="number">-1</span>;<span class="comment">//将要选择的下一个点 </span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)</span><br><span class="line">            <span class="keyword">if</span>(!vis[j]&amp;&amp;minc&gt;lowc[j])&#123;</span><br><span class="line">                minc=lowc[j];<span class="comment">//选择距离最小的边 </span></span><br><span class="line">                p=j;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">if</span>(minc==INF) <span class="keyword">return</span> <span class="number">-1</span>;<span class="comment">//该图不是连通图 </span></span><br><span class="line">        ans+=minc;<span class="comment">//权值和计算 </span></span><br><span class="line">        vis[p]=<span class="literal">true</span>;<span class="comment">//点已遍历 </span></span><br><span class="line">        used[p][pre[p]]=used[pre[p]][p]=<span class="literal">true</span>;<span class="comment">//边已遍历 </span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(vis[j]) Max[j][p]=Max[p][j]=max(Max[j][pre[p]],lowc[p]);<span class="comment">//DP计算j到p的路径中权值最大的边的权值 </span></span><br><span class="line">            <span class="keyword">if</span>(!vis[j]&amp;&amp;lowc[j]&gt;cost[p][j])&#123;<span class="comment">//更新lowc数组 </span></span><br><span class="line">                lowc[j]=cost[p][j];</span><br><span class="line">                pre[j]=p;<span class="comment">//设置父亲 </span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> ans;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">smst</span><span class="params">(<span class="keyword">int</span> cost[][MAXN],<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> Min=INF;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=i+<span class="number">1</span>;j&lt;n;j++)</span><br><span class="line">            <span class="keyword">if</span>(cost[i][j]!=INF &amp;&amp; !used[i][j])<span class="comment">//如果这条边存在而且未被使用 </span></span><br><span class="line">            	Min=min(Min,ans+cost[i][j]-Max[i][j]);<span class="comment">//取最小差值 </span></span><br><span class="line">    <span class="keyword">if</span>(Min==INF) <span class="keyword">return</span> <span class="number">-1</span>;<span class="comment">//不存在</span></span><br><span class="line">    <span class="keyword">return</span> Min;<span class="comment">//返回次小生成树的权值和 </span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> cost[MAXN][MAXN];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> T;</span><br><span class="line">    <span class="keyword">int</span> n,m;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;T);</span><br><span class="line">    <span class="keyword">while</span>(T--)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">        <span class="keyword">int</span> u,v,w;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(i==j) cost[i][j]=<span class="number">0</span>;</span><br><span class="line">                <span class="keyword">else</span> cost[i][j]=INF;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">while</span>(m--)&#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>,&amp;u,&amp;v,&amp;w);</span><br><span class="line">            u--;v--;</span><br><span class="line">            cost[u][v]=cost[v][u]=w;<span class="comment">//u到v的距离 </span></span><br><span class="line">        &#125;</span><br><span class="line">        ans=Prim(cost,n);</span><br><span class="line">        <span class="keyword">if</span>(ans==<span class="number">-1</span>)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"Not Unique!\n"</span>);</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(ans==smst(cost,n)) <span class="built_in">printf</span>(<span class="string">"Not Unique!\n"</span>);<span class="comment">//权值和完全相同 </span></span><br><span class="line">        <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,ans);<span class="comment">//输出最小生成树的权值和 </span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * 次小生成树</span></span><br><span class="line"><span class="comment"> * 求最小生成树时，用数组Max[i][j]来表示MST中i到j最大边权</span></span><br><span class="line"><span class="comment"> * 求完后，直接枚举所有不在MST中的边，替换掉最大边权的边，更新答案</span></span><br><span class="line"><span class="comment"> * 点的编号从0开始</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN=<span class="number">110</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF=<span class="number">0x3f3f3f3f</span>;<span class="comment">//最大值 </span></span><br><span class="line"><span class="keyword">bool</span> vis[MAXN];<span class="comment">//点是否已使用 </span></span><br><span class="line"><span class="keyword">int</span> lowc[MAXN];<span class="comment">//到每一个点权值最短的路径的权值 </span></span><br><span class="line"><span class="keyword">int</span> pre[MAXN];<span class="comment">//存父亲 </span></span><br><span class="line"><span class="keyword">int</span> Max[MAXN][MAXN];<span class="comment">//Max[i][j]表示在最小生成树中从i到j的路径中的最大边权</span></span><br><span class="line"><span class="keyword">bool</span> used[MAXN][MAXN];<span class="comment">//边是否已使用 </span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Prim</span><span class="params">(<span class="keyword">int</span> cost[][MAXN],<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ans=<span class="number">0</span>;</span><br><span class="line">    <span class="built_in">memset</span>(vis,<span class="literal">false</span>,<span class="keyword">sizeof</span>(vis));</span><br><span class="line">    <span class="built_in">memset</span>(Max,<span class="number">0</span>,<span class="keyword">sizeof</span>(Max));</span><br><span class="line">    <span class="built_in">memset</span>(used,<span class="literal">false</span>,<span class="keyword">sizeof</span>(used));</span><br><span class="line">    vis[<span class="number">0</span>]=<span class="literal">true</span>;<span class="comment">//已遍历 </span></span><br><span class="line">    pre[<span class="number">0</span>]=<span class="number">-1</span>;<span class="comment">//起始点没有父亲 </span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">        lowc[i]=cost[<span class="number">0</span>][i];</span><br><span class="line">        pre[i]=<span class="number">0</span>;<span class="comment">//设置父亲 </span></span><br><span class="line">    &#125;</span><br><span class="line">    lowc[<span class="number">0</span>]=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;n;i++)&#123;</span><br><span class="line">        <span class="keyword">int</span> minc=INF;</span><br><span class="line">        <span class="keyword">int</span> p=<span class="number">-1</span>;<span class="comment">//将要选择的下一个点 </span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)</span><br><span class="line">            <span class="keyword">if</span>(!vis[j]&amp;&amp;minc&gt;lowc[j])&#123;</span><br><span class="line">                minc=lowc[j];<span class="comment">//选择距离最小的边 </span></span><br><span class="line">                p=j;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">if</span>(minc==INF) <span class="keyword">return</span> <span class="number">-1</span>;<span class="comment">//该图不是连通图 </span></span><br><span class="line">        ans+=minc;<span class="comment">//权值和计算 </span></span><br><span class="line">        vis[p]=<span class="literal">true</span>;<span class="comment">//点已遍历 </span></span><br><span class="line">        used[p][pre[p]]=used[pre[p]][p]=<span class="literal">true</span>;<span class="comment">//边已遍历 </span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)&#123;</span><br><span class="line">            <span class="keyword">if</span>(vis[j]) Max[j][p]=Max[p][j]=max(Max[j][pre[p]],lowc[p]);<span class="comment">//DP计算j到p的路径中权值最大的边的权值 </span></span><br><span class="line">            <span class="keyword">if</span>(!vis[j]&amp;&amp;lowc[j]&gt;cost[p][j])&#123;<span class="comment">//更新lowc数组 </span></span><br><span class="line">                lowc[j]=cost[p][j];</span><br><span class="line">                pre[j]=p;<span class="comment">//设置父亲 </span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> ans;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">smst</span><span class="params">(<span class="keyword">int</span> cost[][MAXN],<span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> Min=INF;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=i+<span class="number">1</span>;j&lt;n;j++)</span><br><span class="line">            <span class="keyword">if</span>(cost[i][j]!=INF &amp;&amp; !used[i][j])<span class="comment">//如果这条边存在而且未被使用 </span></span><br><span class="line">            	Min=min(Min,ans+cost[i][j]-Max[i][j]);<span class="comment">//取最小差值 </span></span><br><span class="line">    <span class="keyword">if</span>(Min==INF) <span class="keyword">return</span> <span class="number">-1</span>;<span class="comment">//不存在</span></span><br><span class="line">    <span class="keyword">return</span> Min;<span class="comment">//返回次小生成树的权值和 </span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">int</span> cost[MAXN][MAXN];</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> T;</span><br><span class="line">    <span class="keyword">int</span> n,m;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;T);</span><br><span class="line">    <span class="keyword">while</span>(T--)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">        <span class="keyword">int</span> u,v,w;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++)</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++)&#123;</span><br><span class="line">                <span class="keyword">if</span>(i==j) cost[i][j]=<span class="number">0</span>;</span><br><span class="line">                <span class="keyword">else</span> cost[i][j]=INF;</span><br><span class="line">            &#125;</span><br><span class="line">        <span class="keyword">while</span>(m--)&#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>,&amp;u,&amp;v,&amp;w);</span><br><span class="line">            u--;v--;</span><br><span class="line">            cost[u][v]=cost[v][u]=w;<span class="comment">//u到v的距离 </span></span><br><span class="line">        &#125;</span><br><span class="line">        ans=Prim(cost,n);</span><br><span class="line">        <span class="keyword">if</span>(ans==<span class="number">-1</span>)&#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">"Not Unique!\n"</span>);</span><br><span class="line">            <span class="keyword">continue</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span>(ans==smst(cost,n)) <span class="built_in">printf</span>(<span class="string">"Not Unique!\n"</span>);<span class="comment">//权值和完全相同 </span></span><br><span class="line">        <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,ans);<span class="comment">//输出最小生成树的权值和 </span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 
     </article>
     <!-- license  -->
@@ -1784,52 +1784,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 68
@@ -1857,22 +1811,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/14</span><a class="archive-post-title" href="/posts/512d4c5b/">JarvisOJ-findpass</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">06/14</span><a class="archive-post-title" href="/posts/db7ddaa/">JarvisOJ_DD_Evil_Exe</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/13</span><a class="archive-post-title" href="/posts/cbf6a417/">利用python搭建简易http服务器</a>
+            <span class="archive-post-date">06/14</span><a class="archive-post-title" href="/posts/512d4c5b/">JarvisOJ-findpass</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">06/13</span><a class="archive-post-title" href="/posts/b15e7935/">如何修改hosts</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/13</span><a class="archive-post-title" href="/posts/cbf6a417/">利用python搭建简易http服务器</a>
         </li>
     
     
@@ -1992,12 +1946,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/f9cd8782/">xor</a>
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/6aab0075/">wakarimasu</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/6aab0075/">wakarimasu</a>
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/f9cd8782/">xor</a>
         </li>
     
     
@@ -2046,12 +2000,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/17525de2/">AVL树总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
         </li>
     
     
@@ -2061,12 +2015,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/852a3205/">线段树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e5abdd9c/">铺地毯题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/1acd21ea/">Tarjan算法求无向图割边割点、最近公共祖先的总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
         </li>
     
     
@@ -2076,7 +2040,27 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/6c3f6e84/">字符串hash，康托展开总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28cf1e0f/">拓扑排序以及关键路径总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
         </li>
     
     
@@ -2086,7 +2070,37 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/675d1a4b/">求最大网络流（最小割）总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/6c3f6e84/">字符串hash，康托展开总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/80036358/">大整数乘法题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/50d2edb9/">2的幂次方表示题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
         </li>
     
     
@@ -2101,66 +2115,6 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/80036358/">大整数乘法题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/675d1a4b/">求最大网络流（最小割）总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28cf1e0f/">拓扑排序以及关键路径总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/50d2edb9/">2的幂次方表示题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e5abdd9c/">铺地毯题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/852a3205/">线段树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/17525de2/">AVL树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
         </li>
     
@@ -2171,17 +2125,17 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/6dada2a6/">Some Boxes</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/28572e84/">基本操作 Reverse Version</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/eb65a69a/">Our 16bits wars</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/6dada2a6/">Some Boxes</a>
         </li>
     
     
@@ -2204,9 +2158,9 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="RE_Dynamic"><span class="iconfont-archer">&#xe606;</span>RE_Dynamic</span>
-    
         <span class="sidebar-tag-name" data-tags="RE_Static"><span class="iconfont-archer">&#xe606;</span>RE_Static</span>
+    
+        <span class="sidebar-tag-name" data-tags="RE_Dynamic"><span class="iconfont-archer">&#xe606;</span>RE_Dynamic</span>
     
         <span class="sidebar-tag-name" data-tags="VM"><span class="iconfont-archer">&#xe606;</span>VM</span>
     
@@ -2214,13 +2168,13 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="3des"><span class="iconfont-archer">&#xe606;</span>3des</span>
     
-        <span class="sidebar-tag-name" data-tags="xtea"><span class="iconfont-archer">&#xe606;</span>xtea</span>
+        <span class="sidebar-tag-name" data-tags="RE_Android"><span class="iconfont-archer">&#xe606;</span>RE_Android</span>
     
-        <span class="sidebar-tag-name" data-tags="crc16"><span class="iconfont-archer">&#xe606;</span>crc16</span>
+        <span class="sidebar-tag-name" data-tags="xtea"><span class="iconfont-archer">&#xe606;</span>xtea</span>
     
         <span class="sidebar-tag-name" data-tags="pwntools"><span class="iconfont-archer">&#xe606;</span>pwntools</span>
     
-        <span class="sidebar-tag-name" data-tags="RE_Android"><span class="iconfont-archer">&#xe606;</span>RE_Android</span>
+        <span class="sidebar-tag-name" data-tags="crc16"><span class="iconfont-archer">&#xe606;</span>crc16</span>
     
         <span class="sidebar-tag-name" data-tags="packer"><span class="iconfont-archer">&#xe606;</span>packer</span>
     
@@ -2261,11 +2215,11 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="write up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
     
+        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
+    
         <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
     
         <span class="sidebar-category-name" data-categories="cnss_recruit_201809"><span class="iconfont-archer">&#xe60a;</span>write-up/cnss-recruit-201809</span>
-    
-        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
     
         <span class="sidebar-category-name" data-categories="notes"><span class="iconfont-archer">&#xe60a;</span>notes</span>
     
@@ -2289,11 +2243,11 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="qwb_ctf20190526"><span class="iconfont-archer">&#xe60a;</span>write-up/qwb-ctf20190526</span>
     
+        <span class="sidebar-category-name" data-categories="JarvisOJ"><span class="iconfont-archer">&#xe60a;</span>write-up/JarvisOJ</span>
+    
         <span class="sidebar-category-name" data-categories="base64"><span class="iconfont-archer">&#xe60a;</span>write-up/nationalCTF-20190421/sm4/base64</span>
     
         <span class="sidebar-category-name" data-categories="rctf-20190518"><span class="iconfont-archer">&#xe60a;</span>write-up/rctf-20190518</span>
-    
-        <span class="sidebar-category-name" data-categories="JarvisOJ"><span class="iconfont-archer">&#xe60a;</span>write-up/JarvisOJ</span>
     
         <span class="sidebar-category-name" data-categories="Project"><span class="iconfont-archer">&#xe60a;</span>Project</span>
     

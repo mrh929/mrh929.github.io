@@ -284,7 +284,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">565</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">2.2k</span>阅读时长: <span class="post-count reading-time">12 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -414,81 +414,82 @@ height:50vh;
             <main class="main post-page">
     <article class="article-entry">
         <p></p>
-<h1>AVL树总结</h1>
-<strong>AVL树是二叉查找树的一种优化，能将链状的二叉查找树几乎平均地储存下来，从而减少搜索使用的时间。</strong>
-<p><strong> </strong></p>
-<p><strong>AVL树是空树，或满足以下定义的树：</strong></p>
-<p><strong>1、左右子树都是AVL树；（递归定义）</strong></p>
-<p><strong>2、左右子树高度之差不超过1； </strong></p>
-<p><strong> </strong></p>
-<p><strong>定义平衡因子：</strong></p>
-<p><strong>左子树高度-右子树高度，当平衡因子大于等于2时，我们就称这棵树不平衡，需要通过旋转让它重新平衡。</strong></p>
-<p><strong> </strong></p>
-<p><strong>获取节点高度：</strong></p>
-<p><strong>       int h(int rt){</strong></p>
-<p><strong>       if(rt==0) return -1;//这里return-1的原因后面阐释</strong></p>
-<p><strong>       return no[rt].height;</strong></p>
-<p><strong>}</strong></p>
-<p><strong> </strong></p>
-<p><strong>单旋转</strong></p>
-<p><strong>“左左”当根节点的左子树的左儿子与根节点的右儿子不平衡时</strong></p>
-<p><strong>我们通过单旋转使平衡树符合该树的性质</strong></p>
-<div class="cke_widget_wrapper cke_widget_block cke_widget_codeSnippet cke_widget_wrapper_has cke_widget_selected" tabindex="-1" role="region" contenteditable="false" data-cke-widget-wrapper="1" data-cke-filter="off" data-cke-display-name="代码段" data-cke-widget-id="3" aria-label="代码段 小部件">
-<pre class="has cke_widget_element" data-cke-widget-data="{&quot;lang&quot;:&quot;cpp&quot;,&quot;code&quot;:&quot;int SingeRotateWithLeft(int x){\n\tint y;\n\ty=no[x].left;\n\tno[x].left=no[y].right;\n\tno[y].right=x;\n\tno[y].height=max(h(no[y].left),h(no[y].right))+1;\n\tno[x].height=max(h(no[x].left),h(no[x].right))+1;\n\treturn y;\n}\n&quot;,&quot;classes&quot;:{&quot;has&quot;:1}}" data-cke-widget-upcasted="1" data-cke-widget-keep-attr="0" data-widget="codeSnippet"><code class="language-cpp hljs"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">SingeRotateWithLeft</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span></span>{
-	<span class="hljs-keyword">int</span> y;
+<p>&lt;h1&gt;AVL树总结&lt;/h1&gt;
+&lt;strong&gt;AVL树是二叉查找树的一种优化，能将链状的二叉查找树几乎平均地储存下来，从而减少搜索使用的时间。&lt;/strong&gt;</p>
+<p>&lt;strong&gt; &lt;/strong&gt;</p>
+<p>&lt;strong&gt;AVL树是空树，或满足以下定义的树：&lt;/strong&gt;</p>
+<p>&lt;strong&gt;1、左右子树都是AVL树；（递归定义）&lt;/strong&gt;</p>
+<p>&lt;strong&gt;2、左右子树高度之差不超过1； &lt;/strong&gt;</p>
+<p>&lt;strong&gt; &lt;/strong&gt;</p>
+<p>&lt;strong&gt;定义平衡因子：&lt;/strong&gt;</p>
+<p>&lt;strong&gt;左子树高度-右子树高度，当平衡因子大于等于2时，我们就称这棵树不平衡，需要通过旋转让它重新平衡。&lt;/strong&gt;</p>
+<p>&lt;strong&gt; &lt;/strong&gt;</p>
+<p>&lt;strong&gt;获取节点高度：&lt;/strong&gt;</p>
+<p>&lt;strong&gt;       int h(int rt){&lt;/strong&gt;</p>
+<p>&lt;strong&gt;       if(rt==0) return -1;//这里return-1的原因后面阐释&lt;/strong&gt;</p>
+<p>&lt;strong&gt;       return no[rt].height;&lt;/strong&gt;</p>
+<p>&lt;strong&gt;}&lt;/strong&gt;</p>
+<p>&lt;strong&gt; &lt;/strong&gt;</p>
+<p>&lt;strong&gt;单旋转&lt;/strong&gt;</p>
+<p>&lt;strong&gt;“左左”当根节点的左子树的左儿子与根节点的右儿子不平衡时&lt;/strong&gt;</p>
+<p>&lt;strong&gt;我们通过单旋转使平衡树符合该树的性质&lt;/strong&gt;
+&lt;div class=&quot;cke_widget_wrapper cke_widget_block cke_widget_codeSnippet cke_widget_wrapper_has cke_widget_selected&quot; tabindex=&quot;-1&quot; role=&quot;region&quot; contenteditable=&quot;false&quot; data-cke-widget-wrapper=&quot;1&quot; data-cke-filter=&quot;off&quot; data-cke-display-name=&quot;代码段&quot; data-cke-widget-id=&quot;3&quot; aria-label=&quot;代码段 小部件&quot;&gt;
+&lt;pre class=&quot;has cke_widget_element&quot; data-cke-widget-data=&quot;{&quot;lang&quot;:&quot;cpp&quot;,&quot;code&quot;:&quot;int SingeRotateWithLeft(int x){\n\tint y;\n\ty=no[x].left;\n\tno[x].left=no[y].right;\n\tno[y].right=x;\n\tno[y].height=max(h(no[y].left),h(no[y].right))+1;\n\tno[x].height=max(h(no[x].left),h(no[x].right))+1;\n\treturn y;\n}\n&quot;,&quot;classes&quot;:{&quot;has&quot;:1}}&quot; data-cke-widget-upcasted=&quot;1&quot; data-cke-widget-keep-attr=&quot;0&quot; data-widget=&quot;codeSnippet&quot;&gt;&lt;code class=&quot;language-cpp hljs&quot;&gt;&lt;span class=&quot;hljs-function&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;SingeRotateWithLeft&lt;/span&gt;&lt;span class=&quot;hljs-params&quot;&gt;(&lt;span class=&quot;hljs-keyword&quot;&gt;int&lt;/span&gt; x)&lt;/span&gt;&lt;/span&gt;{
+	&lt;span class=&quot;hljs-keyword&quot;&gt;int&lt;/span&gt; y;
 	y=no[x].left;
 	no[x].left=no[y].right;
 	no[y].right=x;
-	no[y].height=max(h(no[y].left),h(no[y].right))+<span class="hljs-number">1</span>;
-	no[x].height=max(h(no[x].left),h(no[x].right))+<span class="hljs-number">1</span>;
-	<span class="hljs-keyword">return</span> y;
+	no[y].height=max(h(no[y].left),h(no[y].right))+&lt;span class=&quot;hljs-number&quot;&gt;1&lt;/span&gt;;
+	no[x].height=max(h(no[x].left),h(no[x].right))+&lt;span class=&quot;hljs-number&quot;&gt;1&lt;/span&gt;;
+	&lt;span class=&quot;hljs-keyword&quot;&gt;return&lt;/span&gt; y;
 }
-</code></pre>
-<span class="cke_reset cke_widget_drag_handler_container"><img class="cke_reset cke_widget_drag_handler" title="点击并拖拽以移动" role="presentation" src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" width="15" height="15" data-cke-widget-drag-handler="1"></span></div>
-<strong>“右右”方法类似，与左左对称</strong>
-<p><strong> </strong></p>
-<p><strong>双旋转</strong></p>
-<p><strong>“左右”当根节点的左子树的右儿子与根节点的右儿子不平衡时</strong></p>
-<p><strong>旋转两次即可使这棵树平衡</strong></p>
-<div class="cke_widget_wrapper cke_widget_block cke_widget_codeSnippet cke_widget_wrapper_has cke_widget_selected" tabindex="-1" role="region" contenteditable="false" data-cke-widget-wrapper="1" data-cke-filter="off" data-cke-display-name="代码段" data-cke-widget-id="2" aria-label="代码段 小部件">
-<pre class="has cke_widget_element" data-cke-widget-data="{&quot;lang&quot;:&quot;cpp&quot;,&quot;code&quot;:&quot;int doubleRotateWithLeft(int x){\n\n\tno[x].left=SingleRotateWithRight(no[x].left);\n\treturn SingleRotateWithLeft(x);\n\n}\n&quot;,&quot;classes&quot;:{&quot;has&quot;:1}}" data-cke-widget-upcasted="1" data-cke-widget-keep-attr="0" data-widget="codeSnippet"><code class="language-cpp hljs"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">doubleRotateWithLeft</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span></span>{
+&lt;/code&gt;&lt;/pre&gt;
+&lt;span class=&quot;cke_reset cke_widget_drag_handler_container&quot;&gt;&lt;img class=&quot;cke_reset cke_widget_drag_handler&quot; title=&quot;点击并拖拽以移动&quot; role=&quot;presentation&quot; src=&quot;data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==&quot; width=&quot;15&quot; height=&quot;15&quot; data-cke-widget-drag-handler=&quot;1&quot; /&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;strong&gt;“右右”方法类似，与左左对称&lt;/strong&gt;</p>
+<p>&lt;strong&gt; &lt;/strong&gt;</p>
+<p>&lt;strong&gt;双旋转&lt;/strong&gt;</p>
+<p>&lt;strong&gt;“左右”当根节点的左子树的右儿子与根节点的右儿子不平衡时&lt;/strong&gt;</p>
+<p>&lt;strong&gt;旋转两次即可使这棵树平衡&lt;/strong&gt;</p>
+<p>&lt;div class=&quot;cke_widget_wrapper cke_widget_block cke_widget_codeSnippet cke_widget_wrapper_has cke_widget_selected&quot; tabindex=&quot;-1&quot; role=&quot;region&quot; contenteditable=&quot;false&quot; data-cke-widget-wrapper=&quot;1&quot; data-cke-filter=&quot;off&quot; data-cke-display-name=&quot;代码段&quot; data-cke-widget-id=&quot;2&quot; aria-label=&quot;代码段 小部件&quot;&gt;
+&lt;pre class=&quot;has cke_widget_element&quot; data-cke-widget-data=&quot;{&quot;lang&quot;:&quot;cpp&quot;,&quot;code&quot;:&quot;int doubleRotateWithLeft(int x){\n\n\tno[x].left=SingleRotateWithRight(no[x].left);\n\treturn SingleRotateWithLeft(x);\n\n}\n&quot;,&quot;classes&quot;:{&quot;has&quot;:1}}&quot; data-cke-widget-upcasted=&quot;1&quot; data-cke-widget-keep-attr=&quot;0&quot; data-widget=&quot;codeSnippet&quot;&gt;&lt;code class=&quot;language-cpp hljs&quot;&gt;&lt;span class=&quot;hljs-function&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;doubleRotateWithLeft&lt;/span&gt;&lt;span class=&quot;hljs-params&quot;&gt;(&lt;span class=&quot;hljs-keyword&quot;&gt;int&lt;/span&gt; x)&lt;/span&gt;&lt;/span&gt;{</p>
 <pre><code>no[x].left=SingleRotateWithRight(no[x].left);
 &lt;span class=&quot;hljs-keyword&quot;&gt;return&lt;/span&gt; SingleRotateWithLeft(x);
 </code></pre>
 <p>}</p>
-<p><strong>“右左”同理。</strong></p>
-<p><strong> </strong></p>
-<p><strong>插入操作：先正常插入指定结点，再判断原树是否平衡，不平衡要根据具体情况旋转使原树平衡</strong></p>
-<div class="cke_widget_wrapper cke_widget_block cke_widget_codeSnippet cke_widget_wrapper_has cke_widget_selected" tabindex="-1" role="region" contenteditable="false" data-cke-widget-wrapper="1" data-cke-filter="off" data-cke-display-name="代码段" data-cke-widget-id="1" aria-label="代码段 小部件">
-<pre class="has cke_widget_element" data-cke-widget-data="{&quot;lang&quot;:&quot;cpp&quot;,&quot;code&quot;:&quot;int insert(int k,int rt){\n\tif(rt==0)\n\t\trt=newNode(k);\n\telse if( k&lt; no[rt].key ){\n\t\tno[rt].left=insert(k,no[rt].left);\n\t\tif( h(no[rt].left)-h(no[rt].right) )==2 )\n\t\t\tif(k&lt;no[ no[rt].left ] .key ) rt=SingleRotateWithLeft(rt);\n\t\t\telse rt= DoubleRotateWithLeft(rt)\n\t}else if( k &gt; no[rt].key){\n\t\tno[rt].right=insert(k,no[rt].right);\n\t\tif( h(no[rt].right)-h(no[rt].left) )==2 )\n\t\t\tif(k &gt; no[ no[rt].right ] .key ) rt=SingleRotateWithRight(rt);\n\t\t\telse rt= DoubleRotateWithRight(rt)\n\t}\n\tno[rt].height = max ( h( no[rt].left ), h( no[rt].right ) ) +1;\n\treturn rt;\n}\n&quot;,&quot;classes&quot;:{&quot;has&quot;:1}}" data-cke-widget-upcasted="1" data-cke-widget-keep-attr="0" data-widget="codeSnippet"><code class="language-cpp hljs"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">insert</span><span class="hljs-params">(<span class="hljs-keyword">int</span> k,<span class="hljs-keyword">int</span> rt)</span></span>{
-	<span class="hljs-keyword">if</span>(rt==<span class="hljs-number">0</span>)
+<p>&lt;strong&gt;“右左”同理。&lt;/strong&gt;</p>
+<p>&lt;strong&gt; &lt;/strong&gt;</p>
+<p>&lt;strong&gt;插入操作：先正常插入指定结点，再判断原树是否平衡，不平衡要根据具体情况旋转使原树平衡&lt;/strong&gt;
+&lt;div class=&quot;cke_widget_wrapper cke_widget_block cke_widget_codeSnippet cke_widget_wrapper_has cke_widget_selected&quot; tabindex=&quot;-1&quot; role=&quot;region&quot; contenteditable=&quot;false&quot; data-cke-widget-wrapper=&quot;1&quot; data-cke-filter=&quot;off&quot; data-cke-display-name=&quot;代码段&quot; data-cke-widget-id=&quot;1&quot; aria-label=&quot;代码段 小部件&quot;&gt;
+&lt;pre class=&quot;has cke_widget_element&quot; data-cke-widget-data=&quot;{&quot;lang&quot;:&quot;cpp&quot;,&quot;code&quot;:&quot;int insert(int k,int rt){\n\tif(rt==0)\n\t\trt=newNode(k);\n\telse if( k&lt; no[rt].key ){\n\t\tno[rt].left=insert(k,no[rt].left);\n\t\tif( h(no[rt].left)-h(no[rt].right) )==2 )\n\t\t\tif(k&lt;no[ no[rt].left ] .key ) rt=SingleRotateWithLeft(rt);\n\t\t\telse rt= DoubleRotateWithLeft(rt)\n\t}else if( k &gt; no[rt].key){\n\t\tno[rt].right=insert(k,no[rt].right);\n\t\tif( h(no[rt].right)-h(no[rt].left) )==2 )\n\t\t\tif(k &gt; no[ no[rt].right ] .key ) rt=SingleRotateWithRight(rt);\n\t\t\telse rt= DoubleRotateWithRight(rt)\n\t}\n\tno[rt].height = max ( h( no[rt].left ), h( no[rt].right ) ) +1;\n\treturn rt;\n}\n&quot;,&quot;classes&quot;:{&quot;has&quot;:1}}&quot; data-cke-widget-upcasted=&quot;1&quot; data-cke-widget-keep-attr=&quot;0&quot; data-widget=&quot;codeSnippet&quot;&gt;&lt;code class=&quot;language-cpp hljs&quot;&gt;&lt;span class=&quot;hljs-function&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;insert&lt;/span&gt;&lt;span class=&quot;hljs-params&quot;&gt;(&lt;span class=&quot;hljs-keyword&quot;&gt;int&lt;/span&gt; k,&lt;span class=&quot;hljs-keyword&quot;&gt;int&lt;/span&gt; rt)&lt;/span&gt;&lt;/span&gt;{
+	&lt;span class=&quot;hljs-keyword&quot;&gt;if&lt;/span&gt;(rt==&lt;span class=&quot;hljs-number&quot;&gt;0&lt;/span&gt;)
 		rt=newNode(k);
-	<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( k< no[rt].key ){
+	&lt;span class=&quot;hljs-keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;if&lt;/span&gt;( k&lt; no[rt].key ){
 		no[rt].left=insert(k,no[rt].left);
-		<span class="hljs-keyword">if</span>( h(no[rt].left)-h(no[rt].right) )==<span class="hljs-number">2</span> )
-			<span class="hljs-keyword">if</span>(k<no[ no[rt].left ] .key ) rt="SingleRotateWithLeft(rt);" <span class="hljs-keyword">else rt= DoubleRotateWithLeft(rt)
-	}<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( k > no[rt].key){
+		&lt;span class=&quot;hljs-keyword&quot;&gt;if&lt;/span&gt;( h(no[rt].left)-h(no[rt].right) )==&lt;span class=&quot;hljs-number&quot;&gt;2&lt;/span&gt; )
+			&lt;span class=&quot;hljs-keyword&quot;&gt;if&lt;/span&gt;(k&lt;no[ no[rt].left ] .key ) rt=SingleRotateWithLeft(rt);
+			&lt;span class=&quot;hljs-keyword&quot;&gt;else&lt;/span&gt; rt= DoubleRotateWithLeft(rt)
+	}&lt;span class=&quot;hljs-keyword&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;hljs-keyword&quot;&gt;if&lt;/span&gt;( k &gt; no[rt].key){
 		no[rt].right=insert(k,no[rt].right);
-		<span class="hljs-keyword">if</span>( h(no[rt].right)-h(no[rt].left) )==<span class="hljs-number">2</span> )
-			<span class="hljs-keyword">if</span>(k > no[ no[rt].right ] .key ) rt=SingleRotateWithRight(rt);
-			<span class="hljs-keyword">else</span> rt= DoubleRotateWithRight(rt)
+		&lt;span class=&quot;hljs-keyword&quot;&gt;if&lt;/span&gt;( h(no[rt].right)-h(no[rt].left) )==&lt;span class=&quot;hljs-number&quot;&gt;2&lt;/span&gt; )
+			&lt;span class=&quot;hljs-keyword&quot;&gt;if&lt;/span&gt;(k &gt; no[ no[rt].right ] .key ) rt=SingleRotateWithRight(rt);
+			&lt;span class=&quot;hljs-keyword&quot;&gt;else&lt;/span&gt; rt= DoubleRotateWithRight(rt)
 	}
-	no[rt].height = max ( h( no[rt].left ), h( no[rt].right ) ) +<span class="hljs-number">1</span>;
-	<span class="hljs-keyword">return</span> rt;
+	no[rt].height = max ( h( no[rt].left ), h( no[rt].right ) ) +&lt;span class=&quot;hljs-number&quot;&gt;1&lt;/span&gt;;
+	&lt;span class=&quot;hljs-keyword&quot;&gt;return&lt;/span&gt; rt;
 }
-</no[></code></pre>
-<span class="cke_reset cke_widget_drag_handler_container"><img class="cke_reset cke_widget_drag_handler" title="点击并拖拽以移动" role="presentation" src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" width="15" height="15" data-cke-widget-drag-handler="1"></span></div>
-<div class="cke_widget_wrapper cke_widget_block cke_widget_codeSnippet cke_widget_wrapper_has cke_widget_selected" tabindex="-1" role="region" contenteditable="false" data-cke-widget-wrapper="1" data-cke-filter="off" data-cke-display-name="代码段" data-cke-widget-id="0" aria-label="代码段 小部件">
-<pre class="has cke_widget_element" data-cke-widget-data="{&quot;lang&quot;:&quot;cpp&quot;,&quot;code&quot;:&quot;int newNode(int k){\n\tno[cnt].height=no[cnt].left=no[cnt].right=0;\n\tno[cnt].key=k;\n\treturn cnt++;\n}\n&quot;,&quot;classes&quot;:{&quot;has&quot;:1}}" data-cke-widget-upcasted="1" data-cke-widget-keep-attr="0" data-widget="codeSnippet"><code class="language-cpp hljs"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">newNode</span><span class="hljs-params">(<span class="hljs-keyword">int</span> k)</span></span>{
-	no[cnt].height=no[cnt].left=no[cnt].right=<span class="hljs-number">0</span>;
+&lt;/code&gt;&lt;/pre&gt;
+&lt;span class=&quot;cke_reset cke_widget_drag_handler_container&quot;&gt;&lt;img class=&quot;cke_reset cke_widget_drag_handler&quot; title=&quot;点击并拖拽以移动&quot; role=&quot;presentation&quot; src=&quot;data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==&quot; width=&quot;15&quot; height=&quot;15&quot; data-cke-widget-drag-handler=&quot;1&quot; /&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;div class=&quot;cke_widget_wrapper cke_widget_block cke_widget_codeSnippet cke_widget_wrapper_has cke_widget_selected&quot; tabindex=&quot;-1&quot; role=&quot;region&quot; contenteditable=&quot;false&quot; data-cke-widget-wrapper=&quot;1&quot; data-cke-filter=&quot;off&quot; data-cke-display-name=&quot;代码段&quot; data-cke-widget-id=&quot;0&quot; aria-label=&quot;代码段 小部件&quot;&gt;
+&lt;pre class=&quot;has cke_widget_element&quot; data-cke-widget-data=&quot;{&quot;lang&quot;:&quot;cpp&quot;,&quot;code&quot;:&quot;int newNode(int k){\n\tno[cnt].height=no[cnt].left=no[cnt].right=0;\n\tno[cnt].key=k;\n\treturn cnt++;\n}\n&quot;,&quot;classes&quot;:{&quot;has&quot;:1}}&quot; data-cke-widget-upcasted=&quot;1&quot; data-cke-widget-keep-attr=&quot;0&quot; data-widget=&quot;codeSnippet&quot;&gt;&lt;code class=&quot;language-cpp hljs&quot;&gt;&lt;span class=&quot;hljs-function&quot;&gt;&lt;span class=&quot;hljs-keyword&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;hljs-title&quot;&gt;newNode&lt;/span&gt;&lt;span class=&quot;hljs-params&quot;&gt;(&lt;span class=&quot;hljs-keyword&quot;&gt;int&lt;/span&gt; k)&lt;/span&gt;&lt;/span&gt;{
+	no[cnt].height=no[cnt].left=no[cnt].right=&lt;span class=&quot;hljs-number&quot;&gt;0&lt;/span&gt;;
 	no[cnt].key=k;
-	<span class="hljs-keyword">return</span> cnt++;
+	&lt;span class=&quot;hljs-keyword&quot;&gt;return&lt;/span&gt; cnt++;
 }
-</code></pre>
-<span class="cke_reset cke_widget_drag_handler_container"><img class="cke_reset cke_widget_drag_handler" title="点击并拖拽以移动" role="presentation" src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" width="15" height="15" data-cke-widget-drag-handler="1"></span></div>
-<strong> AVL树过于复杂，但却是其他二叉搜索树变形特别是旋转的基础，删除操作实在过于复杂，本人无法理解。。。建议大家使用懒惰标记吧，不在真正意义上删除结点。</strong>
-<p><strong>说这么多 大家还是转战SBT吧QAQ</strong></p>
-</code></pre></div>
+&lt;/code&gt;&lt;/pre&gt;
+&lt;span class=&quot;cke_reset cke_widget_drag_handler_container&quot;&gt;&lt;img class=&quot;cke_reset cke_widget_drag_handler&quot; title=&quot;点击并拖拽以移动&quot; role=&quot;presentation&quot; src=&quot;data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==&quot; width=&quot;15&quot; height=&quot;15&quot; data-cke-widget-drag-handler=&quot;1&quot; /&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;strong&gt; AVL树过于复杂，但却是其他二叉搜索树变形特别是旋转的基础，删除操作实在过于复杂，本人无法理解。。。建议大家使用懒惰标记吧，不在真正意义上删除结点。&lt;/strong&gt;</p>
+<p>&lt;strong&gt;说这么多 大家还是转战SBT吧QAQ&lt;/strong&gt;</p>
+
     </article>
     <!-- license  -->
     
@@ -630,7 +631,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">AVL树总结</span></a></li></ol>
+        
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -643,52 +644,6 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
@@ -1918,22 +1873,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/14</span><a class="archive-post-title" href="/posts/512d4c5b/">JarvisOJ-findpass</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">06/14</span><a class="archive-post-title" href="/posts/db7ddaa/">JarvisOJ_DD_Evil_Exe</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/13</span><a class="archive-post-title" href="/posts/cbf6a417/">利用python搭建简易http服务器</a>
+            <span class="archive-post-date">06/14</span><a class="archive-post-title" href="/posts/512d4c5b/">JarvisOJ-findpass</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">06/13</span><a class="archive-post-title" href="/posts/b15e7935/">如何修改hosts</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/13</span><a class="archive-post-title" href="/posts/cbf6a417/">利用python搭建简易http服务器</a>
         </li>
     
     
@@ -2053,12 +2008,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/f9cd8782/">xor</a>
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/6aab0075/">wakarimasu</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/6aab0075/">wakarimasu</a>
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/f9cd8782/">xor</a>
         </li>
     
     
@@ -2107,12 +2062,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/17525de2/">AVL树总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
         </li>
     
     
@@ -2122,12 +2077,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/852a3205/">线段树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e5abdd9c/">铺地毯题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/1acd21ea/">Tarjan算法求无向图割边割点、最近公共祖先的总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
         </li>
     
     
@@ -2137,7 +2102,27 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/6c3f6e84/">字符串hash，康托展开总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28cf1e0f/">拓扑排序以及关键路径总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
         </li>
     
     
@@ -2147,7 +2132,37 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/675d1a4b/">求最大网络流（最小割）总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/6c3f6e84/">字符串hash，康托展开总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/80036358/">大整数乘法题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/50d2edb9/">2的幂次方表示题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
         </li>
     
     
@@ -2162,66 +2177,6 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/80036358/">大整数乘法题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/675d1a4b/">求最大网络流（最小割）总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28cf1e0f/">拓扑排序以及关键路径总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/50d2edb9/">2的幂次方表示题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e5abdd9c/">铺地毯题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/852a3205/">线段树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/17525de2/">AVL树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
         </li>
     
@@ -2232,17 +2187,17 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/6dada2a6/">Some Boxes</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/28572e84/">基本操作 Reverse Version</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/eb65a69a/">Our 16bits wars</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/6dada2a6/">Some Boxes</a>
         </li>
     
     
@@ -2265,9 +2220,9 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="RE_Dynamic"><span class="iconfont-archer">&#xe606;</span>RE_Dynamic</span>
-    
         <span class="sidebar-tag-name" data-tags="RE_Static"><span class="iconfont-archer">&#xe606;</span>RE_Static</span>
+    
+        <span class="sidebar-tag-name" data-tags="RE_Dynamic"><span class="iconfont-archer">&#xe606;</span>RE_Dynamic</span>
     
         <span class="sidebar-tag-name" data-tags="VM"><span class="iconfont-archer">&#xe606;</span>VM</span>
     
@@ -2275,13 +2230,13 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="3des"><span class="iconfont-archer">&#xe606;</span>3des</span>
     
-        <span class="sidebar-tag-name" data-tags="xtea"><span class="iconfont-archer">&#xe606;</span>xtea</span>
+        <span class="sidebar-tag-name" data-tags="RE_Android"><span class="iconfont-archer">&#xe606;</span>RE_Android</span>
     
-        <span class="sidebar-tag-name" data-tags="crc16"><span class="iconfont-archer">&#xe606;</span>crc16</span>
+        <span class="sidebar-tag-name" data-tags="xtea"><span class="iconfont-archer">&#xe606;</span>xtea</span>
     
         <span class="sidebar-tag-name" data-tags="pwntools"><span class="iconfont-archer">&#xe606;</span>pwntools</span>
     
-        <span class="sidebar-tag-name" data-tags="RE_Android"><span class="iconfont-archer">&#xe606;</span>RE_Android</span>
+        <span class="sidebar-tag-name" data-tags="crc16"><span class="iconfont-archer">&#xe606;</span>crc16</span>
     
         <span class="sidebar-tag-name" data-tags="packer"><span class="iconfont-archer">&#xe606;</span>packer</span>
     
@@ -2322,11 +2277,11 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="write up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
     
+        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
+    
         <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
     
         <span class="sidebar-category-name" data-categories="cnss_recruit_201809"><span class="iconfont-archer">&#xe60a;</span>write-up/cnss-recruit-201809</span>
-    
-        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
     
         <span class="sidebar-category-name" data-categories="notes"><span class="iconfont-archer">&#xe60a;</span>notes</span>
     
@@ -2350,11 +2305,11 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="qwb_ctf20190526"><span class="iconfont-archer">&#xe60a;</span>write-up/qwb-ctf20190526</span>
     
+        <span class="sidebar-category-name" data-categories="JarvisOJ"><span class="iconfont-archer">&#xe60a;</span>write-up/JarvisOJ</span>
+    
         <span class="sidebar-category-name" data-categories="base64"><span class="iconfont-archer">&#xe60a;</span>write-up/nationalCTF-20190421/sm4/base64</span>
     
         <span class="sidebar-category-name" data-categories="rctf-20190518"><span class="iconfont-archer">&#xe60a;</span>write-up/rctf-20190518</span>
-    
-        <span class="sidebar-category-name" data-categories="JarvisOJ"><span class="iconfont-archer">&#xe60a;</span>write-up/JarvisOJ</span>
     
         <span class="sidebar-category-name" data-categories="Project"><span class="iconfont-archer">&#xe60a;</span>Project</span>
     

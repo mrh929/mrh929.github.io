@@ -431,9 +431,9 @@ height:50vh;
 <p>程序一开头就有一个alarm函数，这会使我们在调试的时候中途退出，直接把call alarm nop掉即可</p>
 </blockquote>
 <h3>sub_55761565891A</h3>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">__int64 __<span class="function">fastcall <span class="title">sub_55761565891A</span><span class="params">(<span class="keyword">void</span> *a1)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> v2; <span class="comment">// [rsp+10h] [rbp-10h]</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> v3; <span class="comment">// [rsp+14h] [rbp-Ch]</span></span><br><span class="line"></span><br><span class="line">  v2 = <span class="number">0</span>;</span><br><span class="line">  print_notice();</span><br><span class="line">  <span class="built_in">memset</span>(a1, <span class="number">0</span>, <span class="number">0x100</span>uLL);</span><br><span class="line">  read(<span class="number">0</span>, a1, <span class="number">0xFF</span>uLL);</span><br><span class="line">  v3 = <span class="built_in">strlen</span>((<span class="keyword">const</span> <span class="keyword">char</span> *)a1);</span><br><span class="line">  <span class="keyword">if</span> ( v3 &lt;= <span class="number">16</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( v3 &gt; <span class="number">7</span> )</span><br><span class="line">      v2 = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      print_notice();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    print_notice();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> v2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">__int64 __<span class="function">fastcall <span class="title">sub_55761565891A</span><span class="params">(<span class="keyword">void</span> *a1)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> v2; <span class="comment">// [rsp+10h] [rbp-10h]</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> v3; <span class="comment">// [rsp+14h] [rbp-Ch]</span></span><br><span class="line"></span><br><span class="line">  v2 = <span class="number">0</span>;</span><br><span class="line">  print_notice();</span><br><span class="line">  <span class="built_in">memset</span>(a1, <span class="number">0</span>, <span class="number">0x100</span>uLL);</span><br><span class="line">  read(<span class="number">0</span>, a1, <span class="number">0xFF</span>uLL);</span><br><span class="line">  v3 = <span class="built_in">strlen</span>((<span class="keyword">const</span> <span class="keyword">char</span> *)a1);</span><br><span class="line">  <span class="keyword">if</span> ( v3 &lt;= <span class="number">16</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( v3 &gt; <span class="number">7</span> )</span><br><span class="line">      v2 = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      print_notice();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    print_notice();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> v2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <h3>sub_5576156589CC</h3>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">__int64 __<span class="function">fastcall <span class="title">sub_5576156589CC</span><span class="params">(<span class="keyword">void</span> *a1)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> v2; <span class="comment">// [rsp+1Ch] [rbp-14h]</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> i; <span class="comment">// [rsp+20h] [rbp-10h]</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> v4; <span class="comment">// [rsp+24h] [rbp-Ch]</span></span><br><span class="line"></span><br><span class="line">  v2 = <span class="number">0</span>;</span><br><span class="line">  print_notice();</span><br><span class="line">  <span class="built_in">memset</span>(a1, <span class="number">0</span>, <span class="number">0x100</span>uLL);</span><br><span class="line">  read(<span class="number">0</span>, a1, <span class="number">0xFF</span>uLL);</span><br><span class="line">  v4 = <span class="built_in">strlen</span>((<span class="keyword">const</span> <span class="keyword">char</span> *)a1);</span><br><span class="line">  <span class="keyword">if</span> ( v4 &lt;= <span class="number">16</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( v4 &gt; <span class="number">7</span> )</span><br><span class="line">    &#123;</span><br><span class="line">      v2 = <span class="number">1</span>;</span><br><span class="line">      <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; v4; ++i )</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="keyword">if</span> ( *((_BYTE *)a1 + i) &lt;= <span class="number">9</span> || *((_BYTE *)a1 + i) &gt; <span class="number">99</span> )</span><br><span class="line">        &#123;</span><br><span class="line">          print_notice();</span><br><span class="line">          <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">      print_notice();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    print_notice();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> v2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">__int64 __<span class="function">fastcall <span class="title">sub_5576156589CC</span><span class="params">(<span class="keyword">void</span> *a1)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> v2; <span class="comment">// [rsp+1Ch] [rbp-14h]</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> i; <span class="comment">// [rsp+20h] [rbp-10h]</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> v4; <span class="comment">// [rsp+24h] [rbp-Ch]</span></span><br><span class="line"></span><br><span class="line">  v2 = <span class="number">0</span>;</span><br><span class="line">  print_notice();</span><br><span class="line">  <span class="built_in">memset</span>(a1, <span class="number">0</span>, <span class="number">0x100</span>uLL);</span><br><span class="line">  read(<span class="number">0</span>, a1, <span class="number">0xFF</span>uLL);</span><br><span class="line">  v4 = <span class="built_in">strlen</span>((<span class="keyword">const</span> <span class="keyword">char</span> *)a1);</span><br><span class="line">  <span class="keyword">if</span> ( v4 &lt;= <span class="number">16</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( v4 &gt; <span class="number">7</span> )</span><br><span class="line">    &#123;</span><br><span class="line">      v2 = <span class="number">1</span>;</span><br><span class="line">      <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; v4; ++i )</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="keyword">if</span> ( *((_BYTE *)a1 + i) &lt;= <span class="number">9</span> || *((_BYTE *)a1 + i) &gt; <span class="number">99</span> )</span><br><span class="line">        &#123;</span><br><span class="line">          print_notice();</span><br><span class="line">          <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">      print_notice();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    print_notice();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> v2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>简单的读入账户和密码，不赘述</p>
 <blockquote>
 <p>不赘述就出问题了</p>
@@ -442,19 +442,19 @@ height:50vh;
 <p>密码可以不是可见字符</p>
 </blockquote>
 <h3>sub_557615658ACE</h3>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span> *__<span class="function">fastcall <span class="title">sub_557615658ACE</span><span class="params">(__int64 a1, __int64 a2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  __int64 v2; <span class="comment">// rdx</span></span><br><span class="line">  <span class="keyword">int</span> i; <span class="comment">// [rsp+10h] [rbp-40h]</span></span><br><span class="line">  __int64 v5; <span class="comment">// [rsp+14h] [rbp-3Ch]</span></span><br><span class="line">  __int64 dest; <span class="comment">// [rsp+20h] [rbp-30h]</span></span><br><span class="line">  __int64 v7; <span class="comment">// [rsp+28h] [rbp-28h]</span></span><br><span class="line">  <span class="keyword">char</span> v8; <span class="comment">// [rsp+30h] [rbp-20h]</span></span><br><span class="line">  <span class="keyword">char</span> v9; <span class="comment">// [rsp+31h] [rbp-1Fh]</span></span><br><span class="line">  <span class="keyword">char</span> v10; <span class="comment">// [rsp+32h] [rbp-1Eh]</span></span><br><span class="line">  <span class="keyword">char</span> v11; <span class="comment">// [rsp+33h] [rbp-1Dh]</span></span><br><span class="line">  <span class="keyword">char</span> v12; <span class="comment">// [rsp+34h] [rbp-1Ch]</span></span><br><span class="line">  <span class="keyword">char</span> v13; <span class="comment">// [rsp+35h] [rbp-1Bh]</span></span><br><span class="line">  <span class="keyword">char</span> v14; <span class="comment">// [rsp+36h] [rbp-1Ah]</span></span><br><span class="line">  <span class="keyword">char</span> v15; <span class="comment">// [rsp+37h] [rbp-19h]</span></span><br><span class="line">  <span class="keyword">char</span> v16; <span class="comment">// [rsp+38h] [rbp-18h]</span></span><br><span class="line">  <span class="keyword">char</span> v17; <span class="comment">// [rsp+39h] [rbp-17h]</span></span><br><span class="line">  <span class="keyword">char</span> v18; <span class="comment">// [rsp+3Ah] [rbp-16h]</span></span><br><span class="line">  <span class="keyword">char</span> v19; <span class="comment">// [rsp+3Bh] [rbp-15h]</span></span><br><span class="line">  <span class="keyword">char</span> v20; <span class="comment">// [rsp+3Ch] [rbp-14h]</span></span><br><span class="line">  <span class="keyword">char</span> v21; <span class="comment">// [rsp+3Dh] [rbp-13h]</span></span><br><span class="line">  <span class="keyword">char</span> v22; <span class="comment">// [rsp+3Eh] [rbp-12h]</span></span><br><span class="line">  <span class="keyword">char</span> v23; <span class="comment">// [rsp+3Fh] [rbp-11h]</span></span><br><span class="line">  <span class="keyword">char</span> v24; <span class="comment">// [rsp+40h] [rbp-10h]</span></span><br><span class="line">  <span class="keyword">unsigned</span> __int64 v25; <span class="comment">// [rsp+48h] [rbp-8h]</span></span><br><span class="line"></span><br><span class="line">  v25 = __readfsqword(<span class="number">0x28</span>u);</span><br><span class="line">  v8 = <span class="number">-8</span>;</span><br><span class="line">  v9 = <span class="number">-44</span>;</span><br><span class="line">  v10 = <span class="number">-43</span>;</span><br><span class="line">  v11 = <span class="number">-36</span>;</span><br><span class="line">  v12 = <span class="number">-55</span>;</span><br><span class="line">  v13 = <span class="number">-38</span>;</span><br><span class="line">  v14 = <span class="number">-49</span>;</span><br><span class="line">  v15 = <span class="number">-50</span>;</span><br><span class="line">  v16 = <span class="number">-41</span>;</span><br><span class="line">  v17 = <span class="number">-38</span>;</span><br><span class="line">  v18 = <span class="number">-49</span>;</span><br><span class="line">  v19 = <span class="number">-46</span>;</span><br><span class="line">  v20 = <span class="number">-44</span>;</span><br><span class="line">  v21 = <span class="number">-43</span>;</span><br><span class="line">  v22 = <span class="number">-56</span>;</span><br><span class="line">  v23 = <span class="number">-102</span>;</span><br><span class="line">  v24 = <span class="number">-79</span>;</span><br><span class="line">  dest = <span class="number">0L</span>L;</span><br><span class="line">  v7 = <span class="number">0L</span>L;</span><br><span class="line">  v5 = (<span class="keyword">unsigned</span> <span class="keyword">int</span>)<span class="built_in">strlen</span>((<span class="keyword">const</span> <span class="keyword">char</span> *)a1);</span><br><span class="line">  <span class="keyword">if</span> ( (<span class="keyword">signed</span> <span class="keyword">int</span>)v5 &lt;= <span class="number">16</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">memcpy</span>(&amp;dest, (<span class="keyword">const</span> <span class="keyword">void</span> *)a1, (<span class="keyword">signed</span> <span class="keyword">int</span>)v5);<span class="comment">// 复制内存</span></span><br><span class="line">    <span class="keyword">for</span> ( i = <span class="number">0</span>; <span class="number">16</span> - (<span class="keyword">signed</span> <span class="keyword">int</span>)v5 &gt; i; ++i )</span><br><span class="line">      *((_BYTE *)&amp;dest + i + (<span class="keyword">signed</span> <span class="keyword">int</span>)v5) = i + <span class="number">1</span>;<span class="comment">// 对于没有满16位的account 自动补全16位(补全一个从0开始的递增序列)</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    v2 = *(_QWORD *)(a1 + <span class="number">8</span>);</span><br><span class="line">    dest = *(_QWORD *)a1;</span><br><span class="line">    v7 = v2;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> sub_55761565981E(&amp;v8, <span class="number">17</span>, (__int64)&amp;dest, <span class="number">16</span>, (<span class="keyword">int</span> *)a2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span> *__<span class="function">fastcall <span class="title">sub_55761565981E</span><span class="params">(<span class="keyword">const</span> <span class="keyword">void</span> *buf, <span class="keyword">int</span> a2, __int64 a1, <span class="keyword">int</span> a4, <span class="keyword">int</span> *a5)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> *v6; <span class="comment">// [rsp+0h] [rbp-40h]</span></span><br><span class="line">  __int64 acc; <span class="comment">// [rsp+8h] [rbp-38h]</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> v8; <span class="comment">// [rsp+24h] [rbp-1Ch]</span></span><br><span class="line">  <span class="keyword">int</span> v9; <span class="comment">// [rsp+28h] [rbp-18h]</span></span><br><span class="line">  <span class="keyword">char</span> *dest; <span class="comment">// [rsp+30h] [rbp-10h]</span></span><br><span class="line"></span><br><span class="line">  acc = a1;</span><br><span class="line">  v6 = a5;</span><br><span class="line">  dest = <span class="number">0L</span>L;</span><br><span class="line">  v8 = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">if</span> ( buf )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( a2 &gt; <span class="number">0</span> )</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">if</span> ( a1 )</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="keyword">if</span> ( a4 == <span class="number">16</span> )</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="keyword">if</span> ( a5 )</span><br><span class="line">          &#123;</span><br><span class="line">            *a5 = <span class="number">0</span>;</span><br><span class="line">            v9 = <span class="number">4</span> * (a2 / <span class="number">4</span> + <span class="number">1</span>);</span><br><span class="line">            dest = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(v9 + <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span> ( dest )</span><br><span class="line">            &#123;</span><br><span class="line">              <span class="built_in">memcpy</span>(dest, buf, a2);</span><br><span class="line">              <span class="built_in">memset</span>(&amp;dest[a2], <span class="number">4</span> - a2 % <span class="number">4</span>, <span class="number">4</span> - a2 % <span class="number">4</span>);<span class="comment">// 填充了3</span></span><br><span class="line">              dest[v9] = <span class="number">0</span>;</span><br><span class="line">              xtea((<span class="keyword">unsigned</span> <span class="keyword">int</span> *)dest, v9 / <span class="number">4</span>, acc);<span class="comment">// 这里是执行了加密的过程,account作为密钥</span></span><br><span class="line">              *v6 = v9;</span><br><span class="line">              v8 = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> ( !v8 )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( dest )</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="built_in">free</span>(dest);</span><br><span class="line">      dest = <span class="number">0L</span>L;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> ( v6 )</span><br><span class="line">      *v6 = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> dest;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span> *__<span class="function">fastcall <span class="title">sub_557615658ACE</span><span class="params">(__int64 a1, __int64 a2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  __int64 v2; <span class="comment">// rdx</span></span><br><span class="line">  <span class="keyword">int</span> i; <span class="comment">// [rsp+10h] [rbp-40h]</span></span><br><span class="line">  __int64 v5; <span class="comment">// [rsp+14h] [rbp-3Ch]</span></span><br><span class="line">  __int64 dest; <span class="comment">// [rsp+20h] [rbp-30h]</span></span><br><span class="line">  __int64 v7; <span class="comment">// [rsp+28h] [rbp-28h]</span></span><br><span class="line">  <span class="keyword">char</span> v8; <span class="comment">// [rsp+30h] [rbp-20h]</span></span><br><span class="line">  <span class="keyword">char</span> v9; <span class="comment">// [rsp+31h] [rbp-1Fh]</span></span><br><span class="line">  <span class="keyword">char</span> v10; <span class="comment">// [rsp+32h] [rbp-1Eh]</span></span><br><span class="line">  <span class="keyword">char</span> v11; <span class="comment">// [rsp+33h] [rbp-1Dh]</span></span><br><span class="line">  <span class="keyword">char</span> v12; <span class="comment">// [rsp+34h] [rbp-1Ch]</span></span><br><span class="line">  <span class="keyword">char</span> v13; <span class="comment">// [rsp+35h] [rbp-1Bh]</span></span><br><span class="line">  <span class="keyword">char</span> v14; <span class="comment">// [rsp+36h] [rbp-1Ah]</span></span><br><span class="line">  <span class="keyword">char</span> v15; <span class="comment">// [rsp+37h] [rbp-19h]</span></span><br><span class="line">  <span class="keyword">char</span> v16; <span class="comment">// [rsp+38h] [rbp-18h]</span></span><br><span class="line">  <span class="keyword">char</span> v17; <span class="comment">// [rsp+39h] [rbp-17h]</span></span><br><span class="line">  <span class="keyword">char</span> v18; <span class="comment">// [rsp+3Ah] [rbp-16h]</span></span><br><span class="line">  <span class="keyword">char</span> v19; <span class="comment">// [rsp+3Bh] [rbp-15h]</span></span><br><span class="line">  <span class="keyword">char</span> v20; <span class="comment">// [rsp+3Ch] [rbp-14h]</span></span><br><span class="line">  <span class="keyword">char</span> v21; <span class="comment">// [rsp+3Dh] [rbp-13h]</span></span><br><span class="line">  <span class="keyword">char</span> v22; <span class="comment">// [rsp+3Eh] [rbp-12h]</span></span><br><span class="line">  <span class="keyword">char</span> v23; <span class="comment">// [rsp+3Fh] [rbp-11h]</span></span><br><span class="line">  <span class="keyword">char</span> v24; <span class="comment">// [rsp+40h] [rbp-10h]</span></span><br><span class="line">  <span class="keyword">unsigned</span> __int64 v25; <span class="comment">// [rsp+48h] [rbp-8h]</span></span><br><span class="line"></span><br><span class="line">  v25 = __readfsqword(<span class="number">0x28</span>u);</span><br><span class="line">  v8 = <span class="number">-8</span>;</span><br><span class="line">  v9 = <span class="number">-44</span>;</span><br><span class="line">  v10 = <span class="number">-43</span>;</span><br><span class="line">  v11 = <span class="number">-36</span>;</span><br><span class="line">  v12 = <span class="number">-55</span>;</span><br><span class="line">  v13 = <span class="number">-38</span>;</span><br><span class="line">  v14 = <span class="number">-49</span>;</span><br><span class="line">  v15 = <span class="number">-50</span>;</span><br><span class="line">  v16 = <span class="number">-41</span>;</span><br><span class="line">  v17 = <span class="number">-38</span>;</span><br><span class="line">  v18 = <span class="number">-49</span>;</span><br><span class="line">  v19 = <span class="number">-46</span>;</span><br><span class="line">  v20 = <span class="number">-44</span>;</span><br><span class="line">  v21 = <span class="number">-43</span>;</span><br><span class="line">  v22 = <span class="number">-56</span>;</span><br><span class="line">  v23 = <span class="number">-102</span>;</span><br><span class="line">  v24 = <span class="number">-79</span>;</span><br><span class="line">  dest = <span class="number">0L</span>L;</span><br><span class="line">  v7 = <span class="number">0L</span>L;</span><br><span class="line">  v5 = (<span class="keyword">unsigned</span> <span class="keyword">int</span>)<span class="built_in">strlen</span>((<span class="keyword">const</span> <span class="keyword">char</span> *)a1);</span><br><span class="line">  <span class="keyword">if</span> ( (<span class="keyword">signed</span> <span class="keyword">int</span>)v5 &lt;= <span class="number">16</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">memcpy</span>(&amp;dest, (<span class="keyword">const</span> <span class="keyword">void</span> *)a1, (<span class="keyword">signed</span> <span class="keyword">int</span>)v5);<span class="comment">// 复制内存</span></span><br><span class="line">    <span class="keyword">for</span> ( i = <span class="number">0</span>; <span class="number">16</span> - (<span class="keyword">signed</span> <span class="keyword">int</span>)v5 &gt; i; ++i )</span><br><span class="line">      *((_BYTE *)&amp;dest + i + (<span class="keyword">signed</span> <span class="keyword">int</span>)v5) = i + <span class="number">1</span>;<span class="comment">// 对于没有满16位的account 自动补全16位(补全一个从0开始的递增序列)</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    v2 = *(_QWORD *)(a1 + <span class="number">8</span>);</span><br><span class="line">    dest = *(_QWORD *)a1;</span><br><span class="line">    v7 = v2;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> sub_55761565981E(&amp;v8, <span class="number">17</span>, (__int64)&amp;dest, <span class="number">16</span>, (<span class="keyword">int</span> *)a2);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span> *__<span class="function">fastcall <span class="title">sub_55761565981E</span><span class="params">(<span class="keyword">const</span> <span class="keyword">void</span> *buf, <span class="keyword">int</span> a2, __int64 a1, <span class="keyword">int</span> a4, <span class="keyword">int</span> *a5)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> *v6; <span class="comment">// [rsp+0h] [rbp-40h]</span></span><br><span class="line">  __int64 acc; <span class="comment">// [rsp+8h] [rbp-38h]</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> v8; <span class="comment">// [rsp+24h] [rbp-1Ch]</span></span><br><span class="line">  <span class="keyword">int</span> v9; <span class="comment">// [rsp+28h] [rbp-18h]</span></span><br><span class="line">  <span class="keyword">char</span> *dest; <span class="comment">// [rsp+30h] [rbp-10h]</span></span><br><span class="line"></span><br><span class="line">  acc = a1;</span><br><span class="line">  v6 = a5;</span><br><span class="line">  dest = <span class="number">0L</span>L;</span><br><span class="line">  v8 = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">if</span> ( buf )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( a2 &gt; <span class="number">0</span> )</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">if</span> ( a1 )</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="keyword">if</span> ( a4 == <span class="number">16</span> )</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="keyword">if</span> ( a5 )</span><br><span class="line">          &#123;</span><br><span class="line">            *a5 = <span class="number">0</span>;</span><br><span class="line">            v9 = <span class="number">4</span> * (a2 / <span class="number">4</span> + <span class="number">1</span>);</span><br><span class="line">            dest = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(v9 + <span class="number">1</span>);</span><br><span class="line">            <span class="keyword">if</span> ( dest )</span><br><span class="line">            &#123;</span><br><span class="line">              <span class="built_in">memcpy</span>(dest, buf, a2);</span><br><span class="line">              <span class="built_in">memset</span>(&amp;dest[a2], <span class="number">4</span> - a2 % <span class="number">4</span>, <span class="number">4</span> - a2 % <span class="number">4</span>);<span class="comment">// 填充了3</span></span><br><span class="line">              dest[v9] = <span class="number">0</span>;</span><br><span class="line">              xtea((<span class="keyword">unsigned</span> <span class="keyword">int</span> *)dest, v9 / <span class="number">4</span>, acc);<span class="comment">// 这里是执行了加密的过程,account作为密钥</span></span><br><span class="line">              *v6 = v9;</span><br><span class="line">              v8 = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> ( !v8 )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( dest )</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="built_in">free</span>(dest);</span><br><span class="line">      dest = <span class="number">0L</span>L;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> ( v6 )</span><br><span class="line">      *v6 = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> dest;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>简单来说就是利用xtea算法，将buf（上面的数组）加密了，密钥是账户名</p>
 <h3>sub_557615658C02</h3>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">__int64 __<span class="function">fastcall <span class="title">sub_557615658C02</span><span class="params">(__int64 a1)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> v2; <span class="comment">// [rsp+14h] [rbp-81Ch]</span></span><br><span class="line">  <span class="keyword">int</span> v3; <span class="comment">// [rsp+18h] [rbp-818h]</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> v4; <span class="comment">// [rsp+18h] [rbp-818h]</span></span><br><span class="line">  <span class="keyword">int</span> i; <span class="comment">// [rsp+1Ch] [rbp-814h]</span></span><br><span class="line">  <span class="keyword">char</span> buf[<span class="number">2048</span>]; <span class="comment">// [rsp+20h] [rbp-810h]</span></span><br><span class="line">  <span class="keyword">char</span> v7; <span class="comment">// [rsp+820h] [rbp-10h]</span></span><br><span class="line">  <span class="keyword">unsigned</span> __int64 v8; <span class="comment">// [rsp+828h] [rbp-8h]</span></span><br><span class="line"></span><br><span class="line">  v8 = __readfsqword(<span class="number">0x28</span>u);</span><br><span class="line">  <span class="built_in">memset</span>(buf, <span class="number">0</span>, <span class="keyword">sizeof</span>(buf));</span><br><span class="line">  v7 = <span class="number">0</span>;</span><br><span class="line">  print_notice();</span><br><span class="line">  read(<span class="number">0</span>, buf, <span class="number">0x400</span>uLL);</span><br><span class="line">  v3 = <span class="built_in">strlen</span>(buf);</span><br><span class="line">  <span class="keyword">if</span> ( v3 &amp; <span class="number">1</span> || v3 &gt; <span class="number">1024</span> )                    <span class="comment">// 长度不超过1024,且必须为偶数</span></span><br><span class="line">  &#123;</span><br><span class="line">    v4 = <span class="number">0</span>;</span><br><span class="line">    print_notice();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    v2 = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; v3; ++i )                  <span class="comment">// 检测输入是否合规</span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">if</span> ( (buf[i] &lt;= <span class="number">47</span> || buf[i] &gt; <span class="number">57</span>) &amp;&amp; (buf[i] &lt;= <span class="number">96</span> || buf[i] &gt; <span class="number">102</span>) &amp;&amp; (buf[i] &lt;= <span class="number">64</span> || buf[i] &gt; <span class="number">70</span>) )<span class="comment">// 只准输入数字，大小写的字母a~f</span></span><br><span class="line">      &#123;</span><br><span class="line">        print_notice();</span><br><span class="line">        v2 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> ( v2 )                                   <span class="comment">// 如果输入合规</span></span><br><span class="line">      v4 = sub_5576156587C6(buf, v3, (_QWORD *)a1);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      v4 = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> v4;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">__int64 __<span class="function">fastcall <span class="title">sub_557615658C02</span><span class="params">(__int64 a1)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> v2; <span class="comment">// [rsp+14h] [rbp-81Ch]</span></span><br><span class="line">  <span class="keyword">int</span> v3; <span class="comment">// [rsp+18h] [rbp-818h]</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> v4; <span class="comment">// [rsp+18h] [rbp-818h]</span></span><br><span class="line">  <span class="keyword">int</span> i; <span class="comment">// [rsp+1Ch] [rbp-814h]</span></span><br><span class="line">  <span class="keyword">char</span> buf[<span class="number">2048</span>]; <span class="comment">// [rsp+20h] [rbp-810h]</span></span><br><span class="line">  <span class="keyword">char</span> v7; <span class="comment">// [rsp+820h] [rbp-10h]</span></span><br><span class="line">  <span class="keyword">unsigned</span> __int64 v8; <span class="comment">// [rsp+828h] [rbp-8h]</span></span><br><span class="line"></span><br><span class="line">  v8 = __readfsqword(<span class="number">0x28</span>u);</span><br><span class="line">  <span class="built_in">memset</span>(buf, <span class="number">0</span>, <span class="keyword">sizeof</span>(buf));</span><br><span class="line">  v7 = <span class="number">0</span>;</span><br><span class="line">  print_notice();</span><br><span class="line">  read(<span class="number">0</span>, buf, <span class="number">0x400</span>uLL);</span><br><span class="line">  v3 = <span class="built_in">strlen</span>(buf);</span><br><span class="line">  <span class="keyword">if</span> ( v3 &amp; <span class="number">1</span> || v3 &gt; <span class="number">1024</span> )                    <span class="comment">// 长度不超过1024,且必须为偶数</span></span><br><span class="line">  &#123;</span><br><span class="line">    v4 = <span class="number">0</span>;</span><br><span class="line">    print_notice();</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    v2 = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; v3; ++i )                  <span class="comment">// 检测输入是否合规</span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">if</span> ( (buf[i] &lt;= <span class="number">47</span> || buf[i] &gt; <span class="number">57</span>) &amp;&amp; (buf[i] &lt;= <span class="number">96</span> || buf[i] &gt; <span class="number">102</span>) &amp;&amp; (buf[i] &lt;= <span class="number">64</span> || buf[i] &gt; <span class="number">70</span>) )<span class="comment">// 只准输入数字，大小写的字母a~f</span></span><br><span class="line">      &#123;</span><br><span class="line">        print_notice();</span><br><span class="line">        v2 = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> ( v2 )                                   <span class="comment">// 如果输入合规</span></span><br><span class="line">      v4 = sub_5576156587C6(buf, v3, (_QWORD *)a1);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      v4 = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> v4;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>读入了偶数个字节的数据，并且长度不超过1024，数据只能在0~9 a~f A~F的范围</p>
 <h3>sub_557615658DD6</h3>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">_BYTE *__<span class="function">fastcall <span class="title">sub_557615658DD6</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *passwd, __int64 data, <span class="keyword">int</span> chunk, _DWORD *a4)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  _DWORD *v5; <span class="comment">// [rsp+0h] [rbp-50h]</span></span><br><span class="line">  <span class="keyword">int</span> v6; <span class="comment">// [rsp+Ch] [rbp-44h]</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> v7; <span class="comment">// [rsp+2Ch] [rbp-24h]</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> v8; <span class="comment">// [rsp+30h] [rbp-20h]</span></span><br><span class="line">  <span class="keyword">int</span> i; <span class="comment">// [rsp+34h] [rbp-1Ch]</span></span><br><span class="line">  <span class="keyword">int</span> v10; <span class="comment">// [rsp+38h] [rbp-18h]</span></span><br><span class="line">  <span class="keyword">int</span> v11; <span class="comment">// [rsp+3Ch] [rbp-14h]</span></span><br><span class="line">  _BYTE *ptr; <span class="comment">// [rsp+40h] [rbp-10h]</span></span><br><span class="line"></span><br><span class="line">  v6 = chunk;</span><br><span class="line">  v5 = a4;</span><br><span class="line">  v7 = <span class="number">0</span>;</span><br><span class="line">  ptr = <span class="number">0L</span>L;</span><br><span class="line">  <span class="keyword">if</span> ( data )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( chunk &gt; <span class="number">0</span> )</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">if</span> ( passwd )</span><br><span class="line">      &#123;</span><br><span class="line">        v10 = <span class="built_in">strlen</span>(passwd);</span><br><span class="line">        <span class="keyword">if</span> ( v10 &gt; <span class="number">0</span> )</span><br><span class="line">        &#123;</span><br><span class="line">          ptr = <span class="built_in">malloc</span>(v10 + <span class="number">1</span>);</span><br><span class="line">          <span class="keyword">if</span> ( ptr )</span><br><span class="line">          &#123;</span><br><span class="line">            ptr[v10] = <span class="number">0</span>;</span><br><span class="line">            v8 = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; v10; ++i )</span><br><span class="line">            &#123;</span><br><span class="line">              v11 = passwd[i] - (passwd[i] % <span class="number">10</span> + passwd[i] / <span class="number">10</span>);<span class="comment">// 由passwd生成了一个偏移地址</span></span><br><span class="line">              <span class="keyword">if</span> ( v11 &gt;= v6 )</span><br><span class="line">              &#123;</span><br><span class="line">                v8 = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">              &#125;</span><br><span class="line">              ptr[i] = *(_BYTE *)(v11 + data);  <span class="comment">// ptr[i]就等于这个偏移地址上面的数据</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> ( v8 )                           <span class="comment">// 若正常退出</span></span><br><span class="line">            &#123;</span><br><span class="line">              *v5 = v10;</span><br><span class="line">              v7 = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> ( !v7 &amp;&amp; ptr )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">free</span>(ptr);</span><br><span class="line">    ptr = <span class="number">0L</span>L;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> ptr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">_BYTE *__<span class="function">fastcall <span class="title">sub_557615658DD6</span><span class="params">(<span class="keyword">const</span> <span class="keyword">char</span> *passwd, __int64 data, <span class="keyword">int</span> chunk, _DWORD *a4)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  _DWORD *v5; <span class="comment">// [rsp+0h] [rbp-50h]</span></span><br><span class="line">  <span class="keyword">int</span> v6; <span class="comment">// [rsp+Ch] [rbp-44h]</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> v7; <span class="comment">// [rsp+2Ch] [rbp-24h]</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> v8; <span class="comment">// [rsp+30h] [rbp-20h]</span></span><br><span class="line">  <span class="keyword">int</span> i; <span class="comment">// [rsp+34h] [rbp-1Ch]</span></span><br><span class="line">  <span class="keyword">int</span> v10; <span class="comment">// [rsp+38h] [rbp-18h]</span></span><br><span class="line">  <span class="keyword">int</span> v11; <span class="comment">// [rsp+3Ch] [rbp-14h]</span></span><br><span class="line">  _BYTE *ptr; <span class="comment">// [rsp+40h] [rbp-10h]</span></span><br><span class="line"></span><br><span class="line">  v6 = chunk;</span><br><span class="line">  v5 = a4;</span><br><span class="line">  v7 = <span class="number">0</span>;</span><br><span class="line">  ptr = <span class="number">0L</span>L;</span><br><span class="line">  <span class="keyword">if</span> ( data )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( chunk &gt; <span class="number">0</span> )</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">if</span> ( passwd )</span><br><span class="line">      &#123;</span><br><span class="line">        v10 = <span class="built_in">strlen</span>(passwd);</span><br><span class="line">        <span class="keyword">if</span> ( v10 &gt; <span class="number">0</span> )</span><br><span class="line">        &#123;</span><br><span class="line">          ptr = <span class="built_in">malloc</span>(v10 + <span class="number">1</span>);</span><br><span class="line">          <span class="keyword">if</span> ( ptr )</span><br><span class="line">          &#123;</span><br><span class="line">            ptr[v10] = <span class="number">0</span>;</span><br><span class="line">            v8 = <span class="number">1</span>;</span><br><span class="line">            <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; v10; ++i )</span><br><span class="line">            &#123;</span><br><span class="line">              v11 = passwd[i] - (passwd[i] % <span class="number">10</span> + passwd[i] / <span class="number">10</span>);<span class="comment">// 由passwd生成了一个偏移地址</span></span><br><span class="line">              <span class="keyword">if</span> ( v11 &gt;= v6 )</span><br><span class="line">              &#123;</span><br><span class="line">                v8 = <span class="number">0</span>;</span><br><span class="line">                <span class="keyword">break</span>;</span><br><span class="line">              &#125;</span><br><span class="line">              ptr[i] = *(_BYTE *)(v11 + data);  <span class="comment">// ptr[i]就等于这个偏移地址上面的数据</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> ( v8 )                           <span class="comment">// 若正常退出</span></span><br><span class="line">            &#123;</span><br><span class="line">              *v5 = v10;</span><br><span class="line">              v7 = <span class="number">1</span>;</span><br><span class="line">            &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> ( !v7 &amp;&amp; ptr )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">free</span>(ptr);</span><br><span class="line">    ptr = <span class="number">0L</span>L;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> ptr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>用passwd可以算出来一个偏移，对应着data中的数据，生成了一个ptr数组</p>
 <h3>sub_557615658FB0</h3>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> ( j = <span class="number">0</span>; j &lt; passwd_len; ++j )</span><br><span class="line">    *((_BYTE *)&amp;dest + j) ^= <span class="number">0xCC</span>u;             <span class="comment">// ptr进行异或0xcc</span></span><br><span class="line">  ::ptr = sub_5576156599B9(v6, v7, (__int64)&amp;dest, <span class="number">16</span>, &amp;dword_55761585B058);</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> ( j = <span class="number">0</span>; j &lt; passwd_len; ++j )</span><br><span class="line">    *((_BYTE *)&amp;dest + j) ^= <span class="number">0xCC</span>u;             <span class="comment">// ptr进行异或0xcc</span></span><br><span class="line">  ::ptr = sub_5576156599B9(v6, v7, (__int64)&amp;dest, <span class="number">16</span>, &amp;dword_55761585B058);</span><br></pre></td></tr></table></figure></p>
 <p>sub_5576156599B9:</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">xtea((<span class="keyword">unsigned</span> <span class="keyword">int</span> *)dest, buf_len / <span class="number">-4</span>, v7);<span class="comment">// 这里执行解密的过程，解密encrypted，密钥为ptr_xor</span></span><br></pre></td></tr></table></figure>
+<p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">xtea((<span class="keyword">unsigned</span> <span class="keyword">int</span> *)dest, buf_len / <span class="number">-4</span>, v7);<span class="comment">// 这里执行解密的过程，解密encrypted，密钥为ptr_xor</span></span><br></pre></td></tr></table></figure></p>
 <h3>公式</h3>
 <blockquote>
 <p>xtea(xtea(buf, accout, ENCRYPT) ,f(data,passwd) , DECRYPT)</p>
@@ -467,7 +467,7 @@ height:50vh;
 <p>script from dalao</p>
 <p><a href="https://balsn.tw/ctf_writeup/20190518-rctf2019/#babyre2" target="_blank" rel="noopener">https://balsn.tw/ctf_writeup/20190518-rctf2019/#babyre2</a></p>
 <p>我自己还没用过pwntools。。。没想到要直接给程序传入非可见字符，所以就借用了一下国外大佬的脚本</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">r=remote(<span class="string">"139.180.215.222"</span>, <span class="number">20000</span>)</span><br><span class="line"><span class="keyword">print</span> r.recvuntil(<span class="string">"account"</span>)</span><br><span class="line">r.send(<span class="string">"a"</span>*<span class="number">16</span>)</span><br><span class="line"><span class="keyword">print</span> r.recvuntil(<span class="string">"password"</span>)</span><br><span class="line">r.send(<span class="string">"\x10"</span>*<span class="number">16</span>)</span><br><span class="line">r.recvuntil(<span class="string">"data"</span>)</span><br><span class="line">r.send(<span class="string">"010203040506070809ad0b0c0d0e0f"</span>) <span class="comment">#ad=61^cc</span></span><br><span class="line">r.shutdown(<span class="string">"send"</span>)</span><br><span class="line"></span><br><span class="line">r.interactive()</span><br></pre></td></tr></table></figure>
+<p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">r=remote(<span class="string">"139.180.215.222"</span>, <span class="number">20000</span>)</span><br><span class="line"><span class="keyword">print</span> r.recvuntil(<span class="string">"account"</span>)</span><br><span class="line">r.send(<span class="string">"a"</span>*<span class="number">16</span>)</span><br><span class="line"><span class="keyword">print</span> r.recvuntil(<span class="string">"password"</span>)</span><br><span class="line">r.send(<span class="string">"\x10"</span>*<span class="number">16</span>)</span><br><span class="line">r.recvuntil(<span class="string">"data"</span>)</span><br><span class="line">r.send(<span class="string">"010203040506070809ad0b0c0d0e0f"</span>) <span class="comment">#ad=61^cc</span></span><br><span class="line">r.shutdown(<span class="string">"send"</span>)</span><br><span class="line"></span><br><span class="line">r.interactive()</span><br></pre></td></tr></table></figure></p>
 
     </article>
     <!-- license  -->
@@ -1825,52 +1825,6 @@ top:50vh;
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 68
@@ -1898,22 +1852,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/14</span><a class="archive-post-title" href="/posts/512d4c5b/">JarvisOJ-findpass</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">06/14</span><a class="archive-post-title" href="/posts/db7ddaa/">JarvisOJ_DD_Evil_Exe</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/13</span><a class="archive-post-title" href="/posts/cbf6a417/">利用python搭建简易http服务器</a>
+            <span class="archive-post-date">06/14</span><a class="archive-post-title" href="/posts/512d4c5b/">JarvisOJ-findpass</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">06/13</span><a class="archive-post-title" href="/posts/b15e7935/">如何修改hosts</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/13</span><a class="archive-post-title" href="/posts/cbf6a417/">利用python搭建简易http服务器</a>
         </li>
     
     
@@ -2033,12 +1987,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/f9cd8782/">xor</a>
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/6aab0075/">wakarimasu</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/6aab0075/">wakarimasu</a>
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/f9cd8782/">xor</a>
         </li>
     
     
@@ -2087,12 +2041,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/17525de2/">AVL树总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
         </li>
     
     
@@ -2102,12 +2056,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/852a3205/">线段树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e5abdd9c/">铺地毯题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/1acd21ea/">Tarjan算法求无向图割边割点、最近公共祖先的总结</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
         </li>
     
     
@@ -2117,7 +2081,27 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/6c3f6e84/">字符串hash，康托展开总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28cf1e0f/">拓扑排序以及关键路径总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
         </li>
     
     
@@ -2127,7 +2111,37 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/675d1a4b/">求最大网络流（最小割）总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/6c3f6e84/">字符串hash，康托展开总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/80036358/">大整数乘法题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/50d2edb9/">2的幂次方表示题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
         </li>
     
     
@@ -2142,66 +2156,6 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/80036358/">大整数乘法题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/675d1a4b/">求最大网络流（最小割）总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28cf1e0f/">拓扑排序以及关键路径总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/50d2edb9/">2的幂次方表示题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e5abdd9c/">铺地毯题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/852a3205/">线段树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/17525de2/">AVL树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
         </li>
     
@@ -2212,17 +2166,17 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/6dada2a6/">Some Boxes</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/28572e84/">基本操作 Reverse Version</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/eb65a69a/">Our 16bits wars</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/01</span><a class="archive-post-title" href="/posts/6dada2a6/">Some Boxes</a>
         </li>
     
     
@@ -2245,9 +2199,9 @@ top:50vh;
         <div class="sidebar-panel-tags">
     <div class="sidebar-tags-name">
     
-        <span class="sidebar-tag-name" data-tags="RE_Dynamic"><span class="iconfont-archer">&#xe606;</span>RE_Dynamic</span>
-    
         <span class="sidebar-tag-name" data-tags="RE_Static"><span class="iconfont-archer">&#xe606;</span>RE_Static</span>
+    
+        <span class="sidebar-tag-name" data-tags="RE_Dynamic"><span class="iconfont-archer">&#xe606;</span>RE_Dynamic</span>
     
         <span class="sidebar-tag-name" data-tags="VM"><span class="iconfont-archer">&#xe606;</span>VM</span>
     
@@ -2255,13 +2209,13 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="3des"><span class="iconfont-archer">&#xe606;</span>3des</span>
     
-        <span class="sidebar-tag-name" data-tags="xtea"><span class="iconfont-archer">&#xe606;</span>xtea</span>
+        <span class="sidebar-tag-name" data-tags="RE_Android"><span class="iconfont-archer">&#xe606;</span>RE_Android</span>
     
-        <span class="sidebar-tag-name" data-tags="crc16"><span class="iconfont-archer">&#xe606;</span>crc16</span>
+        <span class="sidebar-tag-name" data-tags="xtea"><span class="iconfont-archer">&#xe606;</span>xtea</span>
     
         <span class="sidebar-tag-name" data-tags="pwntools"><span class="iconfont-archer">&#xe606;</span>pwntools</span>
     
-        <span class="sidebar-tag-name" data-tags="RE_Android"><span class="iconfont-archer">&#xe606;</span>RE_Android</span>
+        <span class="sidebar-tag-name" data-tags="crc16"><span class="iconfont-archer">&#xe606;</span>crc16</span>
     
         <span class="sidebar-tag-name" data-tags="packer"><span class="iconfont-archer">&#xe606;</span>packer</span>
     
@@ -2302,11 +2256,11 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="write up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
     
+        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
+    
         <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
     
         <span class="sidebar-category-name" data-categories="cnss_recruit_201809"><span class="iconfont-archer">&#xe60a;</span>write-up/cnss-recruit-201809</span>
-    
-        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
     
         <span class="sidebar-category-name" data-categories="notes"><span class="iconfont-archer">&#xe60a;</span>notes</span>
     
@@ -2330,11 +2284,11 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="qwb_ctf20190526"><span class="iconfont-archer">&#xe60a;</span>write-up/qwb-ctf20190526</span>
     
+        <span class="sidebar-category-name" data-categories="JarvisOJ"><span class="iconfont-archer">&#xe60a;</span>write-up/JarvisOJ</span>
+    
         <span class="sidebar-category-name" data-categories="base64"><span class="iconfont-archer">&#xe60a;</span>write-up/nationalCTF-20190421/sm4/base64</span>
     
         <span class="sidebar-category-name" data-categories="rctf-20190518"><span class="iconfont-archer">&#xe60a;</span>write-up/rctf-20190518</span>
-    
-        <span class="sidebar-category-name" data-categories="JarvisOJ"><span class="iconfont-archer">&#xe60a;</span>write-up/JarvisOJ</span>
     
         <span class="sidebar-category-name" data-categories="Project"><span class="iconfont-archer">&#xe60a;</span>Project</span>
     
