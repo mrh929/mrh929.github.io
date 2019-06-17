@@ -423,7 +423,7 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p><a href="/uploads/utf-8-ShinyShot.7z">utf-8' 'ShinyShot!</a></p>
+        <p><a href="/uploads/utf-8-ShinyShot.7z">utf-8’ ‘ShinyShot!</a></p>
 <blockquote>
 <p>这个程序主要是利用了smc（动态代码修改技术）</p>
 </blockquote>
@@ -435,12 +435,14 @@ height:50vh;
 </blockquote>
 <p>程序在我们输入了一个数字之后</p>
 <p>执行了</p>
-<p><figure class="highlight c"><table><tr><td class="code"><pre><span class="line">*((_BYTE *)TopLevelExceptionFilter + (<span class="built_in">cout</span> &gt;&gt; <span class="number">3</span>)) ^= <span class="number">1</span> &lt;&lt; (<span class="built_in">cout</span> &amp; <span class="number">7</span>);</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line">*((_BYTE *)TopLevelExceptionFilter + (<span class="built_in">cout</span> &gt;&gt; <span class="number">3</span>)) ^= <span class="number">1</span> &lt;&lt; (<span class="built_in">cout</span> &amp; <span class="number">7</span>);</span><br></pre></td></tr></table></figure>
+
 <p>这个指令，TopLevelExceptionFilter的意义暂时不明白，大概就是一个指向某个内存的指针，简记为T, 值为0x401000</p>
 <p>程序把*(p + (cout &gt;&gt; 3)) 处的数据异或了一个1 &lt;&lt; (cout &amp; 7)</p>
 <p>其实1 &lt;&lt; (cout &amp; 7)就是将1左移了几位</p>
 <p>我们看到后面的</p>
-<p><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.text:004018DE EB 15             jmp     short loc_4018F5</span><br><span class="line">.text:004018E0                   ; ---------------------------------------------------------------------------</span><br><span class="line">.text:004018E0</span><br><span class="line">.text:004018E0                   loc_4018E0:                   ; CODE XREF: sub_4017AA+126↑j</span><br><span class="line">.text:004018E0 E8 A7 FE FF FF    call    sub_40178C</span><br><span class="line">.text:004018E5                   ; ---------------------------------------------------------------------------</span><br><span class="line">.text:004018E5</span><br><span class="line">.text:004018E5                   loc_4018E5:</span><br><span class="line">.text:004018E5 8D 85 40 FF FF FF lea     eax, [ebp-0C0h]</span><br><span class="line">.text:004018EB 89 44 24 04       mov     [esp+414h+var_410], eax ; char *</span><br><span class="line">.text:004018EF 8D 45 A4          lea     eax, [ebp+Buf]</span><br><span class="line">.text:004018F2 89 04 24          mov     [esp+414h+var_414], eax ; char *</span><br><span class="line">.text:004018F5</span><br><span class="line">.text:004018F5                   loc_4018F5:                   ; CODE XREF: sub_4017AA+134↑j</span><br><span class="line">.text:004018F5 E8 00 FC FF FF    call    sub_4014FA</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">.text:004018DE EB 15             jmp     short loc_4018F5</span><br><span class="line">.text:004018E0                   ; ---------------------------------------------------------------------------</span><br><span class="line">.text:004018E0</span><br><span class="line">.text:004018E0                   loc_4018E0:                   ; CODE XREF: sub_4017AA+126↑j</span><br><span class="line">.text:004018E0 E8 A7 FE FF FF    call    sub_40178C</span><br><span class="line">.text:004018E5                   ; ---------------------------------------------------------------------------</span><br><span class="line">.text:004018E5</span><br><span class="line">.text:004018E5                   loc_4018E5:</span><br><span class="line">.text:004018E5 8D 85 40 FF FF FF lea     eax, [ebp-0C0h]</span><br><span class="line">.text:004018EB 89 44 24 04       mov     [esp+414h+var_410], eax ; char *</span><br><span class="line">.text:004018EF 8D 45 A4          lea     eax, [ebp+Buf]</span><br><span class="line">.text:004018F2 89 04 24          mov     [esp+414h+var_414], eax ; char *</span><br><span class="line">.text:004018F5</span><br><span class="line">.text:004018F5                   loc_4018F5:                   ; CODE XREF: sub_4017AA+134↑j</span><br><span class="line">.text:004018F5 E8 00 FC FF FF    call    sub_4014FA</span><br></pre></td></tr></table></figure>
+
 <p>0x 004018DE  jmp 15 的意义是，除开jmp 15，往后数0x15个字节，将程序运行指针设置到此处。</p>
 <p>而sub_4014FA是一个需要两个参数的函数，没有参数的传入，函数一定不会有正确答案。</p>
 <p>所以我们应当将 jmp 15改为jmp到传入参数的位置</p>
@@ -1808,6 +1810,56 @@ top:50vh;
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 68
@@ -1835,22 +1887,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/14</span><a class="archive-post-title" href="/posts/db7ddaa/">JarvisOJ_DD_Evil_Exe</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">06/14</span><a class="archive-post-title" href="/posts/512d4c5b/">JarvisOJ-findpass</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/13</span><a class="archive-post-title" href="/posts/b15e7935/">如何修改hosts</a>
+            <span class="archive-post-date">06/14</span><a class="archive-post-title" href="/posts/db7ddaa/">JarvisOJ_DD_Evil_Exe</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">06/13</span><a class="archive-post-title" href="/posts/cbf6a417/">利用python搭建简易http服务器</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/13</span><a class="archive-post-title" href="/posts/b15e7935/">如何修改hosts</a>
         </li>
     
     
@@ -1970,12 +2022,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/6aab0075/">wakarimasu</a>
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/f9cd8782/">xor</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/f9cd8782/">xor</a>
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/6aab0075/">wakarimasu</a>
         </li>
     
     
@@ -2029,7 +2081,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a>
         </li>
     
     
@@ -2044,7 +2096,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e5abdd9c/">铺地毯题解</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
         </li>
     
     
@@ -2054,47 +2106,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/3598786/">逆波兰表达式题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28cf1e0f/">拓扑排序以及关键路径总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/675d1a4b/">求最大网络流（最小割）总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e5abdd9c/">铺地毯题解</a>
         </li>
     
     
@@ -2104,7 +2116,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
         </li>
     
     
@@ -2114,17 +2126,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/50d2edb9/">2的幂次方表示题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/93b1f5dc/">暑期人生测试一总结</a>
         </li>
     
     
@@ -2134,12 +2136,62 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/93b1f5dc/">暑期人生测试一总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/50d2edb9/">2的幂次方表示题解</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28cf1e0f/">拓扑排序以及关键路径总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/3598786/">逆波兰表达式题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/675d1a4b/">求最大网络流（最小割）总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
         </li>
     
     
@@ -2196,9 +2248,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="xtea"><span class="iconfont-archer">&#xe606;</span>xtea</span>
     
-        <span class="sidebar-tag-name" data-tags="pwntools"><span class="iconfont-archer">&#xe606;</span>pwntools</span>
-    
         <span class="sidebar-tag-name" data-tags="crc16"><span class="iconfont-archer">&#xe606;</span>crc16</span>
+    
+        <span class="sidebar-tag-name" data-tags="pwntools"><span class="iconfont-archer">&#xe606;</span>pwntools</span>
     
         <span class="sidebar-tag-name" data-tags="packer"><span class="iconfont-archer">&#xe606;</span>packer</span>
     
@@ -2239,9 +2291,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="write up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
     
-        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
-    
         <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
+    
+        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
     
         <span class="sidebar-category-name" data-categories="cnss_recruit_201809"><span class="iconfont-archer">&#xe60a;</span>write-up/cnss-recruit-201809</span>
     

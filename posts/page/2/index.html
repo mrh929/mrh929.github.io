@@ -369,13 +369,11 @@
                 <span>qwb_JustRe</span>
         </a>
         <div class="abstract-content">
-            JustRe
-JustRe.7z
-思路
-程序读入了26位 十六进制数
+            JustReJustRe.7z 
+思路程序读入了26位 十六进制数
 其中前8为送入eax寄存器
 把eax扩展为了16个字节 01234567012345670123456701234567 记作 input
-后两位（假设为ab） 填充为了ababababababababab.....abab...
+后两位（假设为ab） 填充为了ababababababababab…..ababab，...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -406,15 +404,11 @@ JustRe.7z
                 <span>rctf_babyre2</span>
         </a>
         <div class="abstract-content">
-            Rctf_babyre2
-rctf_babyre2
-思路
-alarm
-
+            Rctf_babyre2rctf_babyre2
+思路alarm
 程序一开头就有一个alarm函数，这会使我们在调试的时候中途退出，直接把call alarm nop掉即可
 
-sub_55761565891A
-__int64 __fastcall sub_55761565891A(voi...
+sub_55761565891A__int64 __fastcall sub_55761565891A(void *a...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -447,12 +441,9 @@ __int64 __fastcall sub_55761565891A(voi...
                 <span>rctf_babyre1</span>
         </a>
         <div class="abstract-content">
-            RCTF_babyre1
-rctf_babyre1
-思路
-以下是与输入相关的指令
-main
-__int64 __fastcall main(__int64 a1, char **a2, char **a3)&#123;  unsigned __int64 *in; // rdx  int v4...
+            RCTF_babyre1rctf_babyre1
+思路以下是与输入相关的指令
+main__int64 __fastcall main(__int64 a1, char **a2, char **a3)&#123;  unsigned __int64 *in; // rdx  int v4; /...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -486,8 +477,7 @@ __int64 __fastcall main(__int64 a1, char **a2, char **a3)&#123;  unsigned __int6
         </a>
         <div class="abstract-content">
             CCSP2019
-
-有幸通过了CCF CSP  认证，获得了参加CCSP西南赛区比赛的资格
+ 有幸通过了CCF CSP  认证，获得了参加CCSP西南赛区比赛的资格
 
 来到川大（江安校区）
 这个校区管理非常严格，进门之前甚至需要出示身份证和准考证( x
@@ -514,14 +504,11 @@ __int64 __fastcall main(__int64 a1, char **a2, char **a3)&#123;  unsigned __int6
                 <span>single</span>
         </a>
         <div class="abstract-content">
-            single
-single
+            singlesingle
 思路
+ 经观察 发现a1是一个矩阵
 
-经观察 发现a1是一个矩阵
-
-sub_400833
-unsigned __int64 __fastcall sub_400833(__int64 a1)&#123;  signed int i; // [rsp+18h] [rbp-28h]  signed ...
+sub_400833unsigned __int64 __fastcall sub_400833(__int64 a1)&#123;  signed int i; // [rsp+18h] [rbp-28h]  signed in...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -550,16 +537,13 @@ unsigned __int64 __fastcall sub_400833(__int64 a1)&#123;  signed int i; // [rsp+
                 <span>补题：Strange_int</span>
         </a>
         <div class="abstract-content">
-            strange int
-strange_int
+            strange intstrange_int
 
 打国赛的时候没做出来这道题，现在看了题解来补一补
 
-思路
-开始
-以前写过FAT16的模拟程序，看到这个文件第一想法是这是一个DBR
+思路开始以前写过FAT16的模拟程序，看到这个文件第一想法是这是一个DBR
 第一行的 jmp 就是 jump 到这个命令的下一个命令。。
-seg000:0000              ...
+seg000:0000                 ...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -590,13 +574,9 @@ seg000:0000              ...
                 <span>simple_machine</span>
         </a>
         <div class="abstract-content">
-            simple-machine
-simple-machine
-思路整理
-general
-这道题说起来是vm，实际上和vm的挂钩并不大，就是用高级语言去实现了汇编，把变量都当做了寄存器来使用，其中还有各种压栈出栈过程，不过跟本题关系不大，也就不用过于细究了
-fun1
-fun1主要是通过输入的字符串...
+            simple-machinesimple-machine
+思路整理general这道题说起来是vm，实际上和vm的挂钩并不大，就是用高级语言去实现了汇编，把变量都当做了寄存器来使用，其中还有各种压栈出栈过程，不过跟本题关系不大，也就不用过于细究了
+fun1fun1主要是通过输入的字符串，与预置...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -634,9 +614,11 @@ using namespace std;
 
 线程初始化：
 std::thread t(fun);//fun为要多线程运行的函数
+
 等待线程终止：
 t.join();//等待名为t的函数终止运行
-如下实现了先启...
+
+如下实现了...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
@@ -1948,6 +1930,56 @@ t.join();//等待名为t的函数终止运行
     
     
     
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     <div class="total-and-search">
         <div class="total-archive">
         Total : 68
@@ -1975,22 +2007,22 @@ t.join();//等待名为t的函数终止运行
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/14</span><a class="archive-post-title" href="/posts/db7ddaa/">JarvisOJ_DD_Evil_Exe</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">06/14</span><a class="archive-post-title" href="/posts/512d4c5b/">JarvisOJ-findpass</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/13</span><a class="archive-post-title" href="/posts/b15e7935/">如何修改hosts</a>
+            <span class="archive-post-date">06/14</span><a class="archive-post-title" href="/posts/db7ddaa/">JarvisOJ_DD_Evil_Exe</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">06/13</span><a class="archive-post-title" href="/posts/cbf6a417/">利用python搭建简易http服务器</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/13</span><a class="archive-post-title" href="/posts/b15e7935/">如何修改hosts</a>
         </li>
     
     
@@ -2110,12 +2142,12 @@ t.join();//等待名为t的函数终止运行
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/6aab0075/">wakarimasu</a>
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/f9cd8782/">xor</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/f9cd8782/">xor</a>
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/6aab0075/">wakarimasu</a>
         </li>
     
     
@@ -2169,7 +2201,7 @@ t.join();//等待名为t的函数终止运行
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a>
         </li>
     
     
@@ -2184,7 +2216,7 @@ t.join();//等待名为t的函数终止运行
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e5abdd9c/">铺地毯题解</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
         </li>
     
     
@@ -2194,47 +2226,7 @@ t.join();//等待名为t的函数终止运行
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/3598786/">逆波兰表达式题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28cf1e0f/">拓扑排序以及关键路径总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/675d1a4b/">求最大网络流（最小割）总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e5abdd9c/">铺地毯题解</a>
         </li>
     
     
@@ -2244,7 +2236,7 @@ t.join();//等待名为t的函数终止运行
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
         </li>
     
     
@@ -2254,17 +2246,7 @@ t.join();//等待名为t的函数终止运行
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/50d2edb9/">2的幂次方表示题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/93b1f5dc/">暑期人生测试一总结</a>
         </li>
     
     
@@ -2274,12 +2256,62 @@ t.join();//等待名为t的函数终止运行
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/93b1f5dc/">暑期人生测试一总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/50d2edb9/">2的幂次方表示题解</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28cf1e0f/">拓扑排序以及关键路径总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/3598786/">逆波兰表达式题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/675d1a4b/">求最大网络流（最小割）总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
         </li>
     
     
@@ -2336,9 +2368,9 @@ t.join();//等待名为t的函数终止运行
     
         <span class="sidebar-tag-name" data-tags="xtea"><span class="iconfont-archer">&#xe606;</span>xtea</span>
     
-        <span class="sidebar-tag-name" data-tags="pwntools"><span class="iconfont-archer">&#xe606;</span>pwntools</span>
-    
         <span class="sidebar-tag-name" data-tags="crc16"><span class="iconfont-archer">&#xe606;</span>crc16</span>
+    
+        <span class="sidebar-tag-name" data-tags="pwntools"><span class="iconfont-archer">&#xe606;</span>pwntools</span>
     
         <span class="sidebar-tag-name" data-tags="packer"><span class="iconfont-archer">&#xe606;</span>packer</span>
     
@@ -2379,9 +2411,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="write up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
     
-        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
-    
         <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
+    
+        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
     
         <span class="sidebar-category-name" data-categories="cnss_recruit_201809"><span class="iconfont-archer">&#xe60a;</span>write-up/cnss-recruit-201809</span>
     

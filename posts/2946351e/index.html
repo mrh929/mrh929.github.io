@@ -292,7 +292,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">654</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">653</span>阅读时长: <span class="post-count reading-time">2 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -421,19 +421,17 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h1>JustRe</h1>
-<p><a href="%5Cuploads%5CJustRe.7z">JustRe.7z</a></p>
-<h2>思路</h2>
-<p>程序读入了26位 十六进制数</p>
+        <h1 id="JustRe"><a href="#JustRe" class="headerlink" title="JustRe"></a>JustRe</h1><p><a href="\uploads\JustRe.7z">JustRe.7z</a> </p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>程序读入了26位 十六进制数</p>
 <p>其中前8为送入eax寄存器</p>
 <p>把eax扩展为了16个字节 01234567012345670123456701234567 记作 <strong>input</strong></p>
-<p>后两位（假设为ab） 填充为了ababababababababab.....ababab，记作 <strong>ab</strong></p>
+<p>后两位（假设为ab） 填充为了ababababababababab…..ababab，记作 <strong>ab</strong></p>
 <p>从内存中取16个字节，记作 <strong>key1</strong></p>
 <p>还从内存取了16个字节，形如00000003000000020000000100000000 记作 <strong>key2</strong></p>
 <p>key = (ab + key1)^ (input + key2) 并且将结果存在原来key1的位置</p>
 <p>依次循环</p>
 <blockquote>
-<p>注意key2第二次  key2' +=  key2 ，而不是直接从内存取</p>
+<p>注意key2第二次  key2’ +=  key2 ，而不是直接从内存取</p>
 </blockquote>
 <p>接下来的循环 循环了八次，是对从0x405058的32个字节进行处理，每次四个字节</p>
 <p>同样</p>
@@ -444,7 +442,8 @@ height:50vh;
 <p>key =  (ab + key) ^ (input + esi) 并且将结果存在key的位置</p>
 <p>然后 0x405018 和 0x404148的 0x60个字节进行比较，要相等</p>
 <p>事实证明，后面这些运算，对于解出input的帮助并不大，我们只需要解出一组input，并且判断它们是否是四个分块都相等即可</p>
-<p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">dec1 = <span class="number">0x4364162A031410D2EF95C26D80B899BD</span></span><br><span class="line">enc1 = <span class="number">0x405004A100000278EC81F0E483EC8B55</span></span><br><span class="line">key1 = <span class="number">0x00000003000000020000000100000000</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">FILL</span><span class="params">(a)</span>:</span>  <span class="comment">#用八九位这一个字节去填充为16字节</span></span><br><span class="line">    <span class="keyword">return</span> a * <span class="number">0x01010101010101010101010101010101</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">DIVIDE</span><span class="params">(a)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">        res.append((a &lt;&lt; (<span class="number">32</span> * i) &amp; <span class="number">0xffffffffffffffffffffffffffffffff</span>) &gt;&gt; (<span class="number">32</span> * <span class="number">3</span>))</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ADD</span><span class="params">(a, b)</span>:</span></span><br><span class="line">    a = DIVIDE(a)</span><br><span class="line">    b = DIVIDE(b)</span><br><span class="line">    res = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">        res += ((a[i]+b[i]) &amp; <span class="number">0xffffffff</span>) &lt;&lt; (<span class="number">32</span> * (<span class="number">3</span>-i))</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">CALC</span><span class="params">(dec,enc,key,t)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> (ADD(FILL(t),dec) ^ enc) - key</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> t <span class="keyword">in</span> range(<span class="number">100</span>):<span class="comment">#枚举第八第九位的所有情况</span></span><br><span class="line">    res = CALC(dec1,enc1,key1,t)</span><br><span class="line">    <span class="keyword">if</span>(inpu &amp; <span class="number">0xffffffff</span> == res &gt;&gt; (<span class="number">3</span> * <span class="number">32</span>)):</span><br><span class="line">        print(hex(CALC(dec1,enc1,key1,t) &gt;&gt; (<span class="number">3</span>*<span class="number">32</span>)),hex(t))</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">dec1 = <span class="number">0x4364162A031410D2EF95C26D80B899BD</span></span><br><span class="line">enc1 = <span class="number">0x405004A100000278EC81F0E483EC8B55</span></span><br><span class="line">key1 = <span class="number">0x00000003000000020000000100000000</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">FILL</span><span class="params">(a)</span>:</span>  <span class="comment">#用八九位这一个字节去填充为16字节</span></span><br><span class="line">    <span class="keyword">return</span> a * <span class="number">0x01010101010101010101010101010101</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">DIVIDE</span><span class="params">(a)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">        res.append((a &lt;&lt; (<span class="number">32</span> * i) &amp; <span class="number">0xffffffffffffffffffffffffffffffff</span>) &gt;&gt; (<span class="number">32</span> * <span class="number">3</span>))</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ADD</span><span class="params">(a, b)</span>:</span></span><br><span class="line">    a = DIVIDE(a)</span><br><span class="line">    b = DIVIDE(b)</span><br><span class="line">    res = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">        res += ((a[i]+b[i]) &amp; <span class="number">0xffffffff</span>) &lt;&lt; (<span class="number">32</span> * (<span class="number">3</span>-i))</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">CALC</span><span class="params">(dec,enc,key,t)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> (ADD(FILL(t),dec) ^ enc) - key</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> t <span class="keyword">in</span> range(<span class="number">100</span>):<span class="comment">#枚举第八第九位的所有情况</span></span><br><span class="line">    res = CALC(dec1,enc1,key1,t)</span><br><span class="line">    <span class="keyword">if</span>(inpu &amp; <span class="number">0xffffffff</span> == res &gt;&gt; (<span class="number">3</span> * <span class="number">32</span>)):</span><br><span class="line">        print(hex(CALC(dec1,enc1,key1,t) &gt;&gt; (<span class="number">3</span>*<span class="number">32</span>)),hex(t))</span><br></pre></td></tr></table></figure>
+
 <blockquote>
 <p>前十位 1324229810</p>
 </blockquote>
@@ -457,7 +456,8 @@ height:50vh;
 <blockquote>
 <p>轮子不太完整，修改了一下，以下是main函数中修改过的内容</p>
 </blockquote>
-<p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">	<span class="keyword">char</span> k[<span class="number">32</span>] = <span class="string">"AFSAFCEDYCXCXACNDFKDCQXC"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> data[<span class="number">128</span>] = &#123;</span><br><span class="line">    	<span class="number">0x50</span>,<span class="number">0x7C</span>,<span class="number">0xA9</span>,<span class="number">0xE6</span>,</span><br><span class="line">    	<span class="number">0x87</span>,<span class="number">0x09</span>,<span class="number">0xCE</span>,<span class="number">0xFA</span>,</span><br><span class="line">		<span class="number">0x20</span>,<span class="number">0xD5</span>,<span class="number">0x0D</span>,<span class="number">0xCF</span>,</span><br><span class="line">		<span class="number">0x90</span>,<span class="number">0xBB</span>,<span class="number">0x97</span>,<span class="number">0x6C</span>,<span class="number">0</span></span><br><span class="line">		&#125;;  <span class="comment">/* 原始明文 */</span></span><br><span class="line">	nlen = <span class="built_in">strlen</span>(data);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">.....</span><br><span class="line">    </span><br><span class="line"><span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; len; i += <span class="number">8</span>) &#123;</span><br><span class="line">        DES_ecb3_encrypt((const_DES_cblock *)(src + i), (DES_cblock *)(out + i), &amp;ks1, &amp;ks2, &amp;ks3, DES_DECRYPT);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"encrypted Hex:"</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%02X"</span> , *(out + i));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"encrypted Bin:"</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%c"</span>, *(out + i));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">	<span class="keyword">char</span> k[<span class="number">32</span>] = <span class="string">"AFSAFCEDYCXCXACNDFKDCQXC"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> data[<span class="number">128</span>] = &#123;</span><br><span class="line">    	<span class="number">0x50</span>,<span class="number">0x7C</span>,<span class="number">0xA9</span>,<span class="number">0xE6</span>,</span><br><span class="line">    	<span class="number">0x87</span>,<span class="number">0x09</span>,<span class="number">0xCE</span>,<span class="number">0xFA</span>,</span><br><span class="line">		<span class="number">0x20</span>,<span class="number">0xD5</span>,<span class="number">0x0D</span>,<span class="number">0xCF</span>,</span><br><span class="line">		<span class="number">0x90</span>,<span class="number">0xBB</span>,<span class="number">0x97</span>,<span class="number">0x6C</span>,<span class="number">0</span></span><br><span class="line">		&#125;;  <span class="comment">/* 原始明文 */</span></span><br><span class="line">	nlen = <span class="built_in">strlen</span>(data);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">.....</span><br><span class="line">    </span><br><span class="line"><span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; len; i += <span class="number">8</span>) &#123;</span><br><span class="line">        DES_ecb3_encrypt((const_DES_cblock *)(src + i), (DES_cblock *)(out + i), &amp;ks1, &amp;ks2, &amp;ks3, DES_DECRYPT);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"encrypted Hex:"</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%02X"</span> , *(out + i));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"encrypted Bin:"</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%c"</span>, *(out + i));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br></pre></td></tr></table></figure>
+
 
     </article>
     <!-- license  -->
@@ -600,7 +600,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">JustRe</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">思路</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#JustRe"><span class="toc-number">1.</span> <span class="toc-text">JustRe</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#思路"><span class="toc-number">1.1.</span> <span class="toc-text">思路</span></a></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -613,6 +613,56 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1842,22 +1892,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/14</span><a class="archive-post-title" href="/posts/db7ddaa/">JarvisOJ_DD_Evil_Exe</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">06/14</span><a class="archive-post-title" href="/posts/512d4c5b/">JarvisOJ-findpass</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/13</span><a class="archive-post-title" href="/posts/b15e7935/">如何修改hosts</a>
+            <span class="archive-post-date">06/14</span><a class="archive-post-title" href="/posts/db7ddaa/">JarvisOJ_DD_Evil_Exe</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">06/13</span><a class="archive-post-title" href="/posts/cbf6a417/">利用python搭建简易http服务器</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/13</span><a class="archive-post-title" href="/posts/b15e7935/">如何修改hosts</a>
         </li>
     
     
@@ -1977,12 +2027,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/6aab0075/">wakarimasu</a>
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/f9cd8782/">xor</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/f9cd8782/">xor</a>
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/6aab0075/">wakarimasu</a>
         </li>
     
     
@@ -2036,7 +2086,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a>
         </li>
     
     
@@ -2051,7 +2101,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e5abdd9c/">铺地毯题解</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
         </li>
     
     
@@ -2061,47 +2111,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/3598786/">逆波兰表达式题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28cf1e0f/">拓扑排序以及关键路径总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/675d1a4b/">求最大网络流（最小割）总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e5abdd9c/">铺地毯题解</a>
         </li>
     
     
@@ -2111,7 +2121,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
         </li>
     
     
@@ -2121,17 +2131,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/50d2edb9/">2的幂次方表示题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/93b1f5dc/">暑期人生测试一总结</a>
         </li>
     
     
@@ -2141,12 +2141,62 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/93b1f5dc/">暑期人生测试一总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/50d2edb9/">2的幂次方表示题解</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28cf1e0f/">拓扑排序以及关键路径总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/3598786/">逆波兰表达式题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/675d1a4b/">求最大网络流（最小割）总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
         </li>
     
     
@@ -2203,9 +2253,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="xtea"><span class="iconfont-archer">&#xe606;</span>xtea</span>
     
-        <span class="sidebar-tag-name" data-tags="pwntools"><span class="iconfont-archer">&#xe606;</span>pwntools</span>
-    
         <span class="sidebar-tag-name" data-tags="crc16"><span class="iconfont-archer">&#xe606;</span>crc16</span>
+    
+        <span class="sidebar-tag-name" data-tags="pwntools"><span class="iconfont-archer">&#xe606;</span>pwntools</span>
     
         <span class="sidebar-tag-name" data-tags="packer"><span class="iconfont-archer">&#xe606;</span>packer</span>
     
@@ -2246,9 +2296,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="write up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
     
-        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
-    
         <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
+    
+        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
     
         <span class="sidebar-category-name" data-categories="cnss_recruit_201809"><span class="iconfont-archer">&#xe60a;</span>write-up/cnss-recruit-201809</span>
     

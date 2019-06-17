@@ -421,60 +421,24 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h1>HomuraVM</h1>
-<blockquote>
+        <h1 id="HomuraVM"><a href="#HomuraVM" class="headerlink" title="HomuraVM"></a>HomuraVM</h1><blockquote>
 <p>太丢脸了，这么简单一个vm还是做了三个多小时</p>
 </blockquote>
-<p><a href="%5Cuploads%5ChomuraVM.7z">homuraVM</a></p>
-<h2>概况</h2>
-<p>这道题是WxyVM的一个加强版，即使把vm的指令翻译出来了，也会发现得到的是一串鸟语，俗称类brainf**k语言</p>
+<p><a href="\uploads\homuraVM.7z">homuraVM</a></p>
+<h2 id="概况"><a href="#概况" class="headerlink" title="概况"></a>概况</h2><p>这道题是WxyVM的一个加强版，即使把vm的指令翻译出来了，也会发现得到的是一串鸟语，俗称类brainf**k语言</p>
 <p>程序的大概思路是这样的，读入一串数据，然后把这段数据载入内存，随后执行保存在程序里面的一段虚拟机代码，虚拟机的各种函数已经给出，最终生成的加密结果也能找到，逆向程序。</p>
-<h2>过程</h2>
-<h3>对vm的代码进行读取</h3>
-<p>自己写的IDA中的注释：</p>
-<p><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span> ( <span class="number">1</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    result = *(<span class="keyword">unsigned</span> __int8 *)(COUNTER + a1);</span><br><span class="line">    <span class="keyword">if</span> ( !(_BYTE)result )                       <span class="comment">// 没有指令了 就退出</span></span><br><span class="line">      <span class="keyword">return</span> result;</span><br><span class="line">    v2 = *(<span class="keyword">char</span> *)(COUNTER + a1);</span><br><span class="line">    <span class="keyword">switch</span> ( (<span class="keyword">unsigned</span> <span class="keyword">int</span>)off_1048 )</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0x43</span>u:                               <span class="comment">// *j -= 2 * (*i &amp; *a)    C</span></span><br><span class="line">        *(_DWORD *)global_j -= <span class="number">2</span> * (*(_DWORD *)global_i &amp; *(_DWORD *)array_input);</span><br><span class="line">        ++COUNTER;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0x47</span>u:                               <span class="comment">// (*j)--              G</span></span><br><span class="line">        --*(_DWORD *)global_j;</span><br><span class="line">        ++COUNTER;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0x4D</span>u:                               <span class="comment">// *j = *i + a[0]                  M</span></span><br><span class="line">        *(_DWORD *)global_j = *(_DWORD *)global_i + *(_DWORD *)array_input;</span><br><span class="line">        ++COUNTER;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0x54</span>u:                               <span class="comment">// (*j)++            T</span></span><br><span class="line">        ++*(_DWORD *)global_j;</span><br><span class="line">        ++COUNTER;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0x5B</span>u:                               <span class="comment">// 如果a[0]!=0 就循环，否则直接跳出    [</span></span><br><span class="line">        <span class="keyword">if</span> ( *(_DWORD *)array_input )</span><br><span class="line">        &#123;</span><br><span class="line">          ++COUNTER;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">          <span class="keyword">do</span></span><br><span class="line">            v3 = COUNTER++;</span><br><span class="line">          <span class="keyword">while</span> ( *(_BYTE *)(v3 + a1) != <span class="number">93</span> );</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0x5D</span>u:                               <span class="comment">// 如果a[0]!=0 就返回[继续循环           ]</span></span><br><span class="line">        <span class="keyword">if</span> ( *(_DWORD *)array_input )</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="keyword">do</span></span><br><span class="line">            --COUNTER;</span><br><span class="line">          <span class="keyword">while</span> ( *(_BYTE *)(COUNTER + a1) != <span class="number">91</span> );</span><br><span class="line">          ++COUNTER;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">          ++COUNTER;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0x61</span>u:                               <span class="comment">// (*i)--          a</span></span><br><span class="line">        --*(_DWORD *)global_i;</span><br><span class="line">        ++COUNTER;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0x68</span>u:                               <span class="comment">// a[0] += 4       h</span></span><br><span class="line">        array_input = (<span class="keyword">char</span> *)array_input + <span class="number">4</span>;</span><br><span class="line">        ++COUNTER;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0x6D</span>u:                               <span class="comment">// a[0]自加         m</span></span><br><span class="line">        ++*(_DWORD *)array_input;</span><br><span class="line">        ++COUNTER;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0x6F</span>u:                               <span class="comment">// a[0] -= 4          o</span></span><br><span class="line">        array_input = (<span class="keyword">char</span> *)array_input - <span class="number">4</span>;</span><br><span class="line">        ++COUNTER;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0x72</span>u:                               <span class="comment">// (*i)++        r</span></span><br><span class="line">        ++*(_DWORD *)global_i;</span><br><span class="line">        ++COUNTER;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0x75</span>u:                               <span class="comment">// a[0]--         u</span></span><br><span class="line">        --*(_DWORD *)array_input;</span><br><span class="line">        ++COUNTER;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0x76</span>u:                               <span class="comment">// j = i             v</span></span><br><span class="line">        *(_DWORD *)global_j = *(_DWORD *)global_i;</span><br><span class="line">        ++COUNTER;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0x7B</span>u:</span><br><span class="line">        <span class="keyword">if</span> ( *(_DWORD *)global_j )              <span class="comment">// *j !=0 就进入循环，否则直接跳出</span></span><br><span class="line">        &#123;</span><br><span class="line">          ++COUNTER;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">          <span class="keyword">do</span></span><br><span class="line">            v4 = COUNTER++;</span><br><span class="line">          <span class="keyword">while</span> ( *(_BYTE *)(v4 + a1) != <span class="number">125</span> );</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0x7D</span>u:</span><br><span class="line">        <span class="keyword">if</span> ( *(_DWORD *)global_j )              <span class="comment">// 如果*j不为0就返回&#123;处</span></span><br><span class="line">        &#123;</span><br><span class="line">          <span class="keyword">do</span></span><br><span class="line">            --COUNTER;</span><br><span class="line">          <span class="keyword">while</span> ( *(_BYTE *)(COUNTER + a1) != <span class="number">123</span> );</span><br><span class="line">          ++COUNTER;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">          ++COUNTER;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure></p>
-<h3>清除无用虚拟机指令</h3>
-<p>首先我尝试着把无效命令先清除掉:</p>
-<p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">str = <span class="string">"""h[ur]ovMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovaaaMCh&#123;mG&#125;hv&#123;aG&#125;[ur]</span></span><br><span class="line"><span class="string">ovrrMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovrararaMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovrarar</span></span><br><span class="line"><span class="string">rrMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovararaaMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovrararra</span></span><br><span class="line"><span class="string">raMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovrrrarrrMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovaarrar</span></span><br><span class="line"><span class="string">rMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovaaarrarMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovrrrarrM</span></span><br><span class="line"><span class="string">Ch&#123;mG&#125;hv&#123;aG&#125;[ur]ovaarrraaMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovarraarMCh</span></span><br><span class="line"><span class="string">&#123;mG&#125;hv&#123;aG&#125;[ur]ovrrraaarrMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovaaarrrrarr</span></span><br><span class="line"><span class="string">MCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovrrrraarrarrMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovrrar</span></span><br><span class="line"><span class="string">raMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovaaraarMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovrrarraM</span></span><br><span class="line"><span class="string">Ch&#123;mG&#125;hv&#123;aG&#125;[ur]ovaarrrarMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovrraarraMC</span></span><br><span class="line"><span class="string">h&#123;mG&#125;hv&#123;aG&#125;[ur]ovrrarMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovaarrarMCh&#123;mG&#125;</span></span><br><span class="line"><span class="string">hv&#123;aG&#125;[ur]ovrrraarMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovrrrraaMCh&#123;mG&#125;hv&#123;</span></span><br><span class="line"><span class="string">aG&#125;[ur]ovrrarraMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovrrrrrrMCh&#123;mG&#125;hv&#123;aG&#125;</span></span><br><span class="line"><span class="string">[ur]ovaaaarMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovrraaaMCh&#123;mG&#125;hv&#123;aG&#125;[ur]o</span></span><br><span class="line"><span class="string">vaarraMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovrrarMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovaarra</span></span><br><span class="line"><span class="string">aMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovaarraraMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovaarrara</span></span><br><span class="line"><span class="string">rMCh&#123;mG&#125;"""</span></span><br><span class="line"></span><br><span class="line">str = str.replace(<span class="string">"\n"</span>, <span class="string">""</span>)</span><br><span class="line">old = <span class="string">""</span></span><br><span class="line"><span class="keyword">while</span>(old != str):</span><br><span class="line">    old = str</span><br><span class="line">    str = str.replace(<span class="string">"ra"</span>, <span class="string">""</span>)</span><br><span class="line">    str = str.replace(<span class="string">"ar"</span>, <span class="string">""</span>)</span><br><span class="line">    str = str.replace(<span class="string">"oh"</span>, <span class="string">""</span>)</span><br><span class="line">    str = str.replace(<span class="string">"ho"</span>, <span class="string">""</span>)</span><br><span class="line">    str = str.replace(<span class="string">"um"</span>, <span class="string">""</span>)</span><br><span class="line">    str = str.replace(<span class="string">"mu"</span>, <span class="string">""</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(<span class="string">"\n\n\n"</span>)</span><br><span class="line">h_cnt = <span class="number">0</span></span><br><span class="line">o_cnt = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> str:</span><br><span class="line">    <span class="keyword">if</span>(c == <span class="string">'h'</span>):</span><br><span class="line">        h_cnt += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span>(h_cnt == <span class="number">3</span>):</span><br><span class="line">            h_cnt = <span class="number">1</span></span><br><span class="line">            o_cnt = <span class="number">0</span></span><br><span class="line">            print(<span class="string">" "</span>)</span><br><span class="line">    <span class="keyword">elif</span>(c == <span class="string">'o'</span>):</span><br><span class="line">        o_cnt += <span class="number">1</span></span><br><span class="line">    print(c, end=<span class="string">""</span>)</span><br></pre></td></tr></table></figure></p>
+<h2 id="过程"><a href="#过程" class="headerlink" title="过程"></a>过程</h2><h3 id="对vm的代码进行读取"><a href="#对vm的代码进行读取" class="headerlink" title="对vm的代码进行读取"></a>对vm的代码进行读取</h3><p>自己写的IDA中的注释：</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="keyword">while</span> ( <span class="number">1</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    result = *(<span class="keyword">unsigned</span> __int8 *)(COUNTER + a1);</span><br><span class="line">    <span class="keyword">if</span> ( !(_BYTE)result )                       <span class="comment">// 没有指令了 就退出</span></span><br><span class="line">      <span class="keyword">return</span> result;</span><br><span class="line">    v2 = *(<span class="keyword">char</span> *)(COUNTER + a1);</span><br><span class="line">    <span class="keyword">switch</span> ( (<span class="keyword">unsigned</span> <span class="keyword">int</span>)off_1048 )</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0x43</span>u:                               <span class="comment">// *j -= 2 * (*i &amp; *a)    C</span></span><br><span class="line">        *(_DWORD *)global_j -= <span class="number">2</span> * (*(_DWORD *)global_i &amp; *(_DWORD *)array_input);</span><br><span class="line">        ++COUNTER;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0x47</span>u:                               <span class="comment">// (*j)--              G</span></span><br><span class="line">        --*(_DWORD *)global_j;</span><br><span class="line">        ++COUNTER;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0x4D</span>u:                               <span class="comment">// *j = *i + a[0]                  M</span></span><br><span class="line">        *(_DWORD *)global_j = *(_DWORD *)global_i + *(_DWORD *)array_input;</span><br><span class="line">        ++COUNTER;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0x54</span>u:                               <span class="comment">// (*j)++            T</span></span><br><span class="line">        ++*(_DWORD *)global_j;</span><br><span class="line">        ++COUNTER;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0x5B</span>u:                               <span class="comment">// 如果a[0]!=0 就循环，否则直接跳出    [</span></span><br><span class="line">        <span class="keyword">if</span> ( *(_DWORD *)array_input )</span><br><span class="line">        &#123;</span><br><span class="line">          ++COUNTER;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">          <span class="keyword">do</span></span><br><span class="line">            v3 = COUNTER++;</span><br><span class="line">          <span class="keyword">while</span> ( *(_BYTE *)(v3 + a1) != <span class="number">93</span> );</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0x5D</span>u:                               <span class="comment">// 如果a[0]!=0 就返回[继续循环           ]</span></span><br><span class="line">        <span class="keyword">if</span> ( *(_DWORD *)array_input )</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="keyword">do</span></span><br><span class="line">            --COUNTER;</span><br><span class="line">          <span class="keyword">while</span> ( *(_BYTE *)(COUNTER + a1) != <span class="number">91</span> );</span><br><span class="line">          ++COUNTER;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">          ++COUNTER;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0x61</span>u:                               <span class="comment">// (*i)--          a</span></span><br><span class="line">        --*(_DWORD *)global_i;</span><br><span class="line">        ++COUNTER;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0x68</span>u:                               <span class="comment">// a[0] += 4       h</span></span><br><span class="line">        array_input = (<span class="keyword">char</span> *)array_input + <span class="number">4</span>;</span><br><span class="line">        ++COUNTER;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0x6D</span>u:                               <span class="comment">// a[0]自加         m</span></span><br><span class="line">        ++*(_DWORD *)array_input;</span><br><span class="line">        ++COUNTER;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0x6F</span>u:                               <span class="comment">// a[0] -= 4          o</span></span><br><span class="line">        array_input = (<span class="keyword">char</span> *)array_input - <span class="number">4</span>;</span><br><span class="line">        ++COUNTER;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0x72</span>u:                               <span class="comment">// (*i)++        r</span></span><br><span class="line">        ++*(_DWORD *)global_i;</span><br><span class="line">        ++COUNTER;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0x75</span>u:                               <span class="comment">// a[0]--         u</span></span><br><span class="line">        --*(_DWORD *)array_input;</span><br><span class="line">        ++COUNTER;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0x76</span>u:                               <span class="comment">// j = i             v</span></span><br><span class="line">        *(_DWORD *)global_j = *(_DWORD *)global_i;</span><br><span class="line">        ++COUNTER;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0x7B</span>u:</span><br><span class="line">        <span class="keyword">if</span> ( *(_DWORD *)global_j )              <span class="comment">// *j !=0 就进入循环，否则直接跳出</span></span><br><span class="line">        &#123;</span><br><span class="line">          ++COUNTER;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">          <span class="keyword">do</span></span><br><span class="line">            v4 = COUNTER++;</span><br><span class="line">          <span class="keyword">while</span> ( *(_BYTE *)(v4 + a1) != <span class="number">125</span> );</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">0x7D</span>u:</span><br><span class="line">        <span class="keyword">if</span> ( *(_DWORD *)global_j )              <span class="comment">// 如果*j不为0就返回&#123;处</span></span><br><span class="line">        &#123;</span><br><span class="line">          <span class="keyword">do</span></span><br><span class="line">            --COUNTER;</span><br><span class="line">          <span class="keyword">while</span> ( *(_BYTE *)(COUNTER + a1) != <span class="number">123</span> );</span><br><span class="line">          ++COUNTER;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">          ++COUNTER;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="清除无用虚拟机指令"><a href="#清除无用虚拟机指令" class="headerlink" title="清除无用虚拟机指令"></a>清除无用虚拟机指令</h3><p>首先我尝试着把无效命令先清除掉:</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">str = <span class="string">"""h[ur]ovMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovaaaMCh&#123;mG&#125;hv&#123;aG&#125;[ur]</span></span><br><span class="line"><span class="string">ovrrMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovrararaMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovrarar</span></span><br><span class="line"><span class="string">rrMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovararaaMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovrararra</span></span><br><span class="line"><span class="string">raMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovrrrarrrMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovaarrar</span></span><br><span class="line"><span class="string">rMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovaaarrarMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovrrrarrM</span></span><br><span class="line"><span class="string">Ch&#123;mG&#125;hv&#123;aG&#125;[ur]ovaarrraaMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovarraarMCh</span></span><br><span class="line"><span class="string">&#123;mG&#125;hv&#123;aG&#125;[ur]ovrrraaarrMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovaaarrrrarr</span></span><br><span class="line"><span class="string">MCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovrrrraarrarrMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovrrar</span></span><br><span class="line"><span class="string">raMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovaaraarMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovrrarraM</span></span><br><span class="line"><span class="string">Ch&#123;mG&#125;hv&#123;aG&#125;[ur]ovaarrrarMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovrraarraMC</span></span><br><span class="line"><span class="string">h&#123;mG&#125;hv&#123;aG&#125;[ur]ovrrarMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovaarrarMCh&#123;mG&#125;</span></span><br><span class="line"><span class="string">hv&#123;aG&#125;[ur]ovrrraarMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovrrrraaMCh&#123;mG&#125;hv&#123;</span></span><br><span class="line"><span class="string">aG&#125;[ur]ovrrarraMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovrrrrrrMCh&#123;mG&#125;hv&#123;aG&#125;</span></span><br><span class="line"><span class="string">[ur]ovaaaarMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovrraaaMCh&#123;mG&#125;hv&#123;aG&#125;[ur]o</span></span><br><span class="line"><span class="string">vaarraMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovrrarMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovaarra</span></span><br><span class="line"><span class="string">aMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovaarraraMCh&#123;mG&#125;hv&#123;aG&#125;[ur]ovaarrara</span></span><br><span class="line"><span class="string">rMCh&#123;mG&#125;"""</span></span><br><span class="line"></span><br><span class="line">str = str.replace(<span class="string">"\n"</span>, <span class="string">""</span>)</span><br><span class="line">old = <span class="string">""</span></span><br><span class="line"><span class="keyword">while</span>(old != str):</span><br><span class="line">    old = str</span><br><span class="line">    str = str.replace(<span class="string">"ra"</span>, <span class="string">""</span>)</span><br><span class="line">    str = str.replace(<span class="string">"ar"</span>, <span class="string">""</span>)</span><br><span class="line">    str = str.replace(<span class="string">"oh"</span>, <span class="string">""</span>)</span><br><span class="line">    str = str.replace(<span class="string">"ho"</span>, <span class="string">""</span>)</span><br><span class="line">    str = str.replace(<span class="string">"um"</span>, <span class="string">""</span>)</span><br><span class="line">    str = str.replace(<span class="string">"mu"</span>, <span class="string">""</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">print(<span class="string">"\n\n\n"</span>)</span><br><span class="line">h_cnt = <span class="number">0</span></span><br><span class="line">o_cnt = <span class="number">0</span></span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> str:</span><br><span class="line">    <span class="keyword">if</span>(c == <span class="string">'h'</span>):</span><br><span class="line">        h_cnt += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span>(h_cnt == <span class="number">3</span>):</span><br><span class="line">            h_cnt = <span class="number">1</span></span><br><span class="line">            o_cnt = <span class="number">0</span></span><br><span class="line">            print(<span class="string">" "</span>)</span><br><span class="line">    <span class="keyword">elif</span>(c == <span class="string">'o'</span>):</span><br><span class="line">        o_cnt += <span class="number">1</span></span><br><span class="line">    print(c, end=<span class="string">""</span>)</span><br></pre></td></tr></table></figure>
+
 <p>可得以下字符串（VScode显示有点问题，打印到文件中就行）</p>
 <blockquote>
-<p>h[ur]ovMCh{mG}
-hv{aG}[ur]ovaaaMCh{mG}
-hv{aG}[ur]ovrrMCh{mG}
-hv{aG}[ur]ovMCh{mG}
-hv{aG}[ur]ovrrrMCh{mG}
-hv{aG}[ur]ovaaMCh{mG}
-hv{aG}[ur]ovrMCh{mG}
-hv{aG}[ur]ovrrrrrMCh{mG}
-hv{aG}[ur]ovrMCh{mG}
-hv{aG}[ur]ovaMCh{mG}
-hv{aG}[ur]ovrrrrMCh{mG}
-hv{aG}[ur]ovaMCh{mG}
-hv{aG}[ur]ovMCh{mG}
-hv{aG}[ur]ovrrMCh{mG}
-hv{aG}[ur]ovrrMCh{mG}
-hv{aG}[ur]ovrrrrrMCh{mG}
-hv{aG}[ur]ovrrMCh{mG}
-hv{aG}[ur]ovaaMCh{mG}
-hv{aG}[ur]ovrrMCh{mG}
-hv{aG}[ur]ovrMCh{mG}
-hv{aG}[ur]ovrMCh{mG}
-hv{aG}[ur]ovrrMCh{mG}
-hv{aG}[ur]ovMCh{mG}
-hv{aG}[ur]ovrrMCh{mG}
-hv{aG}[ur]ovrrMCh{mG}
-hv{aG}[ur]ovrrMCh{mG}
-hv{aG}[ur]ovrrrrrrMCh{mG}
-hv{aG}[ur]ovaaaMCh{mG}
-hv{aG}[ur]ovaMCh{mG}
-hv{aG}[ur]ovaMCh{mG}
-hv{aG}[ur]ovrrMCh{mG}
-hv{aG}[ur]ovaaMCh{mG}
-hv{aG}[ur]ovaMCh{mG}
-hv{aG}[ur]ovMCh{mG}</p>
+<p>h[ur]ovMCh{mG}<br>hv{aG}[ur]ovaaaMCh{mG}<br>hv{aG}[ur]ovrrMCh{mG}<br>hv{aG}[ur]ovMCh{mG}<br>hv{aG}[ur]ovrrrMCh{mG}<br>hv{aG}[ur]ovaaMCh{mG}<br>hv{aG}[ur]ovrMCh{mG}<br>hv{aG}[ur]ovrrrrrMCh{mG}<br>hv{aG}[ur]ovrMCh{mG}<br>hv{aG}[ur]ovaMCh{mG}<br>hv{aG}[ur]ovrrrrMCh{mG}<br>hv{aG}[ur]ovaMCh{mG}<br>hv{aG}[ur]ovMCh{mG}<br>hv{aG}[ur]ovrrMCh{mG}<br>hv{aG}[ur]ovrrMCh{mG}<br>hv{aG}[ur]ovrrrrrMCh{mG}<br>hv{aG}[ur]ovrrMCh{mG}<br>hv{aG}[ur]ovaaMCh{mG}<br>hv{aG}[ur]ovrrMCh{mG}<br>hv{aG}[ur]ovrMCh{mG}<br>hv{aG}[ur]ovrMCh{mG}<br>hv{aG}[ur]ovrrMCh{mG}<br>hv{aG}[ur]ovMCh{mG}<br>hv{aG}[ur]ovrrMCh{mG}<br>hv{aG}[ur]ovrrMCh{mG}<br>hv{aG}[ur]ovrrMCh{mG}<br>hv{aG}[ur]ovrrrrrrMCh{mG}<br>hv{aG}[ur]ovaaaMCh{mG}<br>hv{aG}[ur]ovaMCh{mG}<br>hv{aG}[ur]ovaMCh{mG}<br>hv{aG}[ur]ovrrMCh{mG}<br>hv{aG}[ur]ovaaMCh{mG}<br>hv{aG}[ur]ovaMCh{mG}<br>hv{aG}[ur]ovMCh{mG}</p>
 </blockquote>
-<h3>得到正向算法（递推公式）</h3>
-<p><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//MCh&#123;mG&#125;hv&#123;aG&#125;[ur]ov</span></span><br><span class="line">*j = *i + *a - <span class="number">2</span> * (*i &amp; *a)</span><br><span class="line">    </span><br><span class="line"><span class="comment">//&#123;mG&#125;:   *a += j  j清空</span></span><br><span class="line"><span class="keyword">while</span>(*j):</span><br><span class="line">    *a++</span><br><span class="line">    *j--</span><br><span class="line">        </span><br><span class="line"><span class="comment">//&#123;aG&#125;:    i -= j  j清空 </span></span><br><span class="line"><span class="keyword">while</span>(*j):</span><br><span class="line">    *i--</span><br><span class="line">    *j--</span><br><span class="line">        </span><br><span class="line"><span class="comment">//[ur]:	   i = *a   a清空</span></span><br><span class="line"><span class="keyword">while</span>(*a)  </span><br><span class="line">    *a--</span><br><span class="line">    *i++</span><br><span class="line">    </span><br><span class="line"><span class="comment">//r:</span></span><br><span class="line">    *i++</span><br><span class="line"><span class="comment">//a:</span></span><br><span class="line">    *i--</span><br><span class="line"><span class="comment">//v:</span></span><br><span class="line">    j = i</span><br></pre></td></tr></table></figure></p>
+<h3 id="得到正向算法（递推公式）"><a href="#得到正向算法（递推公式）" class="headerlink" title="得到正向算法（递推公式）"></a>得到正向算法（递推公式）</h3><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="comment">//MCh&#123;mG&#125;hv&#123;aG&#125;[ur]ov</span></span><br><span class="line">*j = *i + *a - <span class="number">2</span> * (*i &amp; *a)</span><br><span class="line">    </span><br><span class="line"><span class="comment">//&#123;mG&#125;:   *a += j  j清空</span></span><br><span class="line"><span class="keyword">while</span>(*j):</span><br><span class="line">    *a++</span><br><span class="line">    *j--</span><br><span class="line">        </span><br><span class="line"><span class="comment">//&#123;aG&#125;:    i -= j  j清空 </span></span><br><span class="line"><span class="keyword">while</span>(*j):</span><br><span class="line">    *i--</span><br><span class="line">    *j--</span><br><span class="line">        </span><br><span class="line"><span class="comment">//[ur]:	   i = *a   a清空</span></span><br><span class="line"><span class="keyword">while</span>(*a)  </span><br><span class="line">    *a--</span><br><span class="line">    *i++</span><br><span class="line">    </span><br><span class="line"><span class="comment">//r:</span></span><br><span class="line">    *i++</span><br><span class="line"><span class="comment">//a:</span></span><br><span class="line">    *i--</span><br><span class="line"><span class="comment">//v:</span></span><br><span class="line">    j = i</span><br></pre></td></tr></table></figure>
+
 <p>经过研究</p>
 <blockquote>
 <p>“v{ag}”       没有起到任何作用，</p>
@@ -486,40 +450,7 @@ hv{aG}[ur]ovMCh{mG}</p>
 </blockquote>
 <p>再次精简：（去掉v{aG}  ）</p>
 <blockquote>
-<p>h[ur]oMCh{mG}
-h[ur]oaaaMCh{mG}
-h[ur]orrMCh{mG}
-h[ur]oMCh{mG}
-h[ur]orrrMCh{mG}
-h[ur]oaaMCh{mG}
-h[ur]orMCh{mG}
-h[ur]orrrrrMCh{mG}
-h[ur]orMCh{mG}
-h[ur]oaMCh{mG}
-h[ur]orrrrMCh{mG}
-h[ur]oaMCh{mG}
-h[ur]oMCh{mG}
-h[ur]orrMCh{mG}
-h[ur]orrMCh{mG}
-h[ur]orrrrrMCh{mG}
-h[ur]orrMCh{mG}
-h[ur]oaaMCh{mG}
-h[ur]orrMCh{mG}
-h[ur]orMCh{mG}
-h[ur]orMCh{mG}
-h[ur]orrMCh{mG}
-h[ur]oMCh{mG}
-h[ur]orrMCh{mG}
-h[ur]orrMCh{mG}
-h[ur]orrMCh{mG}
-h[ur]orrrrrrMCh{mG}
-h[ur]oaaaMCh{mG}
-h[ur]oaMCh{mG}
-h[ur]oaMCh{mG}
-h[ur]orrMCh{mG}
-h[ur]oaaMCh{mG}
-h[ur]oaMCh{mG}
-h[ur]oMCh{mG}</p>
+<p>h[ur]oMCh{mG}<br>h[ur]oaaaMCh{mG}<br>h[ur]orrMCh{mG}<br>h[ur]oMCh{mG}<br>h[ur]orrrMCh{mG}<br>h[ur]oaaMCh{mG}<br>h[ur]orMCh{mG}<br>h[ur]orrrrrMCh{mG}<br>h[ur]orMCh{mG}<br>h[ur]oaMCh{mG}<br>h[ur]orrrrMCh{mG}<br>h[ur]oaMCh{mG}<br>h[ur]oMCh{mG}<br>h[ur]orrMCh{mG}<br>h[ur]orrMCh{mG}<br>h[ur]orrrrrMCh{mG}<br>h[ur]orrMCh{mG}<br>h[ur]oaaMCh{mG}<br>h[ur]orrMCh{mG}<br>h[ur]orMCh{mG}<br>h[ur]orMCh{mG}<br>h[ur]orrMCh{mG}<br>h[ur]oMCh{mG}<br>h[ur]orrMCh{mG}<br>h[ur]orrMCh{mG}<br>h[ur]orrMCh{mG}<br>h[ur]orrrrrrMCh{mG}<br>h[ur]oaaaMCh{mG}<br>h[ur]oaMCh{mG}<br>h[ur]oaMCh{mG}<br>h[ur]orrMCh{mG}<br>h[ur]oaaMCh{mG}<br>h[ur]oaMCh{mG}<br>h[ur]oMCh{mG}</p>
 </blockquote>
 <blockquote>
 <p>即</p>
@@ -533,18 +464,19 @@ h[ur]oMCh{mG}</p>
 <p>h 指针加一</p>
 <p>{mG}  把j的内容放到*(a+1)</p>
 </blockquote>
-<p>*<em>递推公式：new(</em>(a+1)) = *(a+1) + index +   *a -  (( <em>( a+1) + index) &amp; <em>a) * 2</em></em></p>
+<p><strong>递推公式：new(*(a+1)) = *(a+1) + index +   *a -  (( *( a+1) + index) &amp; *a) * 2</strong></p>
 <p>(index为 一大堆rraa 最后得到的值)</p>
-<h3>解密</h3>
-<p>知道了*(a+1)    后面的新值，知道了    *(a+1) ，要求原来的 *(a+1)的值，只能通过枚举</p>
-<p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">enc = [<span class="number">27</span>, <span class="number">114</span>, <span class="number">17</span>, <span class="number">118</span>, <span class="number">8</span>, <span class="number">74</span>, <span class="number">126</span>, <span class="number">5</span>, <span class="number">55</span>, <span class="number">124</span>, <span class="number">31</span>, <span class="number">88</span>, <span class="number">104</span>, <span class="number">7</span>,</span><br><span class="line"><span class="number">112</span>, <span class="number">7</span>, <span class="number">49</span>, <span class="number">108</span>, <span class="number">4</span>, <span class="number">47</span>, <span class="number">4</span>, <span class="number">105</span>, <span class="number">54</span>, <span class="number">77</span>, <span class="number">127</span>, <span class="number">8</span>, <span class="number">80</span>, <span class="number">12</span>, <span class="number">109</span>, <span class="number">28</span>, <span class="number">127</span>, <span class="number">80</span>, <span class="number">29</span>, <span class="number">96</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">index = []</span><br><span class="line">f = open(<span class="string">"index.txt"</span>, <span class="string">"r"</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">34</span>):</span><br><span class="line">    cnt = <span class="number">0</span></span><br><span class="line">    s = f.readline()</span><br><span class="line">    <span class="keyword">for</span> c <span class="keyword">in</span> s:</span><br><span class="line">        <span class="keyword">if</span>(c == <span class="string">'r'</span>):</span><br><span class="line">            cnt += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span>(c == <span class="string">'a'</span>):</span><br><span class="line">            cnt -= <span class="number">1</span></span><br><span class="line">    index.append(cnt)</span><br><span class="line"></span><br><span class="line">ans = <span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">33</span>, <span class="number">0</span>, <span class="number">-1</span>):</span><br><span class="line">    <span class="keyword">for</span> c <span class="keyword">in</span> range(<span class="number">128</span>):</span><br><span class="line">        <span class="keyword">if</span>(enc[i] == c + index[i] + enc[i<span class="number">-1</span>] - <span class="number">2</span> * ((c + index[i]) &amp; enc[i<span class="number">-1</span>])):</span><br><span class="line">            ans = chr(c) + ans</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">print(ans)</span><br></pre></td></tr></table></figure></p>
+<h3 id="解密"><a href="#解密" class="headerlink" title="解密"></a>解密</h3><p>知道了*(a+1)    后面的新值，知道了    *(a+1) ，要求原来的 *(a+1)的值，只能通过枚举</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">enc = [<span class="number">27</span>, <span class="number">114</span>, <span class="number">17</span>, <span class="number">118</span>, <span class="number">8</span>, <span class="number">74</span>, <span class="number">126</span>, <span class="number">5</span>, <span class="number">55</span>, <span class="number">124</span>, <span class="number">31</span>, <span class="number">88</span>, <span class="number">104</span>, <span class="number">7</span>,</span><br><span class="line"><span class="number">112</span>, <span class="number">7</span>, <span class="number">49</span>, <span class="number">108</span>, <span class="number">4</span>, <span class="number">47</span>, <span class="number">4</span>, <span class="number">105</span>, <span class="number">54</span>, <span class="number">77</span>, <span class="number">127</span>, <span class="number">8</span>, <span class="number">80</span>, <span class="number">12</span>, <span class="number">109</span>, <span class="number">28</span>, <span class="number">127</span>, <span class="number">80</span>, <span class="number">29</span>, <span class="number">96</span>]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">index = []</span><br><span class="line">f = open(<span class="string">"index.txt"</span>, <span class="string">"r"</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">34</span>):</span><br><span class="line">    cnt = <span class="number">0</span></span><br><span class="line">    s = f.readline()</span><br><span class="line">    <span class="keyword">for</span> c <span class="keyword">in</span> s:</span><br><span class="line">        <span class="keyword">if</span>(c == <span class="string">'r'</span>):</span><br><span class="line">            cnt += <span class="number">1</span></span><br><span class="line">        <span class="keyword">if</span>(c == <span class="string">'a'</span>):</span><br><span class="line">            cnt -= <span class="number">1</span></span><br><span class="line">    index.append(cnt)</span><br><span class="line"></span><br><span class="line">ans = <span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">33</span>, <span class="number">0</span>, <span class="number">-1</span>):</span><br><span class="line">    <span class="keyword">for</span> c <span class="keyword">in</span> range(<span class="number">128</span>):</span><br><span class="line">        <span class="keyword">if</span>(enc[i] == c + index[i] + enc[i<span class="number">-1</span>] - <span class="number">2</span> * ((c + index[i]) &amp; enc[i<span class="number">-1</span>])):</span><br><span class="line">            ans = chr(c) + ans</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">print(ans)</span><br></pre></td></tr></table></figure>
+
 <p>输出：lag{D3v1L_H0mur4_f**k_y0uR_bra1N}</p>
 <p>由于如下代码（IDA dump出来的）</p>
-<p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">__isoc99_scanf(<span class="string">"%s"</span>, s);</span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; ; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    v3 = i;</span><br><span class="line">    <span class="keyword">if</span> ( v3 &gt;= <span class="built_in">strlen</span>(s) )</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    *((_DWORD *)array_input + i + <span class="number">1L</span>L) = s[i];</span><br><span class="line">  &#125;</span><br><span class="line">  *(_DWORD *)array_input = s[<span class="built_in">strlen</span>(s) - <span class="number">1</span>];    <span class="comment">// 读取方式有点奇怪，最后一个字符放在开头的</span></span><br></pre></td></tr></table></figure></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">__isoc99_scanf(<span class="string">"%s"</span>, s);</span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; ; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    v3 = i;</span><br><span class="line">    <span class="keyword">if</span> ( v3 &gt;= <span class="built_in">strlen</span>(s) )</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    *((_DWORD *)array_input + i + <span class="number">1L</span>L) = s[i];</span><br><span class="line">  &#125;</span><br><span class="line">  *(_DWORD *)array_input = s[<span class="built_in">strlen</span>(s) - <span class="number">1</span>];    <span class="comment">// 读取方式有点奇怪，最后一个字符放在开头的</span></span><br></pre></td></tr></table></figure>
+
 <p>输入的字符串并没有按照顺序存储，而是将输入的最后一个字符放到了内存开头，说明之后的操作全部都是从第二位开始的</p>
-<p>通过最后一位和第一位的值同样可以逆推出原值，直接根据格式猜也行，flag嘛缺个&quot;f&quot;hhhh</p>
+<p>通过最后一位和第一位的值同样可以逆推出原值，直接根据格式猜也行，flag嘛缺个”f”hhhh</p>
 <p>flag{D3v1L_H0mur4_f**k_y0uR_bra1N}</p>
-<p>​	<strong>本题用到了程序语言的化简，还有寻找规律的相关方法，遇到这样的题最好是先自己模拟一个循环节，找到规律再尝试写脚本解。因为并不是所有的虚拟机都是每步操作都可逆的23333</strong></p>
+<p>​    <strong>本题用到了程序语言的化简，还有寻找规律的相关方法，遇到这样的题最好是先自己模拟一个循环节，找到规律再尝试写脚本解。因为并不是所有的虚拟机都是每步操作都可逆的23333</strong></p>
 
     </article>
     <!-- license  -->
@@ -687,7 +619,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">HomuraVM</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.1.</span> <span class="toc-text">概况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.</span> <span class="toc-text">过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.1.</span> <span class="toc-text">对vm的代码进行读取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.2.</span> <span class="toc-text">清除无用虚拟机指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.3.</span> <span class="toc-text">得到正向算法（递推公式）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#undefined"><span class="toc-number">1.2.4.</span> <span class="toc-text">解密</span></a></li></ol></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#HomuraVM"><span class="toc-number">1.</span> <span class="toc-text">HomuraVM</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#概况"><span class="toc-number">1.1.</span> <span class="toc-text">概况</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#过程"><span class="toc-number">1.2.</span> <span class="toc-text">过程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#对vm的代码进行读取"><span class="toc-number">1.2.1.</span> <span class="toc-text">对vm的代码进行读取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#清除无用虚拟机指令"><span class="toc-number">1.2.2.</span> <span class="toc-text">清除无用虚拟机指令</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#得到正向算法（递推公式）"><span class="toc-number">1.2.3.</span> <span class="toc-text">得到正向算法（递推公式）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解密"><span class="toc-number">1.2.4.</span> <span class="toc-text">解密</span></a></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -700,6 +632,56 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1929,22 +1911,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/14</span><a class="archive-post-title" href="/posts/db7ddaa/">JarvisOJ_DD_Evil_Exe</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">06/14</span><a class="archive-post-title" href="/posts/512d4c5b/">JarvisOJ-findpass</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/13</span><a class="archive-post-title" href="/posts/b15e7935/">如何修改hosts</a>
+            <span class="archive-post-date">06/14</span><a class="archive-post-title" href="/posts/db7ddaa/">JarvisOJ_DD_Evil_Exe</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">06/13</span><a class="archive-post-title" href="/posts/cbf6a417/">利用python搭建简易http服务器</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/13</span><a class="archive-post-title" href="/posts/b15e7935/">如何修改hosts</a>
         </li>
     
     
@@ -2064,12 +2046,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/6aab0075/">wakarimasu</a>
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/f9cd8782/">xor</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/f9cd8782/">xor</a>
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/6aab0075/">wakarimasu</a>
         </li>
     
     
@@ -2123,7 +2105,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a>
         </li>
     
     
@@ -2138,7 +2120,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e5abdd9c/">铺地毯题解</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
         </li>
     
     
@@ -2148,47 +2130,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/3598786/">逆波兰表达式题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28cf1e0f/">拓扑排序以及关键路径总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/675d1a4b/">求最大网络流（最小割）总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e5abdd9c/">铺地毯题解</a>
         </li>
     
     
@@ -2198,7 +2140,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
         </li>
     
     
@@ -2208,17 +2150,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/50d2edb9/">2的幂次方表示题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/93b1f5dc/">暑期人生测试一总结</a>
         </li>
     
     
@@ -2228,12 +2160,62 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/93b1f5dc/">暑期人生测试一总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/50d2edb9/">2的幂次方表示题解</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28cf1e0f/">拓扑排序以及关键路径总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/3598786/">逆波兰表达式题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/675d1a4b/">求最大网络流（最小割）总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
         </li>
     
     
@@ -2290,9 +2272,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="xtea"><span class="iconfont-archer">&#xe606;</span>xtea</span>
     
-        <span class="sidebar-tag-name" data-tags="pwntools"><span class="iconfont-archer">&#xe606;</span>pwntools</span>
-    
         <span class="sidebar-tag-name" data-tags="crc16"><span class="iconfont-archer">&#xe606;</span>crc16</span>
+    
+        <span class="sidebar-tag-name" data-tags="pwntools"><span class="iconfont-archer">&#xe606;</span>pwntools</span>
     
         <span class="sidebar-tag-name" data-tags="packer"><span class="iconfont-archer">&#xe606;</span>packer</span>
     
@@ -2333,9 +2315,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="write up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
     
-        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
-    
         <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
+    
+        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
     
         <span class="sidebar-category-name" data-categories="cnss_recruit_201809"><span class="iconfont-archer">&#xe60a;</span>write-up/cnss-recruit-201809</span>
     

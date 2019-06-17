@@ -284,7 +284,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">1.3k</span>阅读时长: <span class="post-count reading-time">7 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">671</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -413,109 +413,111 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <p>&lt;h1&gt;SBT节点大小平衡树总结&lt;/h1&gt;
-&lt;strong&gt;SBT是二叉查找树的优化。&lt;/strong&gt;</p>
-<p>&lt;strong&gt;与二叉平衡树AVL类似，我们定义一棵树： &lt;/strong&gt;
-&lt;ol&gt;
-	&lt;li&gt;&lt;strong&gt;这棵树的size为这棵树所有节点的个数&lt;/strong&gt;&lt;/li&gt;
-	&lt;li&gt;&lt;strong&gt;每棵子树的大小不小于其兄弟的子树大小&lt;/strong&gt;&lt;/li&gt;
-&lt;/ol&gt;
-&lt;strong&gt;即s[right[t]]≥s[left[left[t]]],s[right[left[t]]] 且 s[left[t]]≥s[right[right[t]]], s[left[right[t]]]&lt;/strong&gt;</p>
-<p>&lt;strong&gt;如果插入结点后不满足SBT性质，那么递归修复这棵树的性质，通过旋转达到目的。&lt;/strong&gt;</p>
-<p>&lt;strong&gt; &lt;/strong&gt;</p>
-<p>&lt;strong&gt;voidRight_Rotate(int &amp;t){&lt;/strong&gt;</p>
-<p>&lt;strong&gt;       int k=left[t];&lt;/strong&gt;</p>
-<p>&lt;strong&gt;       left[t]=right[k];&lt;/strong&gt;</p>
-<p>&lt;strong&gt;       right[k]=t;&lt;/strong&gt;</p>
-<p>&lt;strong&gt;       s[k]=s[t];&lt;/strong&gt;</p>
-<p>&lt;strong&gt;       s[t]=s[left[t]]+s[right[k]]+1;&lt;/strong&gt;</p>
-<p>&lt;strong&gt;       t=k;&lt;/strong&gt;</p>
-<p>&lt;strong&gt;       return;&lt;/strong&gt;</p>
-<p>&lt;strong&gt;}&lt;/strong&gt;</p>
-<p>&lt;strong&gt;voidLeft_Rotate(int &amp;t){&lt;/strong&gt;</p>
-<p>&lt;strong&gt;       int k=right[t];&lt;/strong&gt;</p>
-<p>&lt;strong&gt;       right[t]=left[k];&lt;/strong&gt;</p>
-<p>&lt;strong&gt;       left[k]=t;&lt;/strong&gt;</p>
-<p>&lt;strong&gt;       s[k]=s[t];&lt;/strong&gt;</p>
-<p>&lt;strong&gt;       s[t]=s[left[k]]+s[right[t]]+1;&lt;/strong&gt;</p>
-<p>&lt;strong&gt;       t=k;&lt;/strong&gt;</p>
-<p>&lt;strong&gt;       return;&lt;/strong&gt;</p>
-<p>&lt;strong&gt;}&lt;/strong&gt;</p>
-<p>&lt;strong&gt;这里可以运用小技巧，在传入变量的时候传入指针，修改变量的同时也修改了原来根节点的值&lt;/strong&gt;</p>
-<p>&lt;strong&gt; &lt;/strong&gt;</p>
-<p>&lt;strong&gt;怎么判断旋转的方式？用Maintain函数，形参为根节点与变量flag，false表示当前考虑的是左边的结点 true是右边的结点。其中我们应该判断四个子节点和根节点是否需要修复，但是“左右”，“右左”的情况被证明已经被根节点的修复操作所判断，又少了两个操作&lt;/strong&gt;</p>
-<p>&lt;strong&gt;voidMaintain(int &amp;t,bool flag){&lt;/strong&gt;</p>
-<p>&lt;strong&gt;       if(flag==false){&lt;/strong&gt;</p>
-<p>&lt;strong&gt;              if(s[left[left[t]]]&gt;s[right[t]])&lt;/strong&gt;</p>
-<p>&lt;strong&gt;                     Right_Rotate(t);&lt;/strong&gt;</p>
-<p>&lt;strong&gt;              elseif(s[right[left[t]]]&gt;s[right[t]]){&lt;/strong&gt;</p>
-<p>&lt;strong&gt;                     Left_Rotate(left[t]);&lt;/strong&gt;</p>
-<p>&lt;strong&gt;                     Right_Rotate(t);&lt;/strong&gt;</p>
-<p>&lt;strong&gt;              }else return;//一定记住返回 &lt;/strong&gt;</p>
-<p>&lt;strong&gt;       }else{&lt;/strong&gt;</p>
-<p>&lt;strong&gt;              if(s[right[right[t]]]&gt;s[left[t]])&lt;/strong&gt;</p>
-<p>&lt;strong&gt;                     Left_Rotate(t);&lt;/strong&gt;</p>
-<p>&lt;strong&gt;              else if(s[left[right[t]]]&gt;s[left[t]]){&lt;/strong&gt;</p>
-<p>&lt;strong&gt;                     Right_Rotate(right[t]);&lt;/strong&gt;</p>
-<p>&lt;strong&gt;                     Left_Rotate(t);&lt;/strong&gt;</p>
-<p>&lt;strong&gt;              }else return;//一定记住返回 &lt;/strong&gt;</p>
-<p>&lt;strong&gt;       }&lt;/strong&gt;</p>
-<p>&lt;strong&gt;       Maintain(left[t],false);&lt;/strong&gt;</p>
-<p>&lt;strong&gt;       Maintain(right[t],true);&lt;/strong&gt;</p>
-<p>&lt;strong&gt;       Maintain(t,false);&lt;/strong&gt;</p>
-<p>&lt;strong&gt;       Maintain(t,true);&lt;/strong&gt;</p>
-<p>&lt;strong&gt;}&lt;/strong&gt;</p>
-<p>&lt;strong&gt; &lt;/strong&gt;</p>
-<p>&lt;strong&gt;插入操作：插入元素后修复整棵树&lt;/strong&gt;</p>
-<p>&lt;strong&gt;voidInsert(int &amp;t,int k){&lt;/strong&gt;</p>
-<p>&lt;strong&gt;       if(t==0){//新结点&lt;/strong&gt;</p>
-<p>&lt;strong&gt;              key[++cnt]=k;&lt;/strong&gt;</p>
-<p>&lt;strong&gt;              s[cnt]=1;&lt;/strong&gt;</p>
-<p>&lt;strong&gt;              t=cnt;&lt;/strong&gt;</p>
-<p>&lt;strong&gt;              left[cnt]=right[cnt]=0;&lt;/strong&gt;</p>
-<p>&lt;strong&gt;       }&lt;/strong&gt;</p>
-<p>&lt;strong&gt;       else{&lt;/strong&gt;</p>
-<p>&lt;strong&gt;              s[t]++;&lt;/strong&gt;</p>
-<p>&lt;strong&gt;              if(k&lt;key[t]) Insert(left[t],k);&lt;/strong&gt;</p>
-<p>&lt;strong&gt;              else Insert(right[t],k);&lt;/strong&gt;</p>
-<p>&lt;strong&gt;              Maintain(t,k&gt;=key[t]);&lt;/strong&gt;</p>
-<p>&lt;strong&gt;       }&lt;/strong&gt;</p>
-<p>&lt;strong&gt;}&lt;/strong&gt;</p>
-<p>&lt;strong&gt; &lt;/strong&gt;</p>
-<p>&lt;strong&gt;找前驱：&lt;/strong&gt;</p>
-<p>&lt;strong&gt;intPred(int rt,int k){//找前驱 &lt;/strong&gt;</p>
-<p>&lt;strong&gt;       if(rt==0) return k;&lt;/strong&gt;</p>
-<p>&lt;strong&gt;       if(k&lt;key[rt]) return Pred(left[rt],k);//如果仍然不是前驱，就继续往前找&lt;/strong&gt;</p>
-<p>&lt;strong&gt;       else return Pred(right[rt],k);&lt;/strong&gt;</p>
-<p>&lt;strong&gt;}&lt;/strong&gt;</p>
-<p>&lt;strong&gt; &lt;/strong&gt;</p>
-<p>&lt;strong&gt;找后继：&lt;/strong&gt;</p>
-<p>&lt;strong&gt;intSucc(int rt,int k){//找后继 &lt;/strong&gt;</p>
-<p>&lt;strong&gt;       if(rt==0) return k;&lt;/strong&gt;</p>
-<p>&lt;strong&gt;       if(k&gt;key[rt]) returnSucc(right[rt],k);&lt;/strong&gt;</p>
-<p>&lt;strong&gt;       else return Succ(left[rt],k)&lt;/strong&gt;</p>
-<p>&lt;strong&gt;}&lt;/strong&gt;</p>
-<p>&lt;strong&gt; &lt;/strong&gt;</p>
-<p>&lt;strong&gt;寻找第K小的数&lt;/strong&gt;</p>
-<p>&lt;strong&gt;intselect(int &amp;x,int k)//求第k小数&lt;/strong&gt;</p>
-<p>&lt;strong&gt;{&lt;/strong&gt;</p>
-<p>&lt;strong&gt;   int r = tree[tree[x].left].size + 1;&lt;/strong&gt;</p>
-<p>&lt;strong&gt;   if(r == k) return tree[x].key;&lt;/strong&gt;</p>
-<p>&lt;strong&gt;   else if(r &lt; k) return select(tree[x].right,k - r);&lt;/strong&gt;</p>
-<p>&lt;strong&gt;   else return select(tree[x].left,k);&lt;/strong&gt;</p>
-<p>&lt;strong&gt;}&lt;/strong&gt;</p>
-<p>&lt;strong&gt; &lt;/strong&gt;</p>
-<p>&lt;strong&gt; &lt;/strong&gt;</p>
-<p>&lt;strong&gt;询问某元素在树中是第几大&lt;/strong&gt;</p>
-<p>&lt;strong&gt;intrank(int &amp;x,int key)//求key排第几&lt;/strong&gt;</p>
-<p>&lt;strong&gt;{&lt;/strong&gt;</p>
-<p>&lt;strong&gt;   if(key &lt; tree[x].key)&lt;/strong&gt;</p>
-<p>&lt;strong&gt;       return rank(tree[x].left,key);&lt;/strong&gt;</p>
-<p>&lt;strong&gt;   else if(key &gt; tree[x].key)&lt;/strong&gt;</p>
-<p>&lt;strong&gt;       return rank(tree[x].right,key) + tree[tree[x].left].size +1;&lt;/strong&gt;</p>
-<p>&lt;strong&gt;   return tree[tree[x].left].size + 1;&lt;/strong&gt;</p>
-<p>&lt;strong&gt;}&lt;/strong&gt;</p>
-<p>&lt;strong&gt; &lt;/strong&gt;</p>
+         <h1>SBT节点大小平衡树总结</h1>
+<strong>SBT是二叉查找树的优化。</strong>
+
+<p><strong>与二叉平衡树AVL类似，我们定义一棵树： </strong></p>
+<ol>
+     <li><strong>这棵树的size为这棵树所有节点的个数</strong></li>
+     <li><strong>每棵子树的大小不小于其兄弟的子树大小</strong></li>
+</ol>
+<strong>即s[right[t]]≥s[left[left[t]]],s[right[left[t]]] 且 s[left[t]]≥s[right[right[t]]], s[left[right[t]]]</strong>
+
+<p><strong>如果插入结点后不满足SBT性质，那么递归修复这棵树的性质，通过旋转达到目的。</strong></p>
+<p><strong> </strong></p>
+<p><strong>voidRight_Rotate(int &amp;t){</strong></p>
+<p><strong>       int k=left[t];</strong></p>
+<p><strong>       left[t]=right[k];</strong></p>
+<p><strong>       right[k]=t;</strong></p>
+<p><strong>       s[k]=s[t];</strong></p>
+<p><strong>       s[t]=s[left[t]]+s[right[k]]+1;</strong></p>
+<p><strong>       t=k;</strong></p>
+<p><strong>       return;</strong></p>
+<p><strong>}</strong></p>
+<p><strong>voidLeft_Rotate(int &amp;t){</strong></p>
+<p><strong>       int k=right[t];</strong></p>
+<p><strong>       right[t]=left[k];</strong></p>
+<p><strong>       left[k]=t;</strong></p>
+<p><strong>       s[k]=s[t];</strong></p>
+<p><strong>       s[t]=s[left[k]]+s[right[t]]+1;</strong></p>
+<p><strong>       t=k;</strong></p>
+<p><strong>       return;</strong></p>
+<p><strong>}</strong></p>
+<p><strong>这里可以运用小技巧，在传入变量的时候传入指针，修改变量的同时也修改了原来根节点的值</strong></p>
+<p><strong> </strong></p>
+<p><strong>怎么判断旋转的方式？用Maintain函数，形参为根节点与变量flag，false表示当前考虑的是左边的结点 true是右边的结点。其中我们应该判断四个子节点和根节点是否需要修复，但是“左右”，“右左”的情况被证明已经被根节点的修复操作所判断，又少了两个操作</strong></p>
+<p><strong>voidMaintain(int &amp;t,bool flag){</strong></p>
+<p><strong>       if(flag==false){</strong></p>
+<p><strong>              if(s[left[left[t]]]&gt;s[right[t]])</strong></p>
+<p><strong>                     Right_Rotate(t);</strong></p>
+<p><strong>              elseif(s[right[left[t]]]&gt;s[right[t]]){</strong></p>
+<p><strong>                     Left_Rotate(left[t]);</strong></p>
+<p><strong>                     Right_Rotate(t);</strong></p>
+<p><strong>              }else return;//一定记住返回 </strong></p>
+<p><strong>       }else{</strong></p>
+<p><strong>              if(s[right[right[t]]]&gt;s[left[t]])</strong></p>
+<p><strong>                     Left_Rotate(t);</strong></p>
+<p><strong>              else if(s[left[right[t]]]&gt;s[left[t]]){</strong></p>
+<p><strong>                     Right_Rotate(right[t]);</strong></p>
+<p><strong>                     Left_Rotate(t);</strong></p>
+<p><strong>              }else return;//一定记住返回 </strong></p>
+<p><strong>       }</strong></p>
+<p><strong>       Maintain(left[t],false);</strong></p>
+<p><strong>       Maintain(right[t],true);</strong></p>
+<p><strong>       Maintain(t,false);</strong></p>
+<p><strong>       Maintain(t,true);</strong></p>
+<p><strong>}</strong></p>
+<p><strong> </strong></p>
+<p><strong>插入操作：插入元素后修复整棵树</strong></p>
+<p><strong>voidInsert(int &amp;t,int k){</strong></p>
+<p><strong>       if(t==0){//新结点</strong></p>
+<p><strong>              key[++cnt]=k;</strong></p>
+<p><strong>              s[cnt]=1;</strong></p>
+<p><strong>              t=cnt;</strong></p>
+<p><strong>              left[cnt]=right[cnt]=0;</strong></p>
+<p><strong>       }</strong></p>
+<p><strong>       else{</strong></p>
+<p><strong>              s[t]++;</strong></p>
+<p><strong>              if(k&lt;key[t]) Insert(left[t],k);</strong></p>
+<p><strong>              else Insert(right[t],k);</strong></p>
+<p><strong>              Maintain(t,k&gt;=key[t]);</strong></p>
+<p><strong>       }</strong></p>
+<p><strong>}</strong></p>
+<p><strong> </strong></p>
+<p><strong>找前驱：</strong></p>
+<p><strong>intPred(int rt,int k){//找前驱 </strong></p>
+<p><strong>       if(rt==0) return k;</strong></p>
+<p><strong>       if(k&lt;key[rt]) return Pred(left[rt],k);//如果仍然不是前驱，就继续往前找</strong></p>
+<p><strong>       else return Pred(right[rt],k);</strong></p>
+<p><strong>}</strong></p>
+<p><strong> </strong></p>
+<p><strong>找后继：</strong></p>
+<p><strong>intSucc(int rt,int k){//找后继 </strong></p>
+<p><strong>       if(rt==0) return k;</strong></p>
+<p><strong>       if(k&gt;key[rt]) returnSucc(right[rt],k);</strong></p>
+<p><strong>       else return Succ(left[rt],k)</strong></p>
+<p><strong>}</strong></p>
+<p><strong> </strong></p>
+<p><strong>寻找第K小的数</strong></p>
+<p><strong>intselect(int &amp;x,int k)//求第k小数</strong></p>
+<p><strong>{</strong></p>
+<p><strong>   int r = tree[tree[x].left].size + 1;</strong></p>
+<p><strong>   if(r == k) return tree[x].key;</strong></p>
+<p><strong>   else if(r &lt; k) return select(tree[x].right,k - r);</strong></p>
+<p><strong>   else return select(tree[x].left,k);</strong></p>
+<p><strong>}</strong></p>
+<p><strong> </strong></p>
+<p><strong> </strong></p>
+<p><strong>询问某元素在树中是第几大</strong></p>
+<p><strong>intrank(int &amp;x,int key)//求key排第几</strong></p>
+<p><strong>{</strong></p>
+<p><strong>   if(key &lt; tree[x].key)</strong></p>
+<p><strong>       return rank(tree[x].left,key);</strong></p>
+<p><strong>   else if(key &gt; tree[x].key)</strong></p>
+<p><strong>       return rank(tree[x].right,key) + tree[tree[x].left].size +1;</strong></p>
+<p><strong>   return tree[tree[x].left].size + 1;</strong></p>
+<p><strong>}</strong></p>
+<p><strong> </strong></p>
 
     </article>
     <!-- license  -->
@@ -658,7 +660,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#undefined"><span class="toc-number">1.</span> <span class="toc-text">SBT节点大小平衡树总结</span></a></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -671,6 +673,56 @@ top:50vh;
     <div class="sidebar-content sidebar-content-show-archive">
           <div class="sidebar-panel-archives">
     <!-- 在ejs中将archive按照时间排序 -->
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -1900,22 +1952,22 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/14</span><a class="archive-post-title" href="/posts/db7ddaa/">JarvisOJ_DD_Evil_Exe</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
             <span class="archive-post-date">06/14</span><a class="archive-post-title" href="/posts/512d4c5b/">JarvisOJ-findpass</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">06/13</span><a class="archive-post-title" href="/posts/b15e7935/">如何修改hosts</a>
+            <span class="archive-post-date">06/14</span><a class="archive-post-title" href="/posts/db7ddaa/">JarvisOJ_DD_Evil_Exe</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">06/13</span><a class="archive-post-title" href="/posts/cbf6a417/">利用python搭建简易http服务器</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">06/13</span><a class="archive-post-title" href="/posts/b15e7935/">如何修改hosts</a>
         </li>
     
     
@@ -2035,12 +2087,12 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/6aab0075/">wakarimasu</a>
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/f9cd8782/">xor</a>
         </li>
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/f9cd8782/">xor</a>
+            <span class="archive-post-date">02/15</span><a class="archive-post-title" href="/posts/6aab0075/">wakarimasu</a>
         </li>
     
     
@@ -2094,7 +2146,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a>
         </li>
     
     
@@ -2109,7 +2161,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e5abdd9c/">铺地毯题解</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
         </li>
     
     
@@ -2119,47 +2171,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/3598786/">逆波兰表达式题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28cf1e0f/">拓扑排序以及关键路径总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/68e69317/">SBT总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/675d1a4b/">求最大网络流（最小割）总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/e5abdd9c/">铺地毯题解</a>
         </li>
     
     
@@ -2169,7 +2181,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/148b5576/">螺旋矩阵题解</a>
         </li>
     
     
@@ -2179,17 +2191,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/50d2edb9/">2的幂次方表示题解</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/c1dd3892/">离散hash优化总结</a>
-        </li>
-    
-    
-        <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/93b1f5dc/">暑期人生测试一总结</a>
         </li>
     
     
@@ -2199,12 +2201,62 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/93b1f5dc/">暑期人生测试一总结</a>
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/2889ce1/">来一次迁移工作吧</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28355435/">可并堆之左偏树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/30ce1405/">树状数组总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/50d2edb9/">2的幂次方表示题解</a>
         </li>
     
     
         <li class="archive-post-item">
             <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/874d0da0/">Tarjan算法求强连通分量总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/28cf1e0f/">拓扑排序以及关键路径总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/f8a544ad/">最小生成树总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/3598786/">逆波兰表达式题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/675d1a4b/">求最大网络流（最小割）总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/8e2c30b/">树形动态规划总结</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/d2da3f9f/">打印月历题解</a>
+        </li>
+    
+    
+        <li class="archive-post-item">
+            <span class="archive-post-date">12/06</span><a class="archive-post-title" href="/posts/89193a03/">迁移完成！</a>
         </li>
     
     
@@ -2261,9 +2313,9 @@ top:50vh;
     
         <span class="sidebar-tag-name" data-tags="xtea"><span class="iconfont-archer">&#xe606;</span>xtea</span>
     
-        <span class="sidebar-tag-name" data-tags="pwntools"><span class="iconfont-archer">&#xe606;</span>pwntools</span>
-    
         <span class="sidebar-tag-name" data-tags="crc16"><span class="iconfont-archer">&#xe606;</span>crc16</span>
+    
+        <span class="sidebar-tag-name" data-tags="pwntools"><span class="iconfont-archer">&#xe606;</span>pwntools</span>
     
         <span class="sidebar-tag-name" data-tags="packer"><span class="iconfont-archer">&#xe606;</span>packer</span>
     
@@ -2304,9 +2356,9 @@ jsonContent:
     
         <span class="sidebar-category-name" data-categories="write up"><span class="iconfont-archer">&#xe60a;</span>write-up</span>
     
-        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
-    
         <span class="sidebar-category-name" data-categories="c_plus_plus_2016"><span class="iconfont-archer">&#xe60a;</span>c-plus-plus-2016</span>
+    
+        <span class="sidebar-category-name" data-categories="nctf_20181124"><span class="iconfont-archer">&#xe60a;</span>write-up/nctf-20181124</span>
     
         <span class="sidebar-category-name" data-categories="cnss_recruit_201809"><span class="iconfont-archer">&#xe60a;</span>write-up/cnss-recruit-201809</span>
     
