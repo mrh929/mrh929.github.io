@@ -290,7 +290,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">1.4k</span>阅读时长: <span class="post-count reading-time">5 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">2.5k</span>阅读时长: <span class="post-count reading-time">9 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -419,7 +419,115 @@ height:50vh;
         <div class="container container-unloaded">
             <main class="main post-page">
     <article class="article-entry">
-        <h1 id="格式化字符串"><a href="#格式化字符串" class="headerlink" title="格式化字符串"></a>格式化字符串</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><h3 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h3><p>字符串泄露，顾名思义，就是利用一串格式化字符串，来达到泄露程序数据、修改内存数据的目的。</p>
+        <h1 id="格式化字符串"><a href="#格式化字符串" class="headerlink" title="格式化字符串"></a>格式化字符串</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><h3 id="简介-1"><a href="#简介-1" class="headerlink" title="简介"></a>简介</h3><p>字符串泄露，顾名思义，就是利用一串格式化字符串，来达到泄露程序数据、修改内存数据的目的</p>
+<p> <a href="https://zh.wikipedia.org/wiki/格式化字符串" target="_blank" rel="noopener">详细文档</a> </p>
+<p>==%[parameter] [flags] [field width] [.precision] [length] type==</p>
+<ol>
+<li><p><strong>parameter</strong></p>
+<p>用法：<strong>n$</strong>，表示选择第几个参数，在格式化字符串题目中尤为重要，可以跨参数读取数据</p>
+</li>
+<li><p><strong>flag</strong></p>
+<p>见文档</p>
+</li>
+<li><p><strong>Field Width</strong></p>
+</li>
+<li><p><strong>Precision</strong> </p>
+</li>
+<li><p><strong>Length</strong> </p>
+<p>指要输出的数据的长度，规定数据的尺寸</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="center">字符</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>hh</code></td>
+<td align="center">对于整数类型，<code>printf</code> 会输出<strong>一个</strong>字节长度的数据</td>
+</tr>
+<tr>
+<td align="center"><code>h</code></td>
+<td align="center">对于整数类型，<code>printf</code> 会输出<strong>两个</strong>字节长度的数据</td>
+</tr>
+<tr>
+<td align="center"><code>l</code></td>
+<td align="center">对于整数类型，<code>printf</code> 会输出<strong>四个</strong>字节长度的数据</td>
+</tr>
+<tr>
+<td align="center"><code>ll</code></td>
+<td align="center">对于整数类型，<code>printf</code> 会输出<strong>八个</strong>字节长度的数据</td>
+</tr>
+</tbody></table>
+<ol start="6">
+<li><p><strong>Type</strong> </p>
+<p>对应的是要输出的数据的数据类型，格式</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th align="center">字符</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><code>d</code>, <code>i</code></td>
+<td align="center">有符号十进制数值<code>int</code>。’<code>%d</code>‘与’<code>%i</code>‘对于输出是同义；但对于<code>scanf()</code>输入二者不同，其中<code>%i</code>在输入值有前缀<code>0x</code>或0时，分别表示16进制或8进制的值。如果指定了精度，则输出的数字不足时在左侧补0。默认精度为1。精度为0且值为0，则输出为空。</td>
+</tr>
+<tr>
+<td align="center"><code>u</code></td>
+<td align="center">十进制<code>unsigned int</code>。如果指定了精度，则输出的数字不足时在左侧补0。默认精度为1。精度为0且值为0，则输出为空。</td>
+</tr>
+<tr>
+<td align="center"><code>f</code>, <code>F</code></td>
+<td align="center"><code>double</code>型输出10进制<a href="https://zh.wikipedia.org/wiki/定點" target="_blank" rel="noopener">定点</a>表示。’<code>f</code>‘与’<code>F</code>‘差异是表示无穷与NaN时，’<code>f</code>‘输出’<code>inf</code>‘, ‘<code>infinity</code>‘与’<code>nan</code>‘；’<code>F</code>‘输出’<code>INF</code>‘, ‘<code>INFINITY</code>‘与’<code>NAN</code>‘。小数点后的数字位数等于精度，最后一位数字<a href="https://zh.wikipedia.org/wiki/四舍五入" target="_blank" rel="noopener">四舍五入</a>。精度默认为6。如果精度为0且没有#标记，则不出现小数点。小数点左侧至少一位数字。</td>
+</tr>
+<tr>
+<td align="center"><code>e</code>, <code>E</code></td>
+<td align="center"><code>double</code>值，输出形式为10进制的([<code>-</code>]d.ddd <code>e</code>[<code>+</code>/<code>-</code>]ddd). <code>E</code>版本使用的指数符号为<code>E</code>（而不是<code>e</code>）。指数部分至少包含2位数字，如果值为0，则指数部分为<code>00</code>。Windows系统，指数部分至少为3位数字，例如<code>1.5e002</code>，也可用Microsoft版的运行时函数<code>_set_output_format</code> 修改。小数点前存在1位数字。小数点后的数字位数等于精度。精度默认为6。如果精度为0且没有#标记，则不出现小数点。</td>
+</tr>
+<tr>
+<td align="center"><code>g</code>, <code>G</code></td>
+<td align="center"><code>double</code>型数值，精度定义为全部有效数字位数。当指数部分在<a href="https://zh.wikipedia.org/wiki/闭区间" target="_blank" rel="noopener">闭区间</a> [-4,5] 内，输出为定点形式；否则输出为指数浮点形式。’<code>g</code>‘使用小写字母，’<code>G</code>‘使用大写字母。小数点右侧的尾数0不被显示；显示小数点仅当输出的小数部分不为0。</td>
+</tr>
+<tr>
+<td align="center"><code>x</code>, <code>X</code></td>
+<td align="center">16进制<code>unsigned int</code>。’<code>x</code>‘使用小写字母；’<code>X</code>‘使用大写字母。如果指定了精度，则输出的数字不足时在左侧补0。默认精度为1。精度为0且值为0，则输出为空。</td>
+</tr>
+<tr>
+<td align="center"><code>o</code></td>
+<td align="center">8进制<code>unsigned int</code>。如果指定了精度，则输出的数字不足时在左侧补0。默认精度为1。精度为0且值为0，则输出为空。</td>
+</tr>
+<tr>
+<td align="center"><code>s</code></td>
+<td align="center">如果没有用l标志，输出<a href="https://zh.wikipedia.org/w/index.php?title=Null结尾字符串&action=edit&redlink=1" target="_blank" rel="noopener">null结尾字符串</a>直到精度规定的上限；如果没有指定精度，则输出所有字节。如果用了l标志，则对应函数参数指向wchar_t型的数组，输出时把每个宽字符转化为多字节字符，相当于调用<code>wcrtomb</code>函数。</td>
+</tr>
+<tr>
+<td align="center"><code>c</code></td>
+<td align="center">如果没有用l标志，把int参数转为<code>unsigned char</code>型输出；如果用了l标志，把wint_t参数转为包含两个元素的<code>wchart_t</code>数组，其中第一个元素包含要输出的字符，第二个元素为null宽字符。</td>
+</tr>
+<tr>
+<td align="center"><code>p</code></td>
+<td align="center"><code>void *</code>型</td>
+</tr>
+<tr>
+<td align="center"><code>a</code>, <code>A</code></td>
+<td align="center"><code>double</code>型的16进制表示，”[−]0<strong>x</strong>h.hhhh <strong>p</strong>±d”。其中指数部分为10进制表示的形式。例如：1025.010输出为0x1.004000p+10。’<code>a</code>‘使用小写字母，’<code>A</code>‘使用大写字母。<a href="https://zh.wikipedia.org/wiki/格式化字符串#cite_note-2" target="_blank" rel="noopener">[2]</a><a href="https://zh.wikipedia.org/wiki/格式化字符串#cite_note-3" target="_blank" rel="noopener">[3]</a> （C++11流使用<code>hexfloat</code>输出16进制浮点数）</td>
+</tr>
+<tr>
+<td align="center"><code>n</code></td>
+<td align="center">不输出字符，但是把已经成功输出的字符个数写入对应的整型指针参数所指的变量。</td>
+</tr>
+<tr>
+<td align="center"><code>%</code></td>
+<td align="center">‘<code>%</code>‘字面值，不接受任何flags, width, precision or length。</td>
+</tr>
+</tbody></table>
+<p>​    注意 <strong>n</strong> 这个type，它不会向屏幕中输出数据，而是会在参数所对应的地址上写上上一次 printf 输出的字节数， 配合 <strong>%100c%n</strong> 类型的格式化字符串使用更佳。</p>
+<p>​    此处 <strong>100c</strong> 指的是填充输出100个字符，%n 指的是在相应的内存上写上<strong>100这个数据</strong></p>
 <h2 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h2><p>@NCTF2019 pwn2</p>
 <p> <a href="\uploads\nctf2019_pwn2.7z">nctf2019_pwn2.7z</a> </p>
 <h3 id="概览"><a href="#概览" class="headerlink" title="概览"></a>概览</h3><p>让我们来总览一下程序</p>
@@ -497,7 +605,7 @@ height:50vh;
             <p>原文作者：<a href="https://mrh1s.top">mrh929</a>
             </p><p>原文链接：<a href="https://mrh1s.top/posts/44593ed6/">https://mrh1s.top/posts/44593ed6/</a>
             </p><p>发表日期：<a href="https://mrh1s.top/posts/44593ed6/">November 26th 2019, 8:57:45 am</a>
-            </p><p>更新日期：<a href="https://mrh1s.top/posts/44593ed6/">November 26th 2019, 10:13:31 am</a>
+            </p><p>更新日期：<a href="https://mrh1s.top/posts/44593ed6/">November 26th 2019, 10:13:53 pm</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
