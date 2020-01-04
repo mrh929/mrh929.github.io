@@ -81,6 +81,8 @@
     <link rel="preload" href="/css/style.css?v=20180824" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="stylesheet" href="/css/mobile.css?v=20180824" media="(max-width: 980px)">
     
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    
     <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
 /* This file is meant as a standalone workflow for
 - testing support for link[rel=preload]
@@ -219,10 +221,8 @@
 </head>
 
     
-        <body class="home-body">
     
-    
-<header class="header index-header">
+<header class="header">
 
     <div class="read-progress"></div>
     <div class="header-sidebar-menu">&#xe775;</div>
@@ -238,34 +238,21 @@
 
 
 
-
-height:50vh;
 ">
     
     <!-- 主页  -->
-    
-    
-    <!-- 文章页  -->
             
     <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/intro/index-bg_compressed.jpg)"></div>
+    <div class="site-intro-img" style="background-image: url(/)"></div>
     <div class="site-intro-meta">
         <!-- 标题  -->
         <h1 class="intro-title">
             <!-- 主页  -->
             
-            初音ミクの消失
-            <!-- 文章页  -->
-            
         </h1>
         <!-- 副标题 -->
         <p class="intro-subtitle">
             <!-- 主页副标题  -->
-            
-            
-                はじめてのキスは涙の味がした。
-            
-            <!-- 文章页  -->
             
         </p>
         <!-- 文章页meta -->
@@ -377,371 +364,34 @@ height:50vh;
     
     
     <article class="index-post">
-        <a class="abstract-title" href="/posts/472395fb/">
+        <a class="abstract-title" href="/posts/99d2d0ad/">
             
-                <span>在word中贴出漂亮的代码</span>
+                <span>cyber_security_math_notes</span>
         </a>
         <div class="abstract-content">
-            用途
-如果你正在写word的实验报告，而苦于word的代码显示错位，那你就来对地方了！
-
-工具
-打开这个网页PlanetB;
-谷歌搜索syntax highlight code in word documents，检索结果的第一个
-
-步骤​    打开网页，把需要的代码粘贴进去，然后show ...
+            信息安全数学复习初等数论复习
+整除1.1 整除
+1.2 带余除法
+1.3 最大公因数（最小公倍数）
+​    1.3.1 辗转相除法 gcd()
+​    1.3.2 欧几里得算法 ax+by=gcd(a,b)
+1.4 素数
+​    1.4.1 算数基本定理 任何一个数都可以由若干个素数的乘...
         </div>
         <div class="abstract-post-meta">
             <!-- date  -->
             <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/06/08</span>
+                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2020/01/04</span>
             </div>
             <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/posts/2946351e/">
-            
-                <span>qwb_JustRe</span>
-        </a>
-        <div class="abstract-content">
-            JustReJustRe.7z 
-思路程序读入了26位 十六进制数
-其中前8为送入eax寄存器
-把eax扩展为了16个字节 01234567012345670123456701234567 记作 input
-后两位（假设为ab） 填充为了ababababababababab…..ababab，...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/26</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="RE_Static">RE_Static</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="3des">3des</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/posts/8b232dcf/">
-            
-                <span>rctf_babyre2</span>
-        </a>
-        <div class="abstract-content">
-            Rctf_babyre2rctf_babyre2
-思路alarm
-程序一开头就有一个alarm函数，这会使我们在调试的时候中途退出，直接把call alarm nop掉即可
-
-sub_55761565891A__int64 __fastcall sub_55761565891A(void *a...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/21</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="RE_Static">RE_Static</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="xtea">xtea</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="pwntools">pwntools</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/posts/122a7c75/">
-            
-                <span>rctf_babyre1</span>
-        </a>
-        <div class="abstract-content">
-            RCTF_babyre1rctf_babyre1
-思路以下是与输入相关的指令
-main__int64 __fastcall main(__int64 a1, char **a2, char **a3)&#123;  unsigned __int64 *in; // rdx  int v4; /...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/21</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="RE_Static">RE_Static</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="xtea">xtea</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="crc16">crc16</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/posts/74b676c7/">
-            
-                <span>ccsp2019西南赛区</span>
-        </a>
-        <div class="abstract-content">
-            CCSP2019
- 有幸通过了CCF CSP  认证，获得了参加CCSP西南赛区比赛的资格
-
-来到川大（江安校区）
-这个校区管理非常严格，进门之前甚至需要出示身份证和准考证( x
-校园中一片宁静，可能是因为星期六的原因，并没有太多人愿意在这个搭好的天气出来走动走动，偶尔看见一两对情侣唧唧我我，...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/19</span>
-            </div>
-            <!-- tags  -->
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/posts/caa72719/">
-            
-                <span>single</span>
-        </a>
-        <div class="abstract-content">
-            singlesingle
-思路
- 经观察 发现a1是一个矩阵
-
-sub_400833unsigned __int64 __fastcall sub_400833(__int64 a1)&#123;  signed int i; // [rsp+18h] [rbp-28h]  signed in...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/14</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="RE_Static">RE_Static</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/posts/d2cf12e4/">
-            
-                <span>补题：Strange_int</span>
-        </a>
-        <div class="abstract-content">
-            strange intstrange_int
-
-打国赛的时候没做出来这道题，现在看了题解来补一补
-
-思路开始以前写过FAT16的模拟程序，看到这个文件第一想法是这是一个DBR
-第一行的 jmp 就是 jump 到这个命令的下一个命令。。
-seg000:0000                 ...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/13</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="RE_Static">RE_Static</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="VM">VM</a>
-    
-</div>
-            
-        </div>
-    </article>
-    
-    
-    
-    
-    
-    
-    <article class="index-post">
-        <a class="abstract-title" href="/posts/5f4cc17f/">
-            
-                <span>simple_machine</span>
-        </a>
-        <div class="abstract-content">
-            simple-machinesimple-machine
-思路整理general这道题说起来是vm，实际上和vm的挂钩并不大，就是用高级语言去实现了汇编，把变量都当做了寄存器来使用，其中还有各种压栈出栈过程，不过跟本题关系不大，也就不用过于细究了
-fun1fun1主要是通过输入的字符串，与预置...
-        </div>
-        <div class="abstract-post-meta">
-            <!-- date  -->
-            <div class="abstract-date">
-                <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2019/05/11</span>
-            </div>
-            <!-- tags  -->
-            
-            <div class="abstract-tags">
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="RE_Static">RE_Static</a>
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="VM">VM</a>
-    
-</div>
             
         </div>
     </article>
     
     <!-- paginator  -->
     
-    <nav class="page-nav">
-        <a class="extend prev" rel="prev" href="/page/2/">&#60; PREV</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/4/">NEXT &#62;</a>
-    </nav>
-    
 </main>
             <!-- profile -->
-            
-            <div class="profile">
-    <img class="profile-avatar" alt="avatar" src="/avatar/Miku.jpg">
-    <div class="profile-name">mrh929</div>
-    
-    <div class="profile-signature">
-        I think, therefore I am.
-    </div>
-    
-    
-    <div class="profile-social">
-        
-    
-        
-            
-                <a href="mailto:mrh929@cnss.io" class="iconfont-archer email" title="email"></a>
-            
-        
-    
-        
-            
-                <a href="//github.com/mrh929" class="iconfont-archer github" target="_blank" title="github"></a>
-            
-        
-    
-        
-    
-        
-    
-        
-            
-                <a href="https://t.me/mrh929" class="iconfont-archer telegram" target="_blank" title="telegram"></a>
-            
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-
-    </div>
-    
-    
-        <div class="friends">
-            <div>FRIENDS</div>
-            
-                
-                    <span>
-                        <a href="//ccdragon.cc/" target="_black">CCDragon</a>
-                    </span>
-                
-            
-                
-                    <span>
-                        <a href="//aione.me/" target="_black">Aione</a>
-                    </span>
-                
-            
-        </div>
-    
-    
-        <div class="about-me">
-            <a href="/about">ABOUT ME</a>
-        </div>
-    
-
-    <iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width="200" height="40" src="//music.163.com/outchain/player?type=2&id=825736&auto=0&height=32"></iframe>
-
-</div>
             
         </div>
         <footer class="footer footer-unloaded">
