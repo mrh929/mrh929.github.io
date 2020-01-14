@@ -284,7 +284,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">781</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">808</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -445,6 +445,7 @@ height:50vh;
 <p>流量转发配置</p>
 <p>自行替换 <strong>Gateway_IP</strong>、<strong>Gateway_Port</strong>、<strong>Dest_IP</strong>、<strong>Dest_Port</strong></p>
 <p>分别对应 跳板机的ip和端口，目标机器的ip和端口</p>
+<p>这里的<strong>协议</strong>我设置为了 <strong>tcp</strong>， 根据你需要转发的协议类型进行设置</p>
 <figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo iptables -t nat -A PREROUTING -p tcp --dport Gateway_Port -j DNAT --to-destination Dest_IP:Dest_PORT <span class="comment"># 将进入跳板机的流量转发到目标ip</span></span><br><span class="line"></span><br><span class="line">sudo iptables -t nat -A POSTROUTING -p tcp -d Dest_IP --dport Dest_Port -j SNAT --to-source Gateway_ip <span class="comment"># 将目标ip返回的流量转发给原ip</span></span><br><span class="line"></span><br><span class="line">sudo iptables -t nat -L -n <span class="comment"># 查看iptables配置情况</span></span><br></pre></td></tr></table></figure>
 
 <p>查看配置无误之后，即完成</p>
@@ -468,7 +469,7 @@ height:50vh;
             <p>原文作者：<a href="https://mrh1s.top">mrh929</a>
             </p><p>原文链接：<a href="https://mrh1s.top/posts/d0aeeace/">https://mrh1s.top/posts/d0aeeace/</a>
             </p><p>发表日期：<a href="https://mrh1s.top/posts/d0aeeace/">January 14th 2020, 4:09:55 pm</a>
-            </p><p>更新日期：<a href="https://mrh1s.top/posts/d0aeeace/">January 14th 2020, 5:16:04 pm</a>
+            </p><p>更新日期：<a href="https://mrh1s.top/posts/d0aeeace/">January 14th 2020, 5:21:44 pm</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
