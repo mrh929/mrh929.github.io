@@ -1,4 +1,337 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2"><meta name="theme-color" content="#222"><meta name="generator" content="Hexo 3.8.0"><link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png"><link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png"><link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png"><link rel="mask-icon" href="/images/logo.svg" color="#222"><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css"><script id="hexo-configurations">var NexT=window.NexT||{},CONFIG={hostname:new URL("https://mrh1s.top").hostname,root:"/",scheme:"Pisces",version:"7.7.0",exturl:!1,sidebar:{position:"left",display:"post",padding:18,offset:12,onmobile:!1},copycode:{enable:!1,show_result:!1,style:null},back2top:{enable:!0,sidebar:!1,scrollpercent:!1},bookmark:{enable:!1,color:"#222",save:"auto"},fancybox:!1,mediumzoom:!1,lazyload:!1,pangu:!1,comments:{style:"tabs",active:null,storage:!0,lazyload:!1,nav:null},algolia:{appID:"",apiKey:"",indexName:"",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"We didn't find any results for the search: ${query}",hits_stats:"${hits} results found in ${time} ms"}},localsearch:{enable:!1,trigger:"auto",top_n_per_article:1,unescape:!1,preload:!1},path:"",motion:{enable:!0,async:!1,transition:{post_block:"fadeIn",post_header:"slideDownIn",post_body:"slideDownIn",coll_header:"slideLeftIn",sidebar:"slideUpIn"}}}</script><meta name="description" content="Tarjan算法求强连通分量总结  首先明确强连通分量的概念：如果图中的任意两个点都能互相到达，则为强连通分量。极大强连通分量：不被其它任何强连通分量包含的强连通分量。 强连通分量主要与两种边有关：交叉边和后向边。 交叉边是两个无关系的点之间所构成的，而后向边是根节点的子节点指向根结点的一种边 Tarjan算法原理：  建立low数组（用于记录该点所在的连通子图的根节点的搜索子树所遍历的时间）与"><meta property="og:type" content="article"><meta property="og:title" content="Tarjan算法求强连通分量总结"><meta property="og:url" content="https://mrh1s.top/posts/874d0da0/index.html"><meta property="og:site_name" content="mrh929&#39;s home"><meta property="og:description" content="Tarjan算法求强连通分量总结  首先明确强连通分量的概念：如果图中的任意两个点都能互相到达，则为强连通分量。极大强连通分量：不被其它任何强连通分量包含的强连通分量。 强连通分量主要与两种边有关：交叉边和后向边。 交叉边是两个无关系的点之间所构成的，而后向边是根节点的子节点指向根结点的一种边 Tarjan算法原理：  建立low数组（用于记录该点所在的连通子图的根节点的搜索子树所遍历的时间）与"><meta property="og:locale" content="en"><meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg=="><meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg=="><meta property="og:updated_time" content="2019-05-05T05:39:32.347Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Tarjan算法求强连通分量总结"><meta name="twitter:description" content="Tarjan算法求强连通分量总结  首先明确强连通分量的概念：如果图中的任意两个点都能互相到达，则为强连通分量。极大强连通分量：不被其它任何强连通分量包含的强连通分量。 强连通分量主要与两种边有关：交叉边和后向边。 交叉边是两个无关系的点之间所构成的，而后向边是根节点的子节点指向根结点的一种边 Tarjan算法原理：  建立low数组（用于记录该点所在的连通子图的根节点的搜索子树所遍历的时间）与"><meta name="twitter:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg=="><link rel="canonical" href="https://mrh1s.top/posts/874d0da0/"><script id="page-configurations">CONFIG.page={sidebar:"",isHome:!1,isPost:!0}</script><title>Tarjan算法求强连通分量总结 | mrh929's home</title><noscript><style>.sidebar-inner,.use-motion .brand,.use-motion .collection-header,.use-motion .comments,.use-motion .menu-item,.use-motion .pagination,.use-motion .post-block,.use-motion .post-body,.use-motion .post-header{opacity:initial}.use-motion .site-subtitle,.use-motion .site-title{opacity:initial;top:initial}.use-motion .logo-line-before i{left:initial}.use-motion .logo-line-after i{right:initial}</style></noscript></head><body itemscope itemtype="http://schema.org/WebPage"><div class="container use-motion"><div class="headband"></div><header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-container"><div class="site-meta"><div><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">mrh929's home</span> <span class="logo-line-after"><i></i></span></a></div></div><div class="site-nav-toggle"><div class="toggle" aria-label="Toggle navigation bar"><span class="toggle-line toggle-line-first"></span> <span class="toggle-line toggle-line-middle"></span> <span class="toggle-line toggle-line-last"></span></div></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a></li><li class="menu-item menu-item-archives"><a href="/_posts/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a></li></ul></nav></div></header><div class="back-to-top"><i class="fa fa-arrow-up"></i> <span>0%</span></div><main class="main"><div class="main-inner"><div class="content-wrap"><div class="content"><div class="posts-expand"><article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en"><link itemprop="mainEntityOfPage" href="https://mrh1s.top/posts/874d0da0/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="image" content="/images/avatar.gif"><meta itemprop="name" content="mrh929"><meta itemprop="description" content="Blog"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="mrh929's home"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">Tarjan算法求强连通分量总结</h1><div class="post-meta"><span class="post-meta-item"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i> </span><span class="post-meta-item-text">Posted on</span> <time title="Created: 2018-12-06 23:42:41" itemprop="dateCreated datePublished" datetime="2018-12-06T23:42:41+08:00">2018-12-06</time> </span><span class="post-meta-item"><span class="post-meta-item-icon"><i class="fa fa-calendar-check-o"></i> </span><span class="post-meta-item-text">Edited on</span> <time title="Modified: 2019-05-05 13:39:32" itemprop="dateModified" datetime="2019-05-05T13:39:32+08:00">2019-05-05</time> </span><span class="post-meta-item"><span class="post-meta-item-icon"><i class="fa fa-folder-o"></i> </span><span class="post-meta-item-text">In</span> <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/c-plus-plus-2016/" itemprop="url" rel="index"><span itemprop="name">c_plus_plus_2016</span></a></span></span></div></header><div class="post-body" itemprop="articleBody"><p>Tarjan算法求强连通分量总结</p><p><strong>首先明确强连通分量的概念：如果图中的任意两个点都能互相到达，则为强连通分量。极大强连通分量：不被其它任何强连通分量包含的强连通分量。</strong> <strong>强连通分量主要与两种边有关：交叉边和后向边。</strong> <strong>交叉边是两个无关系的点之间所构成的，而后向边是根节点的子节点指向根结点的一种边</strong> <strong>Tarjan算法原理：</strong></p><ol><li><p><strong>建立low数组（用于记录该点所在的连通子图的根节点的搜索子树所遍历的时间）与dfn数组（记录当前点遍历的时间）Index：记录搜索过程所进行的时间</strong></p></li><li><p><strong>初始化dfn、index，当前点u的初始值为时间</strong></p></li><li><p><strong>u入栈并标记</strong></p></li><li><p><strong>遍历与u相连的所有点（记为v）</strong></p></li><li><p><strong>如果v未被遍历，递归遍历v点，然后更新low[u] low[u]=min(low[u],low[v]);</strong></p></li><li><p><strong>如果 v已经被遍历且在栈中直接更新low[u]</strong> <strong>low[u]=min(low[u],dfn[v]);</strong></p></li><li><p><strong>判断low[u]==low[v]如果成立，将包括u在内的所有点出栈并记录，则求得强连通分量之一</strong></p></li><li><p><strong>继续遍历，直至结束</strong></p></li><li><p><strong>注意：在一个图中，起点不唯一，所以tarjan算法应该遍历所有未被遍历的点(vis[i]==0)</strong></p><p><strong>本算法主要应用范围是对复杂的有向图的缩点优化。如果某些点构成一个环，完全可以把它们看作一个点，加快程序运行效率</strong> <strong>Question:如果是有向有权图使用缩点时应该怎么处理权值的问题？</strong></p></li></ol><p><strong>FZOJ1638求强连通分量</strong></p><p><strong>描述</strong> 输入一个图，输出该图中的最大强连通分量。</p><p><strong>输入</strong> 第一行：n和m（n&lt;=10000,m&lt;=100000,n为节点个数，m为边的条数） 接下来m行，每行两个数：a，b，表示a指向b的边（a,b为非负整数）；</p><p><strong>输出</strong> 输出最大强连通分量的节点，按照节点编号从小到大输出，如果有多个强连通分量节点数相同，则输出节点编号字典序较小的。</p><p><strong>样例输入</strong> 6 8 1 3 3 5 5 6 1 2 4 1 2 4 4 6 3 4</p><p><strong>样例输出</strong> 1 2 3 4</p><figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> first[<span class="number">10020</span>],nxt[<span class="number">100200</span>],go[<span class="number">100200</span>],arcnum=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> dfn[<span class="number">10020</span>],low[<span class="number">10020</span>],<span class="built_in">stack</span>[<span class="number">100200</span>],top,dex,vis[<span class="number">10020</span>];</span><br><span class="line"><span class="keyword">int</span> rt,ans[<span class="number">10020</span>],temp[<span class="number">10020</span>],sum;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addarc</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    nxt[arcnum]=first[a];</span><br><span class="line">    first[a]=arcnum;</span><br><span class="line">    go[arcnum++]=b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">(<span class="keyword">int</span> u)</span></span>&#123;</span><br><span class="line">    dfn[u]=low[u]=++dex;</span><br><span class="line">    <span class="built_in">stack</span>[++top]=u; vis[u]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> p=first[u];p!=<span class="number">0</span>;p=nxt[p])&#123;</span><br><span class="line">        <span class="keyword">int</span> v=go[p];</span><br><span class="line">        <span class="keyword">if</span>(vis[v]==<span class="number">0</span>)&#123;</span><br><span class="line">            vis[v]=<span class="number">1</span>;</span><br><span class="line">            tarjan(v);</span><br><span class="line">            low[u]=min(low[u],low[v]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(vis[v]==<span class="number">1</span>)</span><br><span class="line">            low[u]=min(low[u],dfn[v]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(dfn[u]==low[u])</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> v; sum=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">do</span>&#123;</span><br><span class="line">            v=<span class="built_in">stack</span>[top--];</span><br><span class="line">            vis[v]=<span class="number">2</span>;</span><br><span class="line">            temp[++sum]=v;</span><br><span class="line">        &#125;<span class="keyword">while</span>(u!=v);</span><br><span class="line">        <span class="keyword">if</span>(rt&lt;sum)&#123;</span><br><span class="line">        	rt=sum;</span><br><span class="line">        	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=sum;i++)</span><br><span class="line">        		ans[i]=temp[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">//	freopen("in.txt","r",stdin);</span></span><br><span class="line">    <span class="keyword">int</span> n,m,a,b;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;a,&amp;b);</span><br><span class="line">        addarc(a,b);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=n<span class="number">-1</span>;i++)</span><br><span class="line">    	<span class="keyword">if</span>(vis[i]==<span class="number">0</span>)&#123;</span><br><span class="line">    		top=<span class="number">0</span>;dex=<span class="number">0</span>;</span><br><span class="line">    		<span class="built_in">memset</span>(dfn,<span class="number">0</span>,<span class="keyword">sizeof</span>(dfn));</span><br><span class="line">    		<span class="built_in">memset</span>(low,<span class="number">0</span>,<span class="keyword">sizeof</span>(low));</span><br><span class="line">    		<span class="built_in">stack</span>[++top]=i;</span><br><span class="line">    		tarjan(i);</span><br><span class="line">    	&#125;</span><br><span class="line">    		</span><br><span class="line">    sort(ans+<span class="number">1</span>,ans+<span class="number">1</span>+rt);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=rt;i++)</span><br><span class="line"> 	    <span class="built_in">printf</span>(<span class="string">"%d "</span>,ans[i]);</span><br><span class="line">     </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p><p>**Poj2186Popular Cows</p><p><strong>Description</strong></p><p>Every cow’s dream is to become the mostpopular cow in the herd. In a herd of N (1 &lt;= N &lt;= 10,000) cows, you aregiven up to M (1 &lt;= M &lt;= 50,000) ordered pairs of the form (A, B) thattell you that cow A thinks that cow B is popular. Since popularity is transitive,if A thinks B is popular and B thinks C is popular, then A will also think thatC is popular, even if this is not explicitlyspecified by an ordered pair in the input. Your task is to compute the numberof cows that are considered popular by every other cow.</p><p><strong>Input</strong> * Line 1: Two space-separated integers, Nand M * Lines 2..1+M: Two space-separated numbersA and B, meaning that A thinks B is popular. Output</p><p><strong>output</strong> * Line 1: A single integer that is thenumber of cows who are considered popular by every other cow.</p><p><strong>Sample Input</strong> 3 3 1 2 2 1 2 3</p><p><strong>Sample Output</strong> 1</p><p><strong>Hint</strong> Cow 3 is the only cow of high popularity.</p><p><strong>题目大意</strong> N头奶牛(N≤10000) M对关系（a , b），表示a认为b是受欢迎的 关系具有传递性，即若(a,b),(b,c)→(a,c) 询问有多少头奶牛是被其他所有奶牛认为是受欢迎的</p><p><strong>这道题据说不使用强连通算法优化也能做出来，就是说tarjan算法只是进行优化。</strong> <strong>进过分析可以发现，在有向无环图DAG图中，要想一头（群）牛被其它所有牛欢迎，必须满足只有它自己的出度为0，其它的牛所构成的圈子（环）的出度必须大于零才可以</strong> <strong>这样就得到了解决方法，用tarjan算法算出所有的强连通分量并将它们合并成一个点，再做一次搜索，如果这个环对外的出度为0则其中所有牛对其他牛的出度都为0</strong> <strong>如果一个DAG图有两个以上出度为0得点，那么总有一个点无法到达其它任意一个点</strong> <strong>遍历所有环与点，如果出度为0的只有一个则输出答案，否则答案为0</strong></p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN=<span class="number">10000</span>+<span class="number">200</span>,MAXM=<span class="number">50000</span>+<span class="number">200</span>;</span><br><span class="line"><span class="keyword">int</span> first[MAXN],nxt[MAXM],go[MAXM],arcnum=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> dfn[MAXN],low[MAXN],<span class="built_in">stack</span>[MAXM],top;</span><br><span class="line"><span class="keyword">int</span> scc[MAXN],idx,cscc,vis[MAXN];<span class="comment">//记录强连通分量 </span></span><br><span class="line"><span class="keyword">int</span> cd[MAXN],cd_scc[MAXN];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addarc</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">	nxt[arcnum]=first[a];</span><br><span class="line">	first[a]=arcnum;</span><br><span class="line">	go[arcnum++]=b;</span><br><span class="line">	cd[a]++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">(<span class="keyword">int</span> u)</span></span>&#123;</span><br><span class="line">	low[u]=dfn[u]=++idx;</span><br><span class="line">	<span class="built_in">stack</span>[++top]=u; vis[u]=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> p=first[u];p!=<span class="number">0</span>;p=nxt[p])&#123;</span><br><span class="line">		<span class="keyword">int</span> v=go[p];</span><br><span class="line">		<span class="keyword">if</span>(vis[v]==<span class="number">0</span>)&#123;</span><br><span class="line">			tarjan(v);</span><br><span class="line">			low[u]=min(low[u],low[v]);</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(vis[v]==<span class="number">1</span>)</span><br><span class="line">			low[u]=min(low[u],dfn[v]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(dfn[u]==low[u])&#123;</span><br><span class="line">		<span class="keyword">int</span> v;</span><br><span class="line">		cscc++;</span><br><span class="line">		<span class="keyword">do</span>&#123;</span><br><span class="line">			v=<span class="built_in">stack</span>[top--];</span><br><span class="line">			vis[v]=<span class="number">2</span>;</span><br><span class="line">			scc[v]=cscc; </span><br><span class="line">		&#125;<span class="keyword">while</span>(u!=v);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">//	freopen("in.txt","r",stdin);</span></span><br><span class="line">	<span class="keyword">int</span> n,m,a,b;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;a,&amp;b);</span><br><span class="line">		addarc(a,b);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">		<span class="keyword">if</span>(vis[i]==<span class="number">0</span>)</span><br><span class="line">			tarjan(i);</span><br><span class="line">			</span><br><span class="line">	<span class="keyword">if</span>(idx&lt;n)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"0"</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> u=<span class="number">1</span>;u&lt;=n;u++)</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> p=first[u];p!=<span class="number">0</span>;p=nxt[p])&#123;</span><br><span class="line">			<span class="keyword">int</span> v=go[p];</span><br><span class="line">			<span class="keyword">if</span>(scc[u]!=scc[v])</span><br><span class="line">				cd_scc[scc[u]]++;</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="keyword">int</span> c1=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=cscc;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(cd_scc[i]==<span class="number">0</span>&amp;&amp;c1==<span class="number">0</span>)</span><br><span class="line">			c1=i;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(c1!=<span class="number">0</span>&amp;&amp;cd_scc[i]==<span class="number">0</span>)&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"0"</span>);</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">int</span> ans=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">		<span class="keyword">if</span>(scc[i]==c1)</span><br><span class="line">			ans++;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d"</span>,ans);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p></div><div><ul class="post-copyright"><li class="post-copyright-author"><strong>Post author: </strong>mrh929</li><li class="post-copyright-link"><strong>Post link: </strong><a href="https://mrh1s.top/posts/874d0da0/" title="Tarjan算法求强连通分量总结">https://mrh1s.top/posts/874d0da0/</a></li><li class="post-copyright-license"><strong>Copyright Notice: </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.</li></ul></div><footer class="post-footer"><div class="post-nav"><div class="post-nav-item"><a href="/posts/28cf1e0f/" rel="prev" title="拓扑排序以及关键路径总结"><i class="fa fa-chevron-left"></i> 拓扑排序以及关键路径总结</a></div><div class="post-nav-item"><a href="/posts/1acd21ea/" rel="next" title="Tarjan算法求无向图割边割点、最近公共祖先的总结">Tarjan算法求无向图割边割点、最近公共祖先的总结 <i class="fa fa-chevron-right"></i></a></div></div></footer></article></div></div><script>window.addEventListener('tabs:register', () => {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://mrh1s.top').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="Tarjan算法求强连通分量总结  首先明确强连通分量的概念：如果图中的任意两个点都能互相到达，则为强连通分量。极大强连通分量：不被其它任何强连通分量包含的强连通分量。 强连通分量主要与两种边有关：交叉边和后向边。 交叉边是两个无关系的点之间所构成的，而后向边是根节点的子节点指向根结点的一种边 Tarjan算法原理：  建立low数组（用于记录该点所在的连通子图的根节点的搜索子树所遍历的时间）与">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tarjan算法求强连通分量总结">
+<meta property="og:url" content="https://mrh1s.top/posts/874d0da0/index.html">
+<meta property="og:site_name" content="mrh929&#39;s home">
+<meta property="og:description" content="Tarjan算法求强连通分量总结  首先明确强连通分量的概念：如果图中的任意两个点都能互相到达，则为强连通分量。极大强连通分量：不被其它任何强连通分量包含的强连通分量。 强连通分量主要与两种边有关：交叉边和后向边。 交叉边是两个无关系的点之间所构成的，而后向边是根节点的子节点指向根结点的一种边 Tarjan算法原理：  建立low数组（用于记录该点所在的连通子图的根节点的搜索子树所遍历的时间）与">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:updated_time" content="2019-05-05T05:39:32.347Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tarjan算法求强连通分量总结">
+<meta name="twitter:description" content="Tarjan算法求强连通分量总结  首先明确强连通分量的概念：如果图中的任意两个点都能互相到达，则为强连通分量。极大强连通分量：不被其它任何强连通分量包含的强连通分量。 强连通分量主要与两种边有关：交叉边和后向边。 交叉边是两个无关系的点之间所构成的，而后向边是根节点的子节点指向根结点的一种边 Tarjan算法原理：  建立low数组（用于记录该点所在的连通子图的根节点的搜索子树所遍历的时间）与">
+<meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+
+<link rel="canonical" href="https://mrh1s.top/posts/874d0da0/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Tarjan算法求强连通分量总结 | mrh929's home</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrh929's home</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/_posts/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://mrh1s.top/posts/874d0da0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mrh929">
+      <meta itemprop="description" content="Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrh929's home">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Tarjan算法求强连通分量总结
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-12-06 23:42:41" itemprop="dateCreated datePublished" datetime="2018-12-06T23:42:41+08:00">2018-12-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-05-05 13:39:32" itemprop="dateModified" datetime="2019-05-05T13:39:32+08:00">2019-05-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/c-plus-plus-2016/" itemprop="url" rel="index">
+                    <span itemprop="name">c_plus_plus_2016</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p> Tarjan算法求强连通分量总结</p>
+<p> <strong>首先明确强连通分量的概念：如果图中的任意两个点都能互相到达，则为强连通分量。极大强连通分量：不被其它任何强连通分量包含的强连通分量。</strong> <strong>强连通分量主要与两种边有关：交叉边和后向边。</strong> <strong>交叉边是两个无关系的点之间所构成的，而后向边是根节点的子节点指向根结点的一种边</strong> <strong>Tarjan算法原理：</strong></p>
+<ol>
+<li><p><strong>建立low数组（用于记录该点所在的连通子图的根节点的搜索子树所遍历的时间）与dfn数组（记录当前点遍历的时间）Index：记录搜索过程所进行的时间</strong></p>
+</li>
+<li><p><strong>初始化dfn、index，当前点u的初始值为时间</strong></p>
+</li>
+<li><p><strong>u入栈并标记</strong></p>
+</li>
+<li><p><strong>遍历与u相连的所有点（记为v）</strong></p>
+</li>
+<li><p><strong>如果v未被遍历，递归遍历v点，然后更新low[u]     low[u]=min(low[u],low[v]);</strong></p>
+</li>
+<li><p><strong>如果 v已经被遍历且在栈中直接更新low[u]</strong> <strong>low[u]=min(low[u],dfn[v]);</strong></p>
+</li>
+<li><p><strong>判断low[u]==low[v]如果成立，将包括u在内的所有点出栈并记录，则求得强连通分量之一</strong></p>
+</li>
+<li><p><strong>继续遍历，直至结束</strong></p>
+</li>
+<li><p><strong>注意：在一个图中，起点不唯一，所以tarjan算法应该遍历所有未被遍历的点(vis[i]==0)</strong></p>
+<p><strong>本算法主要应用范围是对复杂的有向图的缩点优化。如果某些点构成一个环，完全可以把它们看作一个点，加快程序运行效率</strong>  <strong>Question:如果是有向有权图使用缩点时应该怎么处理权值的问题？</strong>   </p>
+</li>
+</ol>
+<p><strong>FZOJ1638求强连通分量</strong> </p>
+<p><strong>描述</strong> 输入一个图，输出该图中的最大强连通分量。 </p>
+<p><strong>输入</strong> 第一行：n和m（n&lt;=10000,m&lt;=100000,n为节点个数，m为边的条数） 接下来m行，每行两个数：a，b，表示a指向b的边（a,b为非负整数）；</p>
+<p> <strong>输出</strong> 输出最大强连通分量的节点，按照节点编号从小到大输出，如果有多个强连通分量节点数相同，则输出节点编号字典序较小的。</p>
+<p> <strong>样例输入</strong> 6 8 1 3 3 5 5 6 1 2 4 1 2 4 4 6 3 4 </p>
+<p><strong>样例输出</strong> 1 2 3 4</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> first[<span class="number">10020</span>],nxt[<span class="number">100200</span>],go[<span class="number">100200</span>],arcnum=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> dfn[<span class="number">10020</span>],low[<span class="number">10020</span>],<span class="built_in">stack</span>[<span class="number">100200</span>],top,dex,vis[<span class="number">10020</span>];</span><br><span class="line"><span class="keyword">int</span> rt,ans[<span class="number">10020</span>],temp[<span class="number">10020</span>],sum;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addarc</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">    nxt[arcnum]=first[a];</span><br><span class="line">    first[a]=arcnum;</span><br><span class="line">    go[arcnum++]=b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">(<span class="keyword">int</span> u)</span></span>&#123;</span><br><span class="line">    dfn[u]=low[u]=++dex;</span><br><span class="line">    <span class="built_in">stack</span>[++top]=u; vis[u]=<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> p=first[u];p!=<span class="number">0</span>;p=nxt[p])&#123;</span><br><span class="line">        <span class="keyword">int</span> v=go[p];</span><br><span class="line">        <span class="keyword">if</span>(vis[v]==<span class="number">0</span>)&#123;</span><br><span class="line">            vis[v]=<span class="number">1</span>;</span><br><span class="line">            tarjan(v);</span><br><span class="line">            low[u]=min(low[u],low[v]);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">if</span>(vis[v]==<span class="number">1</span>)</span><br><span class="line">            low[u]=min(low[u],dfn[v]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(dfn[u]==low[u])</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">int</span> v; sum=<span class="number">0</span>;</span><br><span class="line">        <span class="keyword">do</span>&#123;</span><br><span class="line">            v=<span class="built_in">stack</span>[top--];</span><br><span class="line">            vis[v]=<span class="number">2</span>;</span><br><span class="line">            temp[++sum]=v;</span><br><span class="line">        &#125;<span class="keyword">while</span>(u!=v);</span><br><span class="line">        <span class="keyword">if</span>(rt&lt;sum)&#123;</span><br><span class="line">        	rt=sum;</span><br><span class="line">        	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=sum;i++)</span><br><span class="line">        		ans[i]=temp[i];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">//	freopen("in.txt","r",stdin);</span></span><br><span class="line">    <span class="keyword">int</span> n,m,a,b;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;a,&amp;b);</span><br><span class="line">        addarc(a,b);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;=n<span class="number">-1</span>;i++)</span><br><span class="line">    	<span class="keyword">if</span>(vis[i]==<span class="number">0</span>)&#123;</span><br><span class="line">    		top=<span class="number">0</span>;dex=<span class="number">0</span>;</span><br><span class="line">    		<span class="built_in">memset</span>(dfn,<span class="number">0</span>,<span class="keyword">sizeof</span>(dfn));</span><br><span class="line">    		<span class="built_in">memset</span>(low,<span class="number">0</span>,<span class="keyword">sizeof</span>(low));</span><br><span class="line">    		<span class="built_in">stack</span>[++top]=i;</span><br><span class="line">    		tarjan(i);</span><br><span class="line">    	&#125;</span><br><span class="line">    		</span><br><span class="line">    sort(ans+<span class="number">1</span>,ans+<span class="number">1</span>+rt);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=rt;i++)</span><br><span class="line"> 	    <span class="built_in">printf</span>(<span class="string">"%d "</span>,ans[i]);</span><br><span class="line">     </span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p>**Poj2186Popular Cows</p>
+<p> <strong>Description</strong> </p>
+<p>Every cow’s dream is to become the mostpopular cow in the herd. In a herd of N (1 &lt;= N &lt;= 10,000) cows, you aregiven up to M (1 &lt;= M &lt;= 50,000) ordered pairs of the form (A, B) thattell you that cow A thinks that cow B is popular. Since popularity is transitive,if A thinks B is popular and B thinks C is popular, then A will also think thatC is popular, even if this is not explicitlyspecified by an ordered pair in the input. Your task is to compute the numberof cows that are considered popular by every other cow.</p>
+<p> <strong>Input</strong> * Line 1: Two space-separated integers, Nand M * Lines 2..1+M: Two space-separated numbersA and B, meaning that A thinks B is popular. Output </p>
+<p><strong>output</strong> * Line 1: A single integer that is thenumber of cows who are considered popular by every other cow. </p>
+<p><strong>Sample Input</strong> 3 3 1 2 2 1 2 3</p>
+<p> <strong>Sample Output</strong> 1</p>
+<p> <strong>Hint</strong> Cow 3 is the only cow of high popularity. </p>
+<p><strong>题目大意</strong> N头奶牛(N≤10000) M对关系（a , b），表示a认为b是受欢迎的 关系具有传递性，即若(a,b),(b,c)→(a,c) 询问有多少头奶牛是被其他所有奶牛认为是受欢迎的</p>
+<p> <strong>这道题据说不使用强连通算法优化也能做出来，就是说tarjan算法只是进行优化。</strong> <strong>进过分析可以发现，在有向无环图DAG图中，要想一头（群）牛被其它所有牛欢迎，必须满足只有它自己的出度为0，其它的牛所构成的圈子（环）的出度必须大于零才可以</strong> <strong>这样就得到了解决方法，用tarjan算法算出所有的强连通分量并将它们合并成一个点，再做一次搜索，如果这个环对外的出度为0则其中所有牛对其他牛的出度都为0</strong> <strong>如果一个DAG图有两个以上出度为0得点，那么总有一个点无法到达其它任意一个点</strong> <strong>遍历所有环与点，如果出度为0的只有一个则输出答案，否则答案为0</strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN=<span class="number">10000</span>+<span class="number">200</span>,MAXM=<span class="number">50000</span>+<span class="number">200</span>;</span><br><span class="line"><span class="keyword">int</span> first[MAXN],nxt[MAXM],go[MAXM],arcnum=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> dfn[MAXN],low[MAXN],<span class="built_in">stack</span>[MAXM],top;</span><br><span class="line"><span class="keyword">int</span> scc[MAXN],idx,cscc,vis[MAXN];<span class="comment">//记录强连通分量 </span></span><br><span class="line"><span class="keyword">int</span> cd[MAXN],cd_scc[MAXN];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addarc</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">	nxt[arcnum]=first[a];</span><br><span class="line">	first[a]=arcnum;</span><br><span class="line">	go[arcnum++]=b;</span><br><span class="line">	cd[a]++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">(<span class="keyword">int</span> u)</span></span>&#123;</span><br><span class="line">	low[u]=dfn[u]=++idx;</span><br><span class="line">	<span class="built_in">stack</span>[++top]=u; vis[u]=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> p=first[u];p!=<span class="number">0</span>;p=nxt[p])&#123;</span><br><span class="line">		<span class="keyword">int</span> v=go[p];</span><br><span class="line">		<span class="keyword">if</span>(vis[v]==<span class="number">0</span>)&#123;</span><br><span class="line">			tarjan(v);</span><br><span class="line">			low[u]=min(low[u],low[v]);</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(vis[v]==<span class="number">1</span>)</span><br><span class="line">			low[u]=min(low[u],dfn[v]);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(dfn[u]==low[u])&#123;</span><br><span class="line">		<span class="keyword">int</span> v;</span><br><span class="line">		cscc++;</span><br><span class="line">		<span class="keyword">do</span>&#123;</span><br><span class="line">			v=<span class="built_in">stack</span>[top--];</span><br><span class="line">			vis[v]=<span class="number">2</span>;</span><br><span class="line">			scc[v]=cscc; </span><br><span class="line">		&#125;<span class="keyword">while</span>(u!=v);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">//	freopen("in.txt","r",stdin);</span></span><br><span class="line">	<span class="keyword">int</span> n,m,a,b;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;a,&amp;b);</span><br><span class="line">		addarc(a,b);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">		<span class="keyword">if</span>(vis[i]==<span class="number">0</span>)</span><br><span class="line">			tarjan(i);</span><br><span class="line">			</span><br><span class="line">	<span class="keyword">if</span>(idx&lt;n)&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"0"</span>);</span><br><span class="line">		<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> u=<span class="number">1</span>;u&lt;=n;u++)</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> p=first[u];p!=<span class="number">0</span>;p=nxt[p])&#123;</span><br><span class="line">			<span class="keyword">int</span> v=go[p];</span><br><span class="line">			<span class="keyword">if</span>(scc[u]!=scc[v])</span><br><span class="line">				cd_scc[scc[u]]++;</span><br><span class="line">		&#125;</span><br><span class="line">	<span class="keyword">int</span> c1=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=cscc;i++)&#123;</span><br><span class="line">		<span class="keyword">if</span>(cd_scc[i]==<span class="number">0</span>&amp;&amp;c1==<span class="number">0</span>)</span><br><span class="line">			c1=i;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(c1!=<span class="number">0</span>&amp;&amp;cd_scc[i]==<span class="number">0</span>)&#123;</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"0"</span>);</span><br><span class="line">			<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">int</span> ans=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">		<span class="keyword">if</span>(scc[i]==c1)</span><br><span class="line">			ans++;</span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d"</span>,ans);</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>mrh929
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="https://mrh1s.top/posts/874d0da0/" title="Tarjan算法求强连通分量总结">https://mrh1s.top/posts/874d0da0/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/28cf1e0f/" rel="prev" title="拓扑排序以及关键路径总结">
+      <i class="fa fa-chevron-left"></i> 拓扑排序以及关键路径总结
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/1acd21ea/" rel="next" title="Tarjan算法求无向图割边割点、最近公共祖先的总结">
+      Tarjan算法求无向图割边割点、最近公共祖先的总结 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
     let activeClass = CONFIG.comments.activeClass;
     if (CONFIG.comments.storage) {
       activeClass = localStorage.getItem('comments_active') || activeClass;
@@ -16,4 +349,136 @@
       let commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
-  }</script></div><div class="toggle sidebar-toggle"><span class="toggle-line toggle-line-first"></span> <span class="toggle-line toggle-line-middle"></span> <span class="toggle-line toggle-line-last"></span></div><aside class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc">Table of Contents</li><li class="sidebar-nav-overview">Overview</li></ul><div class="post-toc-wrap sidebar-panel"></div><div class="site-overview-wrap sidebar-panel"><div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person"><p class="site-author-name" itemprop="name">mrh929</p><div class="site-description" itemprop="description">Blog</div></div><div class="site-state-wrap motion-element"><nav class="site-state"><div class="site-state-item site-state-posts"><a href="/_posts/"><span class="site-state-item-count">79</span> <span class="site-state-item-name">posts</span></a></div><div class="site-state-item site-state-categories"><span class="site-state-item-count">20</span> <span class="site-state-item-name">categories</span></div><div class="site-state-item site-state-tags"><span class="site-state-item-count">16</span> <span class="site-state-item-name">tags</span></div></nav></div><div class="cc-license motion-element" itemprop="license"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" class="cc-opacity" rel="noopener" target="_blank"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a></div></div></div></aside><div id="sidebar-dimmer"></div></div></main><footer class="footer"><div class="footer-inner"><div class="copyright">&copy; <span itemprop="copyrightYear">2020</span> <span class="with-love"><i class="fa fa-user"></i> </span><span class="author" itemprop="copyrightHolder">mrh929</span></div><div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div><span class="post-meta-divider">|</span><div class="theme-info">Theme – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0</div></div></footer></div><script src="/lib/anime.min.js"></script><script src="/lib/velocity/velocity.min.js"></script><script src="/lib/velocity/velocity.ui.min.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/pisces.js"></script><script src="/js/next-boot.js"></script><script>!function(e){var r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function t(){for(var c=0;c<r.length;c++)t=r[c],void 0,0<=(n=t.getBoundingClientRect()).top&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=r[c];t=o,n=function(){r=r.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}t(),e.addEventListener("scroll",function(){!function(t,n){clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)}(t,e)})}(this);</script></body></html>
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mrh929</p>
+  <div class="site-description" itemprop="description">Blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/_posts/">
+        
+          <span class="site-state-item-count">79</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mrh929</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

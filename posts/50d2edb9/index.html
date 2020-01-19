@@ -1,4 +1,306 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2"><meta name="theme-color" content="#222"><meta name="generator" content="Hexo 3.8.0"><link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png"><link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png"><link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png"><link rel="mask-icon" href="/images/logo.svg" color="#222"><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css"><script id="hexo-configurations">var NexT=window.NexT||{},CONFIG={hostname:new URL("https://mrh1s.top").hostname,root:"/",scheme:"Pisces",version:"7.7.0",exturl:!1,sidebar:{position:"left",display:"post",padding:18,offset:12,onmobile:!1},copycode:{enable:!1,show_result:!1,style:null},back2top:{enable:!0,sidebar:!1,scrollpercent:!1},bookmark:{enable:!1,color:"#222",save:"auto"},fancybox:!1,mediumzoom:!1,lazyload:!1,pangu:!1,comments:{style:"tabs",active:null,storage:!0,lazyload:!1,nav:null},algolia:{appID:"",apiKey:"",indexName:"",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"We didn't find any results for the search: ${query}",hits_stats:"${hits} results found in ${time} ms"}},localsearch:{enable:!1,trigger:"auto",top_n_per_article:1,unescape:!1,preload:!1},path:"",motion:{enable:!0,async:!1,transition:{post_block:"fadeIn",post_header:"slideDownIn",post_body:"slideDownIn",coll_header:"slideLeftIn",sidebar:"slideUpIn"}}}</script><meta name="description" content="8758:2的幂次方表示总时间限制: 1000ms 内存限制: 65536kB  描述  任何一个正整数都可以用2的幂次方表示。 例如： 137=27+23+20 同时约定方次用括号来表示，即ab可表示为a(b)。 由此可知，137可表示为： 2(7)+2(3)+2(0)  进一步：7=22+2+20（21用2表示）  3=2+20 所以最后137可表示为： 2(2(2)+2+2(0))+2(2+"><meta property="og:type" content="article"><meta property="og:title" content="2的幂次方表示题解"><meta property="og:url" content="https://mrh1s.top/posts/50d2edb9/index.html"><meta property="og:site_name" content="mrh929&#39;s home"><meta property="og:description" content="8758:2的幂次方表示总时间限制: 1000ms 内存限制: 65536kB  描述  任何一个正整数都可以用2的幂次方表示。 例如： 137=27+23+20 同时约定方次用括号来表示，即ab可表示为a(b)。 由此可知，137可表示为： 2(7)+2(3)+2(0)  进一步：7=22+2+20（21用2表示）  3=2+20 所以最后137可表示为： 2(2(2)+2+2(0))+2(2+"><meta property="og:locale" content="en"><meta property="og:updated_time" content="2019-05-05T05:03:58.019Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="2的幂次方表示题解"><meta name="twitter:description" content="8758:2的幂次方表示总时间限制: 1000ms 内存限制: 65536kB  描述  任何一个正整数都可以用2的幂次方表示。 例如： 137=27+23+20 同时约定方次用括号来表示，即ab可表示为a(b)。 由此可知，137可表示为： 2(7)+2(3)+2(0)  进一步：7=22+2+20（21用2表示）  3=2+20 所以最后137可表示为： 2(2(2)+2+2(0))+2(2+"><link rel="canonical" href="https://mrh1s.top/posts/50d2edb9/"><script id="page-configurations">CONFIG.page={sidebar:"",isHome:!1,isPost:!0}</script><title>2的幂次方表示题解 | mrh929's home</title><noscript><style>.sidebar-inner,.use-motion .brand,.use-motion .collection-header,.use-motion .comments,.use-motion .menu-item,.use-motion .pagination,.use-motion .post-block,.use-motion .post-body,.use-motion .post-header{opacity:initial}.use-motion .site-subtitle,.use-motion .site-title{opacity:initial;top:initial}.use-motion .logo-line-before i{left:initial}.use-motion .logo-line-after i{right:initial}</style></noscript></head><body itemscope itemtype="http://schema.org/WebPage"><div class="container use-motion"><div class="headband"></div><header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-container"><div class="site-meta"><div><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">mrh929's home</span> <span class="logo-line-after"><i></i></span></a></div></div><div class="site-nav-toggle"><div class="toggle" aria-label="Toggle navigation bar"><span class="toggle-line toggle-line-first"></span> <span class="toggle-line toggle-line-middle"></span> <span class="toggle-line toggle-line-last"></span></div></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a></li><li class="menu-item menu-item-archives"><a href="/_posts/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a></li></ul></nav></div></header><div class="back-to-top"><i class="fa fa-arrow-up"></i> <span>0%</span></div><main class="main"><div class="main-inner"><div class="content-wrap"><div class="content"><div class="posts-expand"><article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en"><link itemprop="mainEntityOfPage" href="https://mrh1s.top/posts/50d2edb9/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="image" content="/images/avatar.gif"><meta itemprop="name" content="mrh929"><meta itemprop="description" content="Blog"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="mrh929's home"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">2的幂次方表示题解</h1><div class="post-meta"><span class="post-meta-item"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i> </span><span class="post-meta-item-text">Posted on</span> <time title="Created: 2018-12-06 23:38:31" itemprop="dateCreated datePublished" datetime="2018-12-06T23:38:31+08:00">2018-12-06</time> </span><span class="post-meta-item"><span class="post-meta-item-icon"><i class="fa fa-calendar-check-o"></i> </span><span class="post-meta-item-text">Edited on</span> <time title="Modified: 2019-05-05 13:03:58" itemprop="dateModified" datetime="2019-05-05T13:03:58+08:00">2019-05-05</time> </span><span class="post-meta-item"><span class="post-meta-item-icon"><i class="fa fa-folder-o"></i> </span><span class="post-meta-item-text">In</span> <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/c-plus-plus-2016/" itemprop="url" rel="index"><span itemprop="name">c_plus_plus_2016</span></a></span></span></div></header><div class="post-body" itemprop="articleBody"><h2 id="8758-2的幂次方表示"><a href="#8758-2的幂次方表示" class="headerlink" title="8758:2的幂次方表示"></a>8758:2的幂次方表示</h2><p>总时间限制: 1000ms 内存限制: 65536kB</p><p>描述</p><p>任何一个正整数都可以用2的幂次方表示。</p><p>例如： 137=27+23+20 同时约定方次用括号来表示，即ab可表示为a(b)。</p><p>由此可知，137可表示为： 2(7)+2(3)+2(0)</p><p>进一步：7=22+2+20（21用2表示）</p><p>3=2+20 所以最后137可表示为： 2(2(2)+2+2(0))+2(2+2(0))+2(0)</p><p>又如： 1315=210+28+25+2+1 所以1315最后可表示为： 2(2(2+2(0))+2)+2(2(2+2(0)))+2(2(2)+2(0))+2+2(0)</p><p>输入 一个正整数n（n≤20000）。</p><p>输出 一行，符合约定的n的0，2表示（在表示中不能有空格）。</p><p>样例输入 137</p><p>样例输出 2(2(2)+2+2(0))+2(2+2(0))+2(0)</p><p>来源 NOIP1998复赛 普及组 第一题</p><p><strong>题解：将一个大数拆分为若干个2的n次方的和，并且将次方和再拆分成若干个部分，这样很容易就可以想起递归算法。</strong> ** 实际上问题大致分为两步：** <strong>1. 将数字分解为2的n次方</strong> <strong>2. 将n再次分解为2的n次方（调用自身，如果n==2则结束printf(“2”);</strong> <strong>如果n==1 则printf(“2(0)”);）</strong></p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;math.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">work</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(n==<span class="number">1</span>)<span class="comment">//初始判断条件，如果n为1或2则直接输出 </span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"2(0)"</span>);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span>(n==<span class="number">2</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"2"</span>);</span><br><span class="line">		<span class="keyword">return</span>; </span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> j=<span class="number">1</span>,i=<span class="number">0</span>;<span class="comment">//j每次乘2,如果大于了n就分解结束，i为当前次数 </span></span><br><span class="line">		<span class="keyword">do</span></span><br><span class="line">		&#123;</span><br><span class="line">			j*=<span class="number">2</span>;</span><br><span class="line">			<span class="keyword">if</span>(j&gt;n)</span><br><span class="line">			&#123;</span><br><span class="line">				j/=<span class="number">2</span>;</span><br><span class="line">				<span class="keyword">if</span>(i==<span class="number">1</span>)<span class="comment">//这步非常重要，确定是否需要继续 2() </span></span><br><span class="line">					<span class="built_in">printf</span>(<span class="string">"2"</span>);</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">				&#123;</span><br><span class="line">					<span class="built_in">printf</span>(<span class="string">"2("</span>);</span><br><span class="line">					work(i);</span><br><span class="line">					<span class="built_in">printf</span>(<span class="string">")"</span>);</span><br><span class="line">				&#125;	</span><br><span class="line">				<span class="keyword">if</span>(n-j!=<span class="number">0</span>)<span class="comment">//如果n分解之后还有剩余的数，那么继续分解 </span></span><br><span class="line">				&#123;</span><br><span class="line">					<span class="built_in">printf</span>(<span class="string">"+"</span>);</span><br><span class="line">					work(n-j);</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">return</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				i++;</span><br><span class="line">		&#125;<span class="keyword">while</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">	work(n);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></div><div><ul class="post-copyright"><li class="post-copyright-author"><strong>Post author: </strong>mrh929</li><li class="post-copyright-link"><strong>Post link: </strong><a href="https://mrh1s.top/posts/50d2edb9/" title="2的幂次方表示题解">https://mrh1s.top/posts/50d2edb9/</a></li><li class="post-copyright-license"><strong>Copyright Notice: </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.</li></ul></div><footer class="post-footer"><div class="post-nav"><div class="post-nav-item"><a href="/posts/3598786/" rel="prev" title="逆波兰表达式题解"><i class="fa fa-chevron-left"></i> 逆波兰表达式题解</a></div><div class="post-nav-item"><a href="/posts/80036358/" rel="next" title="大整数乘法题解">大整数乘法题解 <i class="fa fa-chevron-right"></i></a></div></div></footer></article></div></div><script>window.addEventListener('tabs:register', () => {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://mrh1s.top').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="8758:2的幂次方表示总时间限制: 1000ms 内存限制: 65536kB  描述  任何一个正整数都可以用2的幂次方表示。 例如： 137=27+23+20 同时约定方次用括号来表示，即ab可表示为a(b)。 由此可知，137可表示为： 2(7)+2(3)+2(0)  进一步：7=22+2+20（21用2表示）  3=2+20 所以最后137可表示为： 2(2(2)+2+2(0))+2(2+">
+<meta property="og:type" content="article">
+<meta property="og:title" content="2的幂次方表示题解">
+<meta property="og:url" content="https://mrh1s.top/posts/50d2edb9/index.html">
+<meta property="og:site_name" content="mrh929&#39;s home">
+<meta property="og:description" content="8758:2的幂次方表示总时间限制: 1000ms 内存限制: 65536kB  描述  任何一个正整数都可以用2的幂次方表示。 例如： 137=27+23+20 同时约定方次用括号来表示，即ab可表示为a(b)。 由此可知，137可表示为： 2(7)+2(3)+2(0)  进一步：7=22+2+20（21用2表示）  3=2+20 所以最后137可表示为： 2(2(2)+2+2(0))+2(2+">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-05-05T05:03:58.019Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2的幂次方表示题解">
+<meta name="twitter:description" content="8758:2的幂次方表示总时间限制: 1000ms 内存限制: 65536kB  描述  任何一个正整数都可以用2的幂次方表示。 例如： 137=27+23+20 同时约定方次用括号来表示，即ab可表示为a(b)。 由此可知，137可表示为： 2(7)+2(3)+2(0)  进一步：7=22+2+20（21用2表示）  3=2+20 所以最后137可表示为： 2(2(2)+2+2(0))+2(2+">
+
+<link rel="canonical" href="https://mrh1s.top/posts/50d2edb9/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>2的幂次方表示题解 | mrh929's home</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrh929's home</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/_posts/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://mrh1s.top/posts/50d2edb9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mrh929">
+      <meta itemprop="description" content="Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrh929's home">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          2的幂次方表示题解
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-12-06 23:38:31" itemprop="dateCreated datePublished" datetime="2018-12-06T23:38:31+08:00">2018-12-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-05-05 13:03:58" itemprop="dateModified" datetime="2019-05-05T13:03:58+08:00">2019-05-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/c-plus-plus-2016/" itemprop="url" rel="index">
+                    <span itemprop="name">c_plus_plus_2016</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h2 id="8758-2的幂次方表示"><a href="#8758-2的幂次方表示" class="headerlink" title="8758:2的幂次方表示"></a>8758:2的幂次方表示</h2><p>总时间限制: 1000ms 内存限制: 65536kB </p>
+<p>描述 </p>
+<p>任何一个正整数都可以用2的幂次方表示。</p>
+<p>例如： 137=27+23+20 同时约定方次用括号来表示，即ab可表示为a(b)。</p>
+<p>由此可知，137可表示为： 2(7)+2(3)+2(0) </p>
+<p>进一步：7=22+2+20（21用2表示） </p>
+<p>3=2+20 所以最后137可表示为： 2(2(2)+2+2(0))+2(2+2(0))+2(0) </p>
+<p>又如： 1315=210+28+25+2+1 所以1315最后可表示为： 2(2(2+2(0))+2)+2(2(2+2(0)))+2(2(2)+2(0))+2+2(0) </p>
+<p>输入 一个正整数n（n≤20000）。 </p>
+<p>输出 一行，符合约定的n的0，2表示（在表示中不能有空格）。 </p>
+<p>样例输入 137 </p>
+<p>样例输出 2(2(2)+2+2(0))+2(2+2(0))+2(0) </p>
+<p>来源 NOIP1998复赛 普及组 第一题     </p>
+<p><strong>题解：将一个大数拆分为若干个2的n次方的和，并且将次方和再拆分成若干个部分，这样很容易就可以想起递归算法。</strong> **       实际上问题大致分为两步：** <strong>1.    将数字分解为2的n次方</strong> <strong>2.    将n再次分解为2的n次方（调用自身，如果n==2则结束printf(“2”);</strong> <strong>如果n==1 则printf(“2(0)”);）</strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;string.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;math.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">work</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(n==<span class="number">1</span>)<span class="comment">//初始判断条件，如果n为1或2则直接输出 </span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"2(0)"</span>);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span>(n==<span class="number">2</span>)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"2"</span>);</span><br><span class="line">		<span class="keyword">return</span>; </span><br><span class="line">	&#125; </span><br><span class="line">	<span class="keyword">else</span></span><br><span class="line">	&#123;</span><br><span class="line">		<span class="keyword">int</span> j=<span class="number">1</span>,i=<span class="number">0</span>;<span class="comment">//j每次乘2,如果大于了n就分解结束，i为当前次数 </span></span><br><span class="line">		<span class="keyword">do</span></span><br><span class="line">		&#123;</span><br><span class="line">			j*=<span class="number">2</span>;</span><br><span class="line">			<span class="keyword">if</span>(j&gt;n)</span><br><span class="line">			&#123;</span><br><span class="line">				j/=<span class="number">2</span>;</span><br><span class="line">				<span class="keyword">if</span>(i==<span class="number">1</span>)<span class="comment">//这步非常重要，确定是否需要继续 2() </span></span><br><span class="line">					<span class="built_in">printf</span>(<span class="string">"2"</span>);</span><br><span class="line">				<span class="keyword">else</span></span><br><span class="line">				&#123;</span><br><span class="line">					<span class="built_in">printf</span>(<span class="string">"2("</span>);</span><br><span class="line">					work(i);</span><br><span class="line">					<span class="built_in">printf</span>(<span class="string">")"</span>);</span><br><span class="line">				&#125;	</span><br><span class="line">				<span class="keyword">if</span>(n-j!=<span class="number">0</span>)<span class="comment">//如果n分解之后还有剩余的数，那么继续分解 </span></span><br><span class="line">				&#123;</span><br><span class="line">					<span class="built_in">printf</span>(<span class="string">"+"</span>);</span><br><span class="line">					work(n-j);</span><br><span class="line">				&#125;</span><br><span class="line">				<span class="keyword">return</span>;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span></span><br><span class="line">				i++;</span><br><span class="line">		&#125;<span class="keyword">while</span>(<span class="number">1</span>);</span><br><span class="line">	&#125;	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line">	work(n);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>mrh929
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="https://mrh1s.top/posts/50d2edb9/" title="2的幂次方表示题解">https://mrh1s.top/posts/50d2edb9/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/3598786/" rel="prev" title="逆波兰表达式题解">
+      <i class="fa fa-chevron-left"></i> 逆波兰表达式题解
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/80036358/" rel="next" title="大整数乘法题解">
+      大整数乘法题解 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
     let activeClass = CONFIG.comments.activeClass;
     if (CONFIG.comments.storage) {
       activeClass = localStorage.getItem('comments_active') || activeClass;
@@ -16,4 +318,137 @@
       let commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
-  }</script></div><div class="toggle sidebar-toggle"><span class="toggle-line toggle-line-first"></span> <span class="toggle-line toggle-line-middle"></span> <span class="toggle-line toggle-line-last"></span></div><aside class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc">Table of Contents</li><li class="sidebar-nav-overview">Overview</li></ul><div class="post-toc-wrap sidebar-panel"><div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#8758-2的幂次方表示"><span class="nav-number">1.</span> <span class="nav-text">8758:2的幂次方表示</span></a></li></ol></div></div><div class="site-overview-wrap sidebar-panel"><div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person"><p class="site-author-name" itemprop="name">mrh929</p><div class="site-description" itemprop="description">Blog</div></div><div class="site-state-wrap motion-element"><nav class="site-state"><div class="site-state-item site-state-posts"><a href="/_posts/"><span class="site-state-item-count">79</span> <span class="site-state-item-name">posts</span></a></div><div class="site-state-item site-state-categories"><span class="site-state-item-count">20</span> <span class="site-state-item-name">categories</span></div><div class="site-state-item site-state-tags"><span class="site-state-item-count">16</span> <span class="site-state-item-name">tags</span></div></nav></div><div class="cc-license motion-element" itemprop="license"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" class="cc-opacity" rel="noopener" target="_blank"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a></div></div></div></aside><div id="sidebar-dimmer"></div></div></main><footer class="footer"><div class="footer-inner"><div class="copyright">&copy; <span itemprop="copyrightYear">2020</span> <span class="with-love"><i class="fa fa-user"></i> </span><span class="author" itemprop="copyrightHolder">mrh929</span></div><div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div><span class="post-meta-divider">|</span><div class="theme-info">Theme – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0</div></div></footer></div><script src="/lib/anime.min.js"></script><script src="/lib/velocity/velocity.min.js"></script><script src="/lib/velocity/velocity.ui.min.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/pisces.js"></script><script src="/js/next-boot.js"></script><script>!function(e){var r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function t(){for(var c=0;c<r.length;c++)t=r[c],void 0,0<=(n=t.getBoundingClientRect()).top&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=r[c];t=o,n=function(){r=r.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}t(),e.addEventListener("scroll",function(){!function(t,n){clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)}(t,e)})}(this);</script></body></html>
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#8758-2的幂次方表示"><span class="nav-number">1.</span> <span class="nav-text">8758:2的幂次方表示</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mrh929</p>
+  <div class="site-description" itemprop="description">Blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/_posts/">
+        
+          <span class="site-state-item-count">79</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mrh929</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

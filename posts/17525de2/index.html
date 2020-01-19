@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://mrh1s.top').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="AVL树总结 AVL树是二叉查找树的一种优化，能将链状的二叉查找树几乎平均地储存下来，从而减少搜索使用的时间。    AVL树是空树，或满足以下定义的树： 1、左右子树都是AVL树；（递归定义） 2、左右子树高度之差不超过1；    定义平衡因子： 左子树高度-右子树高度，当平衡因子大于等于2时，我们就称这棵树不平衡，需要通过旋转让它重新平衡。   获取节点高度：        int h(int">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AVL树总结">
+<meta property="og:url" content="https://mrh1s.top/posts/17525de2/index.html">
+<meta property="og:site_name" content="mrh929&#39;s home">
+<meta property="og:description" content="AVL树总结 AVL树是二叉查找树的一种优化，能将链状的二叉查找树几乎平均地储存下来，从而减少搜索使用的时间。    AVL树是空树，或满足以下定义的树： 1、左右子树都是AVL树；（递归定义） 2、左右子树高度之差不超过1；    定义平衡因子： 左子树高度-右子树高度，当平衡因子大于等于2时，我们就称这棵树不平衡，需要通过旋转让它重新平衡。   获取节点高度：        int h(int">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:updated_time" content="2019-05-05T05:06:27.482Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AVL树总结">
+<meta name="twitter:description" content="AVL树总结 AVL树是二叉查找树的一种优化，能将链状的二叉查找树几乎平均地储存下来，从而减少搜索使用的时间。    AVL树是空树，或满足以下定义的树： 1、左右子树都是AVL树；（递归定义） 2、左右子树高度之差不超过1；    定义平衡因子： 左子树高度-右子树高度，当平衡因子大于等于2时，我们就称这棵树不平衡，需要通过旋转让它重新平衡。   获取节点高度：        int h(int">
+<meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+
+<link rel="canonical" href="https://mrh1s.top/posts/17525de2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>AVL树总结 | mrh929's home</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrh929's home</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/_posts/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://mrh1s.top/posts/17525de2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mrh929">
+      <meta itemprop="description" content="Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrh929's home">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          AVL树总结
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-12-06 23:46:59" itemprop="dateCreated datePublished" datetime="2018-12-06T23:46:59+08:00">2018-12-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-05-05 13:06:27" itemprop="dateModified" datetime="2019-05-05T13:06:27+08:00">2019-05-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/c-plus-plus-2016/" itemprop="url" rel="index">
+                    <span itemprop="name">c_plus_plus_2016</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1>AVL树总结</h1>
+<strong>AVL树是二叉查找树的一种优化，能将链状的二叉查找树几乎平均地储存下来，从而减少搜索使用的时间。</strong>
+
+<p><strong> </strong></p>
+<p><strong>AVL树是空树，或满足以下定义的树：</strong></p>
+<p><strong>1、左右子树都是AVL树；（递归定义）</strong></p>
+<p><strong>2、左右子树高度之差不超过1； </strong></p>
+<p><strong> </strong></p>
+<p><strong>定义平衡因子：</strong></p>
+<p><strong>左子树高度-右子树高度，当平衡因子大于等于2时，我们就称这棵树不平衡，需要通过旋转让它重新平衡。</strong></p>
+<p><strong> </strong></p>
+<p><strong>获取节点高度：</strong></p>
+<p><strong>       int h(int rt){</strong></p>
+<p><strong>       if(rt==0) return -1;//这里return-1的原因后面阐释</strong></p>
+<p><strong>       return no[rt].height;</strong></p>
+<p><strong>}</strong></p>
+<p><strong> </strong></p>
+<p><strong>单旋转</strong></p>
+<p><strong>“左左”当根节点的左子树的左儿子与根节点的右儿子不平衡时</strong></p>
+<p><strong>我们通过单旋转使平衡树符合该树的性质</strong></p>
+<div class="cke_widget_wrapper cke_widget_block cke_widget_codeSnippet cke_widget_wrapper_has cke_widget_selected" tabindex="-1" role="region" contenteditable="false" data-cke-widget-wrapper="1" data-cke-filter="off" data-cke-display-name="代码段" data-cke-widget-id="3" aria-label="代码段 小部件">
+<pre class="has cke_widget_element" data-cke-widget-data="{&quot;lang&quot;:&quot;cpp&quot;,&quot;code&quot;:&quot;int SingeRotateWithLeft(int x){\n\tint y;\n\ty=no[x].left;\n\tno[x].left=no[y].right;\n\tno[y].right=x;\n\tno[y].height=max(h(no[y].left),h(no[y].right))+1;\n\tno[x].height=max(h(no[x].left),h(no[x].right))+1;\n\treturn y;\n}\n&quot;,&quot;classes&quot;:{&quot;has&quot;:1}}" data-cke-widget-upcasted="1" data-cke-widget-keep-attr="0" data-widget="codeSnippet"><code class="language-cpp hljs"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">SingeRotateWithLeft</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span></span>{
+    <span class="hljs-keyword">int</span> y;
+    y=no[x].left;
+    no[x].left=no[y].right;
+    no[y].right=x;
+    no[y].height=max(h(no[y].left),h(no[y].right))+<span class="hljs-number">1</span>;
+    no[x].height=max(h(no[x].left),h(no[x].right))+<span class="hljs-number">1</span>;
+    <span class="hljs-keyword">return</span> y;
+}
+</code></pre>
+<span class="cke_reset cke_widget_drag_handler_container"><img class="cke_reset cke_widget_drag_handler" title="点击并拖拽以移动" role="presentation" src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" width="15" height="15" data-cke-widget-drag-handler="1"></span></div>
+<strong>“右右”方法类似，与左左对称</strong>
+
+<p><strong> </strong></p>
+<p><strong>双旋转</strong></p>
+<p><strong>“左右”当根节点的左子树的右儿子与根节点的右儿子不平衡时</strong></p>
+<p><strong>旋转两次即可使这棵树平衡</strong></p>
+<div class="cke_widget_wrapper cke_widget_block cke_widget_codeSnippet cke_widget_wrapper_has cke_widget_selected" tabindex="-1" role="region" contenteditable="false" data-cke-widget-wrapper="1" data-cke-filter="off" data-cke-display-name="代码段" data-cke-widget-id="2" aria-label="代码段 小部件">
+<pre class="has cke_widget_element" data-cke-widget-data="{&quot;lang&quot;:&quot;cpp&quot;,&quot;code&quot;:&quot;int doubleRotateWithLeft(int x){\n\n\tno[x].left=SingleRotateWithRight(no[x].left);\n\treturn SingleRotateWithLeft(x);\n\n}\n&quot;,&quot;classes&quot;:{&quot;has&quot;:1}}" data-cke-widget-upcasted="1" data-cke-widget-keep-attr="0" data-widget="codeSnippet"><code class="language-cpp hljs"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">doubleRotateWithLeft</span><span class="hljs-params">(<span class="hljs-keyword">int</span> x)</span></span>{
+
+<pre><code>no[x].left=SingleRotateWithRight(no[x].left);
+&lt;span class=&quot;hljs-keyword&quot;&gt;return&lt;/span&gt; SingleRotateWithLeft(x);</code></pre><p>}</p>
+<p><strong>“右左”同理。</strong></p>
+<p><strong> </strong></p>
+<p><strong>插入操作：先正常插入指定结点，再判断原树是否平衡，不平衡要根据具体情况旋转使原树平衡</strong></p>
+<div class="cke_widget_wrapper cke_widget_block cke_widget_codeSnippet cke_widget_wrapper_has cke_widget_selected" tabindex="-1" role="region" contenteditable="false" data-cke-widget-wrapper="1" data-cke-filter="off" data-cke-display-name="代码段" data-cke-widget-id="1" aria-label="代码段 小部件">
+<pre class="has cke_widget_element" data-cke-widget-data="{&quot;lang&quot;:&quot;cpp&quot;,&quot;code&quot;:&quot;int insert(int k,int rt){\n\tif(rt==0)\n\t\trt=newNode(k);\n\telse if( k&lt; no[rt].key ){\n\t\tno[rt].left=insert(k,no[rt].left);\n\t\tif( h(no[rt].left)-h(no[rt].right) )==2 )\n\t\t\tif(k&lt;no[ no[rt].left ] .key ) rt=SingleRotateWithLeft(rt);\n\t\t\telse rt= DoubleRotateWithLeft(rt)\n\t}else if( k &gt; no[rt].key){\n\t\tno[rt].right=insert(k,no[rt].right);\n\t\tif( h(no[rt].right)-h(no[rt].left) )==2 )\n\t\t\tif(k &gt; no[ no[rt].right ] .key ) rt=SingleRotateWithRight(rt);\n\t\t\telse rt= DoubleRotateWithRight(rt)\n\t}\n\tno[rt].height = max ( h( no[rt].left ), h( no[rt].right ) ) +1;\n\treturn rt;\n}\n&quot;,&quot;classes&quot;:{&quot;has&quot;:1}}" data-cke-widget-upcasted="1" data-cke-widget-keep-attr="0" data-widget="codeSnippet"><code class="language-cpp hljs"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">insert</span><span class="hljs-params">(<span class="hljs-keyword">int</span> k,<span class="hljs-keyword">int</span> rt)</span></span>{
+    <span class="hljs-keyword">if</span>(rt==<span class="hljs-number">0</span>)
+        rt=newNode(k);
+    <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( k< no[rt].key ){
+        no[rt].left=insert(k,no[rt].left);
+        <span class="hljs-keyword">if</span>( h(no[rt].left)-h(no[rt].right) )==<span class="hljs-number">2</span> )
+            <span class="hljs-keyword">if</span>(k<no[ no[rt].left ] .key ) rt="SingleRotateWithLeft(rt);" <span class="hljs-keyword">else rt= DoubleRotateWithLeft(rt)
+    }<span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span>( k > no[rt].key){
+        no[rt].right=insert(k,no[rt].right);
+        <span class="hljs-keyword">if</span>( h(no[rt].right)-h(no[rt].left) )==<span class="hljs-number">2</span> )
+            <span class="hljs-keyword">if</span>(k > no[ no[rt].right ] .key ) rt=SingleRotateWithRight(rt);
+            <span class="hljs-keyword">else</span> rt= DoubleRotateWithRight(rt)
+    }
+    no[rt].height = max ( h( no[rt].left ), h( no[rt].right ) ) +<span class="hljs-number">1</span>;
+    <span class="hljs-keyword">return</span> rt;
+}
+</no[></code></pre>
+<span class="cke_reset cke_widget_drag_handler_container"><img class="cke_reset cke_widget_drag_handler" title="点击并拖拽以移动" role="presentation" src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" width="15" height="15" data-cke-widget-drag-handler="1"></span></div>
+<div class="cke_widget_wrapper cke_widget_block cke_widget_codeSnippet cke_widget_wrapper_has cke_widget_selected" tabindex="-1" role="region" contenteditable="false" data-cke-widget-wrapper="1" data-cke-filter="off" data-cke-display-name="代码段" data-cke-widget-id="0" aria-label="代码段 小部件">
+<pre class="has cke_widget_element" data-cke-widget-data="{&quot;lang&quot;:&quot;cpp&quot;,&quot;code&quot;:&quot;int newNode(int k){\n\tno[cnt].height=no[cnt].left=no[cnt].right=0;\n\tno[cnt].key=k;\n\treturn cnt++;\n}\n&quot;,&quot;classes&quot;:{&quot;has&quot;:1}}" data-cke-widget-upcasted="1" data-cke-widget-keep-attr="0" data-widget="codeSnippet"><code class="language-cpp hljs"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">newNode</span><span class="hljs-params">(<span class="hljs-keyword">int</span> k)</span></span>{
+    no[cnt].height=no[cnt].left=no[cnt].right=<span class="hljs-number">0</span>;
+    no[cnt].key=k;
+    <span class="hljs-keyword">return</span> cnt++;
+}
+</code></pre>
+<span class="cke_reset cke_widget_drag_handler_container"><img class="cke_reset cke_widget_drag_handler" title="点击并拖拽以移动" role="presentation" src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" width="15" height="15" data-cke-widget-drag-handler="1"></span></div>
+<strong> AVL树过于复杂，但却是其他二叉搜索树变形特别是旋转的基础，删除操作实在过于复杂，本人无法理解。。。建议大家使用懒惰标记吧，不在真正意义上删除结点。</strong>
+
+<p><strong>说这么多 大家还是转战SBT吧QAQ</strong></p>
+</code></pre></div>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>mrh929
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="https://mrh1s.top/posts/17525de2/" title="AVL树总结">https://mrh1s.top/posts/17525de2/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/852a3205/" rel="prev" title="线段树总结">
+      <i class="fa fa-chevron-left"></i> 线段树总结
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/68e69317/" rel="next" title="SBT总结">
+      SBT总结 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">AVL树总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mrh929</p>
+  <div class="site-description" itemprop="description">Blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/_posts/">
+        
+          <span class="site-state-item-count">79</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mrh929</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

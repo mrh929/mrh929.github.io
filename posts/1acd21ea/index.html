@@ -1,4 +1,338 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2"><meta name="theme-color" content="#222"><meta name="generator" content="Hexo 3.8.0"><link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png"><link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png"><link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png"><link rel="mask-icon" href="/images/logo.svg" color="#222"><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css"><script id="hexo-configurations">var NexT=window.NexT||{},CONFIG={hostname:new URL("https://mrh1s.top").hostname,root:"/",scheme:"Pisces",version:"7.7.0",exturl:!1,sidebar:{position:"left",display:"post",padding:18,offset:12,onmobile:!1},copycode:{enable:!1,show_result:!1,style:null},back2top:{enable:!0,sidebar:!1,scrollpercent:!1},bookmark:{enable:!1,color:"#222",save:"auto"},fancybox:!1,mediumzoom:!1,lazyload:!1,pangu:!1,comments:{style:"tabs",active:null,storage:!0,lazyload:!1,nav:null},algolia:{appID:"",apiKey:"",indexName:"",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"We didn't find any results for the search: ${query}",hits_stats:"${hits} results found in ${time} ms"}},localsearch:{enable:!1,trigger:"auto",top_n_per_article:1,unescape:!1,preload:!1},path:"",motion:{enable:!0,async:!1,transition:{post_block:"fadeIn",post_header:"slideDownIn",post_body:"slideDownIn",coll_header:"slideLeftIn",sidebar:"slideUpIn"}}}</script><meta name="description" content="无向图tarjan求割边割点、最近公共祖先总结割点：删除这个点之后整个图变成不连通的两个部分的点 割点集合：在一个无向图中删除该集合中的所有点，能使原图变成互不相连的连通块的点的集合 点连通度：最小割点集合点数 割边（桥）：类似于割点，删除一条边后会使一个连通图变得不完全连通 割边集合：所有割边的集合 边连通度：最小割边集合边数  与有割边割点的图对应，有一种无向图，它的边连通度（或点连通度）大于"><meta property="og:type" content="article"><meta property="og:title" content="Tarjan算法求无向图割边割点、最近公共祖先的总结"><meta property="og:url" content="https://mrh1s.top/posts/1acd21ea/index.html"><meta property="og:site_name" content="mrh929&#39;s home"><meta property="og:description" content="无向图tarjan求割边割点、最近公共祖先总结割点：删除这个点之后整个图变成不连通的两个部分的点 割点集合：在一个无向图中删除该集合中的所有点，能使原图变成互不相连的连通块的点的集合 点连通度：最小割点集合点数 割边（桥）：类似于割点，删除一条边后会使一个连通图变得不完全连通 割边集合：所有割边的集合 边连通度：最小割边集合边数  与有割边割点的图对应，有一种无向图，它的边连通度（或点连通度）大于"><meta property="og:locale" content="en"><meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg=="><meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg=="><meta property="og:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg=="><meta property="og:updated_time" content="2019-05-05T05:41:54.246Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Tarjan算法求无向图割边割点、最近公共祖先的总结"><meta name="twitter:description" content="无向图tarjan求割边割点、最近公共祖先总结割点：删除这个点之后整个图变成不连通的两个部分的点 割点集合：在一个无向图中删除该集合中的所有点，能使原图变成互不相连的连通块的点的集合 点连通度：最小割点集合点数 割边（桥）：类似于割点，删除一条边后会使一个连通图变得不完全连通 割边集合：所有割边的集合 边连通度：最小割边集合边数  与有割边割点的图对应，有一种无向图，它的边连通度（或点连通度）大于"><meta name="twitter:image" content="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg=="><link rel="canonical" href="https://mrh1s.top/posts/1acd21ea/"><script id="page-configurations">CONFIG.page={sidebar:"",isHome:!1,isPost:!0}</script><title>Tarjan算法求无向图割边割点、最近公共祖先的总结 | mrh929's home</title><noscript><style>.sidebar-inner,.use-motion .brand,.use-motion .collection-header,.use-motion .comments,.use-motion .menu-item,.use-motion .pagination,.use-motion .post-block,.use-motion .post-body,.use-motion .post-header{opacity:initial}.use-motion .site-subtitle,.use-motion .site-title{opacity:initial;top:initial}.use-motion .logo-line-before i{left:initial}.use-motion .logo-line-after i{right:initial}</style></noscript></head><body itemscope itemtype="http://schema.org/WebPage"><div class="container use-motion"><div class="headband"></div><header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-container"><div class="site-meta"><div><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">mrh929's home</span> <span class="logo-line-after"><i></i></span></a></div></div><div class="site-nav-toggle"><div class="toggle" aria-label="Toggle navigation bar"><span class="toggle-line toggle-line-first"></span> <span class="toggle-line toggle-line-middle"></span> <span class="toggle-line toggle-line-last"></span></div></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a></li><li class="menu-item menu-item-archives"><a href="/_posts/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a></li></ul></nav></div></header><div class="back-to-top"><i class="fa fa-arrow-up"></i> <span>0%</span></div><main class="main"><div class="main-inner"><div class="content-wrap"><div class="content"><div class="posts-expand"><article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en"><link itemprop="mainEntityOfPage" href="https://mrh1s.top/posts/1acd21ea/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="image" content="/images/avatar.gif"><meta itemprop="name" content="mrh929"><meta itemprop="description" content="Blog"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="mrh929's home"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">Tarjan算法求无向图割边割点、最近公共祖先的总结</h1><div class="post-meta"><span class="post-meta-item"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i> </span><span class="post-meta-item-text">Posted on</span> <time title="Created: 2018-12-06 23:43:10" itemprop="dateCreated datePublished" datetime="2018-12-06T23:43:10+08:00">2018-12-06</time> </span><span class="post-meta-item"><span class="post-meta-item-icon"><i class="fa fa-calendar-check-o"></i> </span><span class="post-meta-item-text">Edited on</span> <time title="Modified: 2019-05-05 13:41:54" itemprop="dateModified" datetime="2019-05-05T13:41:54+08:00">2019-05-05</time> </span><span class="post-meta-item"><span class="post-meta-item-icon"><i class="fa fa-folder-o"></i> </span><span class="post-meta-item-text">In</span> <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/c-plus-plus-2016/" itemprop="url" rel="index"><span itemprop="name">c_plus_plus_2016</span></a></span></span></div></header><div class="post-body" itemprop="articleBody"><h1 id="无向图tarjan求割边割点、最近公共祖先总结"><a href="#无向图tarjan求割边割点、最近公共祖先总结" class="headerlink" title="无向图tarjan求割边割点、最近公共祖先总结"></a>无向图tarjan求割边割点、最近公共祖先总结</h1><p><strong>割点：删除这个点之后整个图变成不连通的两个部分的点</strong> <strong>割点集合：在一个无向图中删除该集合中的所有点，能使原图变成互不相连的连通块的点的集合</strong> <strong>点连通度：最小割点集合点数</strong> <strong>割边（桥）：类似于割点，删除一条边后会使一个连通图变得不完全连通</strong> <strong>割边集合：所有割边的集合</strong> <strong>边连通度：最小割边集合边数</strong> <strong>与有割边割点的图对应，有一种无向图，它的边连通度（或点连通度）大于1，那么我们称它为双连通分量，即删掉任意点（或边），图仍然是连通的</strong> <strong>用tarjan算法求割点</strong> <strong>原理：在一棵DFS树中</strong> <strong>根root是割顶当且仅当它至少有两个儿子</strong> <strong>其他点v是割顶当且仅当它有一个儿子u,从u或者u的后代出发没有指向v祖先(不含v)的B边,则删除v以后u和v的父亲不连通,故为割顶</strong></p><ol><li><p><strong>基本算法同tarjan经典算法</strong></p></li><li><p><strong>每遍历一个新的（颜色为白色）u的儿子v都记录个数</strong></p></li><li><p><strong>low[u]值更新后进行以下判断（前提v未被遍历过）：</strong></p></li><li><p><strong>u为树根，且儿子个数大于1</strong></p></li><li><p><strong>u不为树根，但low[v]&gt;=dfn[u]（说明v及其子节点都不能达到u以上的父亲节点）</strong></p></li></ol><p><strong>满足以上任意条件u便为割点，记录在数组里，tarjan完成后再输出（中途输出会重复）</strong> <strong>用tarjan算法求割边（桥）</strong> <strong>原理</strong> <strong>发现T边(u,v)时若发现v和它的后代不存在一条连接u或其祖先的B边,则删除(u,v)后u和v不连通,因此(u,v)为桥</strong> <strong>桥的判定算法</strong> <strong>发现T边(u, v)时若low[v]&gt;=dfn[u],则(u,v)为桥</strong></p><ol><li><p><strong>基本算法同tarjan经典算法</strong></p></li><li><p><strong>形参加上father，作用为记录u的父亲节点，避免在遍历v时遇到重边重新更新low[u]</strong></p></li><li><p><strong>在“v已被遍历”的位置加上判断 如果v点等于father，那么就不执行更新low[u]值</strong></p></li><li><p><strong>Tarjan算法结束后，遍历所有节点u及其子节点v，如果low[u]==low[v]，那么这条边就为割边</strong></p><p><strong>求点双连通分支(去掉割点之后所得的双连通分量)</strong></p></li><li><p><strong>tarjan求割点</strong></p></li><li><p><strong>每找到一个割点，将它上面的所有点弹出栈，所得的点集就是双连通分量</strong></p><p><strong>求边双连通分支</strong></p></li><li><p><strong>tarjan找桥边</strong></p></li><li><p><strong>删除桥边（1、2两步同时完成）</strong></p></li><li><p><strong>剩余各部分则为双连通分量</strong></p><p><strong>有桥的连通图，加边变成双连通图</strong></p></li><li><p><strong>tarjan找桥边并删除桥边</strong></p></li><li><p><strong>将点双连通分量收缩成为一个顶点</strong></p></li><li><p><strong>加回桥边，统计度为1的顶点个数</strong></p></li><li><p><strong>根据规律，需要加入的桥边最少为(n+1)/2条</strong></p><p><strong>最近公共祖先LCA</strong> <strong>原理：在一棵树中，父亲结点与儿子结点的最近公共祖先为父亲结点</strong></p></li><li><p><strong>建立并查集</strong></p></li><li><p><strong>DFS先序遍历一棵树</strong></p></li><li><p><strong>在每个结点上，进行以下操作：</strong></p></li><li><p><strong>涂黑该结点</strong></p></li><li><p><strong>如果有关于该结点a的询问，搜索另一询问的结点b，如果b也被涂黑，那么它们的公共祖先为b所在并查集的祖先，输出结果</strong></p><p><strong>拓展：求一棵树中两个结点的距离</strong></p></li><li><p><strong>建立dis[]数组，记录从树根到i点的距离dis[i]</strong></p></li><li><p><strong>则a与b的距离为</strong></p></li></ol><p><strong>d=dis[a]-dis[LCA]+dis[b]-dis[LCA]=dis[a]+dis[b]-2*dis[LCA]</strong></p><p><strong>Poj 1144</strong></p><p><strong>描述</strong> 一个电话线公司（简称TLC）正在建立一个新的电话线缆网络。他们连接了若干个地点分别从1到N编号。没有两个地点有相同的号码。这些线是双向的并且能使两个地点保持通讯。每个地点的线都终结于电话交换机。每个地点都有一个电话交换机。从每个地点都能通过线缆到达其他任意的地点，然而它并不需要直接连接，它可以通过若干个交换机来到达目的地。有时候某个地点供电出问题时，交换机就会停止工作。TLC的工作人员意识到，除非这个地点是不可达的，否则这种情况就会发生，它还会导致一些其它的地点不能互相通讯。在这种情况下我们会称这个地点（错误发生的地方）为critical。现在工作人员想要写一个程序找到所有critical地点的数量。帮帮他们。</p><p><strong>输入</strong> 输入文件包括若组测试数据。每一组是一个网络，每一组测试数据的第一行是地点的总数量N&lt;100.每个接下来最多N行包括一个数字表示一个地点和与它相连接的地点的数字。这些最多N行完全描述了整个网络，比如，网络中每个直接连接的两个地点被至少一行包括。一行内的所有数字都要用空格隔开。每组数据需要用单独的一个0结束。最后的块只有一行即N=0。</p><p><strong>输出</strong> 输出除了最后一个组其他每一个组的critical地点的数量，每个块用一行输出。</p><p><strong>样例输入：</strong> 5 5 1 2 3 4 0 6 2 1 3 5 4 6 2 0 0</p><p><strong>样例输出</strong> 1 2</p><p><strong>提示：</strong></p><p>你需要确定每行的结束。为了方便判断，每行的结束都没有多余的空白</p><p><strong>读入是难点，其余就是找割点的部分</strong></p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> first[<span class="number">120</span>],go[<span class="number">10000</span>],nxt[<span class="number">10000</span>],arcnum=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> dfn[<span class="number">120</span>],low[<span class="number">120</span>],idx;</span><br><span class="line"><span class="keyword">int</span> <span class="built_in">stack</span>[<span class="number">100000</span>],top,ans[<span class="number">120</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addarc</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">	nxt[arcnum]=first[a];</span><br><span class="line">	first[a]=arcnum;</span><br><span class="line">	go[arcnum++]=b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">(<span class="keyword">int</span> u)</span></span>&#123;</span><br><span class="line">	low[u]=dfn[u]=++idx;</span><br><span class="line"><span class="comment">//	stack[++top]=u;</span></span><br><span class="line">	<span class="keyword">int</span> son=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> p=first[u];p!=<span class="number">0</span>;p=nxt[p])&#123;</span><br><span class="line">		<span class="keyword">int</span> v=go[p];</span><br><span class="line">		<span class="keyword">if</span>(dfn[v]==<span class="number">0</span>)&#123;</span><br><span class="line">			tarjan(v); son++;</span><br><span class="line">			low[u]=min(low[u],low[v]);</span><br><span class="line">			<span class="keyword">if</span>((u==<span class="number">1</span>&amp;&amp;son&gt;<span class="number">1</span>)||(u!=<span class="number">1</span>&amp;&amp;low[v]&gt;=dfn[u])) ans[u]++;<span class="comment">//一定使用这种方法记录u是否为割点 </span></span><br><span class="line">		<span class="comment">//		printf("u=%d son=%d ans=%d low[v]=%d dfn[u]=%d\n",u,son,ans,low[v],dfn[u]);</span></span><br><span class="line">		&#125;<span class="keyword">else</span> low[u]=min(low[u],dfn[v]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">//	freopen("in.txt","r",stdin);</span></span><br><span class="line">	<span class="keyword">int</span> n,a,b;</span><br><span class="line">	<span class="keyword">char</span> c;</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n)!=EOF&amp;&amp;n!=<span class="number">0</span>)&#123;</span><br><span class="line">		<span class="built_in">memset</span>(first,<span class="number">0</span>,<span class="keyword">sizeof</span>(first));</span><br><span class="line">		<span class="built_in">memset</span>(dfn,<span class="number">0</span>,<span class="keyword">sizeof</span>(dfn));</span><br><span class="line">		<span class="built_in">memset</span>(low,<span class="number">0</span>,<span class="keyword">sizeof</span>(low));</span><br><span class="line">		<span class="built_in">memset</span>(ans,<span class="number">0</span>,<span class="keyword">sizeof</span>(ans));</span><br><span class="line">		arcnum=<span class="number">1</span>; top=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;a)&amp;&amp;a!=<span class="number">0</span>)&#123;</span><br><span class="line">			<span class="keyword">do</span>&#123;</span><br><span class="line">				<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;b);</span><br><span class="line">				<span class="keyword">if</span>(a==b) <span class="keyword">continue</span>;<span class="comment">//一定不考虑自环 </span></span><br><span class="line">				addarc(a,b);</span><br><span class="line">				addarc(b,a);</span><br><span class="line">				c=getchar();</span><br><span class="line">			&#125;<span class="keyword">while</span>(c!=<span class="string">'\n'</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		tarjan(<span class="number">1</span>);</span><br><span class="line">		<span class="keyword">int</span> sum=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">			<span class="keyword">if</span>(ans[i])</span><br><span class="line">				sum++;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,sum);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>​</p><p>​ ​</p><p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p><p>**POJ1523</p><p><strong>描述</strong> 考虑一下下图所示的两个网络。假设在这些网络中数据只能在两个直接连接的节点中传输。在左图网络中一个单独节点3的错误就会阻止一些其它可用节点的互相通信。节点1和2可以保持通信，4和5也是如此，但是其他的配对就无法再保持通信了。 因此3节点就是这个网络中的SinglePoint of Failure（SPF）。严格来讲，如果一个任意的不可用节点会阻止原有全通网络中至少一对可用节点保持通信，那么这就是一个SPF。注意在右图的网络中并没有这种节点。因此这个网络就没有SPF。至少有两台机器需要错误才能导致这个网络中有可用的节点对无法通信。</p><p><strong>输入</strong> 输入会包括若干网络的描述。一个网络描述会包括若干对的整数，每行一对整数来描述节点的连接情况，先后顺序是无关的，如：1 2和2 1描述了相同的连接。所有的节点编码会从1到1000.一个单独的0行来结束连接节点的列表。一个空的网络描述结束输入。输入文档中空白的行要被忽略。</p><p><strong>输出</strong> 对于每个输入的网络中，你需要输出存在的SPF节点的列表在文档中。 文档中第一个网络需要用“Network #1”来定义，第二个则是” Network #2”等等（如样例）。每个SPF节点，输出一行，方式如下方例子所示，列出节点的编号和当这个节点失效时完全连通的子网络的个数。如果网络中没有SPF节点，输出“NO SPF nodes“即可。</p><p><strong>样例输入：</strong> 1 2 5 4 3 1 3 2 3 4 3 5 0 1 2 2 3 3 4 4 5 5 1 0 1 2 2 3 3 4 4 6 6 3 2 5 5 1 0 0</p><p><strong>样例输出</strong></p><p>Network #1</p><p>SPFnode 3 leaves 2 subnets</p><p>Network #2</p><p>NoSPF nodes</p><p>Network #3 SPFnode 2 leaves 2 subnets SPFnode 3 leaves 2 subnets</p><p><strong>读入是难点，接下来是找割点，删除割点并且DFS找点双连通分量</strong></p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> first[<span class="number">1200</span>],go[<span class="number">10000</span>],nxt[<span class="number">10000</span>],arcnum=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> dfn[<span class="number">1200</span>],low[<span class="number">1200</span>],exist[<span class="number">1200</span>],rt,idx,ans[<span class="number">1200</span>];</span><br><span class="line"><span class="keyword">int</span> cut,vis[<span class="number">1200</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addarc</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">	nxt[arcnum]=first[a];</span><br><span class="line">	first[a]=arcnum;</span><br><span class="line">	go[arcnum++]=b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">(<span class="keyword">int</span> u)</span></span>&#123;</span><br><span class="line">	low[u]=dfn[u]=++idx;</span><br><span class="line">	<span class="keyword">int</span> son=<span class="number">0</span>,v;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> p=first[u];p!=<span class="number">0</span>;p=nxt[p])&#123;</span><br><span class="line">		v=go[p];</span><br><span class="line">		<span class="keyword">if</span>(dfn[v]==<span class="number">0</span>)&#123;</span><br><span class="line">			tarjan(v); son++;</span><br><span class="line">			low[u]=min(low[u],low[v]);</span><br><span class="line">			<span class="keyword">if</span>((u==rt&amp;&amp;son&gt;<span class="number">1</span>)||(u!=rt&amp;&amp;low[v]&gt;=dfn[u])) ans[u]=<span class="number">1</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span> low[u]=min(low[u],dfn[v]);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> u)</span></span>&#123;<span class="comment">//DFS找相连子网络 </span></span><br><span class="line">	<span class="keyword">if</span>(vis[u]) <span class="keyword">return</span>;</span><br><span class="line">	vis[u]=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> p=first[u];p!=<span class="number">0</span>;p=nxt[p])</span><br><span class="line">		<span class="keyword">if</span>(go[p]!=cut)</span><br><span class="line">			dfs(go[p]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">//	freopen("in.txt","r",stdin);</span></span><br><span class="line">	<span class="keyword">int</span> a,b,k=<span class="number">0</span>,cnt;</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;a))&#123;</span><br><span class="line">		<span class="keyword">if</span>(a==<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">		k++;</span><br><span class="line">		<span class="built_in">memset</span>(first,<span class="number">0</span>,<span class="keyword">sizeof</span>(first));</span><br><span class="line">		<span class="built_in">memset</span>(dfn,<span class="number">0</span>,<span class="keyword">sizeof</span>(dfn));</span><br><span class="line">		<span class="built_in">memset</span>(low,<span class="number">0</span>,<span class="keyword">sizeof</span>(low));</span><br><span class="line">		<span class="built_in">memset</span>(exist,<span class="number">0</span>,<span class="keyword">sizeof</span>(exist));</span><br><span class="line">		<span class="built_in">memset</span>(ans,<span class="number">0</span>,<span class="keyword">sizeof</span>(ans));</span><br><span class="line">		arcnum=<span class="number">1</span>; idx=<span class="number">0</span>; cnt=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">do</span>&#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;b);</span><br><span class="line">			exist[a]=exist[b]=<span class="number">1</span>;</span><br><span class="line">			<span class="keyword">if</span>(a==b) <span class="keyword">continue</span>;<span class="comment">//忽略自环 </span></span><br><span class="line">			addarc(a,b);</span><br><span class="line">			addarc(b,a);</span><br><span class="line">		&#125;<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;a)&amp;&amp;a!=<span class="number">0</span>);</span><br><span class="line">		rt=b;</span><br><span class="line">		tarjan(rt);</span><br><span class="line">		<span class="keyword">if</span>(k&gt;<span class="number">1</span>) <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"Network #%d\n"</span>,k);</span><br><span class="line">		<span class="keyword">for</span>(cut=<span class="number">1</span>;cut&lt;=<span class="number">1000</span>;cut++)</span><br><span class="line">			<span class="keyword">if</span>(exist[cut]&amp;&amp;ans[cut])&#123;</span><br><span class="line">				<span class="keyword">int</span> sum=<span class="number">0</span>;</span><br><span class="line">				<span class="built_in">memset</span>(vis,<span class="number">0</span>,<span class="keyword">sizeof</span>(vis));</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">1000</span>;i++)</span><br><span class="line">					<span class="keyword">if</span>(exist[i]&amp;&amp;!vis[i]&amp;&amp;!ans[i])<span class="comment">//一定不能遍历割点本身 </span></span><br><span class="line">						dfs(i),sum++;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">"  SPF node %d leaves %d subnets\n"</span>,cut,sum);</span><br><span class="line">				cnt++;</span><br><span class="line">			&#125;</span><br><span class="line">		<span class="keyword">if</span>(cnt==<span class="number">0</span>) <span class="built_in">printf</span>(<span class="string">"  No SPF nodes\n"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p><p><strong>POJ3177</strong></p><p><strong>描述</strong> 为了从F（1≤F≤5000）个牧场（从1到F进行编号）中的一个到达另一个牧场，Bessie和他的牛只能穿过烂苹果林。这些牛现在都累了，不想老走这个特殊的小路而是想要建一些新的小路，这样它们就有至少两种选择在任意牧场之间穿梭。在任意的两个牧场之间，它们现在至少有一条路径而他们想要至少有2条路径。 现在给出建好的R（F-1≤R≤10000）条路，每条都连接了两个不同的牧场，确定新修道路的最小数量（每个也是连接两个牧场）使得任意两个牧场之间都能有两条路连通。道路都是不同的，不会有相同的小路，即使他们在沿路的中间会碰到相同的牧场。 这里可能已经有一对牧场有超过一条小路的，并且你可能也会修一条新的另外的小路来连接相同的牧场。</p><p><strong>输入</strong> 第一行：两个空格隔开的整数：F和R 第二到第R+1行：每行包括两个空格隔开的整数，表示一些小路端点所在的牧场。</p><p><strong>输出</strong> 第一行：一个单独的整数，表述新修小道的数量</p><p><strong>样例输入</strong> 7 7 1 2 2 3 3 4 2 5 4 5 5 6 5 7</p><p><strong>样例输出</strong> 2</p><p><strong>提示</strong> 例子的解释： 一个形象化的小路： 1 2 3 +—+—+ | | | | 6 +—+—+ 4 / 5 / / 7 + 建一个从1到6和从4到7的新路可以满足条件。</p><pre><code>  1   2   3
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://mrh1s.top').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="无向图tarjan求割边割点、最近公共祖先总结割点：删除这个点之后整个图变成不连通的两个部分的点 割点集合：在一个无向图中删除该集合中的所有点，能使原图变成互不相连的连通块的点的集合 点连通度：最小割点集合点数 割边（桥）：类似于割点，删除一条边后会使一个连通图变得不完全连通 割边集合：所有割边的集合 边连通度：最小割边集合边数  与有割边割点的图对应，有一种无向图，它的边连通度（或点连通度）大于">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Tarjan算法求无向图割边割点、最近公共祖先的总结">
+<meta property="og:url" content="https://mrh1s.top/posts/1acd21ea/index.html">
+<meta property="og:site_name" content="mrh929&#39;s home">
+<meta property="og:description" content="无向图tarjan求割边割点、最近公共祖先总结割点：删除这个点之后整个图变成不连通的两个部分的点 割点集合：在一个无向图中删除该集合中的所有点，能使原图变成互不相连的连通块的点的集合 点连通度：最小割点集合点数 割边（桥）：类似于割点，删除一条边后会使一个连通图变得不完全连通 割边集合：所有割边的集合 边连通度：最小割边集合边数  与有割边割点的图对应，有一种无向图，它的边连通度（或点连通度）大于">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:updated_time" content="2019-05-05T05:41:54.246Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Tarjan算法求无向图割边割点、最近公共祖先的总结">
+<meta name="twitter:description" content="无向图tarjan求割边割点、最近公共祖先总结割点：删除这个点之后整个图变成不连通的两个部分的点 割点集合：在一个无向图中删除该集合中的所有点，能使原图变成互不相连的连通块的点的集合 点连通度：最小割点集合点数 割边（桥）：类似于割点，删除一条边后会使一个连通图变得不完全连通 割边集合：所有割边的集合 边连通度：最小割边集合边数  与有割边割点的图对应，有一种无向图，它的边连通度（或点连通度）大于">
+<meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+
+<link rel="canonical" href="https://mrh1s.top/posts/1acd21ea/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>Tarjan算法求无向图割边割点、最近公共祖先的总结 | mrh929's home</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrh929's home</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/_posts/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://mrh1s.top/posts/1acd21ea/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mrh929">
+      <meta itemprop="description" content="Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrh929's home">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Tarjan算法求无向图割边割点、最近公共祖先的总结
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-12-06 23:43:10" itemprop="dateCreated datePublished" datetime="2018-12-06T23:43:10+08:00">2018-12-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-05-05 13:41:54" itemprop="dateModified" datetime="2019-05-05T13:41:54+08:00">2019-05-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/c-plus-plus-2016/" itemprop="url" rel="index">
+                    <span itemprop="name">c_plus_plus_2016</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="无向图tarjan求割边割点、最近公共祖先总结"><a href="#无向图tarjan求割边割点、最近公共祖先总结" class="headerlink" title="无向图tarjan求割边割点、最近公共祖先总结"></a>无向图tarjan求割边割点、最近公共祖先总结</h1><p><strong>割点：删除这个点之后整个图变成不连通的两个部分的点</strong> <strong>割点集合：在一个无向图中删除该集合中的所有点，能使原图变成互不相连的连通块的点的集合</strong> <strong>点连通度：最小割点集合点数</strong> <strong>割边（桥）：类似于割点，删除一条边后会使一个连通图变得不完全连通</strong> <strong>割边集合：所有割边的集合</strong> <strong>边连通度：最小割边集合边数</strong>  <strong>与有割边割点的图对应，有一种无向图，它的边连通度（或点连通度）大于1，那么我们称它为双连通分量，即删掉任意点（或边），图仍然是连通的</strong>  <strong>用tarjan算法求割点</strong> <strong>原理：在一棵DFS树中</strong> <strong>根root是割顶当且仅当它至少有两个儿子</strong> <strong>其他点v是割顶当且仅当它有一个儿子u,从u或者u的后代出发没有指向v祖先(不含v)的B边,则删除v以后u和v的父亲不连通,故为割顶</strong></p>
+<ol>
+<li><p><strong>基本算法同tarjan经典算法</strong></p>
+</li>
+<li><p><strong>每遍历一个新的（颜色为白色）u的儿子v都记录个数</strong></p>
+</li>
+<li><p><strong>low[u]值更新后进行以下判断（前提v未被遍历过）：</strong></p>
+</li>
+<li><p><strong>u为树根，且儿子个数大于1</strong></p>
+</li>
+<li><p><strong>u不为树根，但low[v]&gt;=dfn[u]（说明v及其子节点都不能达到u以上的父亲节点）</strong></p>
+</li>
+</ol>
+<p><strong>满足以上任意条件u便为割点，记录在数组里，tarjan完成后再输出（中途输出会重复）</strong>  <strong>用tarjan算法求割边（桥）</strong> <strong>原理</strong> <strong>发现T边(u,v)时若发现v和它的后代不存在一条连接u或其祖先的B边,则删除(u,v)后u和v不连通,因此(u,v)为桥</strong> <strong>桥的判定算法</strong> <strong>发现T边(u, v)时若low[v]&gt;=dfn[u],则(u,v)为桥</strong></p>
+<ol>
+<li><p><strong>基本算法同tarjan经典算法</strong></p>
+</li>
+<li><p><strong>形参加上father，作用为记录u的父亲节点，避免在遍历v时遇到重边重新更新low[u]</strong></p>
+</li>
+<li><p><strong>在“v已被遍历”的位置加上判断 如果v点等于father，那么就不执行更新low[u]值</strong></p>
+</li>
+<li><p><strong>Tarjan算法结束后，遍历所有节点u及其子节点v，如果low[u]==low[v]，那么这条边就为割边</strong></p>
+<p><strong>求点双连通分支(去掉割点之后所得的双连通分量)</strong></p>
+</li>
+<li><p><strong>tarjan求割点</strong></p>
+</li>
+<li><p><strong>每找到一个割点，将它上面的所有点弹出栈，所得的点集就是双连通分量</strong></p>
+<p><strong>求边双连通分支</strong></p>
+</li>
+<li><p><strong>tarjan找桥边</strong></p>
+</li>
+<li><p><strong>删除桥边（1、2两步同时完成）</strong></p>
+</li>
+<li><p><strong>剩余各部分则为双连通分量</strong></p>
+<p><strong>有桥的连通图，加边变成双连通图</strong></p>
+</li>
+<li><p><strong>tarjan找桥边并删除桥边</strong></p>
+</li>
+<li><p><strong>将点双连通分量收缩成为一个顶点</strong></p>
+</li>
+<li><p><strong>加回桥边，统计度为1的顶点个数</strong></p>
+</li>
+<li><p><strong>根据规律，需要加入的桥边最少为(n+1)/2条</strong></p>
+<p><strong>最近公共祖先LCA</strong> <strong>原理：在一棵树中，父亲结点与儿子结点的最近公共祖先为父亲结点</strong></p>
+</li>
+<li><p><strong>建立并查集</strong></p>
+</li>
+<li><p><strong>DFS先序遍历一棵树</strong></p>
+</li>
+<li><p><strong>在每个结点上，进行以下操作：</strong></p>
+</li>
+<li><p><strong>涂黑该结点</strong></p>
+</li>
+<li><p><strong>如果有关于该结点a的询问，搜索另一询问的结点b，如果b也被涂黑，那么它们的公共祖先为b所在并查集的祖先，输出结果</strong></p>
+<p><strong>拓展：求一棵树中两个结点的距离</strong></p>
+</li>
+<li><p><strong>建立dis[]数组，记录从树根到i点的距离dis[i]</strong></p>
+</li>
+<li><p><strong>则a与b的距离为</strong></p>
+</li>
+</ol>
+<p><strong>d=dis[a]-dis[LCA]+dis[b]-dis[LCA]=dis[a]+dis[b]-2*dis[LCA]</strong>    </p>
+<p><strong>Poj 1144</strong> </p>
+<p><strong>描述</strong> 一个电话线公司（简称TLC）正在建立一个新的电话线缆网络。他们连接了若干个地点分别从1到N编号。没有两个地点有相同的号码。这些线是双向的并且能使两个地点保持通讯。每个地点的线都终结于电话交换机。每个地点都有一个电话交换机。从每个地点都能通过线缆到达其他任意的地点，然而它并不需要直接连接，它可以通过若干个交换机来到达目的地。有时候某个地点供电出问题时，交换机就会停止工作。TLC的工作人员意识到，除非这个地点是不可达的，否则这种情况就会发生，它还会导致一些其它的地点不能互相通讯。在这种情况下我们会称这个地点（错误发生的地方）为critical。现在工作人员想要写一个程序找到所有critical地点的数量。帮帮他们。 </p>
+<p><strong>输入</strong> 输入文件包括若组测试数据。每一组是一个网络，每一组测试数据的第一行是地点的总数量N&lt;100.每个接下来最多N行包括一个数字表示一个地点和与它相连接的地点的数字。这些最多N行完全描述了整个网络，比如，网络中每个直接连接的两个地点被至少一行包括。一行内的所有数字都要用空格隔开。每组数据需要用单独的一个0结束。最后的块只有一行即N=0。</p>
+<p> <strong>输出</strong> 输出除了最后一个组其他每一个组的critical地点的数量，每个块用一行输出。 </p>
+<p><strong>样例输入：</strong> 5 5 1 2 3 4 0 6 2 1 3 5 4 6 2 0 0 </p>
+<p><strong>样例输出</strong> 1 2 </p>
+<p><strong>提示：</strong></p>
+<p> 你需要确定每行的结束。为了方便判断，每行的结束都没有多余的空白 </p>
+<p><strong>读入是难点，其余就是找割点的部分</strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> first[<span class="number">120</span>],go[<span class="number">10000</span>],nxt[<span class="number">10000</span>],arcnum=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> dfn[<span class="number">120</span>],low[<span class="number">120</span>],idx;</span><br><span class="line"><span class="keyword">int</span> <span class="built_in">stack</span>[<span class="number">100000</span>],top,ans[<span class="number">120</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addarc</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">	nxt[arcnum]=first[a];</span><br><span class="line">	first[a]=arcnum;</span><br><span class="line">	go[arcnum++]=b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">(<span class="keyword">int</span> u)</span></span>&#123;</span><br><span class="line">	low[u]=dfn[u]=++idx;</span><br><span class="line"><span class="comment">//	stack[++top]=u;</span></span><br><span class="line">	<span class="keyword">int</span> son=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> p=first[u];p!=<span class="number">0</span>;p=nxt[p])&#123;</span><br><span class="line">		<span class="keyword">int</span> v=go[p];</span><br><span class="line">		<span class="keyword">if</span>(dfn[v]==<span class="number">0</span>)&#123;</span><br><span class="line">			tarjan(v); son++;</span><br><span class="line">			low[u]=min(low[u],low[v]);</span><br><span class="line">			<span class="keyword">if</span>((u==<span class="number">1</span>&amp;&amp;son&gt;<span class="number">1</span>)||(u!=<span class="number">1</span>&amp;&amp;low[v]&gt;=dfn[u])) ans[u]++;<span class="comment">//一定使用这种方法记录u是否为割点 </span></span><br><span class="line">		<span class="comment">//		printf("u=%d son=%d ans=%d low[v]=%d dfn[u]=%d\n",u,son,ans,low[v],dfn[u]);</span></span><br><span class="line">		&#125;<span class="keyword">else</span> low[u]=min(low[u],dfn[v]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">//	freopen("in.txt","r",stdin);</span></span><br><span class="line">	<span class="keyword">int</span> n,a,b;</span><br><span class="line">	<span class="keyword">char</span> c;</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n)!=EOF&amp;&amp;n!=<span class="number">0</span>)&#123;</span><br><span class="line">		<span class="built_in">memset</span>(first,<span class="number">0</span>,<span class="keyword">sizeof</span>(first));</span><br><span class="line">		<span class="built_in">memset</span>(dfn,<span class="number">0</span>,<span class="keyword">sizeof</span>(dfn));</span><br><span class="line">		<span class="built_in">memset</span>(low,<span class="number">0</span>,<span class="keyword">sizeof</span>(low));</span><br><span class="line">		<span class="built_in">memset</span>(ans,<span class="number">0</span>,<span class="keyword">sizeof</span>(ans));</span><br><span class="line">		arcnum=<span class="number">1</span>; top=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;a)&amp;&amp;a!=<span class="number">0</span>)&#123;</span><br><span class="line">			<span class="keyword">do</span>&#123;</span><br><span class="line">				<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;b);</span><br><span class="line">				<span class="keyword">if</span>(a==b) <span class="keyword">continue</span>;<span class="comment">//一定不考虑自环 </span></span><br><span class="line">				addarc(a,b);</span><br><span class="line">				addarc(b,a);</span><br><span class="line">				c=getchar();</span><br><span class="line">			&#125;<span class="keyword">while</span>(c!=<span class="string">'\n'</span>);</span><br><span class="line">		&#125;</span><br><span class="line">		tarjan(<span class="number">1</span>);</span><br><span class="line">		<span class="keyword">int</span> sum=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">			<span class="keyword">if</span>(ans[i])</span><br><span class="line">				sum++;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d\n"</span>,sum);</span><br><span class="line">		</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​    </p>
+<p>​        
+​        </p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p>**POJ1523</p>
+<p> <strong>描述</strong> 考虑一下下图所示的两个网络。假设在这些网络中数据只能在两个直接连接的节点中传输。在左图网络中一个单独节点3的错误就会阻止一些其它可用节点的互相通信。节点1和2可以保持通信，4和5也是如此，但是其他的配对就无法再保持通信了。 因此3节点就是这个网络中的SinglePoint of Failure（SPF）。严格来讲，如果一个任意的不可用节点会阻止原有全通网络中至少一对可用节点保持通信，那么这就是一个SPF。注意在右图的网络中并没有这种节点。因此这个网络就没有SPF。至少有两台机器需要错误才能导致这个网络中有可用的节点对无法通信。</p>
+<p> <strong>输入</strong> 输入会包括若干网络的描述。一个网络描述会包括若干对的整数，每行一对整数来描述节点的连接情况，先后顺序是无关的，如：1 2和2 1描述了相同的连接。所有的节点编码会从1到1000.一个单独的0行来结束连接节点的列表。一个空的网络描述结束输入。输入文档中空白的行要被忽略。</p>
+<p> <strong>输出</strong> 对于每个输入的网络中，你需要输出存在的SPF节点的列表在文档中。 文档中第一个网络需要用“Network #1”来定义，第二个则是” Network #2”等等（如样例）。每个SPF节点，输出一行，方式如下方例子所示，列出节点的编号和当这个节点失效时完全连通的子网络的个数。如果网络中没有SPF节点，输出“NO SPF nodes“即可。 </p>
+<p><strong>样例输入：</strong> 1 2 5 4 3 1 3 2 3 4 3 5 0 1 2 2 3 3 4 4 5 5 1 0 1 2 2 3 3 4 4 6 6 3 2 5 5 1 0 0 </p>
+<p><strong>样例输出</strong></p>
+<p> Network #1 </p>
+<p>SPFnode 3 leaves 2 subnets </p>
+<p>Network #2 </p>
+<p>NoSPF nodes </p>
+<p>Network #3 SPFnode 2 leaves 2 subnets SPFnode 3 leaves 2 subnets </p>
+<p><strong>读入是难点，接下来是找割点，删除割点并且DFS找点双连通分量</strong> </p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> first[<span class="number">1200</span>],go[<span class="number">10000</span>],nxt[<span class="number">10000</span>],arcnum=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> dfn[<span class="number">1200</span>],low[<span class="number">1200</span>],exist[<span class="number">1200</span>],rt,idx,ans[<span class="number">1200</span>];</span><br><span class="line"><span class="keyword">int</span> cut,vis[<span class="number">1200</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addarc</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">	nxt[arcnum]=first[a];</span><br><span class="line">	first[a]=arcnum;</span><br><span class="line">	go[arcnum++]=b;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">(<span class="keyword">int</span> u)</span></span>&#123;</span><br><span class="line">	low[u]=dfn[u]=++idx;</span><br><span class="line">	<span class="keyword">int</span> son=<span class="number">0</span>,v;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> p=first[u];p!=<span class="number">0</span>;p=nxt[p])&#123;</span><br><span class="line">		v=go[p];</span><br><span class="line">		<span class="keyword">if</span>(dfn[v]==<span class="number">0</span>)&#123;</span><br><span class="line">			tarjan(v); son++;</span><br><span class="line">			low[u]=min(low[u],low[v]);</span><br><span class="line">			<span class="keyword">if</span>((u==rt&amp;&amp;son&gt;<span class="number">1</span>)||(u!=rt&amp;&amp;low[v]&gt;=dfn[u])) ans[u]=<span class="number">1</span>;</span><br><span class="line">		&#125;<span class="keyword">else</span> low[u]=min(low[u],dfn[v]);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> u)</span></span>&#123;<span class="comment">//DFS找相连子网络 </span></span><br><span class="line">	<span class="keyword">if</span>(vis[u]) <span class="keyword">return</span>;</span><br><span class="line">	vis[u]=<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> p=first[u];p!=<span class="number">0</span>;p=nxt[p])</span><br><span class="line">		<span class="keyword">if</span>(go[p]!=cut)</span><br><span class="line">			dfs(go[p]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line"><span class="comment">//	freopen("in.txt","r",stdin);</span></span><br><span class="line">	<span class="keyword">int</span> a,b,k=<span class="number">0</span>,cnt;</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;a))&#123;</span><br><span class="line">		<span class="keyword">if</span>(a==<span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">		k++;</span><br><span class="line">		<span class="built_in">memset</span>(first,<span class="number">0</span>,<span class="keyword">sizeof</span>(first));</span><br><span class="line">		<span class="built_in">memset</span>(dfn,<span class="number">0</span>,<span class="keyword">sizeof</span>(dfn));</span><br><span class="line">		<span class="built_in">memset</span>(low,<span class="number">0</span>,<span class="keyword">sizeof</span>(low));</span><br><span class="line">		<span class="built_in">memset</span>(exist,<span class="number">0</span>,<span class="keyword">sizeof</span>(exist));</span><br><span class="line">		<span class="built_in">memset</span>(ans,<span class="number">0</span>,<span class="keyword">sizeof</span>(ans));</span><br><span class="line">		arcnum=<span class="number">1</span>; idx=<span class="number">0</span>; cnt=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">do</span>&#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;b);</span><br><span class="line">			exist[a]=exist[b]=<span class="number">1</span>;</span><br><span class="line">			<span class="keyword">if</span>(a==b) <span class="keyword">continue</span>;<span class="comment">//忽略自环 </span></span><br><span class="line">			addarc(a,b);</span><br><span class="line">			addarc(b,a);</span><br><span class="line">		&#125;<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;a)&amp;&amp;a!=<span class="number">0</span>);</span><br><span class="line">		rt=b;</span><br><span class="line">		tarjan(rt);</span><br><span class="line">		<span class="keyword">if</span>(k&gt;<span class="number">1</span>) <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"Network #%d\n"</span>,k);</span><br><span class="line">		<span class="keyword">for</span>(cut=<span class="number">1</span>;cut&lt;=<span class="number">1000</span>;cut++)</span><br><span class="line">			<span class="keyword">if</span>(exist[cut]&amp;&amp;ans[cut])&#123;</span><br><span class="line">				<span class="keyword">int</span> sum=<span class="number">0</span>;</span><br><span class="line">				<span class="built_in">memset</span>(vis,<span class="number">0</span>,<span class="keyword">sizeof</span>(vis));</span><br><span class="line">				<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=<span class="number">1000</span>;i++)</span><br><span class="line">					<span class="keyword">if</span>(exist[i]&amp;&amp;!vis[i]&amp;&amp;!ans[i])<span class="comment">//一定不能遍历割点本身 </span></span><br><span class="line">						dfs(i),sum++;</span><br><span class="line">				<span class="built_in">printf</span>(<span class="string">"  SPF node %d leaves %d subnets\n"</span>,cut,sum);</span><br><span class="line">				cnt++;</span><br><span class="line">			&#125;</span><br><span class="line">		<span class="keyword">if</span>(cnt==<span class="number">0</span>) <span class="built_in">printf</span>(<span class="string">"  No SPF nodes\n"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p><strong>POJ3177</strong> </p>
+<p><strong>描述</strong> 为了从F（1≤F≤5000）个牧场（从1到F进行编号）中的一个到达另一个牧场，Bessie和他的牛只能穿过烂苹果林。这些牛现在都累了，不想老走这个特殊的小路而是想要建一些新的小路，这样它们就有至少两种选择在任意牧场之间穿梭。在任意的两个牧场之间，它们现在至少有一条路径而他们想要至少有2条路径。 现在给出建好的R（F-1≤R≤10000）条路，每条都连接了两个不同的牧场，确定新修道路的最小数量（每个也是连接两个牧场）使得任意两个牧场之间都能有两条路连通。道路都是不同的，不会有相同的小路，即使他们在沿路的中间会碰到相同的牧场。 这里可能已经有一对牧场有超过一条小路的，并且你可能也会修一条新的另外的小路来连接相同的牧场。 </p>
+<p><strong>输入</strong> 第一行：两个空格隔开的整数：F和R 第二到第R+1行：每行包括两个空格隔开的整数，表示一些小路端点所在的牧场。 </p>
+<p><strong>输出</strong> 第一行：一个单独的整数，表述新修小道的数量 </p>
+<p><strong>样例输入</strong> 7 7 1 2 2 3 3 4 2 5 4 5 5 6 5 7 </p>
+<p><strong>样例输出</strong> 2 </p>
+<p><strong>提示</strong> 例子的解释： 一个形象化的小路： 1  2   3 +—+—+ |  | |  | 6 +—+—+ 4 / 5 / / 7 + 建一个从1到6和从4到7的新路可以满足条件。</p>
+<pre><code>  1   2   3
 
   +---+---+  
 
@@ -14,7 +348,73 @@
 
    /      :
 
-7 + - - - - </code></pre><p>检查一些路径： 1 – 2: 1 –&gt; 2 and 1 –&gt; 6 –&gt; 5 –&gt; 2 1 – 4: 1 –&gt; 2 –&gt; 3 –&gt; 4 and 1 –&gt; 6 –&gt; 5 –&gt; 4 3 – 7: 3 –&gt; 4 –&gt; 7 and 3 –&gt; 2 –&gt; 5 –&gt; 7 可以看出每对牧场都是由两条路连接的 有可能加一些别的下路也能解决这个问题（比如6到7加一条道）。然而加两条已经是最小了。</p><p><strong>POJ3352</strong> <strong>描述：</strong> 夏天的建造时间到了。这一年，遥远热带小岛上的街道的管理员要修复并且升级岛上街道，这些街道连接了小岛上不同的景点。 这些街道很有意思。由于这个小岛的奇怪传统，这些街道需要被规划的没有任何十字路口，但是可以用桥和隧道来连通。在这种情况下，每条路就会在特定的景点之间连接，这样旅客就不会迷路了。 不幸的是，每条路都需要修理和升级，当建筑公司在一条特定的道路上工作时，这条道路是无法使用的。这就会导致一个问题，即使这个公司一次只修一条路，仍然有两个景点是无法访问的，。 所以，这个岛上的道路部门就决定召唤你的咨询服务来帮助他们解决这个问题。最后决定在景点之间建设新的道路。如果一条道路在建设中，这些新的道路能使任意两个景点之间仍然有路能够到达。你的任务就是找到这个新修道路的最小数量。</p><p><strong>输入</strong> 第一行的输入包括两个正整数n和r，其中3≤n≤1000是景点的数量，2≤r≤1000是道路的数量。景点则是从1到n进行标号。每个接下来的r行会包括两个整数，v和w，中间空格隔开，表示一个街道连接了标号为v和w的景点。注意街道是双向的，并且任意一对景点之间会有至多一条路直接连接它们。当然，你也要保证在现在的这个配置下，任意两个景点是连通的。</p><p><strong>输出</strong> 一行，包括一个整数，给出我们需要添加的街道的最小数量</p><p><strong>输入样例</strong> Sample Input 1 10 12 1 2 1 3 1 4 2 5 2 6 5 6 3 7 3 8 7 8 4 9 4 10 9 10 Sample Input 2 3 3 1 2 2 3 1 3</p><p><strong>输出样例</strong> Output for Sample Input 1 2 Output for Sample Input 2 0</p><p><strong>两道题完全相同，都是求有桥连通图变为双连通图所需要最少的边的个数</strong></p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN=<span class="number">5000</span>+<span class="number">20</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXM=<span class="number">10000</span>+<span class="number">20</span>;</span><br><span class="line"><span class="keyword">int</span> first[MAXN],go[MAXM],nxt[MAXM],arcnum=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> low[MAXN],dfn[MAXN],dex,cnt[MAXN],<span class="built_in">map</span>[MAXN][MAXN],sum;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addarc</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">	nxt[arcnum]=first[a];</span><br><span class="line">	first[a]=arcnum;</span><br><span class="line">	go[arcnum++]=b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> father)</span></span>&#123;</span><br><span class="line">	low[u]=dfn[u]=++dex;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> p=first[u];p!=<span class="number">0</span>;p=nxt[p])&#123;</span><br><span class="line">		<span class="keyword">int</span> v=go[p];</span><br><span class="line">		<span class="keyword">if</span>(!dfn[v])&#123;</span><br><span class="line">			tarjan(v,u);</span><br><span class="line">			low[u]=min(low[u],low[v]);</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(v!=father) low[u]=min(low[u],dfn[v]);<span class="comment">//如果引出v，而v是u的父亲，那么就不能更新low[u] </span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n,m,a,b;</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m)!=EOF)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;a,&amp;b);</span><br><span class="line">			<span class="keyword">if</span>(a==b) <span class="keyword">continue</span>;</span><br><span class="line">			<span class="keyword">if</span>(<span class="built_in">map</span>[min(a,b)][max(a,b)]) <span class="keyword">continue</span>;</span><br><span class="line">			<span class="built_in">map</span>[min(a,b)][max(a,b)]=<span class="number">1</span>;</span><br><span class="line">			addarc(a,b);</span><br><span class="line">			addarc(b,a);</span><br><span class="line">		&#125;</span><br><span class="line">		tarjan(<span class="number">1</span>,<span class="number">-1</span>);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> u=<span class="number">1</span>;u&lt;=n;u++)</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> p=first[u];p!=<span class="number">0</span>;p=nxt[p])&#123;</span><br><span class="line">				<span class="keyword">int</span> v=go[p];</span><br><span class="line">				<span class="keyword">if</span>(low[u]!=low[v])</span><br><span class="line">					cnt[low[u]]++;<span class="comment">//计算度数 </span></span><br><span class="line">			&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">			<span class="keyword">if</span>(cnt[i]==<span class="number">1</span>)</span><br><span class="line">				sum++;<span class="comment">//统计度为1的点的个数 </span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d"</span>,(sum+<span class="number">1</span>)/<span class="number">2</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>​ ​</p><p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p></div><div><ul class="post-copyright"><li class="post-copyright-author"><strong>Post author: </strong>mrh929</li><li class="post-copyright-link"><strong>Post link: </strong><a href="https://mrh1s.top/posts/1acd21ea/" title="Tarjan算法求无向图割边割点、最近公共祖先的总结">https://mrh1s.top/posts/1acd21ea/</a></li><li class="post-copyright-license"><strong>Copyright Notice: </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.</li></ul></div><footer class="post-footer"><div class="post-nav"><div class="post-nav-item"><a href="/posts/874d0da0/" rel="prev" title="Tarjan算法求强连通分量总结"><i class="fa fa-chevron-left"></i> Tarjan算法求强连通分量总结</a></div><div class="post-nav-item"><a href="/posts/675d1a4b/" rel="next" title="求最大网络流（最小割）总结">求最大网络流（最小割）总结 <i class="fa fa-chevron-right"></i></a></div></div></footer></article></div></div><script>window.addEventListener('tabs:register', () => {
+7 + - - - - </code></pre><p>检查一些路径： 1 – 2: 1 –&gt; 2 and 1 –&gt; 6 –&gt; 5 –&gt; 2 1 – 4: 1 –&gt; 2 –&gt; 3 –&gt; 4 and 1 –&gt; 6 –&gt; 5 –&gt; 4 3 – 7: 3 –&gt; 4 –&gt; 7 and 3 –&gt; 2 –&gt; 5 –&gt; 7 可以看出每对牧场都是由两条路连接的 有可能加一些别的下路也能解决这个问题（比如6到7加一条道）。然而加两条已经是最小了。 </p>
+<p><strong>POJ3352</strong> <strong>描述：</strong> 夏天的建造时间到了。这一年，遥远热带小岛上的街道的管理员要修复并且升级岛上街道，这些街道连接了小岛上不同的景点。 这些街道很有意思。由于这个小岛的奇怪传统，这些街道需要被规划的没有任何十字路口，但是可以用桥和隧道来连通。在这种情况下，每条路就会在特定的景点之间连接，这样旅客就不会迷路了。 不幸的是，每条路都需要修理和升级，当建筑公司在一条特定的道路上工作时，这条道路是无法使用的。这就会导致一个问题，即使这个公司一次只修一条路，仍然有两个景点是无法访问的，。 所以，这个岛上的道路部门就决定召唤你的咨询服务来帮助他们解决这个问题。最后决定在景点之间建设新的道路。如果一条道路在建设中，这些新的道路能使任意两个景点之间仍然有路能够到达。你的任务就是找到这个新修道路的最小数量。</p>
+<p> <strong>输入</strong> 第一行的输入包括两个正整数n和r，其中3≤n≤1000是景点的数量，2≤r≤1000是道路的数量。景点则是从1到n进行标号。每个接下来的r行会包括两个整数，v和w，中间空格隔开，表示一个街道连接了标号为v和w的景点。注意街道是双向的，并且任意一对景点之间会有至多一条路直接连接它们。当然，你也要保证在现在的这个配置下，任意两个景点是连通的。</p>
+<p> <strong>输出</strong> 一行，包括一个整数，给出我们需要添加的街道的最小数量</p>
+<p> <strong>输入样例</strong> Sample Input 1 10 12 1 2 1 3 1 4 2 5 2 6 5 6 3 7 3 8 7 8 4 9 4 10 9 10 Sample Input 2 3 3 1 2 2 3 1 3 </p>
+<p><strong>输出样例</strong> Output for Sample Input 1 2 Output for Sample Input 2 0  </p>
+<p><strong>两道题完全相同，都是求有桥连通图变为双连通图所需要最少的边的个数</strong></p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN=<span class="number">5000</span>+<span class="number">20</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXM=<span class="number">10000</span>+<span class="number">20</span>;</span><br><span class="line"><span class="keyword">int</span> first[MAXN],go[MAXM],nxt[MAXM],arcnum=<span class="number">1</span>;</span><br><span class="line"><span class="keyword">int</span> low[MAXN],dfn[MAXN],dex,cnt[MAXN],<span class="built_in">map</span>[MAXN][MAXN],sum;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addarc</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span></span>&#123;</span><br><span class="line">	nxt[arcnum]=first[a];</span><br><span class="line">	first[a]=arcnum;</span><br><span class="line">	go[arcnum++]=b;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">tarjan</span><span class="params">(<span class="keyword">int</span> u,<span class="keyword">int</span> father)</span></span>&#123;</span><br><span class="line">	low[u]=dfn[u]=++dex;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> p=first[u];p!=<span class="number">0</span>;p=nxt[p])&#123;</span><br><span class="line">		<span class="keyword">int</span> v=go[p];</span><br><span class="line">		<span class="keyword">if</span>(!dfn[v])&#123;</span><br><span class="line">			tarjan(v,u);</span><br><span class="line">			low[u]=min(low[u],low[v]);</span><br><span class="line">		&#125;<span class="keyword">else</span> <span class="keyword">if</span>(v!=father) low[u]=min(low[u],dfn[v]);<span class="comment">//如果引出v，而v是u的父亲，那么就不能更新low[u] </span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">int</span> n,m,a,b;</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m)!=EOF)&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;a,&amp;b);</span><br><span class="line">			<span class="keyword">if</span>(a==b) <span class="keyword">continue</span>;</span><br><span class="line">			<span class="keyword">if</span>(<span class="built_in">map</span>[min(a,b)][max(a,b)]) <span class="keyword">continue</span>;</span><br><span class="line">			<span class="built_in">map</span>[min(a,b)][max(a,b)]=<span class="number">1</span>;</span><br><span class="line">			addarc(a,b);</span><br><span class="line">			addarc(b,a);</span><br><span class="line">		&#125;</span><br><span class="line">		tarjan(<span class="number">1</span>,<span class="number">-1</span>);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> u=<span class="number">1</span>;u&lt;=n;u++)</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> p=first[u];p!=<span class="number">0</span>;p=nxt[p])&#123;</span><br><span class="line">				<span class="keyword">int</span> v=go[p];</span><br><span class="line">				<span class="keyword">if</span>(low[u]!=low[v])</span><br><span class="line">					cnt[low[u]]++;<span class="comment">//计算度数 </span></span><br><span class="line">			&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)</span><br><span class="line">			<span class="keyword">if</span>(cnt[i]==<span class="number">1</span>)</span><br><span class="line">				sum++;<span class="comment">//统计度为1的点的个数 </span></span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d"</span>,(sum+<span class="number">1</span>)/<span class="number">2</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>​        
+​        </p>
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>mrh929
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="https://mrh1s.top/posts/1acd21ea/" title="Tarjan算法求无向图割边割点、最近公共祖先的总结">https://mrh1s.top/posts/1acd21ea/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/874d0da0/" rel="prev" title="Tarjan算法求强连通分量总结">
+      <i class="fa fa-chevron-left"></i> Tarjan算法求强连通分量总结
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/675d1a4b/" rel="next" title="求最大网络流（最小割）总结">
+      求最大网络流（最小割）总结 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
     let activeClass = CONFIG.comments.activeClass;
     if (CONFIG.comments.storage) {
       activeClass = localStorage.getItem('comments_active') || activeClass;
@@ -32,4 +432,137 @@
       let commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
-  }</script></div><div class="toggle sidebar-toggle"><span class="toggle-line toggle-line-first"></span> <span class="toggle-line toggle-line-middle"></span> <span class="toggle-line toggle-line-last"></span></div><aside class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc">Table of Contents</li><li class="sidebar-nav-overview">Overview</li></ul><div class="post-toc-wrap sidebar-panel"><div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#无向图tarjan求割边割点、最近公共祖先总结"><span class="nav-number">1.</span> <span class="nav-text">无向图tarjan求割边割点、最近公共祖先总结</span></a></li></ol></div></div><div class="site-overview-wrap sidebar-panel"><div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person"><p class="site-author-name" itemprop="name">mrh929</p><div class="site-description" itemprop="description">Blog</div></div><div class="site-state-wrap motion-element"><nav class="site-state"><div class="site-state-item site-state-posts"><a href="/_posts/"><span class="site-state-item-count">79</span> <span class="site-state-item-name">posts</span></a></div><div class="site-state-item site-state-categories"><span class="site-state-item-count">20</span> <span class="site-state-item-name">categories</span></div><div class="site-state-item site-state-tags"><span class="site-state-item-count">16</span> <span class="site-state-item-name">tags</span></div></nav></div><div class="cc-license motion-element" itemprop="license"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" class="cc-opacity" rel="noopener" target="_blank"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a></div></div></div></aside><div id="sidebar-dimmer"></div></div></main><footer class="footer"><div class="footer-inner"><div class="copyright">&copy; <span itemprop="copyrightYear">2020</span> <span class="with-love"><i class="fa fa-user"></i> </span><span class="author" itemprop="copyrightHolder">mrh929</span></div><div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div><span class="post-meta-divider">|</span><div class="theme-info">Theme – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0</div></div></footer></div><script src="/lib/anime.min.js"></script><script src="/lib/velocity/velocity.min.js"></script><script src="/lib/velocity/velocity.ui.min.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/pisces.js"></script><script src="/js/next-boot.js"></script><script>!function(e){var r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function t(){for(var c=0;c<r.length;c++)t=r[c],void 0,0<=(n=t.getBoundingClientRect()).top&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=r[c];t=o,n=function(){r=r.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}t(),e.addEventListener("scroll",function(){!function(t,n){clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)}(t,e)})}(this);</script></body></html>
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#无向图tarjan求割边割点、最近公共祖先总结"><span class="nav-number">1.</span> <span class="nav-text">无向图tarjan求割边割点、最近公共祖先总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mrh929</p>
+  <div class="site-description" itemprop="description">Blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/_posts/">
+        
+          <span class="site-state-item-count">79</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mrh929</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

@@ -1,4 +1,310 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2"><meta name="theme-color" content="#222"><meta name="generator" content="Hexo 3.8.0"><link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png"><link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png"><link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png"><link rel="mask-icon" href="/images/logo.svg" color="#222"><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css"><script id="hexo-configurations">var NexT=window.NexT||{},CONFIG={hostname:new URL("https://mrh1s.top").hostname,root:"/",scheme:"Pisces",version:"7.7.0",exturl:!1,sidebar:{position:"left",display:"post",padding:18,offset:12,onmobile:!1},copycode:{enable:!1,show_result:!1,style:null},back2top:{enable:!0,sidebar:!1,scrollpercent:!1},bookmark:{enable:!1,color:"#222",save:"auto"},fancybox:!1,mediumzoom:!1,lazyload:!1,pangu:!1,comments:{style:"tabs",active:null,storage:!0,lazyload:!1,nav:null},algolia:{appID:"",apiKey:"",indexName:"",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"We didn't find any results for the search: ${query}",hits_stats:"${hits} results found in ${time} ms"}},localsearch:{enable:!1,trigger:"auto",top_n_per_article:1,unescape:!1,preload:!1},path:"",motion:{enable:!0,async:!1,transition:{post_block:"fadeIn",post_header:"slideDownIn",post_body:"slideDownIn",coll_header:"slideLeftIn",sidebar:"slideUpIn"}}}</script><meta name="description" content="FindPassFindPass_200.7z  思路用jeb3.0解包apk文件，打开mainactivity，发现一个Getkey函数，思路非常明显 程序读取了src.jpg、fkey、input的内容，并且进行一定的加密操作，获得flag public void GetKey(View arg16) &amp;#123;        String input = this.findViewById"><meta name="keywords" content="RE_Static,RE_Android"><meta property="og:type" content="article"><meta property="og:title" content="JarvisOJ-findpass"><meta property="og:url" content="https://mrh1s.top/posts/512d4c5b/index.html"><meta property="og:site_name" content="mrh929&#39;s home"><meta property="og:description" content="FindPassFindPass_200.7z  思路用jeb3.0解包apk文件，打开mainactivity，发现一个Getkey函数，思路非常明显 程序读取了src.jpg、fkey、input的内容，并且进行一定的加密操作，获得flag public void GetKey(View arg16) &amp;#123;        String input = this.findViewById"><meta property="og:locale" content="en"><meta property="og:updated_time" content="2019-06-14T05:54:33.007Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="JarvisOJ-findpass"><meta name="twitter:description" content="FindPassFindPass_200.7z  思路用jeb3.0解包apk文件，打开mainactivity，发现一个Getkey函数，思路非常明显 程序读取了src.jpg、fkey、input的内容，并且进行一定的加密操作，获得flag public void GetKey(View arg16) &amp;#123;        String input = this.findViewById"><link rel="canonical" href="https://mrh1s.top/posts/512d4c5b/"><script id="page-configurations">CONFIG.page={sidebar:"",isHome:!1,isPost:!0}</script><title>JarvisOJ-findpass | mrh929's home</title><noscript><style>.sidebar-inner,.use-motion .brand,.use-motion .collection-header,.use-motion .comments,.use-motion .menu-item,.use-motion .pagination,.use-motion .post-block,.use-motion .post-body,.use-motion .post-header{opacity:initial}.use-motion .site-subtitle,.use-motion .site-title{opacity:initial;top:initial}.use-motion .logo-line-before i{left:initial}.use-motion .logo-line-after i{right:initial}</style></noscript></head><body itemscope itemtype="http://schema.org/WebPage"><div class="container use-motion"><div class="headband"></div><header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-container"><div class="site-meta"><div><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">mrh929's home</span> <span class="logo-line-after"><i></i></span></a></div></div><div class="site-nav-toggle"><div class="toggle" aria-label="Toggle navigation bar"><span class="toggle-line toggle-line-first"></span> <span class="toggle-line toggle-line-middle"></span> <span class="toggle-line toggle-line-last"></span></div></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a></li><li class="menu-item menu-item-archives"><a href="/_posts/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a></li></ul></nav></div></header><div class="back-to-top"><i class="fa fa-arrow-up"></i> <span>0%</span></div><main class="main"><div class="main-inner"><div class="content-wrap"><div class="content"><div class="posts-expand"><article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en"><link itemprop="mainEntityOfPage" href="https://mrh1s.top/posts/512d4c5b/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="image" content="/images/avatar.gif"><meta itemprop="name" content="mrh929"><meta itemprop="description" content="Blog"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="mrh929's home"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">JarvisOJ-findpass</h1><div class="post-meta"><span class="post-meta-item"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i> </span><span class="post-meta-item-text">Posted on</span> <time title="Created: 2019-06-14 00:00:52 / Modified: 13:54:33" itemprop="dateCreated datePublished" datetime="2019-06-14T00:00:52+08:00">2019-06-14</time> </span><span class="post-meta-item"><span class="post-meta-item-icon"><i class="fa fa-folder-o"></i> </span><span class="post-meta-item-text">In</span> <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/write-up/" itemprop="url" rel="index"><span itemprop="name">write-up</span> </a></span>, <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/write-up/JarvisOJ/" itemprop="url" rel="index"><span itemprop="name">JarvisOJ</span></a></span></span></div></header><div class="post-body" itemprop="articleBody"><h1 id="FindPass"><a href="#FindPass" class="headerlink" title="FindPass"></a>FindPass</h1><p><a href="\uploads\FindPass_200.7z">FindPass_200.7z</a></p><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>用jeb3.0解包apk文件，打开mainactivity，发现一个Getkey函数，思路非常明显</p><p>程序读取了src.jpg、fkey、input的内容，并且进行一定的加密操作，获得flag</p><figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">GetKey</span><span class="params">(View arg16)</span> </span>&#123;</span><br><span class="line">        String input = <span class="keyword">this</span>.findViewById(<span class="number">0x7F080001</span>).getText().toString();</span><br><span class="line">        <span class="keyword">if</span>(TextUtils.isEmpty(input.trim())) &#123;</span><br><span class="line">            goto label_57;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">char</span>[] fkey = <span class="keyword">this</span>.getResources().getString(<span class="number">0x7F050003</span>).toCharArray();</span><br><span class="line">        <span class="keyword">int</span> v2 = fkey.length;</span><br><span class="line">        <span class="keyword">char</span>[] from_jpg = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">0x400</span>];</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">new</span> InputStreamReader(<span class="keyword">this</span>.getResources().getAssets().open(<span class="string">"src.jpg"</span>)).read(from_jpg);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span>(Exception v3) &#123;</span><br><span class="line">            v3.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> v6;</span><br><span class="line">        <span class="keyword">for</span>(v6 = <span class="number">0</span>; v6 &lt; v2; ++v6) &#123;</span><br><span class="line">            <span class="keyword">int</span> v12 = from_jpg[fkey[v6]] % <span class="number">10</span>;</span><br><span class="line">            fkey[v6] = v6 % <span class="number">2</span> == <span class="number">1</span> ? ((<span class="keyword">char</span>)(fkey[v6] + v12)) : ((<span class="keyword">char</span>)(fkey[v6] - v12));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(input.equals(<span class="keyword">new</span> String(fkey))) &#123;</span><br><span class="line">            Toast.makeText(((Context)<span class="keyword">this</span>), <span class="string">"恭喜您，输入正确！Flag==flag&#123;Key&#125;"</span>, <span class="number">1</span>).show();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            Toast.makeText(((Context)<span class="keyword">this</span>), <span class="string">"not right! lol。。。。"</span>, <span class="number">1</span>).show();</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        label_57:</span><br><span class="line">            Toast.makeText(((Context)<span class="keyword">this</span>), <span class="string">"请输入key值！"</span>, <span class="number">1</span>).show();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure><p>唯一有一点问题就是那个</p><blockquote><p>char[] fkey = this.getResources().getString(0x7F050003).toCharArray()</p></blockquote><p>经多方询问，最后明白这是一个读取内置字符串的函数，我们可以在</p><blockquote><p>Resources/values/strings.xml</p></blockquote><p>内找到，大多数的安卓软件都会把字符串放在这里面</p><h2 id="solve"><a href="#solve" class="headerlink" title="solve"></a>solve</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">fkey = <span class="string">"Tr43Fla92Ch4n93"</span></span><br><span class="line">fromjpg = [<span class="number">0xFF</span>,<span class="number">0xD8</span>,<span class="number">0xFF</span>,<span class="number">0xE0</span>,<span class="number">0x00</span>,<span class="number">0x10</span>,<span class="number">0x4A</span>,<span class="number">0x46</span>,<span class="number">0x49</span>,<span class="number">0x46</span>,<span class="number">0x00</span>,<span class="number">0x01</span>,<span class="number">0x01</span>,<span class="number">0x01</span>,<span class="number">0x00</span>,<span class="number">0x48</span>,<span class="number">0x00</span>,<span class="number">0x48</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0xFF</span>,<span class="number">0xE1</span>,<span class="number">0x00</span>,<span class="number">0x30</span>,<span class="number">0x45</span>,<span class="number">0x78</span>,<span class="number">0x69</span>,<span class="number">0x66</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x4D</span>,<span class="number">0x4D</span>,<span class="number">0x00</span>,<span class="number">0x2A</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x08</span>,<span class="number">0x00</span>,<span class="number">0x01</span>,<span class="number">0x01</span>,<span class="number">0x31</span>,<span class="number">0x00</span>,<span class="number">0x02</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x0E</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x1A</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x77</span>,<span class="number">0x77</span>,<span class="number">0x77</span>,<span class="number">0x2E</span>,<span class="number">0x6D</span>,<span class="number">0x65</span>,<span class="number">0x69</span>,<span class="number">0x74</span>,<span class="number">0x75</span>,<span class="number">0x2E</span>,<span class="number">0x63</span>,<span class="number">0x6F</span>,<span class="number">0x6D</span>,<span class="number">0x00</span>,<span class="number">0xFF</span>,<span class="number">0xDB</span>,<span class="number">0x00</span>,<span class="number">0x43</span>,<span class="number">0x00</span>,<span class="number">0x03</span>,<span class="number">0x02</span>,<span class="number">0x02</span>,<span class="number">0x03</span>,<span class="number">0x02</span>,<span class="number">0x02</span>,<span class="number">0x03</span>,<span class="number">0x03</span>,<span class="number">0x03</span>,<span class="number">0x03</span>,<span class="number">0x04</span>,<span class="number">0x03</span>,<span class="number">0x03</span>,<span class="number">0x04</span>,<span class="number">0x05</span>,<span class="number">0x08</span>,<span class="number">0x05</span>,<span class="number">0x05</span>,<span class="number">0x04</span>,<span class="number">0x04</span>,<span class="number">0x05</span>,<span class="number">0x0A</span>,<span class="number">0x07</span>,<span class="number">0x07</span>,<span class="number">0x06</span>,<span class="number">0x08</span>,<span class="number">0x0C</span>,<span class="number">0x0A</span>,<span class="number">0x0C</span>,<span class="number">0x0C</span>,<span class="number">0x0B</span>,<span class="number">0x0A</span>,<span class="number">0x0B</span>,<span class="number">0x0B</span>,<span class="number">0x0D</span>,<span class="number">0x0E</span>,<span class="number">0x12</span>,<span class="number">0x10</span>,<span class="number">0x0D</span>,<span class="number">0x0E</span>,<span class="number">0x11</span>,<span class="number">0x0E</span>,<span class="number">0x0B</span>,<span class="number">0x0B</span>,<span class="number">0x10</span>,<span class="number">0x16</span>,<span class="number">0x10</span>,<span class="number">0x11</span>]</span><br><span class="line">ans = <span class="string">""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(fkey)):</span><br><span class="line">    t = <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span>(i % <span class="number">2</span> == <span class="number">1</span>):</span><br><span class="line">        t = ord(fkey[i]) + (fromjpg[ord(fkey[i])] % <span class="number">10</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        t = ord(fkey[i]) - (fromjpg[ord(fkey[i])] % <span class="number">10</span>)</span><br><span class="line">    ans = ans + chr(t)</span><br><span class="line"></span><br><span class="line">ans = <span class="string">"flag&#123;"</span> + ans + <span class="string">"&#125;"</span></span><br><span class="line">print(ans)</span><br></pre></td></tr></table></figure></div><div><ul class="post-copyright"><li class="post-copyright-author"><strong>Post author: </strong>mrh929</li><li class="post-copyright-link"><strong>Post link: </strong><a href="https://mrh1s.top/posts/512d4c5b/" title="JarvisOJ-findpass">https://mrh1s.top/posts/512d4c5b/</a></li><li class="post-copyright-license"><strong>Copyright Notice: </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.</li></ul></div><footer class="post-footer"><div class="post-tags"><a href="/tags/RE-Static/" rel="tag"># RE_Static</a> <a href="/tags/RE-Android/" rel="tag"># RE_Android</a></div><div class="post-nav"><div class="post-nav-item"><a href="/posts/cbf6a417/" rel="prev" title="利用python搭建简易http服务器"><i class="fa fa-chevron-left"></i> 利用python搭建简易http服务器</a></div><div class="post-nav-item"><a href="/posts/db7ddaa/" rel="next" title="JarvisOJ_DD_Evil_Exe">JarvisOJ_DD_Evil_Exe <i class="fa fa-chevron-right"></i></a></div></div></footer></article></div></div><script>window.addEventListener('tabs:register', () => {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://mrh1s.top').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="FindPassFindPass_200.7z  思路用jeb3.0解包apk文件，打开mainactivity，发现一个Getkey函数，思路非常明显 程序读取了src.jpg、fkey、input的内容，并且进行一定的加密操作，获得flag public void GetKey(View arg16) &amp;#123;        String input = this.findViewById">
+<meta name="keywords" content="RE_Static,RE_Android">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JarvisOJ-findpass">
+<meta property="og:url" content="https://mrh1s.top/posts/512d4c5b/index.html">
+<meta property="og:site_name" content="mrh929&#39;s home">
+<meta property="og:description" content="FindPassFindPass_200.7z  思路用jeb3.0解包apk文件，打开mainactivity，发现一个Getkey函数，思路非常明显 程序读取了src.jpg、fkey、input的内容，并且进行一定的加密操作，获得flag public void GetKey(View arg16) &amp;#123;        String input = this.findViewById">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-06-14T05:54:33.007Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JarvisOJ-findpass">
+<meta name="twitter:description" content="FindPassFindPass_200.7z  思路用jeb3.0解包apk文件，打开mainactivity，发现一个Getkey函数，思路非常明显 程序读取了src.jpg、fkey、input的内容，并且进行一定的加密操作，获得flag public void GetKey(View arg16) &amp;#123;        String input = this.findViewById">
+
+<link rel="canonical" href="https://mrh1s.top/posts/512d4c5b/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>JarvisOJ-findpass | mrh929's home</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrh929's home</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/_posts/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://mrh1s.top/posts/512d4c5b/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mrh929">
+      <meta itemprop="description" content="Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrh929's home">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          JarvisOJ-findpass
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+              
+
+              <time title="Created: 2019-06-14 00:00:52 / Modified: 13:54:33" itemprop="dateCreated datePublished" datetime="2019-06-14T00:00:52+08:00">2019-06-14</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/write-up/" itemprop="url" rel="index">
+                    <span itemprop="name">write-up</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/write-up/JarvisOJ/" itemprop="url" rel="index">
+                    <span itemprop="name">JarvisOJ</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="FindPass"><a href="#FindPass" class="headerlink" title="FindPass"></a>FindPass</h1><p><a href="\uploads\FindPass_200.7z">FindPass_200.7z</a> </p>
+<h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>用jeb3.0解包apk文件，打开mainactivity，发现一个Getkey函数，思路非常明显</p>
+<p>程序读取了src.jpg、fkey、input的内容，并且进行一定的加密操作，获得flag</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">GetKey</span><span class="params">(View arg16)</span> </span>&#123;</span><br><span class="line">        String input = <span class="keyword">this</span>.findViewById(<span class="number">0x7F080001</span>).getText().toString();</span><br><span class="line">        <span class="keyword">if</span>(TextUtils.isEmpty(input.trim())) &#123;</span><br><span class="line">            goto label_57;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">char</span>[] fkey = <span class="keyword">this</span>.getResources().getString(<span class="number">0x7F050003</span>).toCharArray();</span><br><span class="line">        <span class="keyword">int</span> v2 = fkey.length;</span><br><span class="line">        <span class="keyword">char</span>[] from_jpg = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">0x400</span>];</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">new</span> InputStreamReader(<span class="keyword">this</span>.getResources().getAssets().open(<span class="string">"src.jpg"</span>)).read(from_jpg);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">catch</span>(Exception v3) &#123;</span><br><span class="line">            v3.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span> v6;</span><br><span class="line">        <span class="keyword">for</span>(v6 = <span class="number">0</span>; v6 &lt; v2; ++v6) &#123;</span><br><span class="line">            <span class="keyword">int</span> v12 = from_jpg[fkey[v6]] % <span class="number">10</span>;</span><br><span class="line">            fkey[v6] = v6 % <span class="number">2</span> == <span class="number">1</span> ? ((<span class="keyword">char</span>)(fkey[v6] + v12)) : ((<span class="keyword">char</span>)(fkey[v6] - v12));</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span>(input.equals(<span class="keyword">new</span> String(fkey))) &#123;</span><br><span class="line">            Toast.makeText(((Context)<span class="keyword">this</span>), <span class="string">"恭喜您，输入正确！Flag==flag&#123;Key&#125;"</span>, <span class="number">1</span>).show();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span> &#123;</span><br><span class="line">            Toast.makeText(((Context)<span class="keyword">this</span>), <span class="string">"not right! lol。。。。"</span>, <span class="number">1</span>).show();</span><br><span class="line">            <span class="keyword">return</span>;</span><br><span class="line">        label_57:</span><br><span class="line">            Toast.makeText(((Context)<span class="keyword">this</span>), <span class="string">"请输入key值！"</span>, <span class="number">1</span>).show();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+<p>唯一有一点问题就是那个</p>
+<blockquote>
+<p>char[] fkey = this.getResources().getString(0x7F050003).toCharArray()</p>
+</blockquote>
+<p>经多方询问，最后明白这是一个读取内置字符串的函数，我们可以在</p>
+<blockquote>
+<p>Resources/values/strings.xml</p>
+</blockquote>
+<p>内找到，大多数的安卓软件都会把字符串放在这里面</p>
+<h2 id="solve"><a href="#solve" class="headerlink" title="solve"></a>solve</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">fkey = <span class="string">"Tr43Fla92Ch4n93"</span></span><br><span class="line">fromjpg = [<span class="number">0xFF</span>,<span class="number">0xD8</span>,<span class="number">0xFF</span>,<span class="number">0xE0</span>,<span class="number">0x00</span>,<span class="number">0x10</span>,<span class="number">0x4A</span>,<span class="number">0x46</span>,<span class="number">0x49</span>,<span class="number">0x46</span>,<span class="number">0x00</span>,<span class="number">0x01</span>,<span class="number">0x01</span>,<span class="number">0x01</span>,<span class="number">0x00</span>,<span class="number">0x48</span>,<span class="number">0x00</span>,<span class="number">0x48</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0xFF</span>,<span class="number">0xE1</span>,<span class="number">0x00</span>,<span class="number">0x30</span>,<span class="number">0x45</span>,<span class="number">0x78</span>,<span class="number">0x69</span>,<span class="number">0x66</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x4D</span>,<span class="number">0x4D</span>,<span class="number">0x00</span>,<span class="number">0x2A</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x08</span>,<span class="number">0x00</span>,<span class="number">0x01</span>,<span class="number">0x01</span>,<span class="number">0x31</span>,<span class="number">0x00</span>,<span class="number">0x02</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x0E</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x1A</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x00</span>,<span class="number">0x77</span>,<span class="number">0x77</span>,<span class="number">0x77</span>,<span class="number">0x2E</span>,<span class="number">0x6D</span>,<span class="number">0x65</span>,<span class="number">0x69</span>,<span class="number">0x74</span>,<span class="number">0x75</span>,<span class="number">0x2E</span>,<span class="number">0x63</span>,<span class="number">0x6F</span>,<span class="number">0x6D</span>,<span class="number">0x00</span>,<span class="number">0xFF</span>,<span class="number">0xDB</span>,<span class="number">0x00</span>,<span class="number">0x43</span>,<span class="number">0x00</span>,<span class="number">0x03</span>,<span class="number">0x02</span>,<span class="number">0x02</span>,<span class="number">0x03</span>,<span class="number">0x02</span>,<span class="number">0x02</span>,<span class="number">0x03</span>,<span class="number">0x03</span>,<span class="number">0x03</span>,<span class="number">0x03</span>,<span class="number">0x04</span>,<span class="number">0x03</span>,<span class="number">0x03</span>,<span class="number">0x04</span>,<span class="number">0x05</span>,<span class="number">0x08</span>,<span class="number">0x05</span>,<span class="number">0x05</span>,<span class="number">0x04</span>,<span class="number">0x04</span>,<span class="number">0x05</span>,<span class="number">0x0A</span>,<span class="number">0x07</span>,<span class="number">0x07</span>,<span class="number">0x06</span>,<span class="number">0x08</span>,<span class="number">0x0C</span>,<span class="number">0x0A</span>,<span class="number">0x0C</span>,<span class="number">0x0C</span>,<span class="number">0x0B</span>,<span class="number">0x0A</span>,<span class="number">0x0B</span>,<span class="number">0x0B</span>,<span class="number">0x0D</span>,<span class="number">0x0E</span>,<span class="number">0x12</span>,<span class="number">0x10</span>,<span class="number">0x0D</span>,<span class="number">0x0E</span>,<span class="number">0x11</span>,<span class="number">0x0E</span>,<span class="number">0x0B</span>,<span class="number">0x0B</span>,<span class="number">0x10</span>,<span class="number">0x16</span>,<span class="number">0x10</span>,<span class="number">0x11</span>]</span><br><span class="line">ans = <span class="string">""</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(fkey)):</span><br><span class="line">    t = <span class="number">0</span></span><br><span class="line">    <span class="keyword">if</span>(i % <span class="number">2</span> == <span class="number">1</span>):</span><br><span class="line">        t = ord(fkey[i]) + (fromjpg[ord(fkey[i])] % <span class="number">10</span>)</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        t = ord(fkey[i]) - (fromjpg[ord(fkey[i])] % <span class="number">10</span>)</span><br><span class="line">    ans = ans + chr(t)</span><br><span class="line"></span><br><span class="line">ans = <span class="string">"flag&#123;"</span> + ans + <span class="string">"&#125;"</span></span><br><span class="line">print(ans)</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>mrh929
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="https://mrh1s.top/posts/512d4c5b/" title="JarvisOJ-findpass">https://mrh1s.top/posts/512d4c5b/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/RE-Static/" rel="tag"># RE_Static</a>
+              <a href="/tags/RE-Android/" rel="tag"># RE_Android</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/cbf6a417/" rel="prev" title="利用python搭建简易http服务器">
+      <i class="fa fa-chevron-left"></i> 利用python搭建简易http服务器
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/db7ddaa/" rel="next" title="JarvisOJ_DD_Evil_Exe">
+      JarvisOJ_DD_Evil_Exe <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
     let activeClass = CONFIG.comments.activeClass;
     if (CONFIG.comments.storage) {
       activeClass = localStorage.getItem('comments_active') || activeClass;
@@ -16,4 +322,137 @@
       let commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
-  }</script></div><div class="toggle sidebar-toggle"><span class="toggle-line toggle-line-first"></span> <span class="toggle-line toggle-line-middle"></span> <span class="toggle-line toggle-line-last"></span></div><aside class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc">Table of Contents</li><li class="sidebar-nav-overview">Overview</li></ul><div class="post-toc-wrap sidebar-panel"><div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#FindPass"><span class="nav-number">1.</span> <span class="nav-text">FindPass</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#思路"><span class="nav-number">1.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#solve"><span class="nav-number">1.2.</span> <span class="nav-text">solve</span></a></li></ol></li></ol></div></div><div class="site-overview-wrap sidebar-panel"><div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person"><p class="site-author-name" itemprop="name">mrh929</p><div class="site-description" itemprop="description">Blog</div></div><div class="site-state-wrap motion-element"><nav class="site-state"><div class="site-state-item site-state-posts"><a href="/_posts/"><span class="site-state-item-count">79</span> <span class="site-state-item-name">posts</span></a></div><div class="site-state-item site-state-categories"><span class="site-state-item-count">20</span> <span class="site-state-item-name">categories</span></div><div class="site-state-item site-state-tags"><span class="site-state-item-count">16</span> <span class="site-state-item-name">tags</span></div></nav></div><div class="cc-license motion-element" itemprop="license"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" class="cc-opacity" rel="noopener" target="_blank"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a></div></div></div></aside><div id="sidebar-dimmer"></div></div></main><footer class="footer"><div class="footer-inner"><div class="copyright">&copy; <span itemprop="copyrightYear">2020</span> <span class="with-love"><i class="fa fa-user"></i> </span><span class="author" itemprop="copyrightHolder">mrh929</span></div><div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div><span class="post-meta-divider">|</span><div class="theme-info">Theme – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0</div></div></footer></div><script src="/lib/anime.min.js"></script><script src="/lib/velocity/velocity.min.js"></script><script src="/lib/velocity/velocity.ui.min.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/pisces.js"></script><script src="/js/next-boot.js"></script><script>!function(e){var r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function t(){for(var c=0;c<r.length;c++)t=r[c],void 0,0<=(n=t.getBoundingClientRect()).top&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=r[c];t=o,n=function(){r=r.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}t(),e.addEventListener("scroll",function(){!function(t,n){clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)}(t,e)})}(this);</script></body></html>
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#FindPass"><span class="nav-number">1.</span> <span class="nav-text">FindPass</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#思路"><span class="nav-number">1.1.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#solve"><span class="nav-number">1.2.</span> <span class="nav-text">solve</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mrh929</p>
+  <div class="site-description" itemprop="description">Blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/_posts/">
+        
+          <span class="site-state-item-count">79</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mrh929</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

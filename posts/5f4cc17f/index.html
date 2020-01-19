@@ -1,4 +1,314 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2"><meta name="theme-color" content="#222"><meta name="generator" content="Hexo 3.8.0"><link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png"><link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png"><link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png"><link rel="mask-icon" href="/images/logo.svg" color="#222"><link rel="stylesheet" href="/css/main.css"><link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css"><script id="hexo-configurations">var NexT=window.NexT||{},CONFIG={hostname:new URL("https://mrh1s.top").hostname,root:"/",scheme:"Pisces",version:"7.7.0",exturl:!1,sidebar:{position:"left",display:"post",padding:18,offset:12,onmobile:!1},copycode:{enable:!1,show_result:!1,style:null},back2top:{enable:!0,sidebar:!1,scrollpercent:!1},bookmark:{enable:!1,color:"#222",save:"auto"},fancybox:!1,mediumzoom:!1,lazyload:!1,pangu:!1,comments:{style:"tabs",active:null,storage:!0,lazyload:!1,nav:null},algolia:{appID:"",apiKey:"",indexName:"",hits:{per_page:10},labels:{input_placeholder:"Search for Posts",hits_empty:"We didn't find any results for the search: ${query}",hits_stats:"${hits} results found in ${time} ms"}},localsearch:{enable:!1,trigger:"auto",top_n_per_article:1,unescape:!1,preload:!1},path:"",motion:{enable:!0,async:!1,transition:{post_block:"fadeIn",post_header:"slideDownIn",post_body:"slideDownIn",coll_header:"slideLeftIn",sidebar:"slideUpIn"}}}</script><meta name="description" content="simple-machinesimple-machine 思路整理general这道题说起来是vm，实际上和vm的挂钩并不大，就是用高级语言去实现了汇编，把变量都当做了寄存器来使用，其中还有各种压栈出栈过程，不过跟本题关系不大，也就不用过于细究了 fun1fun1主要是通过输入的字符串，与预置的feed进行异或，得到一串加密的字符串，存在内存中 int __cdecl fun1(int str,"><meta name="keywords" content="RE_Static,VM"><meta property="og:type" content="article"><meta property="og:title" content="simple_machine"><meta property="og:url" content="https://mrh1s.top/posts/5f4cc17f/index.html"><meta property="og:site_name" content="mrh929&#39;s home"><meta property="og:description" content="simple-machinesimple-machine 思路整理general这道题说起来是vm，实际上和vm的挂钩并不大，就是用高级语言去实现了汇编，把变量都当做了寄存器来使用，其中还有各种压栈出栈过程，不过跟本题关系不大，也就不用过于细究了 fun1fun1主要是通过输入的字符串，与预置的feed进行异或，得到一串加密的字符串，存在内存中 int __cdecl fun1(int str,"><meta property="og:locale" content="en"><meta property="og:updated_time" content="2019-05-21T07:53:38.836Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="simple_machine"><meta name="twitter:description" content="simple-machinesimple-machine 思路整理general这道题说起来是vm，实际上和vm的挂钩并不大，就是用高级语言去实现了汇编，把变量都当做了寄存器来使用，其中还有各种压栈出栈过程，不过跟本题关系不大，也就不用过于细究了 fun1fun1主要是通过输入的字符串，与预置的feed进行异或，得到一串加密的字符串，存在内存中 int __cdecl fun1(int str,"><link rel="canonical" href="https://mrh1s.top/posts/5f4cc17f/"><script id="page-configurations">CONFIG.page={sidebar:"",isHome:!1,isPost:!0}</script><title>simple_machine | mrh929's home</title><noscript><style>.sidebar-inner,.use-motion .brand,.use-motion .collection-header,.use-motion .comments,.use-motion .menu-item,.use-motion .pagination,.use-motion .post-block,.use-motion .post-body,.use-motion .post-header{opacity:initial}.use-motion .site-subtitle,.use-motion .site-title{opacity:initial;top:initial}.use-motion .logo-line-before i{left:initial}.use-motion .logo-line-after i{right:initial}</style></noscript></head><body itemscope itemtype="http://schema.org/WebPage"><div class="container use-motion"><div class="headband"></div><header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="header-inner"><div class="site-brand-container"><div class="site-meta"><div><a href="/" class="brand" rel="start"><span class="logo-line-before"><i></i></span> <span class="site-title">mrh929's home</span> <span class="logo-line-after"><i></i></span></a></div></div><div class="site-nav-toggle"><div class="toggle" aria-label="Toggle navigation bar"><span class="toggle-line toggle-line-first"></span> <span class="toggle-line toggle-line-middle"></span> <span class="toggle-line toggle-line-last"></span></div></div></div><nav class="site-nav"><ul id="menu" class="menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a></li><li class="menu-item menu-item-about"><a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a></li><li class="menu-item menu-item-archives"><a href="/_posts/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a></li></ul></nav></div></header><div class="back-to-top"><i class="fa fa-arrow-up"></i> <span>0%</span></div><main class="main"><div class="main-inner"><div class="content-wrap"><div class="content"><div class="posts-expand"><article itemscope itemtype="http://schema.org/Article" class="post-block" lang="en"><link itemprop="mainEntityOfPage" href="https://mrh1s.top/posts/5f4cc17f/"><span hidden itemprop="author" itemscope itemtype="http://schema.org/Person"><meta itemprop="image" content="/images/avatar.gif"><meta itemprop="name" content="mrh929"><meta itemprop="description" content="Blog"></span><span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization"><meta itemprop="name" content="mrh929's home"></span><header class="post-header"><h1 class="post-title" itemprop="name headline">simple_machine</h1><div class="post-meta"><span class="post-meta-item"><span class="post-meta-item-icon"><i class="fa fa-calendar-o"></i> </span><span class="post-meta-item-text">Posted on</span> <time title="Created: 2019-05-11 20:45:32" itemprop="dateCreated datePublished" datetime="2019-05-11T20:45:32+08:00">2019-05-11</time> </span><span class="post-meta-item"><span class="post-meta-item-icon"><i class="fa fa-calendar-check-o"></i> </span><span class="post-meta-item-text">Edited on</span> <time title="Modified: 2019-05-21 15:53:38" itemprop="dateModified" datetime="2019-05-21T15:53:38+08:00">2019-05-21</time> </span><span class="post-meta-item"><span class="post-meta-item-icon"><i class="fa fa-folder-o"></i> </span><span class="post-meta-item-text">In</span> <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/write-up/" itemprop="url" rel="index"><span itemprop="name">write-up</span> </a></span>, <span itemprop="about" itemscope itemtype="http://schema.org/Thing"><a href="/categories/write-up/cgctf/" itemprop="url" rel="index"><span itemprop="name">cgctf</span></a></span></span></div></header><div class="post-body" itemprop="articleBody"><h1 id="simple-machine"><a href="#simple-machine" class="headerlink" title="simple-machine"></a>simple-machine</h1><p><a href="\uploads\simple-machine.7z">simple-machine</a></p><h2 id="思路整理"><a href="#思路整理" class="headerlink" title="思路整理"></a>思路整理</h2><h3 id="general"><a href="#general" class="headerlink" title="general"></a>general</h3><p>这道题说起来是vm，实际上和vm的挂钩并不大，就是用高级语言去实现了汇编，把变量都当做了寄存器来使用，其中还有各种压栈出栈过程，不过跟本题关系不大，也就不用过于细究了</p><h3 id="fun1"><a href="#fun1" class="headerlink" title="fun1"></a>fun1</h3><p>fun1主要是通过输入的字符串，与预置的feed进行异或，得到一串加密的字符串，存在内存中</p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> __<span class="function">cdecl <span class="title">fun1</span><span class="params">(<span class="keyword">int</span> str, <span class="keyword">unsigned</span> <span class="keyword">int</span> a2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> v2; <span class="comment">// eax</span></span><br><span class="line">  <span class="keyword">int</span> v3; <span class="comment">// eax</span></span><br><span class="line"></span><br><span class="line">  push(base_addr_804B15C);</span><br><span class="line">  base_addr_804B15C = esp1;</span><br><span class="line">  push(temp);</span><br><span class="line">  push(temp2);</span><br><span class="line">  esp1 -= <span class="number">48</span>;</span><br><span class="line">  *(_DWORD *)(base_addr_804B15C - 29) = 'deef'; // 0x804B13F</span><br><span class="line">  *(_DWORD *)(base_addr_804B15C - 25) = 'daed';</span><br><span class="line">  *(_DWORD *)(base_addr_804B15C - 21) = 'feeb';</span><br><span class="line">  *(_DWORD *)(base_addr_804B15C - 17) = 'efac';</span><br><span class="line">  *(_BYTE *)(base_addr_804B15C - <span class="number">13</span>) = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> ( *(_DWORD *)(base_addr_804B15C - <span class="number">12</span>) = <span class="number">0</span>; ; ++*(_DWORD *)(base_addr_804B15C - <span class="number">12</span>) )<span class="comment">// i = base_addr_804B15C - 12</span></span><br><span class="line">  &#123;</span><br><span class="line">    eaxx = *(_DWORD *)(base_addr_804B15C - <span class="number">12</span>); <span class="comment">// i</span></span><br><span class="line">    <span class="keyword">if</span> ( eaxx &gt;= a2 )</span><br><span class="line">      <span class="keyword">break</span>;                                    <span class="comment">// 判断是否退出循环</span></span><br><span class="line">                                                <span class="comment">// </span></span><br><span class="line">                                                <span class="comment">// </span></span><br><span class="line">                                                <span class="comment">// </span></span><br><span class="line">    ebxx = *(_DWORD *)(base_addr_804B15C - <span class="number">12</span>); <span class="comment">// i</span></span><br><span class="line">    eaxx = str;                                 <span class="comment">// str</span></span><br><span class="line">    temp = ebxx + str;                          <span class="comment">// str + i</span></span><br><span class="line">    ebxx = *(_DWORD *)(base_addr_804B15C - <span class="number">12</span>); <span class="comment">// i</span></span><br><span class="line">    eaxx = ebxx + str;                          <span class="comment">// str + i</span></span><br><span class="line">    eaxx = *(<span class="keyword">unsigned</span> __int8 *)(ebxx + str);    <span class="comment">// 取当前字符串</span></span><br><span class="line">    temp1 = eaxx;</span><br><span class="line">    *(_BYTE *)(base_addr_804B15C - <span class="number">41</span>) = eaxx;  <span class="comment">// 把当前字符串保存到一个地址里面</span></span><br><span class="line">                                                <span class="comment">// </span></span><br><span class="line">                                                <span class="comment">// </span></span><br><span class="line">                                                <span class="comment">// </span></span><br><span class="line">    temp2 = *(_DWORD *)(base_addr_804B15C - <span class="number">12</span>);</span><br><span class="line">    esp1 -= <span class="number">12</span>;</span><br><span class="line">    eaxx = base_addr_804B15C - <span class="number">29</span>;              <span class="comment">// 取feed</span></span><br><span class="line">    push(base_addr_804B15C - <span class="number">29</span>);               <span class="comment">// push(feed)</span></span><br><span class="line">    v2 = <span class="built_in">strlen</span>(*(<span class="keyword">const</span> <span class="keyword">char</span> **)esp1);          <span class="comment">// v2 是 feed的长度</span></span><br><span class="line">    esp1 += <span class="number">16</span>;</span><br><span class="line">    len = v2;</span><br><span class="line">    eaxx = temp2;</span><br><span class="line">    ebxx = <span class="number">0</span>;</span><br><span class="line">    sub_80485AB(v2);                            <span class="comment">// j = i % v2  </span></span><br><span class="line">                                                <span class="comment">// i = i / v2</span></span><br><span class="line">    eaxx = ebxx;</span><br><span class="line">    eaxx = *(<span class="keyword">unsigned</span> __int8 *)(ebxx - <span class="number">29</span> + base_addr_804B15C);<span class="comment">// 算feed中的偏移</span></span><br><span class="line">    temp1 = eaxx;</span><br><span class="line">    temp1 = *(_BYTE *)(base_addr_804B15C - <span class="number">41</span>) ^ eaxx;<span class="comment">// c ^ feed[]</span></span><br><span class="line">    *(_BYTE *)temp = temp1;</span><br><span class="line">    v3 = eaxx;</span><br><span class="line">    LOBYTE(v3) = <span class="number">0</span>;</span><br><span class="line">    eaxx = v3 + (<span class="keyword">unsigned</span> __int8)temp1;</span><br><span class="line">  &#125;</span><br><span class="line">  sub_80485A5();</span><br><span class="line">  esp1 = base_addr_804B15C - <span class="number">8</span>;</span><br><span class="line">  pop(&amp;temp2);</span><br><span class="line">  pop(&amp;temp);</span><br><span class="line">  <span class="keyword">return</span> pop(&amp;base_addr_804B15C);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><h3 id="fun2"><a href="#fun2" class="headerlink" title="fun2"></a>fun2</h3><p>fun2中有两个循环，看似很复杂实则简单</p><p>看到两个寄存器在之间移来移去，发现很多操作都是无效的</p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">void</span> __<span class="function">cdecl <span class="title">fun2</span><span class="params">(<span class="keyword">int</span> a1, <span class="keyword">int</span> a2, <span class="keyword">int</span> a3)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  push(base_addr_804B15C);</span><br><span class="line">  base_addr_804B15C = esp1;</span><br><span class="line">  esp1 -= <span class="number">16</span>;</span><br><span class="line">  <span class="keyword">for</span> ( *(_DWORD *)(base_addr_804B15C - <span class="number">4</span>) = <span class="number">0</span>; <span class="comment">// 循环三次</span></span><br><span class="line">        *(_DWORD *)(base_addr_804B15C - <span class="number">4</span>) &lt;= <span class="number">2u</span>;</span><br><span class="line">        ++*(_DWORD *)(base_addr_804B15C - <span class="number">4</span>) )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">for</span> ( *(_DWORD *)(base_addr_804B15C - <span class="number">8</span>) = <span class="number">0</span>; ; ++*(_DWORD *)(base_addr_804B15C - <span class="number">8</span>) )</span><br><span class="line">    &#123;</span><br><span class="line">      len = a3;</span><br><span class="line">      ebxx = <span class="number">1431655766</span>;</span><br><span class="line">      eaxx = a3;</span><br><span class="line">      sub_80485DB(<span class="number">1431655766</span>);                  <span class="comment">// ebxx = (eaxx * 1431655766) &gt;&gt; 32</span></span><br><span class="line">      ebxx -= (<span class="keyword">unsigned</span> <span class="keyword">int</span>)len &gt;&gt; <span class="number">31</span>;</span><br><span class="line">      eaxx = ebxx;</span><br><span class="line">      <span class="keyword">if</span> ( *(_DWORD *)(base_addr_804B15C - <span class="number">8</span>) &gt;= (<span class="keyword">unsigned</span> <span class="keyword">int</span>)ebxx )</span><br><span class="line">        <span class="keyword">break</span>;                                  <span class="comment">// 前面一段是关于判断跳出条件的</span></span><br><span class="line">      len = a3;</span><br><span class="line">      ebxx = <span class="number">0x55555556</span>;</span><br><span class="line">      eaxx = a3;</span><br><span class="line">      sub_80485DB(<span class="number">0x55555556</span>);                  <span class="comment">// ebxx = (unsigned __int64)(a1 * (signed __int64)eaxx) &gt;&gt; 32;</span></span><br><span class="line">                                                <span class="comment">//   </span></span><br><span class="line">      ebxx -= (<span class="keyword">unsigned</span> <span class="keyword">int</span>)len &gt;&gt; <span class="number">31</span>;</span><br><span class="line">      eaxx = ebxx;                              <span class="comment">// repeated</span></span><br><span class="line">      eaxx = ebxx * *(_DWORD *)(base_addr_804B15C - <span class="number">4</span>);</span><br><span class="line">      ebxx = eaxx;</span><br><span class="line">      eaxx = *(_DWORD *)(base_addr_804B15C - <span class="number">8</span>);</span><br><span class="line">      eaxx += ebxx;</span><br><span class="line">      ebxx = eaxx;</span><br><span class="line">      eaxx = a2;</span><br><span class="line">      len = ebxx + a2;                          <span class="comment">// 算偏移地址 addr = 0x804B100 + (i * 18) + j</span></span><br><span class="line">      ebxx = *(_DWORD *)(base_addr_804B15C - <span class="number">8</span>);</span><br><span class="line">      eaxx = <span class="number">2</span> * ebxx;                          <span class="comment">// j * 2</span></span><br><span class="line">      ebxx *= <span class="number">3</span>;                                <span class="comment">// j * 3</span></span><br><span class="line">      eaxx = *(_DWORD *)(base_addr_804B15C - <span class="number">4</span>);<span class="comment">// i</span></span><br><span class="line">      eaxx += ebxx;                             <span class="comment">// i +  j * 3</span></span><br><span class="line">      ebxx = eaxx;                              <span class="comment">// i +  j * 3</span></span><br><span class="line">      eaxx += a1;</span><br><span class="line">      eaxx = *(<span class="keyword">unsigned</span> __int8 *)(a1 + ebxx);   <span class="comment">// *(input + i + j * 3)</span></span><br><span class="line">      temp1 = eaxx;</span><br><span class="line">      *(_BYTE *)len = eaxx;                     <span class="comment">// 修改上方的那个偏移地址</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  sub_80485A5();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>翻译过来是这样：</p><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">2</span>; i++)</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;;j++)&#123;</span><br><span class="line">        addr[(i * <span class="number">18</span>) + j] = input + i + j * <span class="number">3</span></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure><h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><p><del>比较fun1和fun2中生成的字符串是否相等</del></p><p>经高人指点，不是比较fun1和fun2的字符串，而是先经过fun1进行处理，然后再经过fun2处理，然后直接和内存中的一串字符串进行比较</p><h2 id="solve"><a href="#solve" class="headerlink" title="solve"></a>solve</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">feed = <span class="string">"feeddeadbeefcafe"</span></span><br><span class="line">enc = [<span class="number">0x00</span>,<span class="number">0x03</span>,<span class="number">0x09</span>,<span class="number">0x3A</span>,<span class="number">0x05</span>,<span class="number">0x0E</span>,<span class="number">0x02</span>,<span class="number">0x16</span>,<span class="number">0x0F</span>,<span class="number">0x1F</span>,<span class="number">0x12</span>,<span class="number">0x56</span>,<span class="number">0x3B</span>,<span class="number">0x0B</span>,<span class="number">0x51</span>,<span class="number">0x50</span>,<span class="number">0x39</span>,<span class="number">0x00</span>,<span class="number">0x09</span>,<span class="number">0x1F</span>,<span class="number">0x50</span>,<span class="number">0x04</span>,<span class="number">0x14</span>,<span class="number">0x57</span>,<span class="number">0x3B</span>,<span class="number">0x12</span>,<span class="number">0x07</span>,<span class="number">0x3C</span>,<span class="number">0x1C</span>,<span class="number">0x3A</span>,<span class="number">0x15</span>,<span class="number">0x05</span>,<span class="number">0x0B</span>,<span class="number">0x08</span>,<span class="number">0x06</span>,<span class="number">0x01</span>,<span class="number">0x04</span>,<span class="number">0x12</span>,<span class="number">0x16</span>,<span class="number">0x39</span>,<span class="number">0x05</span>,<span class="number">0x0B</span>,<span class="number">0x50</span>,<span class="number">0x57</span>,<span class="number">0x09</span>,<span class="number">0x12</span>,<span class="number">0x0A</span>,<span class="number">0x27</span>,<span class="number">0x13</span>,<span class="number">0x17</span>,<span class="number">0x0E</span>,<span class="number">0x02</span>,<span class="number">0x55</span>,<span class="number">0x18</span>]</span><br><span class="line">dec = [<span class="number">0x00</span>,<span class="number">0x03</span>,<span class="number">0x09</span>,<span class="number">0x3A</span>,<span class="number">0x05</span>,<span class="number">0x0E</span>,<span class="number">0x02</span>,<span class="number">0x16</span>,<span class="number">0x0F</span>,<span class="number">0x1F</span>,<span class="number">0x12</span>,<span class="number">0x56</span>,<span class="number">0x3B</span>,<span class="number">0x0B</span>,<span class="number">0x51</span>,<span class="number">0x50</span>,<span class="number">0x39</span>,<span class="number">0x00</span>,<span class="number">0x09</span>,<span class="number">0x1F</span>,<span class="number">0x50</span>,<span class="number">0x04</span>,<span class="number">0x14</span>,<span class="number">0x57</span>,<span class="number">0x3B</span>,<span class="number">0x12</span>,<span class="number">0x07</span>,<span class="number">0x3C</span>,<span class="number">0x1C</span>,<span class="number">0x3A</span>,<span class="number">0x15</span>,<span class="number">0x05</span>,<span class="number">0x0B</span>,<span class="number">0x08</span>,<span class="number">0x06</span>,<span class="number">0x01</span>,<span class="number">0x04</span>,<span class="number">0x12</span>,<span class="number">0x16</span>,<span class="number">0x39</span>,<span class="number">0x05</span>,<span class="number">0x0B</span>,<span class="number">0x50</span>,<span class="number">0x57</span>,<span class="number">0x09</span>,<span class="number">0x12</span>,<span class="number">0x0A</span>,<span class="number">0x27</span>,<span class="number">0x13</span>,<span class="number">0x17</span>,<span class="number">0x0E</span>,<span class="number">0x02</span>,<span class="number">0x55</span>,<span class="number">0x18</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">18</span>):</span><br><span class="line">        dec[i + j * <span class="number">3</span>] = enc[i * <span class="number">18</span> + j]</span><br><span class="line"></span><br><span class="line">ans = <span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">54</span>):</span><br><span class="line">    dec[i] ^= ord(feed[i % <span class="number">16</span>])</span><br><span class="line">    ans = ans + chr(dec[i])</span><br><span class="line"></span><br><span class="line">print(ans)</span><br></pre></td></tr></table></figure></div><div><ul class="post-copyright"><li class="post-copyright-author"><strong>Post author: </strong>mrh929</li><li class="post-copyright-link"><strong>Post link: </strong><a href="https://mrh1s.top/posts/5f4cc17f/" title="simple_machine">https://mrh1s.top/posts/5f4cc17f/</a></li><li class="post-copyright-license"><strong>Copyright Notice: </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.</li></ul></div><footer class="post-footer"><div class="post-tags"><a href="/tags/RE-Static/" rel="tag"># RE_Static</a> <a href="/tags/VM/" rel="tag"># VM</a></div><div class="post-nav"><div class="post-nav-item"><a href="/posts/db7779bb/" rel="prev" title="多并发编程尝试"><i class="fa fa-chevron-left"></i> 多并发编程尝试</a></div><div class="post-nav-item"><a href="/posts/d2cf12e4/" rel="next" title="补题：Strange_int">补题：Strange_int <i class="fa fa-chevron-right"></i></a></div></div></footer></article></div></div><script>window.addEventListener('tabs:register', () => {
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://mrh1s.top').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="simple-machinesimple-machine 思路整理general这道题说起来是vm，实际上和vm的挂钩并不大，就是用高级语言去实现了汇编，把变量都当做了寄存器来使用，其中还有各种压栈出栈过程，不过跟本题关系不大，也就不用过于细究了 fun1fun1主要是通过输入的字符串，与预置的feed进行异或，得到一串加密的字符串，存在内存中 int __cdecl fun1(int str,">
+<meta name="keywords" content="RE_Static,VM">
+<meta property="og:type" content="article">
+<meta property="og:title" content="simple_machine">
+<meta property="og:url" content="https://mrh1s.top/posts/5f4cc17f/index.html">
+<meta property="og:site_name" content="mrh929&#39;s home">
+<meta property="og:description" content="simple-machinesimple-machine 思路整理general这道题说起来是vm，实际上和vm的挂钩并不大，就是用高级语言去实现了汇编，把变量都当做了寄存器来使用，其中还有各种压栈出栈过程，不过跟本题关系不大，也就不用过于细究了 fun1fun1主要是通过输入的字符串，与预置的feed进行异或，得到一串加密的字符串，存在内存中 int __cdecl fun1(int str,">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-05-21T07:53:38.836Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="simple_machine">
+<meta name="twitter:description" content="simple-machinesimple-machine 思路整理general这道题说起来是vm，实际上和vm的挂钩并不大，就是用高级语言去实现了汇编，把变量都当做了寄存器来使用，其中还有各种压栈出栈过程，不过跟本题关系不大，也就不用过于细究了 fun1fun1主要是通过输入的字符串，与预置的feed进行异或，得到一串加密的字符串，存在内存中 int __cdecl fun1(int str,">
+
+<link rel="canonical" href="https://mrh1s.top/posts/5f4cc17f/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>simple_machine | mrh929's home</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrh929's home</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/_posts/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://mrh1s.top/posts/5f4cc17f/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mrh929">
+      <meta itemprop="description" content="Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrh929's home">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          simple_machine
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-05-11 20:45:32" itemprop="dateCreated datePublished" datetime="2019-05-11T20:45:32+08:00">2019-05-11</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-05-21 15:53:38" itemprop="dateModified" datetime="2019-05-21T15:53:38+08:00">2019-05-21</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/write-up/" itemprop="url" rel="index">
+                    <span itemprop="name">write-up</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/write-up/cgctf/" itemprop="url" rel="index">
+                    <span itemprop="name">cgctf</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="simple-machine"><a href="#simple-machine" class="headerlink" title="simple-machine"></a>simple-machine</h1><p><a href="\uploads\simple-machine.7z">simple-machine</a></p>
+<h2 id="思路整理"><a href="#思路整理" class="headerlink" title="思路整理"></a>思路整理</h2><h3 id="general"><a href="#general" class="headerlink" title="general"></a>general</h3><p>这道题说起来是vm，实际上和vm的挂钩并不大，就是用高级语言去实现了汇编，把变量都当做了寄存器来使用，其中还有各种压栈出栈过程，不过跟本题关系不大，也就不用过于细究了</p>
+<h3 id="fun1"><a href="#fun1" class="headerlink" title="fun1"></a>fun1</h3><p>fun1主要是通过输入的字符串，与预置的feed进行异或，得到一串加密的字符串，存在内存中</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> __<span class="function">cdecl <span class="title">fun1</span><span class="params">(<span class="keyword">int</span> str, <span class="keyword">unsigned</span> <span class="keyword">int</span> a2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> v2; <span class="comment">// eax</span></span><br><span class="line">  <span class="keyword">int</span> v3; <span class="comment">// eax</span></span><br><span class="line"></span><br><span class="line">  push(base_addr_804B15C);</span><br><span class="line">  base_addr_804B15C = esp1;</span><br><span class="line">  push(temp);</span><br><span class="line">  push(temp2);</span><br><span class="line">  esp1 -= <span class="number">48</span>;</span><br><span class="line">  *(_DWORD *)(base_addr_804B15C - 29) = 'deef'; // 0x804B13F</span><br><span class="line">  *(_DWORD *)(base_addr_804B15C - 25) = 'daed';</span><br><span class="line">  *(_DWORD *)(base_addr_804B15C - 21) = 'feeb';</span><br><span class="line">  *(_DWORD *)(base_addr_804B15C - 17) = 'efac';</span><br><span class="line">  *(_BYTE *)(base_addr_804B15C - <span class="number">13</span>) = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> ( *(_DWORD *)(base_addr_804B15C - <span class="number">12</span>) = <span class="number">0</span>; ; ++*(_DWORD *)(base_addr_804B15C - <span class="number">12</span>) )<span class="comment">// i = base_addr_804B15C - 12</span></span><br><span class="line">  &#123;</span><br><span class="line">    eaxx = *(_DWORD *)(base_addr_804B15C - <span class="number">12</span>); <span class="comment">// i</span></span><br><span class="line">    <span class="keyword">if</span> ( eaxx &gt;= a2 )</span><br><span class="line">      <span class="keyword">break</span>;                                    <span class="comment">// 判断是否退出循环</span></span><br><span class="line">                                                <span class="comment">// </span></span><br><span class="line">                                                <span class="comment">// </span></span><br><span class="line">                                                <span class="comment">// </span></span><br><span class="line">    ebxx = *(_DWORD *)(base_addr_804B15C - <span class="number">12</span>); <span class="comment">// i</span></span><br><span class="line">    eaxx = str;                                 <span class="comment">// str</span></span><br><span class="line">    temp = ebxx + str;                          <span class="comment">// str + i</span></span><br><span class="line">    ebxx = *(_DWORD *)(base_addr_804B15C - <span class="number">12</span>); <span class="comment">// i</span></span><br><span class="line">    eaxx = ebxx + str;                          <span class="comment">// str + i</span></span><br><span class="line">    eaxx = *(<span class="keyword">unsigned</span> __int8 *)(ebxx + str);    <span class="comment">// 取当前字符串</span></span><br><span class="line">    temp1 = eaxx;</span><br><span class="line">    *(_BYTE *)(base_addr_804B15C - <span class="number">41</span>) = eaxx;  <span class="comment">// 把当前字符串保存到一个地址里面</span></span><br><span class="line">                                                <span class="comment">// </span></span><br><span class="line">                                                <span class="comment">// </span></span><br><span class="line">                                                <span class="comment">// </span></span><br><span class="line">    temp2 = *(_DWORD *)(base_addr_804B15C - <span class="number">12</span>);</span><br><span class="line">    esp1 -= <span class="number">12</span>;</span><br><span class="line">    eaxx = base_addr_804B15C - <span class="number">29</span>;              <span class="comment">// 取feed</span></span><br><span class="line">    push(base_addr_804B15C - <span class="number">29</span>);               <span class="comment">// push(feed)</span></span><br><span class="line">    v2 = <span class="built_in">strlen</span>(*(<span class="keyword">const</span> <span class="keyword">char</span> **)esp1);          <span class="comment">// v2 是 feed的长度</span></span><br><span class="line">    esp1 += <span class="number">16</span>;</span><br><span class="line">    len = v2;</span><br><span class="line">    eaxx = temp2;</span><br><span class="line">    ebxx = <span class="number">0</span>;</span><br><span class="line">    sub_80485AB(v2);                            <span class="comment">// j = i % v2  </span></span><br><span class="line">                                                <span class="comment">// i = i / v2</span></span><br><span class="line">    eaxx = ebxx;</span><br><span class="line">    eaxx = *(<span class="keyword">unsigned</span> __int8 *)(ebxx - <span class="number">29</span> + base_addr_804B15C);<span class="comment">// 算feed中的偏移</span></span><br><span class="line">    temp1 = eaxx;</span><br><span class="line">    temp1 = *(_BYTE *)(base_addr_804B15C - <span class="number">41</span>) ^ eaxx;<span class="comment">// c ^ feed[]</span></span><br><span class="line">    *(_BYTE *)temp = temp1;</span><br><span class="line">    v3 = eaxx;</span><br><span class="line">    LOBYTE(v3) = <span class="number">0</span>;</span><br><span class="line">    eaxx = v3 + (<span class="keyword">unsigned</span> __int8)temp1;</span><br><span class="line">  &#125;</span><br><span class="line">  sub_80485A5();</span><br><span class="line">  esp1 = base_addr_804B15C - <span class="number">8</span>;</span><br><span class="line">  pop(&amp;temp2);</span><br><span class="line">  pop(&amp;temp);</span><br><span class="line">  <span class="keyword">return</span> pop(&amp;base_addr_804B15C);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="fun2"><a href="#fun2" class="headerlink" title="fun2"></a>fun2</h3><p>fun2中有两个循环，看似很复杂实则简单</p>
+<p>看到两个寄存器在之间移来移去，发现很多操作都是无效的</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">void</span> __<span class="function">cdecl <span class="title">fun2</span><span class="params">(<span class="keyword">int</span> a1, <span class="keyword">int</span> a2, <span class="keyword">int</span> a3)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  push(base_addr_804B15C);</span><br><span class="line">  base_addr_804B15C = esp1;</span><br><span class="line">  esp1 -= <span class="number">16</span>;</span><br><span class="line">  <span class="keyword">for</span> ( *(_DWORD *)(base_addr_804B15C - <span class="number">4</span>) = <span class="number">0</span>; <span class="comment">// 循环三次</span></span><br><span class="line">        *(_DWORD *)(base_addr_804B15C - <span class="number">4</span>) &lt;= <span class="number">2u</span>;</span><br><span class="line">        ++*(_DWORD *)(base_addr_804B15C - <span class="number">4</span>) )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">for</span> ( *(_DWORD *)(base_addr_804B15C - <span class="number">8</span>) = <span class="number">0</span>; ; ++*(_DWORD *)(base_addr_804B15C - <span class="number">8</span>) )</span><br><span class="line">    &#123;</span><br><span class="line">      len = a3;</span><br><span class="line">      ebxx = <span class="number">1431655766</span>;</span><br><span class="line">      eaxx = a3;</span><br><span class="line">      sub_80485DB(<span class="number">1431655766</span>);                  <span class="comment">// ebxx = (eaxx * 1431655766) &gt;&gt; 32</span></span><br><span class="line">      ebxx -= (<span class="keyword">unsigned</span> <span class="keyword">int</span>)len &gt;&gt; <span class="number">31</span>;</span><br><span class="line">      eaxx = ebxx;</span><br><span class="line">      <span class="keyword">if</span> ( *(_DWORD *)(base_addr_804B15C - <span class="number">8</span>) &gt;= (<span class="keyword">unsigned</span> <span class="keyword">int</span>)ebxx )</span><br><span class="line">        <span class="keyword">break</span>;                                  <span class="comment">// 前面一段是关于判断跳出条件的</span></span><br><span class="line">      len = a3;</span><br><span class="line">      ebxx = <span class="number">0x55555556</span>;</span><br><span class="line">      eaxx = a3;</span><br><span class="line">      sub_80485DB(<span class="number">0x55555556</span>);                  <span class="comment">// ebxx = (unsigned __int64)(a1 * (signed __int64)eaxx) &gt;&gt; 32;</span></span><br><span class="line">                                                <span class="comment">//   </span></span><br><span class="line">      ebxx -= (<span class="keyword">unsigned</span> <span class="keyword">int</span>)len &gt;&gt; <span class="number">31</span>;</span><br><span class="line">      eaxx = ebxx;                              <span class="comment">// repeated</span></span><br><span class="line">      eaxx = ebxx * *(_DWORD *)(base_addr_804B15C - <span class="number">4</span>);</span><br><span class="line">      ebxx = eaxx;</span><br><span class="line">      eaxx = *(_DWORD *)(base_addr_804B15C - <span class="number">8</span>);</span><br><span class="line">      eaxx += ebxx;</span><br><span class="line">      ebxx = eaxx;</span><br><span class="line">      eaxx = a2;</span><br><span class="line">      len = ebxx + a2;                          <span class="comment">// 算偏移地址 addr = 0x804B100 + (i * 18) + j</span></span><br><span class="line">      ebxx = *(_DWORD *)(base_addr_804B15C - <span class="number">8</span>);</span><br><span class="line">      eaxx = <span class="number">2</span> * ebxx;                          <span class="comment">// j * 2</span></span><br><span class="line">      ebxx *= <span class="number">3</span>;                                <span class="comment">// j * 3</span></span><br><span class="line">      eaxx = *(_DWORD *)(base_addr_804B15C - <span class="number">4</span>);<span class="comment">// i</span></span><br><span class="line">      eaxx += ebxx;                             <span class="comment">// i +  j * 3</span></span><br><span class="line">      ebxx = eaxx;                              <span class="comment">// i +  j * 3</span></span><br><span class="line">      eaxx += a1;</span><br><span class="line">      eaxx = *(<span class="keyword">unsigned</span> __int8 *)(a1 + ebxx);   <span class="comment">// *(input + i + j * 3)</span></span><br><span class="line">      temp1 = eaxx;</span><br><span class="line">      *(_BYTE *)len = eaxx;                     <span class="comment">// 修改上方的那个偏移地址</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  sub_80485A5();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>翻译过来是这样： </p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt;= <span class="number">2</span>; i++)</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>;;j++)&#123;</span><br><span class="line">        addr[(i * <span class="number">18</span>) + j] = input + i + j * <span class="number">3</span></span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="验证"><a href="#验证" class="headerlink" title="验证"></a>验证</h3><p><del>比较fun1和fun2中生成的字符串是否相等</del></p>
+<p>经高人指点，不是比较fun1和fun2的字符串，而是先经过fun1进行处理，然后再经过fun2处理，然后直接和内存中的一串字符串进行比较</p>
+<h2 id="solve"><a href="#solve" class="headerlink" title="solve"></a>solve</h2><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">feed = <span class="string">"feeddeadbeefcafe"</span></span><br><span class="line">enc = [<span class="number">0x00</span>,<span class="number">0x03</span>,<span class="number">0x09</span>,<span class="number">0x3A</span>,<span class="number">0x05</span>,<span class="number">0x0E</span>,<span class="number">0x02</span>,<span class="number">0x16</span>,<span class="number">0x0F</span>,<span class="number">0x1F</span>,<span class="number">0x12</span>,<span class="number">0x56</span>,<span class="number">0x3B</span>,<span class="number">0x0B</span>,<span class="number">0x51</span>,<span class="number">0x50</span>,<span class="number">0x39</span>,<span class="number">0x00</span>,<span class="number">0x09</span>,<span class="number">0x1F</span>,<span class="number">0x50</span>,<span class="number">0x04</span>,<span class="number">0x14</span>,<span class="number">0x57</span>,<span class="number">0x3B</span>,<span class="number">0x12</span>,<span class="number">0x07</span>,<span class="number">0x3C</span>,<span class="number">0x1C</span>,<span class="number">0x3A</span>,<span class="number">0x15</span>,<span class="number">0x05</span>,<span class="number">0x0B</span>,<span class="number">0x08</span>,<span class="number">0x06</span>,<span class="number">0x01</span>,<span class="number">0x04</span>,<span class="number">0x12</span>,<span class="number">0x16</span>,<span class="number">0x39</span>,<span class="number">0x05</span>,<span class="number">0x0B</span>,<span class="number">0x50</span>,<span class="number">0x57</span>,<span class="number">0x09</span>,<span class="number">0x12</span>,<span class="number">0x0A</span>,<span class="number">0x27</span>,<span class="number">0x13</span>,<span class="number">0x17</span>,<span class="number">0x0E</span>,<span class="number">0x02</span>,<span class="number">0x55</span>,<span class="number">0x18</span>]</span><br><span class="line">dec = [<span class="number">0x00</span>,<span class="number">0x03</span>,<span class="number">0x09</span>,<span class="number">0x3A</span>,<span class="number">0x05</span>,<span class="number">0x0E</span>,<span class="number">0x02</span>,<span class="number">0x16</span>,<span class="number">0x0F</span>,<span class="number">0x1F</span>,<span class="number">0x12</span>,<span class="number">0x56</span>,<span class="number">0x3B</span>,<span class="number">0x0B</span>,<span class="number">0x51</span>,<span class="number">0x50</span>,<span class="number">0x39</span>,<span class="number">0x00</span>,<span class="number">0x09</span>,<span class="number">0x1F</span>,<span class="number">0x50</span>,<span class="number">0x04</span>,<span class="number">0x14</span>,<span class="number">0x57</span>,<span class="number">0x3B</span>,<span class="number">0x12</span>,<span class="number">0x07</span>,<span class="number">0x3C</span>,<span class="number">0x1C</span>,<span class="number">0x3A</span>,<span class="number">0x15</span>,<span class="number">0x05</span>,<span class="number">0x0B</span>,<span class="number">0x08</span>,<span class="number">0x06</span>,<span class="number">0x01</span>,<span class="number">0x04</span>,<span class="number">0x12</span>,<span class="number">0x16</span>,<span class="number">0x39</span>,<span class="number">0x05</span>,<span class="number">0x0B</span>,<span class="number">0x50</span>,<span class="number">0x57</span>,<span class="number">0x09</span>,<span class="number">0x12</span>,<span class="number">0x0A</span>,<span class="number">0x27</span>,<span class="number">0x13</span>,<span class="number">0x17</span>,<span class="number">0x0E</span>,<span class="number">0x02</span>,<span class="number">0x55</span>,<span class="number">0x18</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">3</span>):</span><br><span class="line">    <span class="keyword">for</span> j <span class="keyword">in</span> range(<span class="number">18</span>):</span><br><span class="line">        dec[i + j * <span class="number">3</span>] = enc[i * <span class="number">18</span> + j]</span><br><span class="line"></span><br><span class="line">ans = <span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">54</span>):</span><br><span class="line">    dec[i] ^= ord(feed[i % <span class="number">16</span>])</span><br><span class="line">    ans = ans + chr(dec[i])</span><br><span class="line"></span><br><span class="line">print(ans)</span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>mrh929
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="https://mrh1s.top/posts/5f4cc17f/" title="simple_machine">https://mrh1s.top/posts/5f4cc17f/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/RE-Static/" rel="tag"># RE_Static</a>
+              <a href="/tags/VM/" rel="tag"># VM</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/db7779bb/" rel="prev" title="多并发编程尝试">
+      <i class="fa fa-chevron-left"></i> 多并发编程尝试
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/d2cf12e4/" rel="next" title="补题：Strange_int">
+      补题：Strange_int <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
     let activeClass = CONFIG.comments.activeClass;
     if (CONFIG.comments.storage) {
       activeClass = localStorage.getItem('comments_active') || activeClass;
@@ -16,4 +326,137 @@
       let commentClass = event.target.classList[1];
       localStorage.setItem('comments_active', commentClass);
     });
-  }</script></div><div class="toggle sidebar-toggle"><span class="toggle-line toggle-line-first"></span> <span class="toggle-line toggle-line-middle"></span> <span class="toggle-line toggle-line-last"></span></div><aside class="sidebar"><div class="sidebar-inner"><ul class="sidebar-nav motion-element"><li class="sidebar-nav-toc">Table of Contents</li><li class="sidebar-nav-overview">Overview</li></ul><div class="post-toc-wrap sidebar-panel"><div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#simple-machine"><span class="nav-number">1.</span> <span class="nav-text">simple-machine</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#思路整理"><span class="nav-number">1.1.</span> <span class="nav-text">思路整理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#general"><span class="nav-number">1.1.1.</span> <span class="nav-text">general</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fun1"><span class="nav-number">1.1.2.</span> <span class="nav-text">fun1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fun2"><span class="nav-number">1.1.3.</span> <span class="nav-text">fun2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证"><span class="nav-number">1.1.4.</span> <span class="nav-text">验证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#solve"><span class="nav-number">1.2.</span> <span class="nav-text">solve</span></a></li></ol></li></ol></div></div><div class="site-overview-wrap sidebar-panel"><div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person"><p class="site-author-name" itemprop="name">mrh929</p><div class="site-description" itemprop="description">Blog</div></div><div class="site-state-wrap motion-element"><nav class="site-state"><div class="site-state-item site-state-posts"><a href="/_posts/"><span class="site-state-item-count">79</span> <span class="site-state-item-name">posts</span></a></div><div class="site-state-item site-state-categories"><span class="site-state-item-count">20</span> <span class="site-state-item-name">categories</span></div><div class="site-state-item site-state-tags"><span class="site-state-item-count">16</span> <span class="site-state-item-name">tags</span></div></nav></div><div class="cc-license motion-element" itemprop="license"><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" class="cc-opacity" rel="noopener" target="_blank"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAMAAABOo35HAAAABGdBTUEAAK/INwWK6QAAABl0RVh0U29mdHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAC9UExURVlZWdPT07KysmRkZIWFhfT09JmZmWZmZm9vb39/fxkZGUxMTDMzM3p6epCQkKamppubm729venp6cjIyN7e3tbW1s/Pz8LCwnx8fLS0tFZWVoiIiI+Pj6GhoeTk5Glpabu7u93d3evr66CgoJSUlKqqqsnJyeDg4Hd3d8PDw+Xl5bi4uNHR0dvb26Ojo6urq+fn51hYWDg4OCgoKHBwcK2traenp0FBQe7u7vHx8U5OTre3t8zMzHV1df///7GrnpQAAAA/dFJOU///////////////////////////////////////////////////////////////////////////////////AI4mfBcAAAUGSURBVHja7NoJb6M4GMZxY0NCD64kve/pMZ2d3Z297+X7f6zFNmBAMUXa6URl/q9UJSWPUPzrizFWRUlNLgEBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYYIEFAVhggQUWWGBBABZYYIEFFlgQgAUWWGCBBRYEYIEFFlhggQUBWGCBBRZYYEEAFlhggQUWWBCABRZYYIEFFgRggQUWWGCBBQFYYIEFFlhgQQAWWGCBBRZYEIAFFlhggQUWBGCBBRZYn6cCIcRXgvX/h9qcIVBqDdbEM8RCxGCB9QqXYRwHYDHBgwXWl8eKZKiESHI3Ba1kWs3fKixcaJUl1YyeBm7Ocq+yLItUiVBGnXxenSHJolIKEcwHq6ikbOX1YGVzQCTN8LPmSLreghUl9sN4Uw7yajMrLC0TZ1ImzqY6FEop0+pIaEN5HaoOxVuwEqFyc4I46uSlzOLqgxlh6UaR9l3VYWl9Fdoxb1Q90KJtu41pwwFW/WHhTtW8i7TafLCqRsk6bsGw63L9qurXRmuIlbT9lDQnlXU+nBFW1Q2qnZbDprWa2tjR90LZFqx1/+Td/HpGWLlrLDvIwTcx6dQ1Vrntbig68cDms3JwbA5Y1azs1ger6sNV/bbIw1jU81MvNAGrl58RVn8ozW+btF08iGFoAlYvP3csfVur1gJBEIA1uBmue5dhZDOyO2epbmgCVi8/I6x0MMHH9pjsTfBhNzQBq5uPZoQlB0uH3DZG4EZqQ26fL3sZq5uf09Ih6qw3i/pm6BZO0qZX7rrUS68Xsbr5ZE4rePMk08pk9aUZugfqppvs6AM1Acvlo/StP+6EbW06z8hJqxbYp2BZPQUnFsLsKuhQdaHqn5ewbF7KXIn0jWO5MqOQ7RaNLPtbNMmmhimj0GUmYLl8Gs0Lq4wyPbTu1l2QKqHSouzs3OlDIslW5SQsnY/NXmFplyNvEuuLV/Tau9BzwiraDUSwXmysztYWWNtL1psXeumgIrDGaqXvBfUuvtqUYI3V2t1wk1e2msFluJJm6zDJXv/fIfjPP7DAAgsssCiwwAILLLDAosACCyywwAKLAgsssMACC6zt9fDz/v75tyOB+98PD2+ORgKffjw4OP1uJPDxl+Xy8v1I4MPF3t7VNyOB4/vF4uzdzrG+39f1kz/w66Guv/yBvw90KX/gZKkr8Qf+2dOV+gNHC12/7RxrabD2/a31bLAO/a11YbAO/K21MFhLf2s9Gqw9f2vdGqzFu11jnVusE2/gxmI9eQOnFuvYG7i0WH7uK4t15w2cWazrXWP9a7H8f/bQYvm/6IPF+sF/pVssf19Ii/WH/0K2WH/uGuvEWC39gSdj9Twy+Rqri5EZx1gt/IE7Y/XoD1wbq9vd3w1PlufnD2OBp+ebm/uxwPHF6emnscDR4vLy41jg7vHq6sNY4Pr27OyYdRaLUrDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssMCiwAILLLDAAosCCyywwAILLAossMACCyywKLDAAgsssL6u+k+AAQCR9eHtLKvLfwAAAABJRU5ErkJggg==" data-original="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a></div></div></div></aside><div id="sidebar-dimmer"></div></div></main><footer class="footer"><div class="footer-inner"><div class="copyright">&copy; <span itemprop="copyrightYear">2020</span> <span class="with-love"><i class="fa fa-user"></i> </span><span class="author" itemprop="copyrightHolder">mrh929</span></div><div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0</div><span class="post-meta-divider">|</span><div class="theme-info">Theme – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0</div></div></footer></div><script src="/lib/anime.min.js"></script><script src="/lib/velocity/velocity.min.js"></script><script src="/lib/velocity/velocity.ui.min.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/pisces.js"></script><script src="/js/next-boot.js"></script><script>!function(e){var r=Array.prototype.slice.call(document.querySelectorAll("img[data-original]"));function t(){for(var c=0;c<r.length;c++)t=r[c],void 0,0<=(n=t.getBoundingClientRect()).top&&0<=n.left&&n.top<=(e.innerHeight||document.documentElement.clientHeight)&&function(){var t,n,e,i,o=r[c];t=o,n=function(){r=r.filter(function(t){return o!==t})},e=new Image,i=t.getAttribute("data-original"),e.onload=function(){t.src=i,n&&n()},e.src=i}();var t,n}t(),e.addEventListener("scroll",function(){!function(t,n){clearTimeout(t.tId),t.tId=setTimeout(function(){t.call(n)},500)}(t,e)})}(this);</script></body></html>
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#simple-machine"><span class="nav-number">1.</span> <span class="nav-text">simple-machine</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#思路整理"><span class="nav-number">1.1.</span> <span class="nav-text">思路整理</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#general"><span class="nav-number">1.1.1.</span> <span class="nav-text">general</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fun1"><span class="nav-number">1.1.2.</span> <span class="nav-text">fun1</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#fun2"><span class="nav-number">1.1.3.</span> <span class="nav-text">fun2</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#验证"><span class="nav-number">1.1.4.</span> <span class="nav-text">验证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#solve"><span class="nav-number">1.2.</span> <span class="nav-text">solve</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mrh929</p>
+  <div class="site-description" itemprop="description">Blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/_posts/">
+        
+          <span class="site-state-item-count">79</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mrh929</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

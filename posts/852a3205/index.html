@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 3.8.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    hostname: new URL('https://mrh1s.top').hostname,
+    root: '/',
+    scheme: 'Pisces',
+    version: '7.7.0',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: false,
+    mediumzoom: false,
+    lazyload: false,
+    pangu: false,
+    comments: {"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},
+    algolia: {
+      appID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}
+  };
+</script>
+
+  <meta name="description" content="线段树总结 引入：有一个数组data[1000000]，如果有m个操作(m       修改一个数（加或减）      求l到r的所有元素的和     对于通常的题目，用一个sum[i]数组记录1~i的和，即可将任何的区间和在O(1)的时间之内求出。然而对于操作一，显然就显得很耗时间，至少会花费O(n)，由此可以看出这样的做法是有一定缺陷的，由此线段树便产生了。   线段树是一种二叉搜索树，与区间">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线段树总结">
+<meta property="og:url" content="https://mrh1s.top/posts/852a3205/index.html">
+<meta property="og:site_name" content="mrh929&#39;s home">
+<meta property="og:description" content="线段树总结 引入：有一个数组data[1000000]，如果有m个操作(m       修改一个数（加或减）      求l到r的所有元素的和     对于通常的题目，用一个sum[i]数组记录1~i的和，即可将任何的区间和在O(1)的时间之内求出。然而对于操作一，显然就显得很耗时间，至少会花费O(n)，由此可以看出这样的做法是有一定缺陷的，由此线段树便产生了。   线段树是一种二叉搜索树，与区间">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+<meta property="og:updated_time" content="2019-05-05T05:32:45.561Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="线段树总结">
+<meta name="twitter:description" content="线段树总结 引入：有一个数组data[1000000]，如果有m个操作(m       修改一个数（加或减）      求l到r的所有元素的和     对于通常的题目，用一个sum[i]数组记录1~i的和，即可将任何的区间和在O(1)的时间之内求出。然而对于操作一，显然就显得很耗时间，至少会花费O(n)，由此可以看出这样的做法是有一定缺陷的，由此线段树便产生了。   线段树是一种二叉搜索树，与区间">
+<meta name="twitter:image" content="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==">
+
+<link rel="canonical" href="https://mrh1s.top/posts/852a3205/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true
+  };
+</script>
+
+  <title>线段树总结 | mrh929's home</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">mrh929's home</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>Home</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/_posts/" rel="section"><i class="fa fa-fw fa-archive"></i>Archives</a>
+
+  </li>
+  </ul>
+
+</nav>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en">
+    <link itemprop="mainEntityOfPage" href="https://mrh1s.top/posts/852a3205/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mrh929">
+      <meta itemprop="description" content="Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrh929's home">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          线段树总结
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2018-12-06 23:46:09" itemprop="dateCreated datePublished" datetime="2018-12-06T23:46:09+08:00">2018-12-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-05-05 13:32:45" itemprop="dateModified" datetime="2019-05-05T13:32:45+08:00">2019-05-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/c-plus-plus-2016/" itemprop="url" rel="index">
+                    <span itemprop="name">c_plus_plus_2016</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1>线段树总结</h1>
+<strong>引入：有一个数组data[1000000]，如果有m个操作(m<=50000)，操作如下：< strong>
+<ol>
+     <li><strong>修改一个数（加或减）</strong></li>
+     <li><strong>求l到r的所有元素的和</strong></li>
+</ol>
+<strong> </strong>
+
+<p><strong>对于通常的题目，用一个sum[i]数组记录1~i的和，即可将任何的区间和在O(1)的时间之内求出。然而对于操作一，显然就显得很耗时间，至少会花费O(n)，由此可以看出这样的做法是有一定缺陷的，由此线段树便产生了。</strong></p>
+<p><strong> </strong></p>
+<p><strong>线段树是一种</strong><a href="http://baike.baidu.com/view/389453.htm" data-cke-saved-href="http://baike.baidu.com/view/389453.htm" target="_blank" rel="noopener"><strong>二叉搜索树</strong></a><strong>，与</strong><a href="http://baike.baidu.com/view/3861858.htm" data-cke-saved-href="http://baike.baidu.com/view/3861858.htm" target="_blank" rel="noopener"><strong>区间树</strong></a><strong>相似，它将一个区间划分成一些单元区间，每个单元区间对应线段树中的一个叶结点。</strong></p>
+<p><strong>我们从1~n的区间开始，依次往下二分加入更小的区间，直到区间长度为1</strong></p>
+<p><strong> </strong></p>
+<p><strong>如图，这里的左闭右开区间类似于闭区间，表示的元素集合基本相同，我们看到，线段树并不是一个完全二叉树，但是十分类似于完全二叉树，由此可以得到线段树的一般存储方式，用完全二叉树进行存储。</strong></p>
+<p><strong> </strong></p>
+<p><strong>操作1中，只能修改一个数，如果要修改线段树的整个区间，要添加n次数，大大增加了线段树的时间。</strong></p>
+<p><strong>解决方法：定义一个lazy数组，当我们在遍历过程中，发现需要存储的区间已经包含了当前遍历的区间，我们就可以将需要修改的数值通过lazy暂存在此处，直到下一次我们还需要添加数或者在查找区间和时，再调用lazy，将更深处的sum值更新</strong></p>
+<p><strong>这样就得到了添加元素的通用做法，将所有修改点的操作看作修改长度为1的区间，这样大大增加了算法的普适性</strong></p>
+<p><strong> </strong></p>
+<p><strong>更紧凑的存储方式</strong></p>
+<p><strong>刚刚提到线段树不完全属于完全二叉树，所以用堆的方式存储会引起内存的浪费，以下方式可以做到对内存的一定节省。</strong></p>
+<p><strong>对于节点区间为[l,r)的结点，我们将其地址映射到(l+r-1)|( (r-1)!=1)，其中(r-l)!=1用来判断r与l差值是否为1。可将使用的空间精确无误地映射到[0,2n-2]中</strong></p>
+<p><strong> </strong></p>
+<p><strong>关于开数组的tips：</strong></p>
+<ol>
+     <li><strong>对于堆的开法，数组大小至少4n</strong></li>
+     <li><strong>对于紧凑的储存方式，可以适当开2n</strong></li>
+</ol>
+<strong>Hdu 1166 敌兵布阵</strong>
+
+<p><strong>Problem Description</strong></p>
+<p>C国的死对头A国这段时间正在进行军事演习，所以C国间谍头子Derek和他手下Tidy又开始忙乎了。A国在海岸线沿直线布置了N个工兵营地,Derek和Tidy的任务就是要监视这些工兵营地的活动情况。由于采取了某种先进的监测手段，所以每个工兵营地的人数C国都掌握的一清二楚,每个工兵营地的人数都有可能发生变动，可能增加或减少若干人手,但这些都逃不过C国的监视。<br>中央情报局要研究敌人究竟演习什么战术,所以Tidy要随时向Derek汇报某一段连续的工兵营地一共有多少人,例如Derek问:“Tidy,马上汇报第3个营地到第10个营地共有多少人!”Tidy就要马上开始计算这一段的总人数并汇报。但敌兵营地的人数经常变动，而Derek每次询问的段都不一样，所以Tidy不得不每次都一个一个营地的去数，很快就精疲力尽了，Derek对Tidy的计算速度越来越不满:”你个死肥仔，算得这么慢，我炒你鱿鱼!”Tidy想：“你自己来算算看，这可真是一项累人的工作!我恨不得你炒我鱿鱼呢!”无奈之下，Tidy只好打电话向计算机专家Windbreaker求救,Windbreaker说：“死肥仔，叫你平时做多点acm题和看多点算法书，现在尝到苦果了吧!”Tidy说：”我知错了。。。”但Windbreaker已经挂掉电话了。Tidy很苦恼，这么算他真的会崩溃的，聪明的读者，你能写个程序帮他完成这项工作吗？不过如果你的程序效率不够高的话，Tidy还是会受到Derek的责骂的.</p>
+<p><strong>Input</strong></p>
+<p>第一行一个整数T，表示有T组数据。<br>每组数据第一行一个正整数N（N&lt;=50000）,表示敌人有N个工兵营地，接下来有N个正整数,第i个正整数ai代表第i个工兵营地里开始时有ai个人（1&lt;=ai&lt;=50）。<br>接下来每行有一条命令，命令有4种形式：<br>(1) Add i j,i和j为正整数,表示第i个营地增加j个人（j不超过30）<br>(2)Sub i j ,i和j为正整数,表示第i个营地减少j个人（j不超过30）;<br>(3)Query i j ,i和j为正整数,i&lt;=j，表示询问第i到第j个营地的总人数;<br>(4)End 表示结束，这条命令在每组数据最后出现;<br>每组数据最多有40000条命令</p>
+<p><strong>Output</strong></p>
+<p>对第i组数据,首先输出“Case i:”和回车,<br>对于每个Query询问，输出一个整数并回车,表示询问的段中的总人数,这个数保持在int以内。</p>
+<p><strong>Sample Input</strong></p>
+<p>1</p>
+<p>10</p>
+<p>12 3 4 5 6 7 8 9 10</p>
+<p>Query1 3</p>
+<p>Add3 6</p>
+<p>Query2 7</p>
+<p>Sub10 2</p>
+<p>Add6 3</p>
+<p>Query3 10</p>
+<p>End</p>
+<p><strong>Sample Output</strong></p>
+<p>Case1:</p>
+<p>6</p>
+<p>33</p>
+<p>59</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX 1000020</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> lson l,m,rt&lt;&lt;1 <span class="comment">//左儿子 </span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rson m+1,r,rt&lt;&lt;1|1 <span class="comment">//右儿子 </span></span></span><br><span class="line"><span class="comment">//闭区间线段树 </span></span><br><span class="line"><span class="keyword">int</span> sum[MAX];</span><br><span class="line"><span class="keyword">char</span> str[<span class="number">10</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PushUP</span><span class="params">(<span class="keyword">int</span> rt)</span> </span>&#123;</span><br><span class="line">	sum[rt]=sum[rt&lt;&lt;<span class="number">1</span>]+sum[rt&lt;&lt;<span class="number">1</span>|<span class="number">1</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Revise</span><span class="params">(<span class="keyword">int</span> p,<span class="keyword">int</span> data,<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> rt)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(l==r)&#123;<span class="comment">//区间长度为1 </span></span><br><span class="line">		sum[rt]+=data;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> m=(l+r)&gt;&gt;<span class="number">1</span>;<span class="comment">//取中点 </span></span><br><span class="line">	<span class="keyword">if</span>(p&lt;=m) Revise(p,data,lson);<span class="comment">//向左递归线段树 </span></span><br><span class="line">	<span class="keyword">else</span> Revise(p,data,rson);<span class="comment">//向右递归线段树 </span></span><br><span class="line">	PushUP(rt);<span class="comment">//更新根节点的sum </span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Query</span><span class="params">(<span class="keyword">int</span> L,<span class="keyword">int</span> R,<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> rt)</span></span>&#123;<span class="comment">//[L,R]为查找的区间 ，[l,r]为当前遍历的区间 </span></span><br><span class="line">	<span class="keyword">if</span>(L&lt;=l&amp;&amp;R&gt;=r) <span class="comment">//查找的区间包含遍历的区间</span></span><br><span class="line">		<span class="keyword">return</span> sum[rt];</span><br><span class="line">	<span class="keyword">int</span> m=(l+r)&gt;&gt;<span class="number">1</span>,tot=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">if</span>(L&lt;=m) tot+=Query(L,R,lson);</span><br><span class="line">	<span class="keyword">if</span>(R&gt;m) tot+=Query(L,R,rson);</span><br><span class="line">	<span class="keyword">return</span> tot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">build</span><span class="params">(<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> rt)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (l==r)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;sum[rt]);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> m=(l+r)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">	build(lson);</span><br><span class="line">	build(rson);</span><br><span class="line">	PushUP(rt);<span class="comment">//更新根节点的sum </span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="comment">//	freopen("in.txt","r",stdin);</span></span><br><span class="line">	<span class="keyword">int</span> t,n,a,b;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;t);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=t;i++)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n);</span><br><span class="line"><span class="comment">/*		for(int j=1;j&lt;=n;j++)&#123;</span></span><br><span class="line"><span class="comment">			scanf("%d",&amp;a);</span></span><br><span class="line"><span class="comment">			Revise(j,a,1,n,1);</span></span><br><span class="line"><span class="comment">		&#125;*/</span></span><br><span class="line">		build(<span class="number">1</span>,n,<span class="number">1</span>);</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"Case %d:\n"</span>,i);</span><br><span class="line">		<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%s"</span>,str)!=EOF&amp;&amp;str[<span class="number">0</span>]!=<span class="string">'E'</span>)&#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;a,&amp;b);</span><br><span class="line">			<span class="keyword">if</span>(str[<span class="number">0</span>]==<span class="string">'A'</span>) Revise(a,b,<span class="number">1</span>,n,<span class="number">1</span>);</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span>(str[<span class="number">0</span>]==<span class="string">'S'</span>) Revise(a,-b,<span class="number">1</span>,n,<span class="number">1</span>);</span><br><span class="line">			<span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,Query(a,b,<span class="number">1</span>,n,<span class="number">1</span>));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p> <strong>hdu 1754   I Hate It</strong></p>
+<p><strong>Problem Description</strong></p>
+<p>很多学校流行一种比较的习惯。老师们很喜欢询问，从某某到某某当中，分数最高的是多少。</p>
+<p>这让很多学生很反感。</p>
+<p>不管你喜不喜欢，现在需要你做的是，就是按照老师的要求，写一个程序，模拟老师的询问。当然，老师有时候需要更新某位同学的成绩。</p>
+<p><strong>Input</strong></p>
+<p>本题目包含多组测试，请处理到文件结束。</p>
+<p>在每个测试的第一行，有两个正整数 N 和 M ( 0&lt;N&lt;=200000,0&lt;M&lt;5000 )，分别代表学生的数目和操作的数目。</p>
+<p>学生ID编号分别从1编到N。</p>
+<p>第二行包含N个整数，代表这N个学生的初始成绩，其中第i个数代表ID为i的学生的成绩。</p>
+<p>接下来有M行。每一行有一个字符 C (只取’Q’或’U’) ，和两个正整数A，B。</p>
+<p>当C为’Q’的时候，表示这是一条询问操作，它询问ID从A到B(包括A,B)的学生当中，成绩最高的是多少。</p>
+<p>当C为’U’的时候，表示这是一条更新操作，要求把ID为A的学生的成绩更改为B。</p>
+<p><strong>Output</strong></p>
+<p>对于每一次询问操作，在一行里面输出最高成绩。</p>
+<p><strong>Sample Input</strong></p>
+<p>5 6</p>
+<p>1 2 3 4 5</p>
+<p>Q 1 5</p>
+<p>U 3 6</p>
+<p>Q 3 4</p>
+<p>Q 4 5</p>
+<p>U 2 9</p>
+<p>Q 1 5</p>
+<p><strong>Sample Output</strong></p>
+<p>5 6 5 9</p>
+<p><strong>Hint</strong></p>
+<p>Huge input,the C function scanf() will workbetter than cin</p>
+<p><strong>线段树稍微变了一点点型，在更新每个结点的时候取最大值而不取和</strong></p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> lson l,m,rt&lt;&lt;1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rson m+1,r,rt&lt;&lt;1|1</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX=<span class="number">1000000</span>;</span><br><span class="line"><span class="keyword">int</span> sum[MAX];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PushUP</span><span class="params">(<span class="keyword">int</span> rt)</span></span>&#123;</span><br><span class="line">	sum[rt]=max(sum[rt&lt;&lt;<span class="number">1</span>],sum[rt&lt;&lt;<span class="number">1</span>|<span class="number">1</span>]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Build</span><span class="params">(<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> rt)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(l==r)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;sum[rt]);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> m=(l+r)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">	Build(lson);</span><br><span class="line">	Build(rson);</span><br><span class="line">	PushUP(rt);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Query</span><span class="params">(<span class="keyword">int</span> L,<span class="keyword">int</span> R,<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> rt)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(L&lt;=l&amp;&amp;R&gt;=r) <span class="keyword">return</span> sum[rt];</span><br><span class="line">	<span class="keyword">int</span> m=(l+r)&gt;&gt;<span class="number">1</span>,maxx=<span class="number">-1</span>;</span><br><span class="line">	<span class="keyword">if</span>(L&lt;=m) maxx=max(maxx,Query(L,R,lson));</span><br><span class="line">	<span class="keyword">if</span>(R&gt;=m+<span class="number">1</span>) maxx=max(maxx,Query(L,R,rson));</span><br><span class="line">	<span class="keyword">return</span> maxx;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Revise</span><span class="params">(<span class="keyword">int</span> p,<span class="keyword">int</span> data,<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> rt)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(l==r)&#123;</span><br><span class="line">		sum[rt]=data;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> m=(l+r)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">if</span>(p&lt;=m) Revise(p,data,lson);</span><br><span class="line">	<span class="keyword">else</span> Revise(p,data,rson);</span><br><span class="line">	PushUP(rt);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="comment">//	freopen("in.txt","r",stdin);</span></span><br><span class="line">	<span class="keyword">int</span> n,m,a,b; <span class="keyword">char</span> c;</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;m)!=EOF)&#123;</span><br><span class="line">		<span class="built_in">memset</span>(sum,<span class="number">0</span>,<span class="keyword">sizeof</span>(sum));</span><br><span class="line">		Build(<span class="number">1</span>,n,<span class="number">1</span>);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=m;i++)&#123;</span><br><span class="line">			getchar();</span><br><span class="line">			c=getchar();</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;a,&amp;b);</span><br><span class="line">			<span class="keyword">if</span>(c==<span class="string">'U'</span>) Revise(a,b,<span class="number">1</span>,n,<span class="number">1</span>);</span><br><span class="line">			<span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">"%d\n"</span>,Query(a,b,<span class="number">1</span>,n,<span class="number">1</span>));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+<p>  <strong>poj 2299</strong> <strong>题意：</strong> 求逆序对</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> lson l,m,rt&lt;&lt;1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rson m+1,r,rt&lt;&lt;1|1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX 500020</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> data[MAX],t[MAX],sum[MAX&lt;&lt;<span class="number">2</span>];</span><br><span class="line"><span class="keyword">bool</span> flag[MAX];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PushUP</span><span class="params">(<span class="keyword">int</span> rt)</span></span>&#123;</span><br><span class="line">	sum[rt]=sum[rt&lt;&lt;<span class="number">1</span>]+sum[rt&lt;&lt;<span class="number">1</span>|<span class="number">1</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">Find</span><span class="params">(<span class="keyword">int</span> s,<span class="keyword">int</span> e,<span class="keyword">int</span> aim)</span></span>&#123;</span><br><span class="line">	<span class="keyword">while</span>(s&lt;=e)&#123;</span><br><span class="line">		<span class="keyword">int</span> mid=(s+e)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">if</span>(t[mid]==aim)&#123;</span><br><span class="line">			<span class="keyword">while</span>(t[mid<span class="number">-1</span>]==t[mid])&#123;</span><br><span class="line">				flag[mid]=<span class="number">-1</span>;</span><br><span class="line">				mid--;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">return</span> mid;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> <span class="keyword">if</span>(t[mid]&gt;aim) e=mid<span class="number">-1</span>;</span><br><span class="line">		<span class="keyword">else</span> s=mid+<span class="number">1</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Revise</span><span class="params">(<span class="keyword">int</span> p,<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> rt)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(l==r)&#123;</span><br><span class="line">		sum[rt]+=<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> m=(l+r)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">if</span>(p&lt;=m) Revise(p,lson);</span><br><span class="line">	<span class="keyword">else</span> Revise(p,rson);</span><br><span class="line">	PushUP(rt);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">View</span><span class="params">(<span class="keyword">int</span> L,<span class="keyword">int</span> R,<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> rt)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(L&lt;=l&amp;&amp;R&gt;=r) <span class="keyword">return</span> sum[rt];</span><br><span class="line">	<span class="keyword">int</span> m=(l+r)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> tot=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">if</span>(L&lt;=m) tot+=View(L,R,lson);</span><br><span class="line">	<span class="keyword">if</span>(R&gt;=m+<span class="number">1</span>) tot+=View(L,R,rson);</span><br><span class="line">	<span class="keyword">return</span> tot;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="comment">//	freopen("in.txt","r",stdin);</span></span><br><span class="line">	<span class="keyword">int</span> n; <span class="keyword">long</span> <span class="keyword">long</span> ans;</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;n)&amp;&amp;n)&#123;</span><br><span class="line">		<span class="built_in">memset</span>(sum,<span class="number">0</span>,<span class="keyword">sizeof</span>(sum));</span><br><span class="line">		ans=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;data[i]);</span><br><span class="line">			t[i]=data[i];</span><br><span class="line">		&#125;</span><br><span class="line">		sort(t+<span class="number">1</span>,t+<span class="number">1</span>+n);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=n;i++)&#123;</span><br><span class="line">			<span class="keyword">int</span> f=Find(<span class="number">1</span>,n,data[i]);</span><br><span class="line">			ans+=View(f+<span class="number">1</span>,n,<span class="number">1</span>,n,<span class="number">1</span>);</span><br><span class="line">			Revise(f,<span class="number">1</span>,n,<span class="number">1</span>);	</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%lld\n"</span>,ans);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>POJ3468</strong></p>
+<p><strong>Description</strong></p>
+<p>You have N integers, A1, A2, … , AN. Youneed to deal with two kinds of operations. One type of operation is to add somegiven number to each number in a given interval. The other is to ask for thesum of numbers in a given interval.</p>
+<p><strong>Input</strong></p>
+<p>The first line contains two numbers N andQ. 1 ≤ N,Q ≤ 100000.</p>
+<p>The second line contains N numbers, theinitial values of A1, A2, … , AN. -1000000000 ≤ Ai ≤ 1000000000.</p>
+<p>Each of the next Q lines represents anoperation.</p>
+<p>“C a b c” means adding c to eachof Aa, Aa+1, … , Ab. -10000 ≤ c ≤ 10000.</p>
+<p>“Q a b” means querying the sum ofAa, Aa+1, … , Ab.</p>
+<p><strong>Output</strong></p>
+<p>You need to answer all Q commands in order.One answer in a line.</p>
+<p><strong>Sample Input</strong></p>
+<p>10 5</p>
+<p>1 2 3 4 5 6 7 8 9 10</p>
+<p>Q 4 4</p>
+<p>Q 1 10</p>
+<p>Q 2 4</p>
+<p>C 3 6 3</p>
+<p>Q 2 4</p>
+<p><strong>Sample Output</strong></p>
+<p>4</p>
+<p>55</p>
+<p>9</p>
+<p>15</p>
+<p><strong>题意：</strong></p>
+<p>给你N个数，Q个操作，操作有两种，‘Q a b ’是询问a<del>b这段数的和，‘Ca b c’是把a</del>b这段数都加上c。</p>
+<figure class="highlight c"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> lson l,m,rt&lt;&lt;1</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> rson m+1,r,rt&lt;&lt;1|1</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX=<span class="number">100020</span>;</span><br><span class="line"><span class="keyword">long</span> <span class="keyword">long</span> data[MAX],sum[MAX&lt;&lt;<span class="number">2</span>],lazy[MAX&lt;&lt;<span class="number">2</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PushUp</span><span class="params">(<span class="keyword">int</span> rt)</span></span>&#123;</span><br><span class="line">	sum[rt]=sum[rt&lt;&lt;<span class="number">1</span>]+sum[rt&lt;&lt;<span class="number">1</span>|<span class="number">1</span>];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">PushDown</span><span class="params">(<span class="keyword">int</span> rt,<span class="keyword">int</span> m)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(lazy[rt])&#123;<span class="comment">//如果lazy存在 </span></span><br><span class="line">		lazy[rt&lt;&lt;<span class="number">1</span>]+=lazy[rt];<span class="comment">//加lazy值 </span></span><br><span class="line">		lazy[rt&lt;&lt;<span class="number">1</span>|<span class="number">1</span>]+=lazy[rt];</span><br><span class="line">		sum[rt&lt;&lt;<span class="number">1</span>]+=(m-(m&gt;&gt;<span class="number">1</span>))*lazy[rt];<span class="comment">//左儿子所包含的数</span></span><br><span class="line">		sum[rt&lt;&lt;<span class="number">1</span>|<span class="number">1</span>]+=(m&gt;&gt;<span class="number">1</span>)*lazy[rt];<span class="comment">//右儿子所包含的数</span></span><br><span class="line">		lazy[rt]=<span class="number">0</span>; </span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Build</span><span class="params">(<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> rt)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(l==r)&#123;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%lld"</span>,&amp;sum[rt]);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> m=(l+r)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">	Build(lson);</span><br><span class="line">	Build(rson);</span><br><span class="line">	PushUp(rt);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Revise</span><span class="params">(<span class="keyword">int</span> L,<span class="keyword">int</span> R,<span class="keyword">int</span> data,<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> rt)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(l&gt;=L&amp;&amp;r&lt;=R)&#123;</span><br><span class="line">		lazy[rt]+=data;</span><br><span class="line">		sum[rt]+=data*(r-l+<span class="number">1</span>);</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	PushDown(rt,r-l+<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">int</span> m=(l+r)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">if</span>(L&lt;=m) Revise(L,R,data,lson);</span><br><span class="line">	<span class="keyword">if</span>(R&gt;=m+<span class="number">1</span>) Revise(L,R,data,rson);</span><br><span class="line">	PushUp(rt);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">long</span> <span class="keyword">long</span> <span class="title">View</span><span class="params">(<span class="keyword">int</span> L,<span class="keyword">int</span> R,<span class="keyword">int</span> l,<span class="keyword">int</span> r,<span class="keyword">int</span> rt)</span></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(l&gt;=L&amp;&amp;r&lt;=R) <span class="keyword">return</span> sum[rt];</span><br><span class="line">	PushDown(rt,r-l+<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">int</span> m=(l+r)&gt;&gt;<span class="number">1</span>;</span><br><span class="line">	<span class="keyword">long</span> <span class="keyword">long</span> tot=<span class="number">0</span>;</span><br><span class="line">	<span class="keyword">if</span>(L&lt;=m) tot+=View(L,R,lson);</span><br><span class="line">	<span class="keyword">if</span>(R&gt;m) tot+=View(L,R,rson);</span><br><span class="line">	<span class="keyword">return</span> tot;	</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line"><span class="comment">//	freopen("in.txt","r",stdin);</span></span><br><span class="line">	<span class="keyword">int</span> n,q,a,b,c;</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;q);</span><br><span class="line">	Build(<span class="number">1</span>,n,<span class="number">1</span>);</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;=q;i++)&#123;</span><br><span class="line">		getchar();</span><br><span class="line">		<span class="keyword">if</span>(getchar()==<span class="string">'C'</span>)&#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>,&amp;a,&amp;b,&amp;c);</span><br><span class="line">			Revise(a,b,c,<span class="number">1</span>,n,<span class="number">1</span>);</span><br><span class="line">		&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">			<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;a,&amp;b);</span><br><span class="line">			<span class="built_in">printf</span>(<span class="string">"%lld\n"</span>,View(a,b,<span class="number">1</span>,n,<span class="number">1</span>));</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><img src="data:image/gif;base64,R0lGODlhAQABAPABAP///wAAACH5BAEKAAAALAAAAAABAAEAAAICRAEAOw==" alt title="点击并拖拽以移动"></p>
+</=50000)，操作如下：<></strong>
+    </div>
+
+    
+    
+    
+        
+
+<div>
+<ul class="post-copyright">
+  <li class="post-copyright-author">
+    <strong>Post author:  </strong>mrh929
+  </li>
+  <li class="post-copyright-link">
+    <strong>Post link: </strong>
+    <a href="https://mrh1s.top/posts/852a3205/" title="线段树总结">https://mrh1s.top/posts/852a3205/</a>
+  </li>
+  <li class="post-copyright-license">
+    <strong>Copyright Notice:  </strong>All articles in this blog are licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA</a> unless stating additionally.
+  </li>
+</ul>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/posts/30ce1405/" rel="prev" title="树状数组总结">
+      <i class="fa fa-chevron-left"></i> 树状数组总结
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/posts/17525de2/" rel="next" title="AVL树总结">
+      AVL树总结 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let activeClass = CONFIG.comments.activeClass;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          Table of Contents
+        </li>
+        <li class="sidebar-nav-overview">
+          Overview
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#undefined"><span class="nav-number">1.</span> <span class="nav-text">线段树总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">mrh929</p>
+  <div class="site-description" itemprop="description">Blog</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/_posts/">
+        
+          <span class="site-state-item-count">79</span>
+          <span class="site-state-item-name">posts</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">20</span>
+        <span class="site-state-item-name">categories</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">16</span>
+        <span class="site-state-item-name">tags</span>
+      </div>
+  </nav>
+</div>
+  <div class="cc-license motion-element" itemprop="license">
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/en" class="cc-opacity" rel="noopener" target="_blank"><img src="/images/cc-by-nc-sa.svg" alt="Creative Commons"></a>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">mrh929</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io" class="theme-link" rel="noopener" target="_blank">Hexo</a> v3.8.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://pisces.theme-next.org" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> v7.7.0
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+<script src="/js/utils.js"></script><script src="/js/motion.js"></script>
+<script src="/js/schemes/pisces.js"></script>
+<script src="/js/next-boot.js"></script>
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
