@@ -204,7 +204,7 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2020-01-19 15:20:03" itemprop="dateModified" datetime="2020-01-19T15:20:03+08:00">2020-01-19</time>
+                <time title="Modified: 2020-01-19 15:26:48" itemprop="dateModified" datetime="2020-01-19T15:26:48+08:00">2020-01-19</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -229,15 +229,66 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>testtest</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/posts/d0aeeace/#more" rel="contents">
-                Read more &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
+          <a id="more"></a>
+
+
+
+<h1 id="Minecraft-Gateway-Server-Configuration"><a href="#Minecraft-Gateway-Server-Configuration" class="headerlink" title="Minecraft Gateway_Server Configuration"></a>Minecraft Gateway_Server Configuration</h1><h2 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h2><h3 id="Servers"><a href="#Servers" class="headerlink" title="Servers"></a>Servers</h3><p>搬瓦工的 <strong>CN2 GT</strong> 服务器 <strong>S1</strong>（2g 2core）</p>
+<p><strong>CN2 GIA</strong> 服务器 <strong>S2</strong>（0.5g 1core）</p>
+<p>阿里云服务器 <strong>S3</strong></p>
+<h3 id="need"><a href="#need" class="headerlink" title="need"></a>need</h3><p>我拥有三台服务器，其中需要使用 <strong>S1</strong> 开服，但是由于<strong>线路原因</strong>，游戏丢包情况十分严重，相比之下配置较低的 <strong>cn2 gia</strong> 服务器就拥有很优质的线路，且 <strong>S2</strong> 还不够，仍然会有少许丢包，导致mc掉线，故再加上阿里云服务器 <strong>S3</strong> 进行中转，通过利用 <strong>S2</strong> 和 <strong>S3</strong> 作为跳板机对流量进行中转，便可以达到较佳的游戏体验。</p>
+<h3 id="graph"><a href="#graph" class="headerlink" title="graph"></a>graph</h3><p><strong>mc客户端</strong> &lt;——&gt; <strong>阿里云</strong> S3 &lt;——&gt; <strong>cn2 gia 服务器</strong> S2 &lt;——&gt; <strong>mc服务器</strong> S1</p>
+<h2 id="Configuration"><a href="#Configuration" class="headerlink" title="Configuration"></a>Configuration</h2><p>参考资料：<a href="http://jensd.be/343/linux/forward-a-tcp-port-to-another-ip-or-port-using-nat-with-iptables" target="_blank" rel="noopener">nat-with-iptables</a></p>
+<h3 id="ip-forward"><a href="#ip-forward" class="headerlink" title="ip_forward"></a>ip_forward</h3><p>服务器的流量转发功能默认关闭，需要手动开启</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo sysctl net.ipv4.ip_forward <span class="comment"># CentOS or Ubuntu</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>net.ipv4.ip_forward = 0 #表明未开启流量转发</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo <span class="built_in">echo</span> <span class="string">"net.ipv4.ip_forward = 1"</span>|sudo tee /etc/sysctl.d/99-ipforward.conf</span><br><span class="line">net.ipv4.ip_forward = 1 </span><br><span class="line"><span class="comment"># CentOS</span></span><br><span class="line"></span><br><span class="line">sudo sed -i <span class="string">'s/#net.ipv4.ip_forward=1/net.ipv4.ip_forward=1/g'</span> /etc/sysctl.conf</span><br><span class="line"><span class="comment"># Ubuntu</span></span><br></pre></td></tr></table></figure>
+
+<p>便可以开启转发，但重启后会恢复，我们需要将其写入配置</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo sysctl -p /etc/sysctl.d/99-ipforward.conf</span><br><span class="line"><span class="comment"># CentOS</span></span><br><span class="line"></span><br><span class="line">sudo sysctl -p</span><br><span class="line"><span class="comment"># Ubuntu</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>net.ipv4.ip_forward = 1 # 写入配置</p>
+</blockquote>
+<h3 id="iptables"><a href="#iptables" class="headerlink" title="iptables"></a>iptables</h3><h4 id="install-amp-start"><a href="#install-amp-start" class="headerlink" title="install &amp; start"></a>install &amp; start</h4><ol>
+<li>对于 <strong>Ubuntu</strong> 系统，自带 <strong>iptables</strong></li>
+<li>对于 <strong>CentOS</strong> 系统，默认安装了 <strong>firewall</strong> ，需要先将 <strong>firewall</strong> 关闭，再安装 <strong>iptables</strong> </li>
+</ol>
+<p>参考此文章：<a href="https://blog.csdn.net/mshxuyi/article/details/93979737" target="_blank" rel="noopener">centos如何开启iptables</a></p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">systemctl stop firewalld.service <span class="comment"># 停止firewall</span></span><br><span class="line">systemctl <span class="built_in">disable</span> firewalld.service <span class="comment"># 禁止firewall开机启动</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># yum -y install iptables-services 安装iptables(有的系统不需安装，视情况而定)</span></span><br><span class="line">service iptables start <span class="comment"># 启动iptables</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="Configuration-1"><a href="#Configuration-1" class="headerlink" title="Configuration"></a>Configuration</h4><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo iptables -F</span><br><span class="line">sudo iptables -t nat -F</span><br><span class="line"><span class="comment"># 清除iptables原有的配置文件</span></span><br></pre></td></tr></table></figure>
+
+<p>流量转发配置</p>
+<p>自行替换 <strong>Gateway_IP</strong>、<strong>Gateway_Port</strong>、<strong>Dest_IP</strong>、<strong>Dest_Port</strong></p>
+<p>分别对应 跳板机的ip和端口，目标机器的ip和端口</p>
+<p>这里的<strong>协议</strong>我设置为了 <strong>tcp</strong>， 根据你需要转发的协议类型进行设置</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">sudo iptables -t nat -A PREROUTING -p tcp --dport Gateway_Port -j DNAT --to-destination Dest_IP:Dest_PORT <span class="comment"># 将进入跳板机的流量转发到目标ip</span></span><br><span class="line"></span><br><span class="line">sudo iptables -t nat -A POSTROUTING -p tcp -d Dest_IP --dport Dest_Port -j SNAT --to-source Gateway_ip <span class="comment"># 将目标ip返回的流量转发给原ip</span></span><br><span class="line"></span><br><span class="line">sudo iptables -t nat -L -n <span class="comment"># 查看iptables配置情况</span></span><br></pre></td></tr></table></figure>
+
+<p>查看配置无误之后，即完成</p>
+<p>若希望保存配置</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">service iptables save</span><br><span class="line"><span class="comment"># CentOS</span></span><br><span class="line"></span><br><span class="line">sudo iptables-save | sudo tee /etc/iptables.up.rules</span><br><span class="line"><span class="comment"># Ubuntu</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>iptables: Saving firewall rules to /etc/sysconfig/iptables:[  OK  ]</p>
+</blockquote>
+<h3 id="Q-amp-A"><a href="#Q-amp-A" class="headerlink" title="Q&amp;A"></a>Q&amp;A</h3><h4 id="1-阿里云无法转发"><a href="#1-阿里云无法转发" class="headerlink" title="1. 阿里云无法转发"></a>1. 阿里云无法转发</h4><p>阿里云采用了 <a href="http://www.360doc.com/content/18/1127/11/60700377_797529851.shtml" target="_blank" rel="noopener">弹性ip</a> 的技术， 即在你访问其公网ip之后又经过一层nat，转发到内网</p>
+<p>所以我们的 <strong>iptables</strong> 配置也应该将本机ip修改为内网ip</p>
+<p>这时我们的 <strong>Gateway_IP</strong> 应该填写内网ip， 即 172 . 17. * . *  （具体请自行查询）</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">[root@izuf6eyc1ac8d7lj4j6q2oz /]<span class="comment"># ifconfig</span></span><br><span class="line">eth0: flags=4163&lt;UP,BROADCAST,RUNNING,MULTICAST&gt;  mtu 1500</span><br><span class="line">        inet 172.17.*.*  netmask 255.255.192.0  broadcast 172.17.*.*</span><br><span class="line">        ether 00:16:3e:10:91:52  txqueuelen 1000  (Ethernet)</span><br><span class="line">        RX packets 3528831  bytes 368948380 (351.8 MiB)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 3485951  bytes 321121112 (306.2 MiB)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br><span class="line"></span><br><span class="line">lo: flags=73&lt;UP,LOOPBACK,RUNNING&gt;  mtu 65536</span><br><span class="line">        inet 127.0.0.1  netmask 255.0.0.0</span><br><span class="line">        loop  txqueuelen 1  (Local Loopback)</span><br><span class="line">        RX packets 6260  bytes 392377 (383.1 KiB)</span><br><span class="line">        RX errors 0  dropped 0  overruns 0  frame 0</span><br><span class="line">        TX packets 6260  bytes 392377 (383.1 KiB)</span><br><span class="line">        TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-多层跳板如何搭建"><a href="#2-多层跳板如何搭建" class="headerlink" title="2. 多层跳板如何搭建"></a>2. 多层跳板如何搭建</h4><p>多层跳板，就是将跳板机 <strong>src</strong> 的 <strong>目的地址</strong> 设置为下级跳板 <strong>dest</strong> ，层层中转即可</p>
+<p>即配置 <strong>S1 、 S2</strong></p>
+<ol>
+<li><p>使 <strong>S3</strong> 中转给 <strong>S2</strong></p>
+</li>
+<li><p>使 <strong>S2</strong> 中转给 <strong>S1</strong></p>
+</li>
+</ol>
+
       
     </div>
 
