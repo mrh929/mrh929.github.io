@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://mrh1s.top/"/>
-  <updated>2020-01-20T03:43:11.018Z</updated>
+  <updated>2020-01-20T04:06:39.833Z</updated>
   <id>https://mrh1s.top/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>あなた为何读作“a na da”?</title>
+    <link href="https://mrh1s.top/posts/ebc3a077/"/>
+    <id>https://mrh1s.top/posts/ebc3a077/</id>
+    <published>2020-01-20T03:45:01.000Z</published>
+    <updated>2020-01-20T04:06:39.833Z</updated>
+    
+    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h2 id="疑问"><a href="#疑问" class="headerlink" title="疑问"></a>疑问</h2><p>我们在看动漫以及日剧的时候，常会见到以下表达：</p><blockquote><p>あなた(ta)　大好き(ki)　がんばて(te)</p></blockquote><p>我们可以看到这几个词的词尾都是未浊化的</p><blockquote><p>“anada”       “daisugi”       “ganbade”</p></blockquote><p>就拿这个 <strong>あなた(ta)</strong> 为例，到底我们是应该读 <strong>た</strong> 还是 <strong>だ</strong> ？</p><p>没有人这样说话吧？「これは本です<strong>か(Ga)</strong>」没错吧?</p><h2 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h2><h3 id="中文"><a href="#中文" class="headerlink" title="中文"></a>中文</h3><p>回到中文发音上面来</p><p>「b」跟「p」  他们差在哪里？</p><p>「b」「p」 差在一个有送气一个没送气</p><p>「b」是没有送气/送气比较少的</p><p>所以中文是用==有没有送气==来决定意思</p><h3 id="日文"><a href="#日文" class="headerlink" title="日文"></a>日文</h3><p>其实，有没有出气在日文当中是没关系的</p><p>日文重视==「声」== 这里，要==「振动声带」==，才是标准的日文</p><p>日本人是用<strong>「振动声带」</strong>来感觉</p><p>我们在念「が」「ぎ」「ぐ」「げ」「ご」 的时候</p><p>可以用手摸一下自己的喉咙，能感受到明显的<strong>声带振动</strong></p><p>而「か」「き」「く」「け」「こ」</p><p>则<strong>感受不到</strong>声带的<strong>震动</strong></p><blockquote><p> 为什么没有人念「あなた(ta)」？</p></blockquote><p>为什么没有人念「あなた(ta)」？其实很简单</p><p>「た(ta)」这个音只要在单字的第二个音以下</p><p>因为日本人念第一个音时，气就吐完了</p><p>当他念「あ」的时候就把气吐完了</p><p>所以只要是第一个音以后就不会有气</p><p>你听起来就像浊音因为它不送气了</p><p>所以听起来就好像是浊音</p><p>这种发音在日文中叫做==不送气音==</p><h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><p><a href="https://www.youtube.com/watch?v=PiiHIykLFlU" target="_blank" rel="noopener">https://www.youtube.com/watch?v=PiiHIykLFlU</a></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla
+      
+    
+    </summary>
+    
+      <category term="notes" scheme="https://mrh1s.top/categories/notes/"/>
+    
+    
+  </entry>
   
   <entry>
     <title>利用iptables配置Minecraft跳板机</title>
@@ -484,35 +507,6 @@
     
       <category term="Tips" scheme="https://mrh1s.top/categories/Tips/"/>
     
-    
-  </entry>
-  
-  <entry>
-    <title>qwb_JustRe</title>
-    <link href="https://mrh1s.top/posts/2946351e/"/>
-    <id>https://mrh1s.top/posts/2946351e/</id>
-    <published>2019-05-26T02:43:14.000Z</published>
-    <updated>2019-06-13T16:12:46.924Z</updated>
-    
-    <content type="html"><![CDATA[<link rel="stylesheet" class="aplayer-secondary-style-marker" href="\assets\css\APlayer.min.css"><script src="\assets\js\APlayer.min.js" class="aplayer-secondary-script-marker"></script><h1 id="JustRe"><a href="#JustRe" class="headerlink" title="JustRe"></a>JustRe</h1><p><a href="\uploads\JustRe.7z">JustRe.7z</a> </p><h2 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h2><p>程序读入了26位 十六进制数</p><p>其中前8为送入eax寄存器</p><p>把eax扩展为了16个字节 01234567012345670123456701234567 记作 <strong>input</strong></p><p>后两位（假设为ab） 填充为了ababababababababab…..ababab，记作 <strong>ab</strong></p><p>从内存中取16个字节，记作 <strong>key1</strong></p><p>还从内存取了16个字节，形如00000003000000020000000100000000 记作 <strong>key2</strong></p><p>key = (ab + key1)^ (input + key2) 并且将结果存在原来key1的位置</p><p>依次循环</p><blockquote><p>注意key2第二次  key2’ +=  key2 ，而不是直接从内存取</p></blockquote><p>接下来的循环 循环了八次，是对从0x405058的32个字节进行处理，每次四个字节</p><p>同样</p><p><strong>input</strong> 01 23 45 67</p><p><strong>key</strong> 从内存中取四个字节</p><p><strong>ab</strong> 用89位填充的四个字节</p><p><strong>esi</strong> 从0x10 开始 一直到0x18</p><p>key =  (ab + key) ^ (input + esi) 并且将结果存在key的位置</p><p>然后 0x405018 和 0x404148的 0x60个字节进行比较，要相等</p><p>事实证明，后面这些运算，对于解出input的帮助并不大，我们只需要解出一组input，并且判断它们是否是四个分块都相等即可</p><figure class="highlight python"><table><tr><td class="code"><pre><span class="line">dec1 = <span class="number">0x4364162A031410D2EF95C26D80B899BD</span></span><br><span class="line">enc1 = <span class="number">0x405004A100000278EC81F0E483EC8B55</span></span><br><span class="line">key1 = <span class="number">0x00000003000000020000000100000000</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">FILL</span><span class="params">(a)</span>:</span>  <span class="comment">#用八九位这一个字节去填充为16字节</span></span><br><span class="line">    <span class="keyword">return</span> a * <span class="number">0x01010101010101010101010101010101</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">DIVIDE</span><span class="params">(a)</span>:</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">        res.append((a &lt;&lt; (<span class="number">32</span> * i) &amp; <span class="number">0xffffffffffffffffffffffffffffffff</span>) &gt;&gt; (<span class="number">32</span> * <span class="number">3</span>))</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">ADD</span><span class="params">(a, b)</span>:</span></span><br><span class="line">    a = DIVIDE(a)</span><br><span class="line">    b = DIVIDE(b)</span><br><span class="line">    res = <span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">4</span>):</span><br><span class="line">        res += ((a[i]+b[i]) &amp; <span class="number">0xffffffff</span>) &lt;&lt; (<span class="number">32</span> * (<span class="number">3</span>-i))</span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">CALC</span><span class="params">(dec,enc,key,t)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> (ADD(FILL(t),dec) ^ enc) - key</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> t <span class="keyword">in</span> range(<span class="number">100</span>):<span class="comment">#枚举第八第九位的所有情况</span></span><br><span class="line">    res = CALC(dec1,enc1,key1,t)</span><br><span class="line">    <span class="keyword">if</span>(inpu &amp; <span class="number">0xffffffff</span> == res &gt;&gt; (<span class="number">3</span> * <span class="number">32</span>)):</span><br><span class="line">        print(hex(CALC(dec1,enc1,key1,t) &gt;&gt; (<span class="number">3</span>*<span class="number">32</span>)),hex(t))</span><br></pre></td></tr></table></figure><blockquote><p>前十位 1324229810</p></blockquote><p>用来过验证的passwd：13242298100123456789abcdef</p><p>后面这个加密函数是好像藏在data区里面的，看起来应该是一个加密算法，谷歌了几个比较关键的常数，发现是个3des加密</p><p><a href="https://www.cnblogs.com/one--way/archive/2016/07/05/5643771.html" target="_blank" rel="noopener">https://www.cnblogs.com/one--way/archive/2016/07/05/5643771.html</a></p><p>密钥应该是这个 AFSAFCEDYCXCXACNDFKDCQXC</p><p>再配上解密后的密文（实际上只用到了16个字节，剩下的8个字节可要可不要）</p><p><strong>注意：大端序，不能直接复制，要先把顺序颠倒一下</strong></p><blockquote><p>轮子不太完整，修改了一下，以下是main函数中修改过的内容</p></blockquote><figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">char</span> k[<span class="number">32</span>] = <span class="string">"AFSAFCEDYCXCXACNDFKDCQXC"</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">char</span> data[<span class="number">128</span>] = &#123;</span><br><span class="line">    <span class="number">0x50</span>,<span class="number">0x7C</span>,<span class="number">0xA9</span>,<span class="number">0xE6</span>,</span><br><span class="line">    <span class="number">0x87</span>,<span class="number">0x09</span>,<span class="number">0xCE</span>,<span class="number">0xFA</span>,</span><br><span class="line"><span class="number">0x20</span>,<span class="number">0xD5</span>,<span class="number">0x0D</span>,<span class="number">0xCF</span>,</span><br><span class="line"><span class="number">0x90</span>,<span class="number">0xBB</span>,<span class="number">0x97</span>,<span class="number">0x6C</span>,<span class="number">0</span></span><br><span class="line">&#125;;  <span class="comment">/* 原始明文 */</span></span><br><span class="line">nlen = <span class="built_in">strlen</span>(data);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">.....</span><br><span class="line">    </span><br><span class="line"><span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; len; i += <span class="number">8</span>) &#123;</span><br><span class="line">        DES_ecb3_encrypt((const_DES_cblock *)(src + i), (DES_cblock *)(out + i), &amp;ks1, &amp;ks2, &amp;ks3, DES_DECRYPT);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"encrypted Hex:"</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%02X"</span> , *(out + i));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"encrypted Bin:"</span>);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; len; i++) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%c"</span>, *(out + i));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"\n"</span>);</span><br></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;link rel=&quot;stylesheet&quot; class=&quot;aplayer-secondary-style-marker&quot; href=&quot;\assets\css\APlayer.min.css&quot;&gt;&lt;script src=&quot;\assets\js\APlayer.min.js&quot; cla
-      
-    
-    </summary>
-    
-      <category term="write-up" scheme="https://mrh1s.top/categories/write-up/"/>
-    
-      <category term="qwb_ctf20190526" scheme="https://mrh1s.top/categories/write-up/qwb-ctf20190526/"/>
-    
-    
-      <category term="RE_Static" scheme="https://mrh1s.top/tags/RE-Static/"/>
-    
-      <category term="3des" scheme="https://mrh1s.top/tags/3des/"/>
     
   </entry>
   

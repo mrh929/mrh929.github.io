@@ -173,6 +173,91 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://mrh1s.top/posts/f9cd8782/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mrh929">
+      <meta itemprop="description" content="Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrh929's home">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/f9cd8782/" class="post-title-link" itemprop="url">xor</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-02-15 16:38:16" itemprop="dateCreated datePublished" datetime="2019-02-15T16:38:16+08:00">2019-02-15</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-05-05 13:49:45" itemprop="dateModified" datetime="2019-05-05T13:49:45+08:00">2019-05-05</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/write-up/" itemprop="url" rel="index">
+                    <span itemprop="name">write up</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/write-up/hgame-20190122/" itemprop="url" rel="index">
+                    <span itemprop="name">hgame_20190122</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><a href="/uploads/xor.7z">xor</a>  </p>
+<p>题目本身难度不大，就是异或即可，但是这个地方IDA有点问题，本来程序定义了一个数组，但是IDA里面的显示为一个变量，通过计算偏移值可以算出它是数组，这个地方以后要多加注意。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#include&lt;cstdio&gt;</span></span><br><span class="line">char a[<span class="number">50</span>]=<span class="string">"hgame&#123;Y0u_mayb3_need_th1s_0ne!!!!!&#125;"</span>;</span><br><span class="line">int b[<span class="number">50</span>]=&#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">7</span>,<span class="number">0</span>,<span class="number">92</span>,<span class="number">18</span>,<span class="number">38</span>,<span class="number">11</span>,<span class="number">93</span>,<span class="number">43</span>,<span class="number">11</span>,<span class="number">23</span>,<span class="number">0</span>,<span class="number">23</span>,<span class="number">43</span>,<span class="number">69</span>,<span class="number">6</span>,<span class="number">86</span>,<span class="number">44</span>,<span class="number">54</span>,<span class="number">67</span>,<span class="number">0</span>,<span class="number">66</span>,<span class="number">85</span>,<span class="number">126</span>,<span class="number">72</span>,<span class="number">85</span>,<span class="number">30</span>&#125;;</span><br><span class="line">int main()&#123;</span><br><span class="line">    <span class="keyword">for</span>(int i = <span class="number">0</span>; i &lt; <span class="number">35</span>; i++)</span><br><span class="line">        printf(<span class="string">"%c"</span>, a[i] ^ b[i]);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://mrh1s.top/posts/6aab0075/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -910,100 +995,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://mrh1s.top/posts/ef5c41ea/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="mrh929">
-      <meta itemprop="description" content="Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="mrh929's home">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/ef5c41ea/" class="post-title-link" itemprop="url">网络安全课笔记 of Shijie Zhou #2</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2018-12-13 21:42:46" itemprop="dateCreated datePublished" datetime="2018-12-13T21:42:46+08:00">2018-12-13</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-05-05 13:44:42" itemprop="dateModified" datetime="2019-05-05T13:44:42+08:00">2019-05-05</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/notes/" itemprop="url" rel="index">
-                    <span itemprop="name">notes</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="密码学的应用"><a href="#密码学的应用" class="headerlink" title="密码学的应用"></a>密码学的应用</h2><p><strong>安全多方计算：</strong></p>
-<p>​    y=f( x1 , x2 , … , xn) 在不告诉其他人自己的输入内容的情况下计算出结果的方法</p>
-<p>​    目前无解，难题</p>
-<p>​    但有特例：两方安全计算问题</p>
-<p>​    百万富翁难题，n1，n2如何在双方不知道对方数值的情况下比较这两个数的大小关系</p>
-<p>​    解决方法：1.基于RSA的方案    2.可信第三方（P2P对等网络/BlockChain）</p>
-<p><strong>密钥交换：</strong></p>
-<p>​    基础：数学难题（安全性基于假设，没有严格的数学证明，归约的思想）</p>
-<p>​    DH密钥交换</p>
-<p>​    y=(g^x)mod n 很容易， 但反函数很困难（离散对数问题）   k=g^(x+y)</p>
-<p>​    但容易遭受中间人攻击</p>
-<p><strong>安全协议：</strong> 语法、语义、规则</p>
-<p>​    自然语言理解（AI）</p>
-<p><strong>一次性口令认证：</strong></p>
-<p>​    1.直接存放明文</p>
-<p>​    2.哈希加密（随机数加盐）</p>
-<p>​    3.算n次哈希（害怕中间人攻击，直接把第一次哈希值得到）</p>
-<p><strong>可靠性问题：</strong>拜占庭将军问题</p>
-<p><strong>匿名通信：</strong>抛币协议，密码员就餐问题</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1074,7 +1065,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">79</span>
+          <span class="site-state-item-count">80</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>

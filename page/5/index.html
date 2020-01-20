@@ -173,6 +173,100 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
+    <link itemprop="mainEntityOfPage" href="https://mrh1s.top/posts/ea74c872/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="mrh929">
+      <meta itemprop="description" content="Blog">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="mrh929's home">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/posts/ea74c872/" class="post-title-link" itemprop="url">bbvvmm</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">Posted on</span>
+
+              <time title="Created: 2019-04-28 12:56:40" itemprop="dateCreated datePublished" datetime="2019-04-28T12:56:40+08:00">2019-04-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Modified: 2019-09-14 11:13:03" itemprop="dateModified" datetime="2019-09-14T11:13:03+08:00">2019-09-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/write-up/" itemprop="url" rel="index">
+                    <span itemprop="name">write up</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/write-up/nationalCTF-20190421/" itemprop="url" rel="index">
+                    <span itemprop="name">nationalCTF_20190421</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="bbvvmm"><a href="#bbvvmm" class="headerlink" title="bbvvmm"></a>bbvvmm</h3><p>用ida打开 可以发现程序读入了用户名和密码，然后对用户名和密码进行了加密，如果用户名和密码校验正确，那么就cat flag</p>
+<p>首先是用户名，用户名先进行一层加密，后进行sm4加密，最后进行变表base64转换为了一串密文</p>
+<p>首先解决base64：</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line">tab2 = <span class="string">"IJLMNOPKABDEFGHCQRTUVWXSYZbcdefa45789+/6ghjklmnioprstuvqwxz0123y="</span></span><br><span class="line">tab1 = <span class="string">"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/="</span></span><br><span class="line"></span><br><span class="line">s2 = <span class="string">"RVYtG85NQ9OPHU4uQ8AuFM+MHVVrFMJMR8FuF8WJQ8Y="</span></span><br><span class="line">s1 = <span class="string">""</span></span><br><span class="line"><span class="keyword">for</span> c <span class="keyword">in</span> s2:</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> range(len(tab2)):</span><br><span class="line">        <span class="keyword">if</span>(tab2[i] == c):</span><br><span class="line">            s1 += tab1[i]</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line"></span><br><span class="line">print(base64.b64decode(s1))</span><br></pre></td></tr></table></figure>
+
+<p>得到“EF468DBAF985B2509C9E200CF3525AB6”</p>
+<p>然后是sm4加密算法，直接在网上找轮子<br>解密得到“36 32 36 31 36 34 37 32 36 35 37 32 33 31 33 32”</p>
+<p>最后<br>两次转化成ascii<br>第一次62 61 54 72 65 72 31 32<br>第二次b a d r e r 1 2</p>
+<p>然后就得到了用户名</p>
+<p>对于密码，并不清楚这个密码使用了什么加密算法，只清楚这是一个虚拟机，有几百个操作数，好像是对密码进行了某种运算，最后将运算结果保存到内存的某个地方，如果这个内存数据为0，那么密码便正确</p>
+<p>直接开ida动态远程调试：<br>能找到一个类似于栈的结构（一直+4 -4），在内存中找到这个栈对应的位置<br><img src="https://i.imgur.com/JBq8VUh.png" alt></p>
+<p>通过不断地循环fastcall，看到栈中出现了我刚刚输入的字符串，并且旁边是一堆奇特字符串，而且长度也是六位，于是尝试交上去，成功</p>
+<p>getshell的时候：输入密码之后不能直接按回车键，这样会多输入一个 \n，而应该ctrl+d，输入文本中断符，然后拿到flag</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
     <link itemprop="mainEntityOfPage" href="https://mrh1s.top/posts/7f12b338/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -938,91 +1032,6 @@
   
   
 
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en">
-    <link itemprop="mainEntityOfPage" href="https://mrh1s.top/posts/f9cd8782/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="mrh929">
-      <meta itemprop="description" content="Blog">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="mrh929's home">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/posts/f9cd8782/" class="post-title-link" itemprop="url">xor</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Posted on</span>
-
-              <time title="Created: 2019-02-15 16:38:16" itemprop="dateCreated datePublished" datetime="2019-02-15T16:38:16+08:00">2019-02-15</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-calendar-check-o"></i>
-                </span>
-                <span class="post-meta-item-text">Edited on</span>
-                <time title="Modified: 2019-05-05 13:49:45" itemprop="dateModified" datetime="2019-05-05T13:49:45+08:00">2019-05-05</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">In</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/write-up/" itemprop="url" rel="index">
-                    <span itemprop="name">write up</span>
-                  </a>
-                </span>
-                  , 
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/write-up/hgame-20190122/" itemprop="url" rel="index">
-                    <span itemprop="name">hgame_20190122</span>
-                  </a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><a href="/uploads/xor.7z">xor</a>  </p>
-<p>题目本身难度不大，就是异或即可，但是这个地方IDA有点问题，本来程序定义了一个数组，但是IDA里面的显示为一个变量，通过计算偏移值可以算出它是数组，这个地方以后要多加注意。</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#include&lt;cstdio&gt;</span></span><br><span class="line">char a[<span class="number">50</span>]=<span class="string">"hgame&#123;Y0u_mayb3_need_th1s_0ne!!!!!&#125;"</span>;</span><br><span class="line">int b[<span class="number">50</span>]=&#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">1</span>,<span class="number">0</span>,<span class="number">7</span>,<span class="number">0</span>,<span class="number">92</span>,<span class="number">18</span>,<span class="number">38</span>,<span class="number">11</span>,<span class="number">93</span>,<span class="number">43</span>,<span class="number">11</span>,<span class="number">23</span>,<span class="number">0</span>,<span class="number">23</span>,<span class="number">43</span>,<span class="number">69</span>,<span class="number">6</span>,<span class="number">86</span>,<span class="number">44</span>,<span class="number">54</span>,<span class="number">67</span>,<span class="number">0</span>,<span class="number">66</span>,<span class="number">85</span>,<span class="number">126</span>,<span class="number">72</span>,<span class="number">85</span>,<span class="number">30</span>&#125;;</span><br><span class="line">int main()&#123;</span><br><span class="line">    <span class="keyword">for</span>(int i = <span class="number">0</span>; i &lt; <span class="number">35</span>; i++)</span><br><span class="line">        printf(<span class="string">"%c"</span>, a[i] ^ b[i]);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
   </div>
 
   
@@ -1093,7 +1102,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">79</span>
+          <span class="site-state-item-count">80</span>
           <span class="site-state-item-name">posts</span>
         </a>
       </div>
