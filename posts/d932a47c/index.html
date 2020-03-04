@@ -573,7 +573,7 @@ height:50vh;
 <li>人为失误，将 for(int a = 0; a &lt; 5; a++) 这类循环的小于符号写成了小于等于，导致多写。</li>
 <li>自带库的特性，比如 c语言中字符串的结尾必须是 ‘/x00’，一些库函数对末尾赋零时可能会超出字符串内存范围。</li>
 </ol>
-<p><a href="%5Cuploads%5CE99.7z">E99</a></p>
+<p><a href="/uploads/E99.7z">E99</a></p>
 <p>题目也与上面的类似，不过多了 edit 堆块大小的限制，必须在<strong>申请的堆块大小范围之内</strong>。</p>
 <p>这里讨论的是人为失误， 本题的 read_n 函数边界条件错误，使得我们可以通过多修改一个字节来达到修改 next_chunk 的 size。</p>
 <figure class="highlight c"><table><tr><td class="code"><pre><span class="line">__int64 __<span class="function">fastcall <span class="title">read_n</span><span class="params">(__int64 a1, <span class="keyword">int</span> a2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> i; <span class="comment">// [rsp+1Ch] [rbp-4h]</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt;= a2; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    read(<span class="number">0</span>, (<span class="keyword">void</span> *)(i + a1), <span class="number">1u</span>LL);</span><br><span class="line">    <span class="keyword">if</span> ( *(_BYTE *)(i + a1) == <span class="number">10</span> )</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0L</span>L;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -590,7 +590,7 @@ height:50vh;
             <p>原文作者：<a href="https://mrh1s.top">mrh929</a>
             </p><p>原文链接：<a href="https://mrh1s.top/posts/d932a47c/">https://mrh1s.top/posts/d932a47c/</a>
             </p><p>发表日期：<a href="https://mrh1s.top/posts/d932a47c/">March 1st 2020, 1:54:01 am</a>
-            </p><p>更新日期：<a href="https://mrh1s.top/posts/d932a47c/">March 4th 2020, 1:57:27 pm</a>
+            </p><p>更新日期：<a href="https://mrh1s.top/posts/d932a47c/">March 4th 2020, 2:02:17 pm</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
